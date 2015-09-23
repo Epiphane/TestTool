@@ -63,3 +63,4 @@ build/Release
 node_modules
 
 html
+/bin/
