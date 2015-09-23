@@ -21,7 +21,8 @@ gulp.task('browserSync', function() {
   browserSync.init(['dist/**'], {
     server: {
       baseDir: 'dist'
-    }
+    },
+    port: process.env.PORT || 3000
   });
 });
 
