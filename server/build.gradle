@@ -21,7 +21,7 @@ shadowJar {
     mergeServiceFiles()
 }
 
-task stage(dependsOn: ['shadowJar', 'test'])
+task stage(dependsOn: shadowJar)
 
 repositories {
     mavenCentral()
