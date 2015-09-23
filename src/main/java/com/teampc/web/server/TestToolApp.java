@@ -20,7 +20,7 @@ public class TestToolApp extends Application<TestToolConf> {
 
     @Override
     public void initialize(Bootstrap<TestToolConf> bootstrap) {
-        bootstrap.addBundle(new AssetsBundle("/assets", "/", "index.html"));
+        bootstrap.addBundle(new AssetsBundle("/html/", "/w", "index.html"));
     }
 
     @Override

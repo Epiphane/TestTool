@@ -5,12 +5,12 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-@Path("/")
+@Path("/api")
 public class HelloWorldResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public String hello() {
-        return "Hello, World!";
+        return "Hello, World!!!";
     }
 }

@@ -8,8 +8,10 @@ var html2react = require('gulp-html2react');
 var changed = require('gulp-changed');
 var debowerify = require('debowerify');
 
+var distPath = 'src/main/resources/html';
+
 gulp.task('clean', function() {
-  return gulp.src('dist', {
+  return gulp.src(distPath, {
     read: false
   })
     .pipe(rimraf({
@@ -18,9 +20,9 @@ gulp.task('clean', function() {
 });
 
 gulp.task('browserSync', function() {
-  browserSync.init(['dist/**'], {
+  browserSync.init([distPath + '/**'], {
     server: {
-      baseDir: 'dist'
+      baseDir: distPath
     },
     port: process.env.PORT || 3000
   });
@@ -39,7 +41,7 @@ gulp.task('copy_js', function() {
 
 gulp.task('copy', ['copy_js'], function() {
   var files = ['html/**/*', '!html/javascripts', '!html/javascripts/**/*'];
-  var DEST = 'dist'
+  var DEST = distPath
 
   return gulp.src(files).pipe(changed(DEST)).pipe(gulp.dest(DEST));
 });
@@ -49,7 +51,7 @@ gulp.task('browserify', ['copy', 'react'], function() {
   var bundleStream = browserify('./temp/javascripts/app.js').transform(debowerify).bundle();
   bundleStream
   .pipe(source('./javascripts/app.js'))
-  .pipe(gulp.dest('./dist/'));
+  .pipe(gulp.dest('./src/main/resources/html/'));
 });
 
 gulp.task('default', ['browserify', 'browserSync'], function() {
