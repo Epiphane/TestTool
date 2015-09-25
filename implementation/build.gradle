@@ -7,6 +7,7 @@ plugins {
     id 'java'
     id 'eclipse'
     id 'com.github.johnrengelman.shadow' version '1.2.2'
+    id 'idea'
 }
 
 
