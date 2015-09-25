@@ -9,9 +9,9 @@ import io.dropwizard.setup.Environment;
 import io.dropwizard.assets.AssetsBundle;
 
 public class TestToolApp extends Application<TestToolConf> {
-    public static void main(String... args) throws Exception {
-        new TestToolApp().run(args);
-    }
+   public static void main(String... args) throws Exception {
+      new TestToolApp().run(args);
+   }
 
     @Override
     public String getName() {
@@ -19,14 +19,14 @@ public class TestToolApp extends Application<TestToolConf> {
     }
 
     @Override
-    public void initialize(Bootstrap<TestToolConf> bootstrap) {
+    public void initialize(Bootstrap<TestToolConfig> bootstrap) {
         bootstrap.addBundle(new AssetsBundle("/html/", "/", "index.html"));
     }
 
     @Override
-    public void run(TestToolConf conf, Environment env) {
-        env.jersey().setUrlPattern("/api/*");
-        env.jersey().register(new HelloWorldResource());
+    public void run(TestToolConfig config, Environment env) {
+       //env.jersey().setUrlPattern("/api/*");
+       env.jersey().register(new HelloWorldResource());
     }
 
 }

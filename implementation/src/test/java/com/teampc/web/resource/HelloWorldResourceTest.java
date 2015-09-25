@@ -16,11 +16,10 @@ public class HelloWorldResourceTest {
 
     @Test
     public void testHelloWorld() {
-        assertTrue(resources != null);
-        assertEquals(resources.client()
+        String response = resources.client()
                 .target("/")
                 .request()
-                .get(String.class),
-            "Hello, World!");
+                .get(String.class);
+        assertEquals(response, "Hello, World!!!");
     }
 }
