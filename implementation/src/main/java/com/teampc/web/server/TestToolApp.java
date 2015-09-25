@@ -25,7 +25,7 @@ public class TestToolApp extends Application<TestToolConf> {
 
     @Override
     public void run(TestToolConf conf, Environment env) {
-        env.jersey().setUrlPattern("/api/*");
+//        env.jersey().setUrlPattern("/api/*");
         env.jersey().register(new HelloWorldResource());
     }
 
