@@ -20,8 +20,20 @@
       list-style-type: none;
    }
 
-   ol li:before {
+   ol ol li:before {
       counter-increment: item;
+      margin-left: -40px;
+   }
+
+   ol ol ol {
+      font-size: 16px;
+
+      counter-reset: subitem;
+      list-style-type: none;
+   }
+
+   ol ol ol li:before {
+      counter-increment: subitem;
       margin-left: -40px;
    }
 
@@ -34,23 +46,23 @@
    }
 
    ol.list-1-5 li:before {
-      content: '1.5.' counter(item, decimal) '. ';
+      content: '1.5.' counter(subitem, decimal) '. ';
    }
 
    ol.list-2-3 li:before {
-      content: '2.3.' counter(item, decimal) '. ';
+      content: '2.3.' counter(subitem, decimal) '. ';
    }
 
    ol.list-2-5 li:before {
-      content: '2.5.' counter(item, decimal) '. ';
+      content: '2.5.' counter(subitem, decimal) '. ';
    }
 
    ol.list-2-6 li:before {
-      content: '2.6.' counter(item, decimal) '. ';
+      content: '2.6.' counter(subitem, decimal) '. ';
    }
 
    ol.list-2-7 li:before {
-      content: '2.7.' counter(item, decimal) '. ';
+      content: '2.7.' counter(subitem, decimal) '. ';
    }
 </style>
 </head>
