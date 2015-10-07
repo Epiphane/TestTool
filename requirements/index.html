@@ -36,6 +36,22 @@
    ol.list-1-5 li:before {
       content: '1.5.' counter(item, decimal) '. ';
    }
+
+   ol.list-2-3 li:before {
+      content: '2.3.' counter(item, decimal) '. ';
+   }
+
+   ol.list-2-5 li:before {
+      content: '2.5.' counter(item, decimal) '. ';
+   }
+
+   ol.list-2-6 li:before {
+      content: '2.6.' counter(item, decimal) '. ';
+   }
+
+   ol.list-2-7 li:before {
+      content: '2.7.' counter(item, decimal) '. ';
+   }
 </style>
 </head>
 <body bgcolor="white">
@@ -121,15 +137,54 @@
                </a>
                <a href="new-test.html">
                   <li>New Test Creation</li>
+
+                  <ol class="list-2-3">
+                     <a href="new-test-options.html">
+                        <li>Test Creation Options</li>
+                     </a>
+                     <a href="view-test.html">
+                        <li>View Completed Test</li>
+                     </a>
+                     <a href="">
+                        <li>Question Creation</li>
+                     </a>
+                  </ol>
                </a>
-               <a href="new-test-options.html">
-                  <li>Test Creation Options</li>
-               </a>
-               <a href="view-test.html">
-                  <li>View Completed Test</li>
+               <a href="edit-tests.html">
+                  <li>Edit Tests</li>
                </a>
                <a href="">
-                  <li>Question Creation</li>
+                  <li>Question Bank</li>
+
+                  <ol class="list-2-5">
+                     <a href="">
+                        <li>List of Questions</li>
+                     </a>
+                     <a href="">
+                        <li>Question editing</li>
+                     </a>
+                  </ol>
+               </a>
+               <a href="">
+                  <li>Grade Tests</li>
+
+                  <ol class="list-2-6">
+                     <a href="">
+                        <li>Student test list view</li>
+                     </a>
+                     <a href="">
+                        <li>Grade individual test</li>
+                     </a>
+                  </ol>
+               </a>
+               <a href="take-tests.html">
+                  <li>Take Tests</li>
+
+                  <ol class="list-2-7">
+                     <a href="take-tests.html#student-test">
+                        <li>Student's test view</li>
+                     </a>
+                  </ol>
                </a>
             </ol>
          </li>

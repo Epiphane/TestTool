@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>2.1.  User Interface Overview</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+<style>
+img {
+   max-width: 50%;
+}
+</style>
+</head>
+<body>
+   <div class="container">
+
+      <span name="User Interface Overview">
+         <h3>
+         2.1.  User Interface Overview
+         </h3>
+      </span>
+
+      <p>
+      When the user initially invokes the Calendar tool, the screen appears as shown
+      in Figure 1.
+
+      <br>
+      <br>
+      <hr>
+      <a name="Figure Initial screen">
+      <a name="Initial screen">
+      <p align=center>
+      <img src="img/take-tests-1.png">
+      </p>
+      </a>
+      <p align=center> Figure 1:  Initial screen.  </p>
+      <hr>
+      </a>
+      <br>
+
+The initial display consists of two windows: a standard form of pulldown
+command menu and a display of the current monthly calendar.  The calendar entry
+for the current date is highlighted with a widened border.  The monthly display
+is the standard default view.  The user may change this and other default
+settings using the option commands discussed later.
+<p>
+Figure 2 shows an expansion of the command menus.
+
+<br>
+<br>
+<hr>
+<a name="Figure Expanded command menus">
+<a name="Expanded command menus">
+<p align=center>
+<img src="images/menus-plain.gif">
+</p>
+</a>
+<p align=center> Figure 2:  Expanded command menus.  </p>
+<hr>
+</a>
+<br>
+
+<p>
+<blockquote>
+<em>Editorial Remark: Some 308 tools may have more than one primary initial UI,
+for different categories of user.  E.g., there may be one initial UI for
+student users and another for instructors.  If more that one top-level UIs is
+particularly important, sketch out each for Milestone 2.  In later milestones,
+all top-level UIs will be fully explained.</em>
+</blockquote>
+<p>
+The <tt>File</tt> menu contains typical commands for manipulating data files
+and performing other system-level functions.  '<tt>File New</tt>' opens a new
+calendar in a new display window.  '<tt>File Open</tt>' opens an existing
+calendar from a previously saved file, displaying in the current display window
+or a new window as selected by the user.  '<tt>File Close</tt>' closes the
+currently active calendar, offering to save if it has been modified since
+opening.  (The currently active calendar is the one on which the user has most
+recently performed a command.)  '<tt>File Close All</tt>' closes all open
+calendars, offering to save any that have been modified.  '<tt>File Save</tt>'
+saves the currently active calendar on the file from which it was opened, or on
+a new file if it was created from a new display.  '<tt>File Save As</tt>'
+allows the current calendar to be saved on a different file from which it was
+opened or most recently saved upon.  '<tt>File Save All</tt>' saves all
+currently open calendars.  '<tt>File Print</tt>' prints the contents of the
+currently active display window in a form suitable for output to a printing
+device capable of displaying text and graphics.  '<tt>File Exit</tt>' exits the
+Calendar tool.
+<p>
+The <tt>Edit</tt> menu contains commands for manipulating calendar data during
+editing.  '<tt>Edit Undo</tt>' undoes the most recently completed editing
+commands.  Repeated successive invocations of '<tt>Undo</tt>' will undo
+successively earlier commands.  '<tt>Edit Redo</tt>' redoes the most recently
+undone commands.  Repeated successive invocations of '<tt>Redo</tt>' will redo
+the series of undone commands in reverse order.  '<tt>Edit Repeat</tt>'
+displays a dialog that allows the most recently invoked command to be repeated
+one or more times.  '<tt>Edit Cut</tt>' removes and copies the currently
+selected datum in the current display.  '<tt>Edit Copy</tt>' copies the
+currently selected datum without removing it. '<tt>Edit Paste</tt>' inserts the
+most recently cut or copied datum at the currently selected edit point in the
+current display.  '<tt>Edit Delete</tt>' removes the currently selected datum
+without copying it.  '<tt>Edit Select All</tt>' selects all editable data in
+the current display.  '<tt>Edit Find</tt>' performs a search for a given text
+string.  The search is performed in all open calendars; successive invocations
+of search with an unchanged search string searches for further occurrences of
+the string until all occurrences are found.  '<tt>Edit Command</tt>' allows the
+user to enter any Calendar tool command in textual form, including sequences of
+commands to form scripts.
+<p>
+<blockquote>
+<em>Editorial Remark: The preceding descriptions of File and Edit operations
+are typical for the kinds of tools we are working on in 308.  Your requirements
+for these operations will likely be very similar to these.  Summary
+descriptions need to be added for all of the other items on each of the
+remaining menus.  The descriptions are organized into one paragraph per menu or
+menu section, where a menu section is a set of items delineated by horizontal
+rules in the menu.  These descriptions will be expanded and refined in near-
+term future milestones.  The top-level command structure should be pretty well
+stabilized by around Milestone 5, though minor updates can continue throughout
+the quarter.</em>
+</blockquote>
+
+
+<br>
+<br>
+<br>
+<br>
+<hr width=80% size=3>
+<center>
+<font size=-1>
+<font color=black> Prev: </font>[none]
+ | <font color=black> Next: </font><a href="appt-scheduling.html">appt-scheduling</a>
+ | <font color=black> Up: </font><a href="functional.html">functional</a>
+ | <font color=black> Top: </font><a href="index.html">index</a></font>
+</center>
+<hr width=80% size=3>
+
+   </div>
+</body>
+</html>
