@@ -3,29 +3,137 @@
 <title>
 2.  Functional Requirements
 </title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+
+<style>
+   ol {
+      font-size: 16px;
+
+      counter-reset: item;
+      list-style-type: none;
+   }
+
+   ol li:before {
+      counter-increment: item;
+      margin-left: -40px;
+   }
+
+   ol ol {
+      font-size: 16px;
+
+      counter-reset: subitem;
+      list-style-type: none;
+   }
+
+   ol ol li:before {
+      counter-increment: subitem;
+      margin-left: -40px;
+   }
+
+   ol.list-1 li:before {
+      content: '1.' counter(item, decimal) '. ';
+   }
+
+   ol.list-2 li:before {
+      content: '2.' counter(item, decimal) '. ';
+   }
+
+   ol.list-1-5 li:before {
+      content: '1.5.' counter(subitem, decimal) '. ';
+   }
+
+   ol.list-2-3 li:before {
+      content: '2.3.' counter(subitem, decimal) '. ';
+   }
+
+   ol.list-2-5 li:before {
+      content: '2.5.' counter(subitem, decimal) '. ';
+   }
+
+   ol.list-2-6 li:before {
+      content: '2.6.' counter(subitem, decimal) '. ';
+   }
+
+   ol.list-2-7 li:before {
+      content: '2.7.' counter(subitem, decimal) '. ';
+   }
+</style>
 </head>
-<body bgcolor = white>
-<a name="Functional Requirements">
-<h2>
-2.  Functional Requirements
-</h2>
-</a>
-<p>
-<em><strong><font color=red>Put high-level introduction to functional
-requirements here.</font></strong></em>
-</p><p>
-Following an
-<a href="ui-overview.html">
-overview of the Calendar user interface,
-</a>
-details of system use are presented in the following scenarios:
-<ul>
-<li>
-<em><strong><font color=red>Put descriptive links to subsections 2.2 and beyond
-here ...</font></strong></font>
-<li>
-<font color=red>...</font>
-</ul>
+<body>
+<div class="container">
+   <a name="Functional Requirements">
+   <h2 class="text-center">
+   2.  Functional Requirements
+   </h2>
+   </a>
+
+   <p>
+   The primary functionality the Test Tool system is for creating and distributing events. Test operations are performed by individual teachers on their tests. The Test Tool system also provides functionality for distributing and taking tests.
+   </p>
+   <p>
+   Following an overview of the Test Tool user interface, details of system use are presented in the following scenarios:
+   </p>
+
+
+            <ol class="list-2">
+               <a href="ui-overview.html">
+                  <li>Landing Screens</li>
+               </a>
+               <a href="testoverview.html">
+                  <li>Tests Overview</li>
+               </a>
+               <a href="new-test.html">
+                  <li>New Test Creation</li>
+
+                  <ol class="list-2-3">
+                     <a href="new-test-options.html">
+                        <li>Test Creation Options</li>
+                     </a>
+                     <a href="view-test.html">
+                        <li>View Completed Test</li>
+                     </a>
+                     <a href="create-questions.html">
+                        <li>Question Creation</li>
+                     </a>
+                  </ol>
+               </a>
+               <a href="edit-tests.html">
+                  <li>Edit Tests</li>
+               </a>
+               <a href="question-bank.html">
+                  <li>Question Bank</li>
+
+                  <ol class="list-2-5">
+                     <a href="question-bank.html">
+                        <li>List of Questions</li>
+                     </a>
+                     <a href="question-editing.html">
+                        <li>Question editing</li>
+                     </a>
+                  </ol>
+               </a>
+               <a href="">
+                  <li>Grade Tests</li>
+
+                  <ol class="list-2-6">
+                     <a href="student-test-list-view.html">
+                        <li>Student Test List View</li>
+                     </a>
+                     <a href="grade-individual-test.html">
+                        <li>Grade Individual Test</li>
+                     </a>
+                  </ol>
+               </a>
+               <a href="take-tests.html">
+                  <li>Student's test view</li>
+               </a>
+            </ol>
+
+
 These scenarios cover all functional requirements for the system.
 
 
@@ -42,5 +150,6 @@ These scenarios cover all functional requirements for the system.
  | <font color=black> Top: </font><a href="index.html">index</a></font>
 </center>
 <hr width=80% size=3>
+</div>
 </body>
 </html>
