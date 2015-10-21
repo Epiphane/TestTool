@@ -2,6 +2,7 @@ package com.teampc.admin.course;
 
 import java.util.List;
 import com.teampc.admin.*;
+import com.teampc.test.Test;
 
 /**
  *
@@ -21,6 +22,10 @@ public abstract class Course {
   public int year;
   /** Section number to identify the course **/
   public int section;
+  /**
+   * The list of tests associated with the course
+   */
+  public List<Test> testList;
 
   /**
    * Course will be constructed with the title, term, year, and section
