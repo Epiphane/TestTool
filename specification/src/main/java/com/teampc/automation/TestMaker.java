@@ -7,6 +7,8 @@ import java.util.ArrayList;
 
 /**
  * A class to auto-generate a test.
+ *
+ * Created by Greg.
  */
 public abstract class TestMaker {
 

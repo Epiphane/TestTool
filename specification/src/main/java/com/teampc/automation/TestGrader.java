@@ -5,7 +5,9 @@ import com.teampc.test.Test;
 import java.util.ArrayList;
 
 /**
- * Class to auto-grade a test
+ * Class to auto-grade a test.
+ *
+ * Created by Greg
  */
 public abstract class TestGrader {
 

@@ -5,7 +5,9 @@ import com.teampc.admin.course.Course;
 import java.util.List;
 
 /**
- * This class contains all the information that identifies a User as a Teacher
+ * This class contains all the information that identifies a User as a Teacher.
+ *
+ * Created by Greg.
  */
 public abstract class Teacher extends User {
 
