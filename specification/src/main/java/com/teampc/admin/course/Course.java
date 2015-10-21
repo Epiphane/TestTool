@@ -8,7 +8,7 @@ import com.teampc.admin.*;
  * This class contains information to uniquely identify a Course.
  *
  * It contains information such as course title, section, instructor.
- * Methods in this class will be used to modify any related fields
+ * Methods in this class will be used to modify any related fields.
  */
 public abstract class Course {
   /** Teacher assigned to the course **/
@@ -19,7 +19,7 @@ public abstract class Course {
   public Term term;
   /** Year when the course occurs **/
   public int year;
-  /** Section number to identify to course **/
+  /** Section number to identify the course **/
   public int section;
 
   /**
