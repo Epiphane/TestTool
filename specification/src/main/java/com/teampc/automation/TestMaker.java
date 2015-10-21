@@ -1,4 +1,4 @@
-package com.teampc.testmaker;
+package com.teampc.automation;
 
 import com.teampc.questions.Question;
 import com.teampc.test.Test;
