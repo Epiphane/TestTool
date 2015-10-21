@@ -3,7 +3,6 @@ package com.teampc.admin.course;
 import java.util.List;
 import com.teampc.admin.*;
 
-
 /**
  *
  * This class contains information to uniquely identify a Course.
@@ -12,10 +11,15 @@ import com.teampc.admin.*;
  * Methods in this class will be used to modify any related fields
  */
 public abstract class Course {
+  /** Teacher assigned to the course **/
   public Teacher teacher;
+  /** Course title **/
   public String title;
+  /** Term when the course occurs **/
   public Term term;
+  /** Year when the course occurs **/
   public int year;
+  /** Section number to identify to course **/
   public int section;
 
   /**

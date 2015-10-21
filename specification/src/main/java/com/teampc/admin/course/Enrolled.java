@@ -9,7 +9,9 @@ import com.teampc.admin.*;
  */
 public abstract class Enrolled {
 
+  /** Student that is enrolled in the course **/
   public Student student;
+  /** Course that the student enrolled in **/
   public Course course;
 
   /**

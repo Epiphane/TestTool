@@ -1,7 +1,7 @@
 package com.teampc.admin;
 
-import java.util.List;
 import com.teampc.admin.course.*;
+import java.util.List;
 
 /**
  *
@@ -10,7 +10,15 @@ import com.teampc.admin.course.*;
  * It contains information such as courses a Student is enrolled in.
  */
 public abstract class Student extends User {
+  /** Student enrolled courses list **/
   public List<Enrolled> enrolledCourses;
+
+  /**
+   * Creates a new instance of a Student
+   */
+  public Student(String username, String firstName, String lastName) {
+    super(username, firstName, lastName);
+  }
 
   /**
    * Enrolls a Student into the specified course.
