@@ -1,4 +1,4 @@
-package com.teampc.test;
+package com.teampc.testtaking;
 
 import com.teampc.admin.*;
 import com.teampc.questions.*;
@@ -19,6 +19,6 @@ public abstract class QuestionResponse {
    /**
     * Checks whether the question response is correct
     */
-   public abstract boolean isCorrect(Question correctAnswer);
+   public abstract boolean isCorrect(QuestionResponse correctAnswer);
 
 }
