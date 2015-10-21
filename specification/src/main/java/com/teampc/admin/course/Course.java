@@ -1,6 +1,8 @@
 package com.teampc.admin.course;
 
+import java.util.List;
 import com.teampc.admin.*;
+
 
 /**
  *
@@ -27,4 +29,9 @@ public abstract class Course {
    * Assigns a teacher to a course.
    */
   public abstract void assignTeacher(Teacher teacher);
+
+  /**
+   * Gets a list of students enrolled in this course
+   */
+  public abstract List<Student> getEnrolledStudents();
 }
