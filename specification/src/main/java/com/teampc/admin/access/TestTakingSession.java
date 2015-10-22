@@ -21,7 +21,7 @@ public abstract class TestTakingSession extends UserSession{
      * @Data
      */
     private long timeLimit;
-    
+
     private TestTakingSession(User user, long limit){super(user);}
 
     /**
