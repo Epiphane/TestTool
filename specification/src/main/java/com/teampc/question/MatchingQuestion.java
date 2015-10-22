@@ -8,7 +8,6 @@ import java.util.TreeMap;
  * @author David Ellison
  */
 public abstract class MatchingQuestion extends Question {
-   //the map containing question/answer pairings.
-   private Map<String, String> answers;
-
+   //Correct answer is a Map containing all the correct pairings of answers
+   //But that's inside the QuestionResponse.
 }

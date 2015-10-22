@@ -18,4 +18,6 @@ public abstract class QuestionResponse {
     */
    public abstract void isComplete();
 
+   private int pointsReceived;
+
 }
