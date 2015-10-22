@@ -6,7 +6,9 @@ import com.teampc.testtaking.*;
 import java.util.*;
 
 /**
- * 
+ * A general Test Class
+ * @author Thomas Steinke
+ *
  */
 public abstract class Test {
    

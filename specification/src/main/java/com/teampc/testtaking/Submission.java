@@ -5,6 +5,8 @@ import com.teampc.test.*;
 import java.util.*;
 
 /**
+ * An instance of an in-progress test being taken
+ * @author Thomas Steinke
  *
  */
 public abstract class Submission {

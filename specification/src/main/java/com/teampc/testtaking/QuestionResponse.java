@@ -5,7 +5,9 @@ import com.teampc.question.*;
 import java.util.*;
 
 /**
- * 
+ * The response to a Test Question
+ * @author Thomas Steinke
+ *
  */
 public abstract class QuestionResponse {
 
