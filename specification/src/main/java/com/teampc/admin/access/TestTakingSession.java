@@ -14,12 +14,12 @@ public abstract class TestTakingSession extends UserSession{
     /**
      * The Test the user is taking and allowed to see.
      */
-    public Test test;
+    private Test test;
     /**
      * The time limit for the test in millis;
      */
-    public long timeLimit;
-    public TestTakingSession(User user, long limit){super(user);}
+    private long timeLimit;
+    private TestTakingSession(User user, long limit){super(user);}
 
     /**
      * Get what type of test is being taken (In Class, Take Home, Practice).
@@ -36,4 +36,9 @@ public abstract class TestTakingSession extends UserSession{
      * Revoke access to change answers on test.
      */
     public abstract void endTest();
+
+    /**
+     * Submit the test answers.
+     */
+    public abstract void submitTest();
 }
