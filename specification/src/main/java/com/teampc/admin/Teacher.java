@@ -13,6 +13,7 @@ public abstract class Teacher extends User {
 
     /**
      * List of classes the Teacher is instructing.
+     * @Data
      */
     private List<Course> courses;
 

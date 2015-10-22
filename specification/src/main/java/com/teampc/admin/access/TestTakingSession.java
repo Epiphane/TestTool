@@ -13,12 +13,15 @@ public abstract class TestTakingSession extends UserSession{
 
     /**
      * The Test the user is taking and allowed to see.
+     * @Data
      */
     private Test test;
     /**
      * The time limit for the test in millis;
+     * @Data
      */
     private long timeLimit;
+    
     private TestTakingSession(User user, long limit){super(user);}
 
     /**

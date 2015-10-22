@@ -13,6 +13,7 @@ public abstract class TestGrader {
 
     /**
      * The tests to grade.
+     * @Data
      */
     private ArrayList<Test> tests;
 

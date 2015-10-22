@@ -15,16 +15,19 @@ public abstract class TestMaker {
 
     /**
      * The number of questions to be on the test
+     * @Data
      */
     private int numQuestions;
 
     /**
      * A list of potential test questions
+     * @Data
      */
     private ArrayList<Question> potentialQuestions;
 
     /**
      * How hard the test should be
+     * @Data
      */
     private TestDifficulty difficulty;
 
