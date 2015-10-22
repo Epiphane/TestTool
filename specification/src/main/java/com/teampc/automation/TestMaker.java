@@ -1,6 +1,6 @@
 package com.teampc.automation;
 
-import com.teampc.questions.Question;
+import com.teampc.question.Question;
 import com.teampc.test.Test;
 
 import java.util.ArrayList;

@@ -1,15 +1,18 @@
 package com.teampc.admin;
 
+import lombok.Data;
+
 /**
  * Defines user details including name, username
  */
+@Data
 public abstract class User {
   /** Username used for login **/
-  public String username;
+  private String username;
   /** User's first name **/
-  public String firstName;
+  private String firstName;
   /** User's last name **/
-  public String lastName;
+  private String lastName;
 
   /**
    * Default constructor
