@@ -47,7 +47,11 @@ dependencies {
 // stolen from: http://stackoverflow.com/questions/24997441/delombok-using-gradle
 task delombok {
     description 'Delomboks the source code'
+    ext.outputDir = "${buildDir}/src-delomboked"
     ant.taskdef(classname: 'lombok.delombok.ant.Tasks$Delombok', classpath: configurations.compile.asPath, name: 'delombok')
-    ant.mkdir(dir: 'build/src-delomboked')
-    ant.delombok(verbose: 'true', encoding: 'UTF-8', to: 'build/src-delomboked', from: 'src/main/java')
+    ant.mkdir(dir: outputDir)
+    ant.delombok(verbose: 'true', encoding: 'UTF-8', to: outputDir, from: 'src/main/java')
 }
+
+javadoc.dependsOn delombok
+javadoc.source = delombok.outputDir
