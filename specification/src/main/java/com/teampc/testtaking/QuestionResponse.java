@@ -16,9 +16,4 @@ public abstract class QuestionResponse {
     */
    public abstract void isComplete();
 
-   /**
-    * Checks whether the question response is correct
-    */
-   public abstract boolean isCorrect(QuestionResponse correctAnswer);
-
 }
