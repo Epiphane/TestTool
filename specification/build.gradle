@@ -53,5 +53,12 @@ task delombok {
     ant.delombok(verbose: 'true', encoding: 'UTF-8', to: outputDir, from: 'src/main/java')
 }
 
-javadoc.dependsOn delombok
-javadoc.source = delombok.outputDir
+javadoc {
+    mustRunAfter delombok
+    source = delombok.outputDir
+    options {
+        quiet()
+    }
+}
+
+

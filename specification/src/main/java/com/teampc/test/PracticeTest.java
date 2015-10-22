@@ -1,16 +1,17 @@
 package com.teampc.test;
 
+import com.teampc.question.Answer;
+
 import java.util.List;
 
 /**
+ * A practice test that won't count towards an official grade
  * @author Andy DuFrene
  *
- * A Class to represent a practice test 
  */
 public abstract class PracticeTest extends TakeHomeTest {
-
     /**
-     * Allows user to retake test. Abandons current attempt if not finished.
+     * Returns list of correct answers to this test
      */
-    public abstract void retake(boolean shuffleQuestions);
+    public abstract List<Answer> getCorrectAnswers();
 }

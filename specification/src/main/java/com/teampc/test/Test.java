@@ -47,4 +47,10 @@ public abstract class Test {
     */
    public abstract boolean isTakeHome();
 
+   /**
+    * Try to retake this test, if the test can be retaken, return the test
+    * instance in a state ready to be taken. Otherwise, return
+    * <code>Optional.empty()</code>
+    */
+   public abstract Optional<Test> retake();
 }

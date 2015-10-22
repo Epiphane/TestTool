@@ -10,9 +10,9 @@ import java.util.Optional;
 import com.teampc.question.Question;
 
 /**
+ * A Class representing a test after it has been graded.
  * @author Andy DuFrene
  *
- * A Class representing a test after it has been graded.
  */
 @Data
 // @Builder // uncomment when non-abstract
