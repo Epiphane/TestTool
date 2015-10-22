@@ -1,5 +1,8 @@
 package com.teampc.admin.course;
 
+import lombok.Data;
+import lombok.Builder;
+
 import java.util.List;
 import com.teampc.admin.*;
 import com.teampc.test.Test;
@@ -11,6 +14,7 @@ import com.teampc.test.Test;
  * It contains information such as course title, section, instructor.
  * Methods in this class will be used to modify any related fields.
  */
+ @Data
 public abstract class Course {
   /** Teacher assigned to the course **/
   public Teacher teacher;
