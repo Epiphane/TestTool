@@ -1,7 +1,7 @@
 package com.teampc.testtaking;
 
 import com.teampc.admin.*;
-import com.teampc.questions.*;
+import com.teampc.question.*;
 import java.util.*;
 
 /**

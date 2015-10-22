@@ -1,4 +1,4 @@
-package com.teampc.questions;
+package com.teampc.question;
 
 public abstract class Question {
 

@@ -1,7 +1,7 @@
 package com.teampc.test;
 
 import com.teampc.admin.*;
-import com.teampc.questions.*;
+import com.teampc.question.*;
 import com.teampc.testtaking.*;
 import java.util.*;
 
@@ -46,4 +46,5 @@ public abstract class Test {
     * Returns whether or not the test can be taken home.
     */
    public abstract boolean isTakeHome();
+
 }

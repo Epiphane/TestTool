@@ -1,15 +1,15 @@
 package com.teampc.test;
 
-import lombok.Getter;
-import lombok.Setter;
-
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * @author Andy DuFrene
  */
+@Data
+@EqualsAndHashCode(callSuper=true)
 public abstract class InClassTest extends Test {
 
-    @Getter @Setter private long duration;
-
+    private long duration;
 
 }
