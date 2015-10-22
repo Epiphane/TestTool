@@ -14,7 +14,7 @@ public abstract class TestGrader {
     /**
      * The tests to grade.
      */
-    public ArrayList<Test> tests;
+    private ArrayList<Test> tests;
 
     /**
      * Constructor to make an instance of a TestGrader with a given test

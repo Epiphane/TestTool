@@ -2,6 +2,7 @@ package com.teampc.automation;
 
 import com.teampc.questions.Question;
 import com.teampc.test.Test;
+import com.teampc.test.TestDifficulty;
 
 import java.util.ArrayList;
 
@@ -15,12 +16,17 @@ public abstract class TestMaker {
     /**
      * The number of questions to be on the test
      */
-    int numQuestions;
+    private int numQuestions;
 
     /**
      * A list of potential test questions
      */
-    ArrayList<Question> potentialQuestions;
+    private ArrayList<Question> potentialQuestions;
+
+    /**
+     * How hard the test should be
+     */
+    private TestDifficulty difficulty;
 
     /**
      * Generic constructor

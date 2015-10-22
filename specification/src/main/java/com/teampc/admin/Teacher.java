@@ -14,7 +14,7 @@ public abstract class Teacher extends User {
     /**
      * List of classes the Teacher is instructing.
      */
-    public List<Course> courses;
+    private List<Course> courses;
 
     /**
      * Create a new instance of a Teacher
@@ -38,6 +38,7 @@ public abstract class Teacher extends User {
      * @param course Which course to remove.
      */
     public abstract void removeCourse(Course course);
+    
 
 
 }
