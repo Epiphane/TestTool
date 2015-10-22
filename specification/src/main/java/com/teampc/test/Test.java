@@ -25,7 +25,7 @@ public abstract class Test {
    /**
     * Return the list of questions.
     */
-   public abstract ArrayList<Question> getQuestions();
+   public abstract List<Question> getQuestions();
 
    /**
     * Get the owner of this test
