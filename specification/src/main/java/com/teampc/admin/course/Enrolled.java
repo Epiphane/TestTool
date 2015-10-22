@@ -1,5 +1,8 @@
 package com.teampc.admin.course;
 
+import lombok.Data;
+import lombok.Builder;
+
 import com.teampc.admin.*;
 
 /**
@@ -7,6 +10,7 @@ import com.teampc.admin.*;
  * Each student may have many enrolled courses and each
  * course may have many students.
  */
+ @Data
 public abstract class Enrolled {
 
   /** Student that is enrolled in the course **/
