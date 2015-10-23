@@ -65,3 +65,5 @@ build/Release
 node_modules
 
 /bin/
+
+*.db
