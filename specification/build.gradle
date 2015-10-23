@@ -46,15 +46,36 @@ dependencies {
 
 // stolen from: http://stackoverflow.com/questions/24997441/delombok-using-gradle
 task delombok {
-    description 'Delomboks the source code'
     ext.outputDir = "${buildDir}/src-delomboked"
-    ant.taskdef(classname: 'lombok.delombok.ant.Tasks$Delombok', classpath: configurations.compile.asPath, name: 'delombok')
-    ant.mkdir(dir: outputDir)
-    ant.delombok(verbose: 'true', encoding: 'UTF-8', to: outputDir, from: 'src/main/java')
+
+    inputs.files sourceSets.main.java
+    outputs.dir file(outputDir)
+
+    doLast {
+        description 'Delomboks the source code'
+        ant.taskdef(classname: 'lombok.delombok.ant.Tasks$Delombok', classpath: configurations.compile.asPath, name: 'delombok')
+        ant.mkdir(dir: outputDir)
+        ant.delombok(to: outputDir, from: 'src/main/java', classpath: configurations.compile.asPath)
+    }
+}
+
+task compileDelombok(type: JavaCompile, dependsOn: delombok) {
+    def outputDir = "${buildDir}/classes-delomboked/main"
+    def sourceFiles = fileTree(dir: delombok.outputDir, include: '**/*.java')
+
+    inputs.files sourceFiles
+    outputs.dir file(outputDir)
+
+    source = sourceFiles
+    destinationDir = file(outputDir)
+    sourceCompatibility = '1.8'
+    targetCompatibility = '1.8'
+    dependencyCacheDir = file("${buildDir}/dependency-cache")
+    classpath = files(outputDir, configurations.compile.asPath)
 }
 
 javadoc {
-    mustRunAfter delombok
+    dependsOn compileDelombok
     source = delombok.outputDir
     options {
         quiet()
