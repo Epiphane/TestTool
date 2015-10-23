@@ -46,7 +46,7 @@ dependencies {
     compile 'org.xerial:sqlite-jdbc:3.7.2'
 }
 
-mainClassName = 'com.teampc.monopoly.TestTool'
+mainClassName = 'com.teampc.monopoly.HelloWorld'
 
 // stolen from: http://stackoverflow.com/questions/24997441/delombok-using-gradle
 task delombok {
