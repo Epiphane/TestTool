@@ -1,0 +1,66 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'application'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.projectlombok:lombok:1.16.6'
+    compile 'com.google.guava:guava:12.0'
+    compile 'org.xerial:sqlite-jdbc:3.7.2'
+    compile 'org.slf4j:slf4j-api:1.7.12'
+    compile 'ch.qos.logback:logback-classic:1.1.3'
+}
+
+sourceSets {
+    main {
+        resources {
+            srcDir 'src/main/layout'
+        }
+    }
+}
+
+mainClassName = 'com.teampc.example.ExampleMain'
+
+// stolen from: http://stackoverflow.com/questions/24997441/delombok-using-gradle
+task delombok {
+    ext.outputDir = "${buildDir}/src-delomboked"
+
+    inputs.files sourceSets.main.java
+    outputs.dir file(outputDir)
+
+    doLast {
+        description 'Delomboks the source code'
+        ant.taskdef(classname: 'lombok.delombok.ant.Tasks$Delombok', classpath: configurations.compile.asPath, name: 'delombok')
+        ant.mkdir(dir: outputDir)
+        ant.delombok(to: outputDir, from: 'src/main/java', classpath: configurations.compile.asPath)
+    }
+}
+
+task compileDelombok(type: JavaCompile, dependsOn: delombok) {
+    def outputDir = "${buildDir}/classes-delomboked/main"
+    def sourceFiles = fileTree(dir: delombok.outputDir, include: '**/*.java')
+
+    inputs.files sourceFiles
+    outputs.dir file(outputDir)
+
+    source = sourceFiles
+    destinationDir = file(outputDir)
+    sourceCompatibility = '1.8'
+    targetCompatibility = '1.8'
+    dependencyCacheDir = file("${buildDir}/dependency-cache")
+    classpath = files(outputDir, configurations.compile.asPath)
+}
+
+javadoc {
+    dependsOn compileDelombok
+    source = delombok.outputDir
+    options {
+        quiet()
+    }
+}
+
+
