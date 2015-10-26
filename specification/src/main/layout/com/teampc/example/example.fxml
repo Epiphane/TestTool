@@ -54,6 +54,7 @@
         <TextField fx:id="lastNameField" promptText="Last Name" prefWidth="90" />
         <TextField fx:id="emailField" promptText="email" prefWidth="150" />
         <Button text="Add" onAction="#addPerson" />
+        <Button text="Remove" onAction="#removePerson" />
     </HBox>
     <Button GridPane.columnIndex="0" GridPane.rowIndex="3" text="Say Hello!" onAction="#sayHello" />
 </GridPane>

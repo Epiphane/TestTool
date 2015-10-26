@@ -9,6 +9,8 @@ import javafx.scene.control.TextField;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.swing.*;
+
 /* This controller will be set in an fxml file and operates as the intermediary between the view and the data layer */
 /* MVC!!!?!?!? */
 public class ExampleController {
@@ -31,6 +33,15 @@ public class ExampleController {
         firstNameField.setText("");
         lastNameField.setText("");
         emailField.setText("");
+    }
+
+    @FXML
+    /* This action is set as a callback in the fxml file */
+    protected void removePerson(ActionEvent event) {
+        ObservableList<ExamplePerson> data = tableView.getItems();
+        ObservableList<ExamplePerson> selectedItems = tableView.getSelectionModel().getSelectedItems();
+
+        data.removeAll(selectedItems);
     }
 
     @FXML
