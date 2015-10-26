@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.teampc.example.ExamplePerson?>
+<?import com.teampc.example.ExampleFormattedTableCellFactory?>
+
+<?import javafx.collections.*?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?>
+<?import javafx.geometry.Insets?>
+
+
+<GridPane alignment="CENTER" hgap="10.0" vgap="10.0"
+    xmlns:fx="http://javafx.com/fxml"
+    fx:controller="com.teampc.example.ExampleController"> 
+    <!-- This control should have a one-to-one mapping with the actions and data in this view -->
+    <padding>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+    </padding>
+    <Label style="-fx-font: NORMAL 20 Tahoma;" text="Address Book"
+        GridPane.columnIndex="0" GridPane.rowIndex="0">
+    </Label>
+    <TableView fx:id="tableView" GridPane.columnIndex="0" GridPane.rowIndex="1">
+        <columns>
+            <TableColumn fx:id="firstNameColumn" text="First Name" prefWidth="100">
+                <cellValueFactory><PropertyValueFactory property="firstName" /></cellValueFactory>
+                <cellFactory>
+                    <ExampleFormattedTableCellFactory alignment="center" />
+                </cellFactory>
+            </TableColumn>
+            <TableColumn text="Last Name" prefWidth="100">
+                <cellValueFactory><PropertyValueFactory property="lastName"/></cellValueFactory>
+            </TableColumn>
+            <TableColumn text="Email Address" prefWidth="200">
+                <cellValueFactory><PropertyValueFactory property="email"/></cellValueFactory>
+            </TableColumn>
+        </columns>
+        <items>
+            <FXCollections fx:factory="observableArrayList">
+                <ExamplePerson firstName="Jacob" lastName="Smith" email="jacob.smith@example.com" />
+                <ExamplePerson firstName="Isabella" lastName="Johnson" email="isabella.johnson@example.com" />
+                <ExamplePerson firstName="Ethan" lastName="Williams" email="ethan.williams@example.com" />
+                <ExamplePerson firstName="Emma" lastName="Jones" email="emma.jones@example.com" />
+                <ExamplePerson firstName="Michael" lastName="Brown" email="michael.brown@example.com" />
+            </FXCollections>
+        </items>
+        <sortOrder>
+            <fx:reference source="firstNameColumn" />
+        </sortOrder>
+    </TableView>
+    <HBox spacing="10" alignment="bottom_right" GridPane.columnIndex="0" GridPane.rowIndex="2">
+        <TextField fx:id="firstNameField" promptText="First Name" prefWidth="90" /> <!-- fx:id corresponds to the member variable in the controller -->
+        <TextField fx:id="lastNameField" promptText="Last Name" prefWidth="90" />
+        <TextField fx:id="emailField" promptText="email" prefWidth="150" />
+        <Button text="Add" onAction="#addPerson" />
+        <Button text="Remove" onAction="#removePerson" />
+    </HBox>
+    <Button GridPane.columnIndex="0" GridPane.rowIndex="3" text="Say Hello!" onAction="#sayHello" />
+</GridPane>
