@@ -5,6 +5,10 @@ apply plugin: 'application'
 
 repositories {
     mavenCentral()
+
+    maven {
+        url 'https://hibernate-sqlite.googlecode.com/svn/trunk/mavenrepo'
+    }
 }
 
 dependencies {
@@ -13,6 +17,9 @@ dependencies {
     compile 'org.xerial:sqlite-jdbc:3.7.2'
     compile 'org.slf4j:slf4j-api:1.7.12'
     compile 'ch.qos.logback:logback-classic:1.1.3'
+    compile 'org.hibernate:hibernate-core:5.0.2.Final'
+    compile 'org.hibernate:hibernate-annotations:3.5.6-Final'
+    compile fileTree(dir: 'libs', include: '*.jar')
 }
 
 sourceSets {
