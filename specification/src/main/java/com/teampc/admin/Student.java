@@ -2,6 +2,7 @@ package com.teampc.admin;
 
 import lombok.Data;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 
 import com.teampc.admin.course.*;
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.List;
  * It contains information such as courses a Student is enrolled in.
  */
  @Data
+ @EqualsAndHashCode(callSuper=true)
 public abstract class Student extends User {
   /** Student enrolled courses list **/
   public List<Enrolled> enrolledCourses;
