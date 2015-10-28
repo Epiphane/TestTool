@@ -17,7 +17,7 @@ public class NavBarController {
    @FXML
    void onCreateTestClick(ActionEvent event) throws IOException {
      Stage stage = new Stage();
-     Pane createTest = FXMLLoader.load(getClass().getResource("../createtest/create-test-options.fxml"));
+     Pane createTest = FXMLLoader.load(getClass().getClassLoader().getResource("create-test-options.fxml"));
 
      Scene scene = new Scene(createTest);
      stage.setScene(scene);

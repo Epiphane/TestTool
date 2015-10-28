@@ -1,6 +1,8 @@
 package com.teampc.db;
 
 import com.teampc.example.ExamplePerson;
+import com.teampc.utils.HibernateUtils;
+
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -26,7 +28,7 @@ public class ExamplePersonDAO {
     }
 
     public Collection<ExamplePerson> fetchAll() {
-        Session session = DBUtils.sessionFactory.openSession();
+        Session session = HibernateUtils.getSessionFactory().openSession();
         try {
             Criteria examplePersonCriteria = session.createCriteria(ExamplePerson.class);
 
@@ -44,7 +46,7 @@ public class ExamplePersonDAO {
     }
 
     public void insert(Collection<ExamplePerson> examplePersons) {
-        Session session = DBUtils.sessionFactory.openSession();
+        Session session = HibernateUtils.getSessionFactory().openSession();
         Transaction transaction = null;
         try {
             // Need a transaction to actually save to db
@@ -69,7 +71,7 @@ public class ExamplePersonDAO {
 
     public void remove(Collection<ExamplePerson> examplePersons) {
         Transaction transaction = null;
-        Session session = DBUtils.sessionFactory.openSession();
+        Session session = HibernateUtils.getSessionFactory().openSession();
         try {
             transaction = session.beginTransaction();
             examplePersons.forEach(session::delete);
