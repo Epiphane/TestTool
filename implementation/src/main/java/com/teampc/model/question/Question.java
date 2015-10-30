@@ -1,9 +1,9 @@
-package com.teampc.question;
+package com.teampc.model.question;
 
 import lombok.Getter;
 import lombok.Setter;
 
-import com.teampc.testtaking.QuestionResponse;
+import com.teampc.model.testtaking.QuestionResponse;
 
 /**
  * A class that represents a test question.

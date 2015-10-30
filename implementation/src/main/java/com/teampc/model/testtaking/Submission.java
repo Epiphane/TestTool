@@ -1,7 +1,7 @@
-package com.teampc.testtaking;
+package com.teampc.model.testtaking;
 
-import com.teampc.admin.*;
-import com.teampc.test.*;
+import com.teampc.model.admin.*;
+import com.teampc.model.test.*;
 import java.util.*;
 
 /**

@@ -1,4 +1,4 @@
-package com.teampc.admin;
+package com.teampc.model.admin;
 
 import lombok.Data;
 

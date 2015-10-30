@@ -1,6 +1,6 @@
-package com.teampc.admin;
+package com.teampc.model.admin;
 
-import com.teampc.admin.course.Course;
+import com.teampc.model.admin.course.Course;
 
 import java.util.List;
 
@@ -39,7 +39,7 @@ public abstract class Teacher extends User {
      * @param course Which course to remove.
      */
     public abstract void removeCourse(Course course);
-    
+
 
 
 }

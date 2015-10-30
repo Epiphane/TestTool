@@ -1,6 +1,6 @@
-package com.teampc.automation;
+package com.teampc.model.automation;
 
-import com.teampc.test.Test;
+import com.teampc.model.test.Test;
 
 import java.util.ArrayList;
 

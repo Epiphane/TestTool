@@ -1,10 +1,10 @@
-package com.teampc.admin;
+package com.teampc.model.admin;
 
 import lombok.Data;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 
-import com.teampc.admin.course.*;
+import com.teampc.model.admin.course.*;
 import java.util.List;
 
 /**

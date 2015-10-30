@@ -1,4 +1,4 @@
-package com.teampc.test;
+package com.teampc.model.test;
 
 /**
  * A Test that can be taken home and completed on the student's own time

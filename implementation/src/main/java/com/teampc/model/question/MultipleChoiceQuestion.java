@@ -1,4 +1,4 @@
-package com.teampc.question;
+package com.teampc.model.question;
 
 import lombok.Getter;
 import lombok.Setter;
