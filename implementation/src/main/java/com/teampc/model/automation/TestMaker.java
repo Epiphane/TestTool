@@ -1,8 +1,8 @@
-package com.teampc.automation;
+package com.teampc.model.automation;
 
-import com.teampc.question.Question;
-import com.teampc.test.Test;
-import com.teampc.test.TestDifficulty;
+import com.teampc.model.question.Question;
+import com.teampc.model.test.Test;
+import com.teampc.model.test.TestDifficulty;
 
 import java.util.ArrayList;
 

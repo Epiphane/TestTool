@@ -1,6 +1,6 @@
-package com.teampc.test;
+package com.teampc.model.test;
 
-import com.teampc.question.Answer;
+import com.teampc.model.question.Answer;
 
 import java.util.List;
 

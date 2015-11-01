@@ -1,4 +1,4 @@
-package com.teampc.test;
+package com.teampc.model.test;
 
 import com.google.common.collect.ImmutableList;
 
@@ -7,7 +7,7 @@ import lombok.Builder;
 
 import java.util.Optional;
 
-import com.teampc.question.Question;
+import com.teampc.model.question.Question;
 
 /**
  * A Class representing a test after it has been graded.

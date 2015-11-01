@@ -1,4 +1,4 @@
-package com.teampc.question;
+package com.teampc.model.question;
 
 /**
  * A representation of an answer to a question

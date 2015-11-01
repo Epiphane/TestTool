@@ -1,4 +1,4 @@
-package com.teampc.monopoly;
+package com.teampc.model.monopoly;
 
 import java.sql.*;
 

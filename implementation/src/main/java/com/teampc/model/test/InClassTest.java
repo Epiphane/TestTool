@@ -1,4 +1,4 @@
-package com.teampc.test;
+package com.teampc.model.test;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

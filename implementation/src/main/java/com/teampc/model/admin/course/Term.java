@@ -1,4 +1,4 @@
-package com.teampc.admin.course;
+package com.teampc.model.admin.course;
 
 /**
  * This defines all available types of Terms

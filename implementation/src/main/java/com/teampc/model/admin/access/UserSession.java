@@ -1,6 +1,6 @@
-package com.teampc.admin.access;
+package com.teampc.model.admin.access;
 
-import com.teampc.admin.User;
+import com.teampc.model.admin.User;
 
 /**
  * Identifies the user that is currently logged into the application.

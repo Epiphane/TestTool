@@ -1,9 +1,9 @@
-package com.teampc.admin.course;
+package com.teampc.model.admin.course;
 
 import lombok.Data;
 import lombok.Builder;
 
-import com.teampc.admin.*;
+import com.teampc.model.admin.*;
 
 /**
  * Represents a relation between a Student and a Course.

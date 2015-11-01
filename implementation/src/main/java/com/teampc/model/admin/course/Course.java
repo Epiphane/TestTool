@@ -1,11 +1,11 @@
-package com.teampc.admin.course;
+package com.teampc.model.admin.course;
 
 import lombok.Data;
 import lombok.Builder;
 
 import java.util.List;
-import com.teampc.admin.*;
-import com.teampc.test.Test;
+import com.teampc.model.admin.*;
+import com.teampc.model.test.Test;
 
 /**
  *

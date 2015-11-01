@@ -1,4 +1,4 @@
-package com.teampc.testtaking;
+package com.teampc.model.testtaking;
 
 import java.util.Map;
 

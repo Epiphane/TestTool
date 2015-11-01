@@ -1,7 +1,7 @@
-package com.teampc.admin.access;
+package com.teampc.model.admin.access;
 
-import com.teampc.admin.User;
-import com.teampc.test.Test;
+import com.teampc.model.admin.User;
+import com.teampc.model.test.Test;
 
 /**
  * Identifies the current UserSession as someone taking a test.
