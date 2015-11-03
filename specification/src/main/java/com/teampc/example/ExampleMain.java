@@ -22,7 +22,7 @@ public class ExampleMain extends Application {
         // Load the fxml file and set the pane as the "Scene"
         // getClass().getResource(...) will load from the resources relative to the current package
         // hence the "example.fxml" file is located at the package level of com.teampc.example
-        Pane pane = FXMLLoader.load(getClass().getResource("example.fxml"));
+        Pane pane = FXMLLoader.load(getClass().getClassLoader().getResource("example.fxml"));
 
         primaryStage.setScene(new Scene(pane));
         primaryStage.show();
