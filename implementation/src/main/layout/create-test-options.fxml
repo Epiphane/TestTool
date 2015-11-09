@@ -5,39 +5,27 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="501.0" prefWidth="679.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-         <children>
-            <TextField layoutX="98.0" layoutY="24.0" prefHeight="27.0" prefWidth="255.0" />
-            <Text layoutX="25.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Test Name:" wrappingWidth="73.28125" />
-            <Text layoutX="25.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Start Date and Time:" wrappingWidth="73.28125" />
-            <Text layoutX="25.0" layoutY="127.0" strokeType="OUTSIDE" strokeWidth="0.0" text="End Date and Time:" wrappingWidth="73.28125" />
-            <Text layoutX="23.0" layoutY="241.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Assign To:" wrappingWidth="73.28125" />
-            <MenuButton layoutX="96.0" layoutY="223.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="252.0" text="Choose Students">
-              <items>
-                <MenuItem mnemonicParsing="false" text="Action 1" />
-                <MenuItem mnemonicParsing="false" text="Action 2" />
-                  <MenuItem mnemonicParsing="false" text="Unspecified Action" />
-              </items>
-            </MenuButton>
-            <DatePicker layoutX="98.0" layoutY="118.0" prefHeight="27.0" prefWidth="252.0" />
-            <DatePicker layoutX="98.0" layoutY="71.0" prefHeight="27.0" prefWidth="252.0" />
-            <CheckBox layoutX="25.0" layoutY="324.0" mnemonicParsing="false" text="Immediately show estimated exam score" />
-            <CheckBox layoutX="25.0" layoutY="354.0" mnemonicParsing="false" text="Send exam report" />
-            <CheckBox layoutX="25.0" layoutY="387.0" mnemonicParsing="false" text="Allow students to view completed exams" />
-            <CheckBox layoutX="368.0" layoutY="76.0" mnemonicParsing="false" text="Enable" />
-            <CheckBox layoutX="368.0" layoutY="122.0" mnemonicParsing="false" text="Enable" />
-            <Button layoutX="269.0" layoutY="426.0" mnemonicParsing="false" text="Generate Questions" />
-            <Text layoutX="22.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Course Type:" wrappingWidth="72.28125" />
-            <Text layoutX="25.0" layoutY="286.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of Questions:" wrappingWidth="72.28125" />
-            <ComboBox layoutX="98.0" layoutY="276.0" prefHeight="27.0" prefWidth="71.0" promptText="0" />
-            <CheckBox layoutX="185.0" layoutY="281.0" mnemonicParsing="false" text="Automatically Generate" />
-            <MenuButton layoutX="96.0" layoutY="168.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="252.0" text="Choose Course">
-               <items>
-                  <MenuItem mnemonicParsing="false" text="Action 1" />
-                  <MenuItem mnemonicParsing="false" text="Action 2" />
-                  <MenuItem mnemonicParsing="false" text="Unspecified Action" />
-               </items>
-            </MenuButton>
-         </children></AnchorPane>
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="501.0" prefWidth="679.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.teampc.controller.CreateTestController">
+   <children>
+       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+            <children>
+               <TextField fx:id="testName" layoutX="98.0" layoutY="24.0" prefHeight="27.0" prefWidth="255.0" />
+               <Text layoutX="25.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Test Name:" wrappingWidth="73.28125" />
+               <Text layoutX="25.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Start Date and Time:" wrappingWidth="73.28125" />
+               <Text layoutX="25.0" layoutY="127.0" strokeType="OUTSIDE" strokeWidth="0.0" text="End Date and Time:" wrappingWidth="73.28125" />
+               <Text layoutX="23.0" layoutY="241.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Assign To:" wrappingWidth="73.28125" />
+               <MenuButton fx:id="assignedStudentsList" layoutX="96.0" layoutY="223.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="252.0" text="Choose Students"/>
+               <DatePicker fx:id="endDate" layoutX="98.0" layoutY="118.0" prefHeight="27.0" prefWidth="252.0" />
+               <DatePicker fx:id="startDate" layoutX="98.0" layoutY="71.0" prefHeight="27.0" prefWidth="252.0" />
+               <CheckBox fx:id="enableStartDate" layoutX="368.0" layoutY="76.0" mnemonicParsing="false" onAction="#onStartDateEnable" text="Enable" />
+               <CheckBox fx:id="enableEndDate" layoutX="368.0" layoutY="122.0" mnemonicParsing="false" onAction="#onEndDateEnable" text="Enable" />
+               <Button layoutX="269.0" layoutY="426.0" mnemonicParsing="false" onAction="#onSubmitCreateTest" text="Generate Questions" />
+               <Text layoutX="25.0" layoutY="286.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of Questions:" wrappingWidth="72.28125" />
+               <Spinner fx:id="numberOfQuestions" layoutX="98.0" layoutY="276.0" prefHeight="27.0" prefWidth="71.0" />
+               <CheckBox fx:id="autoGenerateQuestions" layoutX="185.0" layoutY="281.0" mnemonicParsing="false" text="Automatically Generate" />
+               <MenuButton fx:id="courseType" layoutX="96.0" layoutY="168.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="252.0" text="Choose Course"/>
+               <Text layoutX="25.0" layoutY="176.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Course/Subject:" wrappingWidth="51.28125" />
+            </children>
+      </AnchorPane>
+   </children>
 </Pane>
