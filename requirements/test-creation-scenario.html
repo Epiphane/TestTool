@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>2.8 Creating a Test</title>
+<title>2.2.1 Creating a Test</title>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
@@ -18,72 +18,53 @@ img {
 
       <span name="Creating a Test">
          <h3>
-         2.8 Creating a Test
+         2.2.1 Creating a Test
          </h3>
       </span>
 
       <p>
-         This introductory scenario shows a user creating a simple test. Test creation is one of the most fundamental and commonly performed with the Test Tool. In this scenario we will assume the User is registered with the application and just logged in to it. From here the User will select the "Tests" button as seen on the landing page in Figure 1.
+         This introductory scenario shows a user creating a simple test. Test creation is one of the most fundamental and commonly performed with the Test Tool. In this scenario the User is registered with the application and logged in to it. After the user selects the tests button on the landing page they are presented with the Test Overview Screen, seen in Figure 1.
       </p>
+
 
       <hr>
       <div class="text-center">
-         <img src="img/instructorlanding.png">
+         <img src="img/testoverviewempty.png">
          <p>
-            Figure 1: The Instructor Landing Page.
-         </p>
-      </div>
-      <hr>
-
-      <p>
-         Here the user will be presented with the Test Overview screen. Seen in Figure 2.
-      </p>
-
-      <hr>
-      <div class="text-center">
-         <img src="img/testoverview.png">
-         <p>
-            Figure 2: The Test Overiew Page.
+            Figure 1: The Test Overiew Page.
          </p>
          </div>
       <hr>
 
 
       <p>
-         The Figure shows the highest level page involving test editing and creation. On the top menu bar the user is presented with a 'Create Test' button to create new tests, and a search bar to find already created tests.
+         The Figure shows the highest level page involving test editing and creation. On the top menu bar the user is presented with a 'Create Test' button to create new tests, and a search bar to find already created tests. Here the screen is empty, because the user has yet to make anytests
       </p>
 
-      <p>
-         Each already created test is shown on the screen to the user. Relevant information about each test is shown including: The name of the test, its status (which indicates if the user has finished creating the test), and a red or green square indicating if the test is public or not. Red indicates the test is not public, while green indicates that the test is public.
-      </p>
 
       <p>
-         Finally at the bottom of the screen the user is presented with a page navigation bar so that they can move through their various created tests.
-      </p>
-
-      <p>
-         To create a test the user will select the 'Create Test' button on the top menu bar, which will take them to the test creation page shown in Figure 3.
+         To create a test the user selects the 'Create Test' button on the top menu bar or in the middle of the screen, which takes them to the test creation page shown in Figure 2.
       </p>
 
       <hr>
       <div class="text-center">
          <img src="img/new-test-options.png">
          <p>
-            Figure 3: New Tests Creation
+            Figure 2: New Tests Creation
          </p>
          </div>
       <hr>
 
 
       <p>
-         This Figure has various data fields avaialable to the user. The first is a text field to name the test. The second and third will bring up a dialogue for the user to select a date that the test is intended to be taken on, seen in Figure 4.
+         This Figure has various data fields avaialable to the user. The first is a text field to name the test. The second and third will bring up a dialogue for the user to select a date that the test is intended to be taken on, seen in Figure 3.
       </p>
 
       <hr>
       <div class="text-center">
          <img src="img/time-date-picker.png">
          <p>
-            Figure 4: Time and Date Picker.
+            Figure 3: Time and Date Picker.
          </p>
          </div>
       <hr>
@@ -95,32 +76,54 @@ img {
       </p>
 
       <p>
-         Next, selecting the "Assign To" field will produce a drop down menu that allows the instructor to pick which classes this test should be associated with. This menu is shown in Figure 5.
+         Next, selecting the "Assign To" field will produce a drop down menu that allows the instructor to pick which classes this test should be associated with. This menu is shown in Figure 4.
       </p>
 
 
       <hr>
       <div class="text-center">
-         <img src="img/assing-to-box.png">
+         <img src="img/assign-to-box.png">
          <p>
-            Figure 5: Assign To Menu
+            Figure 4: Assign To Menu
          </p>
          </div>
       <hr>
 
       <p>
-         Finally the user will select from a few options involving test visibility, such as when to show exam scores to students or if they should be able to see their exams after finishing them. These can be seen in Figure 1.
+         Finally, the user clicks the "next" button to go to the automatic creation page, seen in Figure 5.
       </p>
 
+      <hr>
+      <div class="text-center">
+         <img src="img/automatedtest.png">
+         <p>
+            Figure 5: Automated Test Generation 
+         </p>
+         </div>
+      <hr>
+
       <p>
-         After this the user clicks the "Create Test and Add Questions" button and the automated test creator will populate the test with questions and allow the user to edit the newly created test if they wish.
+         This screen provides the user with options on automated test generation. These options are the number of questions on the test, how many questions of each difficulty (easy, medium or hard), and the desired subjects. The screen with all finalized options is shown in Figure 6.
+      </p>
+
+      <hr>
+      <div class="text-center">
+         <img src="img/finishedautomation.png">
+         <p>
+            Figure 6: Finished Automated Test Generation 
+         </p>
+         </div>
+      <hr>
+
+      <p>
+         Finally the user clicks on the Generate Questions button to create the test. 
       </p>
 
       <hr>
       <footer class="text-center">
          Prev: <a href="take-tests.html">Student Test View</a>
-         | Next: [none]
-         | Up: <a href="index.html">index</a>
+         | Next: <a href="view-test.html">View Completed Test</a>
+         | Up: <a href="testoverview.html">Test Overview</a>
          | Top: <a href="index.html">index</a>
       </footer>
       <hr>
