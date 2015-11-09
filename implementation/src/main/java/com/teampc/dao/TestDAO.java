@@ -18,6 +18,9 @@ public class TestDAO {
 
    private TestDAO() {}
 
+   /**
+    * Inserts a new test into the database
+    */
    public void insert(Test newTest) {
       Session session = HibernateUtils.getSessionFactory().openSession();
       Transaction transaction = session.beginTransaction();

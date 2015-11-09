@@ -49,6 +49,9 @@ public class CreateTestController implements Initializable {
    @FXML
    private CheckBox enableEndDate;
 
+   /**
+    * Initializes the Create Test Options UI with values for the selection lists, spinner, and input boxes
+    */
    @Override
    public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
       initCourseList();
@@ -82,16 +85,25 @@ public class CreateTestController implements Initializable {
       courseType.getItems().addAll(courseData);
    }
 
+   /**
+    * Enable or Disable a test's start date
+    */
    @FXML
    void onStartDateEnable(ActionEvent event) {
       startDate.setDisable(!enableStartDate.isSelected());
    }
 
+   /**
+    * Enable or Disable a test's end date
+    */
    @FXML
    void onEndDateEnable(ActionEvent event) {
       endDate.setDisable(!enableEndDate.isSelected());
    }
 
+   /**
+    * Handler for the create test button
+    */
    @FXML
    void onSubmitCreateTest(ActionEvent event) {
       if (Strings.isNullOrEmpty(testName.getText()) || Strings.isNullOrEmpty(courseType.getText())) {
@@ -116,4 +128,3 @@ public class CreateTestController implements Initializable {
    }
 
 }
-
