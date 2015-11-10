@@ -9,18 +9,35 @@ import lombok.Setter;
  * @author Thomas Steinke
  *
  */
-public abstract class QuestionResponse {
+public abstract class QuestionResponse<T extends QuestionResponse> {
 
    @Getter
    @Setter
    private Question question;
 
+   @Getter
+   protected int pointsReceived;
+
    /**
-    * Returns whether or not the question has been answered
+    * Returns whether or not the questions been answered
     */
    public abstract boolean isComplete();
 
-   @Getter
-   private int pointsReceived;
+
+   /**
+    *
+    * <pre>
+    *     pre: questionResponse != null && questionResponse.isComplete()
+    * </pre>
+    *
+    * <pre>
+    *     post: questionResponse.pointsReceived >= 0
+    * </pre>
+    *
+    * Using self as the model for a correct answer, grade the argument response and assign points
+    * to questionResponse.pointsReceived based on how correct its answer is.
+    * @param questionResponse response to grade
+    */
+   public abstract void assignPoints(T questionResponse);
 
 }

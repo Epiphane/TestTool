@@ -3,6 +3,7 @@ package com.teampc.controller;
 import com.teampc.dao.QuestionDAO;
 import com.teampc.model.question.MultipleChoiceQuestion;
 import com.teampc.model.question.Question;
+import com.teampc.model.testtaking.MultipleChoiceQuestionResponse;
 import com.teampc.model.testtaking.QuestionResponse;
 import com.teampc.utils.FXUtils;
 import javafx.collections.ObservableList;
@@ -57,21 +58,11 @@ public class QuestionTableController {
    private void newQuestion() {
 
       // Make fake question temporarily
-      Question question = new MultipleChoiceQuestion();
+      MultipleChoiceQuestion question = new MultipleChoiceQuestion();
 
       question.setPoints(1);
       question.setPrompt("What is a question?");
-      question.setCorrectAnswer(new QuestionResponse() {
-         @Override
-         public boolean isComplete() {
-            return true;
-         }
-
-         @Override
-         public String toString() {
-            return "Something";
-         }
-      });
+      question.setCorrectAnswer(new MultipleChoiceQuestionResponse(2));
 
       questionTable.getItems().add(question);
 

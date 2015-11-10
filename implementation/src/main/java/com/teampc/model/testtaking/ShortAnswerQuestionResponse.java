@@ -1,14 +1,25 @@
 package com.teampc.model.testtaking;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.AllArgsConstructor;
 
 /**
  * A response to a short answer question.
  * @author Zach Arend
  */
-@Getter
-@Setter
-public abstract class ShortAnswerQuestionResponse {
-    private String answer;
+@AllArgsConstructor
+public class ShortAnswerQuestionResponse extends QuestionResponse<ShortAnswerQuestionResponse> {
+   private String answer;
+
+   /** {@inheritDoc} */
+   @Override
+   public boolean isComplete() {
+      return true;
+   }
+
+   /** {@inheritDoc} */
+   @Override
+   public void assignPoints(ShortAnswerQuestionResponse questionResponse) {
+      // need manual grading
+   }
+
 }

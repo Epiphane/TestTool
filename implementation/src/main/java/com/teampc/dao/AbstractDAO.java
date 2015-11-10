@@ -20,9 +20,21 @@ import java.util.List;
  */
 public abstract class AbstractDAO<T> {
 
+   /**
+    * Returns the entity mapping class for this dao
+    * @return class this dao maps entities to
+    */
    protected abstract Class<T> getEntityClass();
 
    /**
+    * <pre>
+    *     pre: item != null
+    * </pre>
+    *
+    * <pre>
+    *     post: this.fetchAll()'.contains(item)
+    * </pre>
+    *
     * Inserts one item into the database
     * @param item item to insert
     */
@@ -31,6 +43,15 @@ public abstract class AbstractDAO<T> {
    }
 
    /**
+    * <pre>
+    *     pre: items != null
+    * </pre>
+    *
+    * <pre>
+    *     post: forall (T item_other; items.contains(item_other); this.fetchAll()'.contains(item_other))
+    * </pre>
+    *
+    *
     * Inserts items into database specified by entity annotations on class T
     * @param items items to insert
     */
