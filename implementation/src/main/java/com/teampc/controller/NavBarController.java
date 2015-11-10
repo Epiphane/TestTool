@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import lombok.Setter;
 
 import java.io.IOException;
 
@@ -13,6 +14,9 @@ import java.io.IOException;
  * Created by james on 10/26/15.
  */
 public class NavBarController {
+
+   @Setter
+   private Stage primaryStage;
 
    @FXML
    void onCreateTestClick(ActionEvent event) throws IOException {
