@@ -46,7 +46,7 @@ public class FXUtils {
     * @throws IOException yeah
     */
    public static Stage switchToScreen(Stage stage, String layoutFilename) throws IOException {
-      return switchToScreenAndConfigureController(stage, layoutFilename, x -> {});
+      return switchToScreenAndConfigureController(stage, layoutFilename, (x, y) -> {});
    }
 
    /**
@@ -59,14 +59,14 @@ public class FXUtils {
     * @return The new screen of the app after switching
     * @throws IOException again
     */
-   public static <T> Stage switchToScreenAndConfigureController(Stage stage, String layoutFilename, Consumer<T> controllerConfigurationFunction) throws IOException {
+   public static <T> Stage switchToScreenAndConfigureController(Stage stage, String layoutFilename, BiConsumer<T, Stage> controllerConfigurationFunction) throws IOException {
       log.debug("Switching to screen: " + layoutFilename);
 
       FXMLLoader loader = new FXMLLoader(FXUtils.class.getClassLoader().getResource(layoutFilename));
 
       stage.setScene(new Scene(loader.load()));
 
-      controllerConfigurationFunction.accept(loader.getController());
+      controllerConfigurationFunction.accept(loader.getController(), stage);
 
       stage.show();
       return stage;
