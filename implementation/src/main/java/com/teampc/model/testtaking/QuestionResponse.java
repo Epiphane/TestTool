@@ -1,8 +1,8 @@
 package com.teampc.model.testtaking;
 
-import com.teampc.model.admin.*;
-import com.teampc.model.question.*;
-import java.util.*;
+import com.teampc.model.question.Question;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * The response to a Test Question
@@ -11,13 +11,16 @@ import java.util.*;
  */
 public abstract class QuestionResponse {
 
-   public Question question;
+   @Getter
+   @Setter
+   private Question question;
 
    /**
     * Returns whether or not the question has been answered
     */
-   public abstract void isComplete();
+   public abstract boolean isComplete();
 
+   @Getter
    private int pointsReceived;
 
 }
