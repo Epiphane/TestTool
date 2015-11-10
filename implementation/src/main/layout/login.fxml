@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.teampc.controller.LoginController">
+  <children>
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="390.0" prefWidth="640.0" VBox.vgrow="ALWAYS">
+      <children>
+        <Label alignment="CENTER" layoutX="155.0" layoutY="177.0" style="&#10;" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
+          <font>
+            <Font size="18.0" />
+          </font>
+        </Label>
+            <Button fx:id="loginbutton" layoutX="291.0" layoutY="254.0" mnemonicParsing="false" onAction="#onLoginClick" prefHeight="27.0" prefWidth="74.0" text="Login" />
+            <TextField layoutX="155.0" layoutY="175.0" promptText="User Name" />
+            <TextField layoutX="155.0" layoutY="220.0" promptText="Password" />
+            <TextArea layoutX="123.0" layoutY="29.0" prefHeight="111.0" prefWidth="383.0" text="Welcome to the TestTool &#10;By Team PC">
+               <font>
+                  <Font name="Helvetica Bold" size="28.0" />
+               </font>
+            </TextArea>
+      </children>
+    </AnchorPane>
+      <TextField />
+  </children>
+</VBox>

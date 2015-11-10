@@ -3,9 +3,10 @@ package com.teampc.controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import lombok.Setter;
 
 import java.io.IOException;
 
@@ -14,14 +15,50 @@ import java.io.IOException;
  */
 public class NavBarController {
 
-   @FXML
-   void onCreateTestClick(ActionEvent event) throws IOException {
-     Stage stage = new Stage();
-     Pane createTest = FXMLLoader.load(getClass().getClassLoader().getResource("create-test-options.fxml"));
+   @Setter
+   private Stage primaryStage;
 
-     Scene scene = new Scene(createTest);
-     stage.setScene(scene);
-     stage.show();
+   @FXML
+   void onCreateTestClick(ActionEvent event) {
+      try {
+         showLayout("create-test-options.fxml");
+      } catch (IOException e) {
+         e.printStackTrace();
+      }
+
+   }
+
+   @FXML
+   void onTakeTestClick(ActionEvent event) {
+      try {
+         showLayout("take-test-base.fxml");
+      } catch (IOException e) {
+         e.printStackTrace();
+      }
+   }
+
+   @FXML
+   private void openQuestionBank() throws IOException {
+      QuestionTableController.showQuestionTable(primaryStage);
+   }
+
+   @FXML
+   void onViewTestsClick(ActionEvent event) {
+      try {
+         showLayout("view-test-list.fxml");
+      } catch (IOException e) {
+         e.printStackTrace();
+      }
+
+   }
+
+   private void showLayout(String resource) throws IOException {
+      Stage stage = new Stage();
+      Parent parent = FXMLLoader.load(getClass().getClassLoader().getResource(resource));
+
+      Scene scene = new Scene(parent);
+      stage.setScene(scene);
+      stage.show();
    }
 
 }

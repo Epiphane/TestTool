@@ -3,6 +3,7 @@ package com.teampc.model.admin.course;
 import lombok.Data;
 import lombok.Builder;
 
+import java.util.Collections;
 import java.util.List;
 
 import com.teampc.model.admin.*;
@@ -15,7 +16,7 @@ import com.teampc.model.test.Test;
  * Methods in this class will be used to modify any related fields.
  */
 @Data
-public abstract class Course {
+public class Course {
    /**
     * Teacher assigned to the course
     */
@@ -51,7 +52,9 @@ public abstract class Course {
    /**
     * Assigns a teacher to a course.
     */
-   public abstract void assignTeacher(Teacher teacher);
+   public void assignTeacher(Teacher teacher) {
+
+   }
 
    /**
     * Gets a list of students enrolled in this course
@@ -64,8 +67,12 @@ public abstract class Course {
       // The list is expected to be sorted by the student's name. Student
       // is expected to have compareTo properly implemented
       //
+      <post>
       forall(int i; i>=0 && i<return.size()-1;
          return.get(i).compareTo(return.get(i+1)) <= 0)
+      </post>
     */
-   public abstract List<Student> getEnrolledStudents();
+   public List<Student> getEnrolledStudents() {
+      return Collections.EMPTY_LIST;
+   }
 }

@@ -1,3 +1,7 @@
+plugins {
+   id 'com.github.johnrengelman.shadow' version '1.2.2'
+}
+
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
@@ -20,6 +24,8 @@ dependencies {
     compile 'org.hibernate:hibernate-core:5.0.2.Final'
     compile 'org.hibernate:hibernate-annotations:3.5.6-Final'
     compile fileTree(dir: 'libs', include: '*.jar')
+
+    runtime 'org.codehaus.groovy:groovy-all:2.4.5'
 }
 
 sourceSets {

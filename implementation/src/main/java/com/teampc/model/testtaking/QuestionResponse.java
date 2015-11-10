@@ -1,23 +1,43 @@
 package com.teampc.model.testtaking;
 
-import com.teampc.model.admin.*;
-import com.teampc.model.question.*;
-import java.util.*;
+import com.teampc.model.question.Question;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * The response to a Test Question
  * @author Thomas Steinke
  *
  */
-public abstract class QuestionResponse {
+public abstract class QuestionResponse<T extends QuestionResponse> {
 
-   public Question question;
+   @Getter
+   @Setter
+   private Question question;
+
+   @Getter
+   protected int pointsReceived;
 
    /**
-    * Returns whether or not the question has been answered
+    * Returns whether or not the questions been answered
     */
-   public abstract void isComplete();
+   public abstract boolean isComplete();
 
-   private int pointsReceived;
+
+   /**
+    *
+    * <pre>
+    *     pre: questionResponse != null && questionResponse.isComplete()
+    * </pre>
+    *
+    * <pre>
+    *     post: questionResponse.pointsReceived >= 0
+    * </pre>
+    *
+    * Using self as the model for a correct answer, grade the argument response and assign points
+    * to questionResponse.pointsReceived based on how correct its answer is.
+    * @param questionResponse response to grade
+    */
+   public abstract void assignPoints(T questionResponse);
 
 }

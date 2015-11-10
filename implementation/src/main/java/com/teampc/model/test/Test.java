@@ -1,9 +1,12 @@
 package com.teampc.model.test;
 
 import lombok.Data;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.persistence.*;
 import java.util.*;
+import java.text.*;
 
 /**
  * A general Test Class
@@ -14,6 +17,8 @@ import java.util.*;
 @Entity
 @Table(name = "TEST")
 public class Test {
+   private static final Logger LOG = LoggerFactory.getLogger(Test.class);
+
    @Id
    @GeneratedValue(strategy = GenerationType.AUTO)
    @Column(name = "id")
@@ -35,7 +40,7 @@ public class Test {
 //
 //   private ArrayList<Question> questions;
 //
-//   private boolean published;
+   private boolean published;
 
    public Test(String name, Date startDate, Date endDate, String courseName) {
       this.name = name;
@@ -44,7 +49,59 @@ public class Test {
       this.courseName = courseName;
    }
 
-   public Test() {}
+   public Test() {
+
+   }
+
+   /**
+    * Get the name of the test
+    */
+   public String getName() {
+      LOG.info("Getting name of exam: " + name);
+      return name;
+   }
+
+   /**
+    * Get the test start Date
+    */
+   public Date getStartDate() {
+      LOG.info("Getting startDate: " + startDate);
+      return startDate;
+   }
+
+   /**
+    * Get the test end Date
+    */
+   public Date getEndDate() {
+      LOG.info("Getting endDate: " + endDate);
+      return endDate;
+   }
+
+   /**
+    * Get the name of the course/subject
+    * @return
+    */
+   public String getCourseName() {
+      LOG.info("Getting courseName: " + courseName);
+      return courseName;
+   }
+
+   public String toString() {
+      DateFormat df = new SimpleDateFormat("EE MMM d, YYYY");
+      Date today = new Date();
+
+      String info = courseName + " " + name + " - ";
+
+      if (today.compareTo(startDate) < 0) {
+         return info + " opens on " + df.format(startDate);
+      }
+      else if (today.compareTo(endDate) < 0) {
+         return info + " closes on " + df.format(endDate);
+      }
+      else {
+         return info + " closed on " + df.format(endDate);
+      }
+   }
 
 //   /**
 //    * Reorders the question list by moving the question in position

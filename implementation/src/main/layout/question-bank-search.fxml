@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.teampc.controller.QuestionSearchController" >
+   <children>
+      <TabPane layoutX="14.0" layoutY="45.0" prefHeight="346.0" prefWidth="556.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Courses" fx:id="courseTab">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                <children>
+                  <ListView fx:id="courseListView" layoutX="14.0" layoutY="14.0" prefHeight="200.0" prefWidth="528.0" />
+                  <TextArea fx:id="filterCourseInput" layoutX="14.0" layoutY="226.0" prefHeight="34.0" prefWidth="373.0" />
+                  <Button fx:id="filterCourseButton" layoutX="403.0" layoutY="230.0" mnemonicParsing="false"
+                          prefHeight="27.0" prefWidth="119.0" text="Filter Courses" onAction="#onFilterCoursesClick"/>
+                  <Text layoutX="14.0" layoutY="288.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sort by:" wrappingWidth="80.21875" />
+                  <RadioButton layoutX="94.0" layoutY="274.0" mnemonicParsing="false" selected="true" text="Name">
+                    <toggleGroup>
+                      <ToggleGroup fx:id="CourseSort" />
+                    </toggleGroup></RadioButton>
+                  <RadioButton layoutX="178.0" layoutY="274.0" mnemonicParsing="false" text="Created" toggleGroup="$CourseSort" />
+                  <RadioButton layoutX="267.0" layoutY="274.0" mnemonicParsing="false" text="Last Modified" toggleGroup="$CourseSort" />
+                </children>
+              </AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="Tests" fx:id="testTab">
+               <content>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <ListView fx:id="testListView" layoutX="14.0" layoutY="14.0" prefHeight="200.0" prefWidth="528.0" />
+                        <TextArea fx:id="filterTestInput" layoutX="14.0" layoutY="226.0" prefHeight="34.0" prefWidth="373.0" />
+                        <Button layoutX="403.0" layoutY="230.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="119.0" text="Filter Tests" />
+                        <Text layoutX="14.0" layoutY="288.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sort by:" wrappingWidth="80.21875" />
+                        <RadioButton layoutX="94.0" layoutY="274.0" mnemonicParsing="false" selected="true" text="Name">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="TestSort" />
+                           </toggleGroup></RadioButton>
+                        <RadioButton layoutX="178.0" layoutY="274.0" mnemonicParsing="false" text="Created" toggleGroup="$TestSort" />
+                        <RadioButton layoutX="267.0" layoutY="274.0" mnemonicParsing="false" text="Last Modified" toggleGroup="$TestSort" />
+                     </children>
+                  </AnchorPane>
+               </content></Tab>
+          <Tab text="Questions" fx:id="questionTab">
+               <content>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                       <ListView fx:id="questionListView" layoutX="14.0" layoutY="14.0" prefHeight="200.0" prefWidth="528.0" />
+                       <TextArea fx:id="filterQuestionInput" layoutX="14.0" layoutY="226.0" prefHeight="34.0" prefWidth="373.0" />
+                       <Button layoutX="403.0" layoutY="230.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="119.0" text="Filter Questions" />
+                       <Text layoutX="14.0" layoutY="288.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sort by:" wrappingWidth="80.21875" />
+                       <RadioButton layoutX="94.0" layoutY="274.0" mnemonicParsing="false" selected="true" text="Name">
+                         <toggleGroup>
+                           <ToggleGroup fx:id="QuestionSort" />
+                         </toggleGroup></RadioButton>
+                       <RadioButton layoutX="178.0" layoutY="274.0" mnemonicParsing="false" text="Created" toggleGroup="$QuestionSort" />
+                       <RadioButton layoutX="267.0" layoutY="274.0" mnemonicParsing="false" text="Last Modified" toggleGroup="$QuestionSort" />
+                     </children>
+                  </AnchorPane>
+               </content></Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>
