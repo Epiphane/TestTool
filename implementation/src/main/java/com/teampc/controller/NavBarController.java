@@ -16,12 +16,23 @@ public class NavBarController {
 
    @FXML
    void onCreateTestClick(ActionEvent event) throws IOException {
-     Stage stage = new Stage();
-     Pane createTest = FXMLLoader.load(getClass().getClassLoader().getResource("create-test-options.fxml"));
+      Stage stage = new Stage();
+      Pane createTest = FXMLLoader.load(getClass().getClassLoader().getResource("create-test-options.fxml"));
 
-     Scene scene = new Scene(createTest);
-     stage.setScene(scene);
-     stage.show();
+      Scene scene = new Scene(createTest);
+      stage.setScene(scene);
+      stage.show();
+   }
+
+   @FXML
+   void onTakeTestClick(ActionEvent event) throws IOException {
+      Stage stage = new Stage();
+      Pane takeTest = FXMLLoader.load(getClass().getClassLoader().getResource("take-test-base.fxml"));
+
+      Scene scene = new Scene(takeTest);
+      stage.setTitle("Take a Test");
+      stage.setScene(scene);
+      stage.show();
    }
 
 }

@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.util.*;
+import java.text.*;
 
 /**
  * A general Test Class
@@ -45,6 +46,23 @@ public class Test {
    }
 
    public Test() {}
+
+   public String toString() {
+      DateFormat df = new SimpleDateFormat("EE MMM d, YYYY");
+      Date today = new Date();
+
+      String info = courseName + " " + name + " - ";
+
+      if (today.compareTo(startDate) < 0) {
+         return info + " opens on " + df.format(startDate);
+      }
+      else if (today.compareTo(endDate) < 0) {
+         return info + " closes on " + df.format(endDate);
+      }
+      else {
+         return info + " closed on " + df.format(endDate);
+      }
+   }
 
 //   /**
 //    * Reorders the question list by moving the question in position
