@@ -20,21 +20,11 @@ import java.util.List;
  */
 public abstract class AbstractDAO<T> {
 
-   /**
-    * Returns the entity mapping class for this dao
-    * @return class this dao maps entities to
-    */
+   private static final boolean DEBUG = true;
+
    protected abstract Class<T> getEntityClass();
 
    /**
-    * <pre>
-    *     pre: item != null
-    * </pre>
-    *
-    * <pre>
-    *     post: this.fetchAll()'.contains(item)
-    * </pre>
-    *
     * Inserts one item into the database
     * @param item item to insert
     */
@@ -43,19 +33,13 @@ public abstract class AbstractDAO<T> {
    }
 
    /**
-    * <pre>
-    *     pre: items != null
-    * </pre>
-    *
-    * <pre>
-    *     post: forall (T item_other; items.contains(item_other); this.fetchAll()'.contains(item_other))
-    * </pre>
-    *
-    *
     * Inserts items into database specified by entity annotations on class T
     * @param items items to insert
     */
    public void insert(Collection<T> items) {
+      if (DEBUG) {
+         return;
+      }
       Session session = HibernateUtils.getSessionFactory().openSession();
       Transaction transaction = session.beginTransaction();
 
@@ -77,6 +61,9 @@ public abstract class AbstractDAO<T> {
     * @return List of items in this object's table
     */
    public List<T> fetchAll() {
+      if (DEBUG) {
+         return Collections.emptyList();
+      }
       Session session = HibernateUtils.getSessionFactory().openSession();
       try {
          Criteria criteria = session.createCriteria(getEntityClass());
