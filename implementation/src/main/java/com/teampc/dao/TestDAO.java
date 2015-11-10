@@ -7,7 +7,7 @@ import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TestDAO {
+public class TestDAO extends AbstractDAO<Test> {
 
    private static final Logger LOG = LoggerFactory.getLogger(TestDAO.class);
    private static final TestDAO INSTANCE = new TestDAO();
@@ -18,9 +18,15 @@ public class TestDAO {
 
    private TestDAO() {}
 
+   @Override
+   protected Class<Test> getEntityClass() {
+      return Test.class;
+   }
+
    /**
     * Inserts a new test into the database
     */
+   @Override
    public void insert(Test newTest) {
 //      Session session = HibernateUtils.getSessionFactory().openSession();
 //      Transaction transaction = session.beginTransaction();

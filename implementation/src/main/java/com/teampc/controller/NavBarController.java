@@ -5,7 +5,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import lombok.Setter;
 
@@ -27,6 +26,11 @@ public class NavBarController {
          e.printStackTrace();
       }
 
+   }
+
+   @FXML
+   private void openQuestionBank() throws IOException {
+      QuestionTableController.showQuestionTable(primaryStage);
    }
 
    @FXML
