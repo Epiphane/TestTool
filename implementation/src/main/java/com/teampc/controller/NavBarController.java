@@ -60,4 +60,5 @@ public class NavBarController {
       stage.setScene(scene);
       stage.show();
    }
+
 }
