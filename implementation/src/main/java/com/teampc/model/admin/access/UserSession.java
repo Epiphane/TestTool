@@ -35,9 +35,9 @@ public class UserSession {
    /**
     * Get the currently logged in user
     *
-    * pre:
+    * pre: loggedIn && loggedInUser != null
     *
-    * post:
+    * post: loggedIn && loggedInUser != null
     */
    public User getLoggedInUser(){
 
