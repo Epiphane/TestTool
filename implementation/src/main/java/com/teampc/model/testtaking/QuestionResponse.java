@@ -18,8 +18,9 @@ public abstract class QuestionResponse {
    /**
     * Returns whether or not the question has been answered
     */
-   public abstract void isComplete();
+   public abstract boolean isComplete();
 
+   @Getter
    private int pointsReceived;
 
 }

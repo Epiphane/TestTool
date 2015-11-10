@@ -63,7 +63,8 @@ public class QuestionTableController {
       question.setPrompt("What is a question?");
       question.setCorrectAnswer(new QuestionResponse() {
          @Override
-         public void isComplete() {
+         public boolean isComplete() {
+            return true;
          }
 
          @Override
@@ -74,7 +75,7 @@ public class QuestionTableController {
 
       questionTable.getItems().add(question);
 
-      log.info("New Question");
+      log.debug("New Question");
    }
 
    /**
@@ -82,7 +83,7 @@ public class QuestionTableController {
     */
    @FXML
    private void searchQuestions() {
-      log.info("Searching questions");
+      log.debug("Searching questions");
    }
 
    /**
@@ -92,8 +93,9 @@ public class QuestionTableController {
    private void makeTest() {
       ObservableList<Question> selectedItems = questionTable.getSelectionModel().getSelectedItems();
       if (selectedItems.isEmpty()) {
+         log.debug("Trying to make a test with no questions... aborting");
          return;
       }
-      log.info("Making test with selected questions: " + Arrays.toString(selectedItems.toArray(new Question[selectedItems.size()])));
+      log.debug("Making test with selected questions: " + Arrays.toString(selectedItems.toArray(new Question[selectedItems.size()])));
    }
 }
