@@ -36,11 +36,11 @@
                         <!--<PropertyValueFactory property="" />-->
                      <!--</cellValueFactory>-->
                   <!--</TableColumn>-->
-                  <!--<TableColumn text="Type">-->
-                     <!--<cellValueFactory>-->
-                        <!--<PropertyValueFactory property="" />-->
-                     <!--</cellValueFactory>-->
-                  <!--</TableColumn>-->
+                  <TableColumn text="Type">
+                     <cellValueFactory>
+                        <PropertyValueFactory property="typeName" />
+                     </cellValueFactory>
+                  </TableColumn>
                   <TableColumn text="Question">
                      <cellValueFactory>
                         <PropertyValueFactory property="prompt" />

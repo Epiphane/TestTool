@@ -33,6 +33,7 @@ public class NavBarController {
       QuestionTableController.showQuestionTable(primaryStage);
    }
 
+   @FXML
    void onViewTestsClick(ActionEvent event) {
       try {
          showLayout("view-test-list.fxml");

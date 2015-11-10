@@ -1,6 +1,7 @@
 package com.teampc.controller;
 
 import com.teampc.dao.QuestionDAO;
+import com.teampc.model.question.MultipleChoiceQuestion;
 import com.teampc.model.question.Question;
 import com.teampc.model.testtaking.QuestionResponse;
 import com.teampc.utils.FXUtils;
@@ -11,14 +12,17 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 /**
  * Created by adufrene on 11/9/15.
  *
  */
 @SuppressWarnings("unused")
+@Slf4j
 public class QuestionTableController {
    @Setter
    private Stage primaryStage = null;
@@ -28,8 +32,8 @@ public class QuestionTableController {
    private QuestionDAO questionDAO;
 
    /**
-    * 
-    * @param stage
+    * Opens the question table screen
+    * @param stage the current screen to be replaced
     * @throws IOException
     */
    public static void showQuestionTable(Stage stage) throws IOException {
@@ -46,23 +50,20 @@ public class QuestionTableController {
       questionTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
    }
 
+   /**
+    * Opens new question screen
+    */
    @FXML
    private void newQuestion() {
 
       // Make fake question temporarily
-      Question question = new Question() {
-         @Override
-         public void grade(QuestionResponse response) {
-
-         }
-      };
+      Question question = new MultipleChoiceQuestion();
 
       question.setPoints(1);
       question.setPrompt("What is a question?");
       question.setCorrectAnswer(new QuestionResponse() {
          @Override
          public void isComplete() {
-
          }
 
          @Override
@@ -72,17 +73,27 @@ public class QuestionTableController {
       });
 
       questionTable.getItems().add(question);
+
+      log.info("New Question");
    }
 
+   /**
+    * Opens to search question screen
+    */
    @FXML
    private void searchQuestions() {
+      log.info("Searching questions");
    }
 
+   /**
+    * Opens new test screen, sending currently selected questions along
+    */
    @FXML
    private void makeTest() {
       ObservableList<Question> selectedItems = questionTable.getSelectionModel().getSelectedItems();
       if (selectedItems.isEmpty()) {
          return;
       }
+      log.info("Making test with selected questions: " + Arrays.toString(selectedItems.toArray(new Question[selectedItems.size()])));
    }
 }

@@ -3,6 +3,7 @@ package com.teampc.utils;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 import java.util.function.BiConsumer;
@@ -10,7 +11,9 @@ import java.util.function.Consumer;
 
 /**
  * Created by adufrene on 11/9/15.
+ *
  */
+@Slf4j
 public class FXUtils {
 
    /**
@@ -22,6 +25,8 @@ public class FXUtils {
     * @throws IOException yep.
     */
    public static <T> Stage newScreenAndConfigureController(String layoutFilename, BiConsumer<T, Stage> controllerConfigurationFunction) throws IOException {
+      log.debug("Creating new screen: " + layoutFilename);
+
       FXMLLoader loader = new FXMLLoader(FXUtils.class.getClassLoader().getResource(layoutFilename));
       Stage stage = new Stage();
 
@@ -55,6 +60,8 @@ public class FXUtils {
     * @throws IOException again
     */
    public static <T> Stage switchToScreenAndConfigureController(Stage stage, String layoutFilename, Consumer<T> controllerConfigurationFunction) throws IOException {
+      log.debug("Switching to screen: " + layoutFilename);
+
       FXMLLoader loader = new FXMLLoader(FXUtils.class.getClassLoader().getResource(layoutFilename));
 
       stage.setScene(new Scene(loader.load()));

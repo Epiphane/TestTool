@@ -51,6 +51,10 @@ public abstract class AbstractDAO<T> {
       }
    }
 
+   /**
+    * Fetches all items in the database for this object's table
+    * @return List of items in this object's table
+    */
    public List<T> fetchAll() {
       Session session = HibernateUtils.getSessionFactory().openSession();
       try {
