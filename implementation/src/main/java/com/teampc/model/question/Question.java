@@ -5,6 +5,8 @@ import lombok.Setter;
 
 import com.teampc.model.testtaking.QuestionResponse;
 
+import javax.persistence.Entity;
+
 /**
  * A class that represents a test question.
  * Different question types extend this type.

@@ -28,4 +28,9 @@ public class NavBarController {
      stage.show();
    }
 
+   @FXML
+   private void openQuestionBank() throws IOException {
+      QuestionTableController.showQuestionTable(primaryStage);
+   }
+
 }
