@@ -46,6 +46,10 @@
       content: '1.5.' counter(subitem, decimal) '. ';
    }
 
+   ol.list-2-2 li:before {
+      content: '2.2.' counter(subitem, decimal) '. ';
+   }
+
    ol.list-2-3 li:before {
       content: '2.3.' counter(subitem, decimal) '. ';
    }
@@ -79,61 +83,64 @@
    </p>
 
 
-            <ol class="list-2">
+           <ol class="list-2">
                <a href="ui-overview.html">
-                  <li>Landing Screens</li>
+                  <li>UI Overview</li>
+                     <ol class="list-2-1">
+                        <a href="ui-overview.html">
+                           <li>Login and Landing Screens</li>
+                        </a>
+                     </ol>
                </a>
+
+<!-- lists aint working -->
                <a href="testoverview.html">
                   <li>Tests Overview</li>
-               </a>
-               <a href="new-test.html">
-                  <li>New Test Creation</li>
 
-                  <ol class="list-2-3">
-                     <a href="new-test-options.html">
-                        <li>Test Creation Options</li>
+                  <ol class="list-2-2">
+                     <a href="testoverview.html">
+                        <li>Test Admin</li>
+                     </a>
+                     <a href="test-creation-scenario.html">
+                        <li>New Test Creation</li>
                      </a>
                      <a href="view-test.html">
-                        <li>View Completed Test</li>
+                        <li>View Created Test</li>
+                     </a>
+                     <a href="edit-tests.html">
+                        <li>Edit Tests</li>
+                     </a>
+                  </ol>
+               </a>
+
+               <a href="question-bank.html">
+                  <li>Question Bank</li>
+
+                  <ol class="list-2-3">
+                     <a href="question-bank-overview.html">
+                        <li>Question Bank Overview</li>
                      </a>
                      <a href="create-questions.html">
                         <li>Question Creation</li>
                      </a>
-                  </ol>
-               </a>
-               <a href="edit-tests.html">
-                  <li>Edit Tests</li>
-               </a>
-               <a href="question-bank-overview.html">
-                  <li>Question Bank</li>
-
-                  <ol class="list-2-5">
-                     <a href="question-bank.html">
-                        <li>List of Questions</li>
-                     </a>
                      <a href="question-editing.html">
-                        <li>Question editing</li>
+                        <li>Question Editing</li>
                      </a>
-                     <a href="question-bank-example.html">
-                         <li>Question Bank Example</li>
+                     <a href="question-bank-searching.html">
+                        <li>Searching For Questions</li>
                      </a>
-                  </ol>
-               </a>
-               <a href="">
-                  <li>Grade Tests</li>
-
-                  <ol class="list-2-6">
-                     <a href="student-test-list-view.html">
-                        <li>Student Test List View</li>
-                     </a>
-                     <a href="grade-individual-test.html">
-                        <li>Grade Individual Test</li>
+                     <a href="question-bank-create-test.html">
+                        <li>Create a Test Using Question Bank Items</li>
                      </a>
                   </ol>
                </a>
-               <a href="take-tests.html">
+                <a href="take-tests.html">
                   <li>Student's test view</li>
                </a>
+               <a href="grade-test.html">
+                  <li>Grade Tests</li>
+               </a>
+               
             </ol>
 
 

@@ -19,13 +19,13 @@ import com.teampc.question.Question;
 public abstract class GradedTest {
 
     /** Underlying test object that has been graded */
-    private final Test test;
+    private Test test;
 
     /** Questions within the test object that were graded as incorrect */
-    private final ImmutableList<Question> incorrectQuestions;
+    private ImmutableList<Question> incorrectQuestions;
 
     /** Questions within the test object that were graded as correct */
-    private final ImmutableList<Question> correctQuestions;
+    private ImmutableList<Question> correctQuestions;
 
     /** 
      * Attempt to retake the graded test. Returns an
