@@ -1,5 +1,6 @@
 package com.teampc.model.question;
 
+import com.teampc.model.testtaking.MultipleChoiceQuestionResponse;
 import com.teampc.model.testtaking.QuestionResponse;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,14 +14,11 @@ import java.util.ArrayList;
  */
 @Getter
 @Setter
-public class MultipleChoiceQuestion extends Question {
+public class MultipleChoiceQuestion extends Question<MultipleChoiceQuestionResponse> {
    //the list of possible answers for this question.
    private ArrayList<String> answers;
 
-   @Override
-   public void grade(QuestionResponse response) {
-   }
-
+   /** {@inheritDoc} */
    @Override
    public QuestionTypeName getTypeName() {
       return QuestionTypeName.MULTIPLE_CHOICE;

@@ -1,15 +1,26 @@
 package com.teampc.model.testtaking;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.AllArgsConstructor;
 
 /**
  * A response to a multiple choice question question.
  * @author Zach Arend
  */
-@Getter
-@Setter
-public abstract class MultipleChoiceQuestionResponse extends QuestionResponse {
+@AllArgsConstructor
+public class MultipleChoiceQuestionResponse extends QuestionResponse<MultipleChoiceQuestionResponse> {
     // an int representing which answer was chosen. 1 for A, 2 for B, etc
     private int answer;
+
+   /** {@inheritDoc} */
+   @Override
+   public boolean isComplete() {
+      return true;
+   }
+
+   /** {@inheritDoc} */
+   @Override
+   public void assignPoints(MultipleChoiceQuestionResponse questionResponse) {
+      questionResponse.pointsReceived = answer == questionResponse.answer ? 1 : 0;
+   }
+
 }
