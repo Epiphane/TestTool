@@ -7,10 +7,10 @@
 
 <ToolBar prefHeight="40.0" prefWidth="585.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="com.teampc.controller.NavBarController">
   <items>
-     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TestTool" />
-     <Button mnemonicParsing="false" text="Take Test" />
-     <Button mnemonicParsing="false" onAction="#onCreateTestClick" text="Create Test" />
-     <Button mnemonicParsing="false" text="View Tests" />
-     <Button mnemonicParsing="false" text="Question Bank" />
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TestTool" />
+      <Button mnemonicParsing="false" text="Take Test" />
+      <Button mnemonicParsing="false" onAction="#onCreateTestClick" text="Create Test" />
+      <Button mnemonicParsing="false" onAction="#onViewTestsClick" text="View Tests" />
+      <Button mnemonicParsing="false" text="Question Bank" />
   </items>
 </ToolBar>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane fx:id="testRow" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="467.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Text fx:id="testName" layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Test Name Placeholder" />
+      <Text layoutX="14.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Status: " />
+      <Text fx:id="testStatus" layoutX="62.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Completed" />
+      <Text layoutX="250.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Public: " />
+      <Button fx:id="editButton" layoutX="191.0" layoutY="9.0" mnemonicParsing="false" onAction="#onEditActionHandler" text="Edit" />
+      <Button fx:id="publishButton" layoutX="241.0" layoutY="9.0" mnemonicParsing="false" onAction="#onPublishActionHandler" text="Publish" />
+      <Button fx:id="gradeButton" layoutX="314.0" layoutY="9.0" mnemonicParsing="false" onAction="#onGradeActionHandler" text="Grade" />
+      <Button fx:id="viewButton" layoutX="377.0" layoutY="9.0" mnemonicParsing="false" onAction="#onViewActionHandler" text="View" />
+      <ToggleButton fx:id="publicStatus" layoutX="295.0" layoutY="39.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="81.0" onAction="#onPublicStatusClickHandler" text="Yes" />
+   </children>
+</Pane>
