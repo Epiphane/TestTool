@@ -9,8 +9,11 @@ import com.teampc.utils.FXUtils;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableView;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -75,8 +78,17 @@ public class QuestionTableController {
    @FXML
    private void searchQuestions() {
       log.debug("Searching questions");
-   }
+      try {
+         Stage stage = new Stage();
+         Parent parent = FXMLLoader.load(getClass().getClassLoader().getResource("question-bank-search.fxml"));
 
+         Scene scene = new Scene(parent);
+         stage.setScene(scene);
+         stage.show();
+      } catch (IOException e) {
+         e.printStackTrace();
+      }
+   }
    /**
     * Opens new test screen, sending currently selected questions along
     */
