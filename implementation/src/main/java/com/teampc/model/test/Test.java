@@ -39,7 +39,7 @@ public class Test {
 //
 //   private ArrayList<Question> questions;
 //
-//   private boolean published;
+   private boolean published;
 
    public Test(String name, Date startDate, Date endDate, String courseName) {
       this.name = name;

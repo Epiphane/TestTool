@@ -1,5 +1,6 @@
 package com.teampc.controller;
 
+import com.teampc.model.test.Test;
 import com.teampc.view.SimpleCellFactory;
 import com.teampc.view.TestRow;
 import javafx.collections.FXCollections;
@@ -9,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
 
 import java.net.URL;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 public class ViewTestController implements Initializable {
@@ -16,8 +18,8 @@ public class ViewTestController implements Initializable {
   private ListView<TestRow> viewTestList;
 
   ObservableList<TestRow> data = FXCollections.observableArrayList(
-        new TestRow("307 Midterm 1", true, true),
-        new TestRow("307 Midterm 2", true, true)
+        new TestRow(new Test("307 Midterm 1", new Date(11), new Date(11), "307")),
+        new TestRow(new Test("307 Midterm 2", new Date(11), new Date(11), "307"))
   );
 
   @Override
