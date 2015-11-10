@@ -28,4 +28,27 @@ public abstract class Question {
     */
    public abstract void grade(QuestionResponse response);
 
+   /**
+    * Get the specific type of the question, used to display strings for question types
+    * @return type of this question
+    */
+   public abstract QuestionTypeName getTypeName();
+
+   public enum QuestionTypeName {
+      CODE("Code"),
+      MATCHING("Matching"),
+      MULTIPLE_CHOICE("Multiple Choice"),
+      FREE_RESPONSE("Free Response");
+
+      private String displayText;
+
+      QuestionTypeName(String displayText) {
+         this.displayText = displayText;
+      }
+
+      @Override
+      public String toString() {
+         return displayText;
+      }
+   }
 }

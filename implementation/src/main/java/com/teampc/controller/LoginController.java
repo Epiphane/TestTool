@@ -2,6 +2,7 @@ package com.teampc.controller;
 
 import com.teampc.model.admin.User;
 import com.teampc.model.admin.access.UserSession;
+import com.teampc.utils.FXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,13 +11,18 @@ import javafx.scene.control.ToolBar;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 
 /**
  * Created by Greg on 11/9/15.
  */
+@Slf4j
 public class LoginController {
+   @Setter
+   private Stage primaryStage;
 
     @FXML private javafx.scene.control.Button loginbutton;
 
@@ -25,15 +31,9 @@ public class LoginController {
         UserSession session = new UserSession(new User());
         session.login(new User());
         User user = session.getLoggedInUser();
-        System.out.println(user.getDisplayName());
 
-        Stage stage = (Stage) loginbutton.getScene().getWindow();
+        log.debug(user.getDisplayName());
 
-
-        ToolBar navbar = FXMLLoader.load(getClass().getClassLoader().getResource("navbar.fxml"));
-
-        Scene scene = new Scene(navbar);
-        stage.setScene(scene);
-        stage.show();
+        FXUtils.switchToScreenAndConfigureController(primaryStage, "navbar.fxml", NavBarController::setPrimaryStage);
     }
 }
