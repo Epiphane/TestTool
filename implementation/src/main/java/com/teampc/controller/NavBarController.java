@@ -29,6 +29,15 @@ public class NavBarController {
    }
 
    @FXML
+   void onTakeTestClick(ActionEvent event) {
+      try {
+         showLayout("take-test-base.fxml");
+      } catch (IOException e) {
+         e.printStackTrace();
+      }
+   }
+
+   @FXML
    private void openQuestionBank() throws IOException {
       QuestionTableController.showQuestionTable(primaryStage);
    }

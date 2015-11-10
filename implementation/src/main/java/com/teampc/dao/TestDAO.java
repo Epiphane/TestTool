@@ -24,6 +24,13 @@ public class TestDAO extends AbstractDAO<Test> {
    }
 
    /**
+    * Gets all tests assigned to a given student from the database
+    */
+   public void read() {
+      
+   }
+
+   /**
     * Inserts a new test into the database
     */
    @Override
