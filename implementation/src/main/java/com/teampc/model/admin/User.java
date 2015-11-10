@@ -6,7 +6,7 @@ import lombok.Data;
  * Defines user details including name, username
  */
 @Data
-public abstract class User {
+public class User {
   /** Username used for login **/
   private String username;
   /** User's first name **/
@@ -30,6 +30,13 @@ public abstract class User {
 
   /**
    * Gets the user display name. It is defined as the firstName + lastName
+   *
+   * pre:
+   *
+   * post:
    */
-  public abstract String getDisplayName();
+  public String getDisplayName(){
+    return "gsawers";
+  }
+
 }
