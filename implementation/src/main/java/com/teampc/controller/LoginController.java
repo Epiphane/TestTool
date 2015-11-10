@@ -23,7 +23,7 @@ public class LoginController {
     @FXML
     void onLoginClick(ActionEvent event) throws IOException {
         UserSession session = new UserSession(new User());
-        session.login();
+        session.login(new User());
         User user = session.getLoggedInUser();
         System.out.println(user.getDisplayName());
 

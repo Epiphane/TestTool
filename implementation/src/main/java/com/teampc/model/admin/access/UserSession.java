@@ -12,6 +12,8 @@ public class UserSession {
    /** Current logged in user **/
    public User loggedInUser;
 
+   public boolean loggedIn = false;
+
    /**
     * A session is defined by the user that is logged in
     */
@@ -20,11 +22,13 @@ public class UserSession {
    }
 
    /**
-    * pre:
+    * pre: exists(User)
     *
-    * post:
+    * post: loggedIn == true
     */
-   public void login(){
+   public void login(User user){
+      loggedInUser = user;
+      loggedIn = true;
       System.out.println("User gsawers logged in to TestTool.");
    }
 

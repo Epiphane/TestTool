@@ -31,7 +31,7 @@ public class User {
   /**
    * Gets the user display name. It is defined as the firstName + lastName
    *
-   * pre:
+   * pre: exists(username)
    *
    * post:
    */
