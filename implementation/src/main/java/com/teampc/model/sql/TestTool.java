@@ -1,4 +1,4 @@
-package com.teampc.model.monopoly;
+package com.teampc.model.sql;
 
 import java.sql.*;
 
@@ -14,10 +14,10 @@ public class TestTool {
             stmt = c.createStatement();
             String sql = "CREATE TABLE COMPANY " +
                 "(ID INT PRIMARY KEY     NOT NULL," +
-                " NAME           TEXT    NOT NULL, " + 
-                " AGE            INT     NOT NULL, " + 
-                " ADDRESS        CHAR(50), " + 
-                " SALARY         REAL)"; 
+                " NAME           TEXT    NOT NULL, " +
+                " AGE            INT     NOT NULL, " +
+                " ADDRESS        CHAR(50), " +
+                " SALARY         REAL)";
             stmt.executeUpdate(sql);
             stmt.close();
             c.close();

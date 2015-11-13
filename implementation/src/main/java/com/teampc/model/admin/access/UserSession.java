@@ -22,9 +22,9 @@ public class UserSession {
    }
 
    /**
-    * pre: exists(User)
+     pre: exists(User)
     *
-    * post: loggedIn == true
+     post: loggedIn == true
     */
    public void login(User user){
       loggedInUser = user;
@@ -35,9 +35,9 @@ public class UserSession {
    /**
     * Get the currently logged in user
     *
-    * pre: loggedIn && loggedInUser != null
+     pre: loggedIn && loggedInUser != null
     *
-    * post: loggedIn && loggedInUser != null
+     post: loggedIn && loggedInUser != null
     */
    public User getLoggedInUser(){
 
