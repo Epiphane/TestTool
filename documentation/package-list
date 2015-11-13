@@ -1,0 +1,14 @@
+com.teampc
+com.teampc.controller
+com.teampc.dao
+com.teampc.example
+com.teampc.model.admin
+com.teampc.model.admin.access
+com.teampc.model.admin.course
+com.teampc.model.automation
+com.teampc.model.monopoly
+com.teampc.model.question
+com.teampc.model.test
+com.teampc.model.testtaking
+com.teampc.utils
+com.teampc.view
