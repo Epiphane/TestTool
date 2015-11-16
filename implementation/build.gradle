@@ -40,7 +40,7 @@ mainClassName = 'com.teampc.TestToolMain'
 
 // stolen from: http://stackoverflow.com/questions/24997441/delombok-using-gradle
 task delombok {
-    ext.outputDir = "${buildDir}/src-delomboked"
+    def outputDir = "${buildDir}/src-delomboked"
 
     inputs.files sourceSets.main.java
     outputs.dir file(outputDir)
@@ -55,7 +55,7 @@ task delombok {
 
 task compileDelombok(type: JavaCompile, dependsOn: delombok) {
     def outputDir = "${buildDir}/classes-delomboked/main"
-    def sourceFiles = fileTree(dir: delombok.outputDir, include: '**/*.java')
+    def sourceFiles = delombok.outputs.files //fileTree(dir: delombok.outputDir, include: '**/*.java')
 
     inputs.files sourceFiles
     outputs.dir file(outputDir)
@@ -70,10 +70,27 @@ task compileDelombok(type: JavaCompile, dependsOn: delombok) {
 
 javadoc {
     dependsOn compileDelombok
-    source = delombok.outputDir
-    options {
-        quiet()
-    }
+    source = delombok.outputs.files
+    failOnError = false
+    excludes = ['**/*.html']
 }
 
+if (JavaVersion.current().isJava8Compatible()) {
+  allprojects {
+    tasks.withType(Javadoc) {
+      options.addStringOption('Xdoclint:none', '-quiet')
+    }
+  }
+}
 
+task copyJar(dependsOn: shadowJar, type: Copy) {
+    from shadowJar.outputs.files.asPath
+    into "$projectDir/executables/"
+}
+
+task copyJavadoc(dependsOn: javadoc, type: Copy) {
+    from javadoc.outputs.files.asPath
+    into "$projectDir/../documentation"
+}
+
+task release(dependsOn: ['copyJar', 'copyJavadoc'])

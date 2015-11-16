@@ -79,7 +79,6 @@ public class Test {
 
    /**
     * Get the name of the course/subject
-    * @return
     */
    public String getCourseName() {
       LOG.info("Getting courseName: " + courseName);
