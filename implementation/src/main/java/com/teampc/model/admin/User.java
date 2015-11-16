@@ -31,9 +31,8 @@ public class User {
   /**
    * Gets the user display name. It is defined as the firstName + lastName
    *
-   * pre: exists(username)
+    pre: username != null
    *
-   * post:
    */
   public String getDisplayName(){
     return "gsawers";

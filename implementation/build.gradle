@@ -23,8 +23,9 @@ dependencies {
     compile 'ch.qos.logback:logback-classic:1.1.3'
     compile 'org.hibernate:hibernate-core:5.0.2.Final'
     compile 'org.hibernate:hibernate-annotations:3.5.6-Final'
-    compile fileTree(dir: 'libs', include: '*.jar')
+    compile fileTree(dir: "$projectDir/libs/compile", include: '*.jar')
 
+    testCompile fileTree(dir: "$projectDir/libs/testCompile", include: '*.jar')
     runtime 'org.codehaus.groovy:groovy-all:2.4.5'
 }
 
@@ -55,7 +56,7 @@ task delombok {
 
 task compileDelombok(type: JavaCompile, dependsOn: delombok) {
     def outputDir = "${buildDir}/classes-delomboked/main"
-    def sourceFiles = delombok.outputs.files //fileTree(dir: delombok.outputDir, include: '**/*.java')
+    def sourceFiles = delombok.outputs.files
 
     inputs.files sourceFiles
     outputs.dir file(outputDir)
@@ -83,6 +84,13 @@ if (JavaVersion.current().isJava8Compatible()) {
   }
 }
 
+test {
+   testLogging {
+      exceptionFormat = 'full'
+      events 'started', 'passed', 'skipped', 'failed', 'standardOut', 'standardError'
+   }
+}
+
 task copyJar(dependsOn: shadowJar, type: Copy) {
     from shadowJar.outputs.files.asPath
     into "$projectDir/executables/"
@@ -94,3 +102,8 @@ task copyJavadoc(dependsOn: javadoc, type: Copy) {
 }
 
 task release(dependsOn: ['copyJar', 'copyJavadoc'])
+
+task spest(type: JavaExec) {
+   classpath = files("$projectDir/libs/testCompile/spest.jar")
+   main = 'controller.Launcher'
+}

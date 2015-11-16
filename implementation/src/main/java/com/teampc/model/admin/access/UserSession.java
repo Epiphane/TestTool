@@ -22,9 +22,9 @@ public class UserSession {
    }
 
    /**
-     pre: exists(User)
+     pre: user != null
     *
-     post: loggedIn == true
+     post: loggedIn == true && loggedInUser.equals(user)
     */
    public void login(User user){
       loggedInUser = user;
