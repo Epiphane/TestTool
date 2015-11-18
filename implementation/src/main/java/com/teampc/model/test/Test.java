@@ -125,19 +125,21 @@ public class Test {
     * Reorders the question list by moving the question in position
     * `from` to position `to`.
     */
-   public abstract void moveQuestion(int from, int to);
+   public void moveQuestion(int from, int to) {
+
+   }
 
    /**
     * Return the list of questions.
     */
-   public abstract List<Question> getQuestions() {
+   public List<Question> getQuestions() {
       return questions;
    }
 
    /**
     * Get the owner of this test
     */
-   public abstract Teacher getOwner() {
+   public Teacher getOwner() {
       return owner;
    }
 
@@ -153,22 +155,32 @@ public class Test {
     *
     * Publish this test
     */
-   public abstract void publish();
+   public void publish() {
+      assert !published;
+
+      published = true;
+   }
 
    /**
    * Returns whether or not the test has been published
    */
-   public abstract boolean isPublished();
+   public boolean isPublished() {
+      return false;
+   }
 
    /**
    * Returns whether or not the test can be taken home.
    */
-   public abstract boolean isTakeHome();
+   public boolean isTakeHome() {
+      return false;
+   }
 
    /**
    * Try to retake this test, if the test can be retaken, return the test
    * instance in a state ready to be taken. Otherwise, return
    * <code>Optional.empty()</code>
    */
-   public abstract Optional<Test> retake();
+   public Optional<Test> retake() {
+      return null;
+   }
 }
