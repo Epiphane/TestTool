@@ -12,7 +12,7 @@ import java.io.IOException;
 @AllArgsConstructor
 @Slf4j
 public class CodeQuestionResponse extends QuestionResponse<CodeQuestionResponse> {
-   //A plaintext version of the student's answer, or the path to the grading script.
+   //A plaintext version of the student'sn answer, or the path to the grading script.
    private String codeAnswer;
 
    /** {@inheritDoc} */

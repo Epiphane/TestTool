@@ -8,6 +8,9 @@ import javax.persistence.*;
 import java.util.*;
 import java.text.*;
 
+import com.teampc.model.admin.*;
+import com.teampc.model.question.*;
+
 /**
  * A general Test Class
  * @author Thomas Steinke
@@ -36,10 +39,10 @@ public class Test {
    @Column(name = "course_name")
    private String courseName;
 
-//   private Teacher owner;
-//
-//   private ArrayList<Question> questions;
-//
+   private Teacher owner;
+
+   private ArrayList<Question> questions;
+
    private boolean published;
 
    public Test(String name, Date startDate, Date endDate, String courseName) {
@@ -79,13 +82,20 @@ public class Test {
 
    /**
     * Get the name of the course/subject
-    * @return
     */
    public String getCourseName() {
       LOG.info("Getting courseName: " + courseName);
       return courseName;
    }
 
+   /**
+    *
+    * <pre>
+    *     pre: startDate != null & endDate != null
+    * </pre>
+    *
+    * Assess and set the point value on a response to this question.
+    */
    public String toString() {
       DateFormat df = new SimpleDateFormat("EE MMM d, YYYY");
       Date today = new Date();
@@ -103,41 +113,74 @@ public class Test {
       }
    }
 
-//   /**
-//    * Reorders the question list by moving the question in position
-//    * `from` to position `to`.
-//    */
-//   public abstract void moveQuestion(int from, int to);
-//
-//   /**
-//    * Return the list of questions.
-//    */
-//   public abstract List<Question> getQuestions();
-//
-//   /**
-//    * Get the owner of this test
-//    */
-//   public abstract Teacher getOwner();
-//
-//   /**
-//    * Publish this test
-//    */
-//   public abstract void publish();
-//
-//   /**
-//    * Returns whether or not the test has been published
-//    */
-//   public abstract boolean isPublished();
-//
-//   /**
-//    * Returns whether or not the test can be taken home.
-//    */
-//   public abstract boolean isTakeHome();
-//
-//   /**
-//    * Try to retake this test, if the test can be retaken, return the test
-//    * instance in a state ready to be taken. Otherwise, return
-//    * <code>Optional.empty()</code>
-//    */
-//   public abstract Optional<Test> retake();
+   /**
+    *
+    * <pre>
+    *     pre: from > 0 & from < questions.size() &
+    *             to > 0 & to < questions.size() &
+    *             from != to
+    * </pre>
+    *
+    * Assess and set the point value on a response to this question.
+    * Reorders the question list by moving the question in position
+    * `from` to position `to`.
+    */
+   public void moveQuestion(int from, int to) {
+
+   }
+
+   /**
+    * Return the list of questions.
+    */
+   public List<Question> getQuestions() {
+      return questions;
+   }
+
+   /**
+    * Get the owner of this test
+    */
+   public Teacher getOwner() {
+      return owner;
+   }
+
+   /**
+    *
+    * <pre>
+    *     pre: !published
+    * </pre>
+    *
+    * <post>
+    *     pre: published
+    * </post>
+    *
+    * Publish this test
+    */
+   public void publish() {
+      assert !published;
+
+      published = true;
+   }
+
+   /**
+   * Returns whether or not the test has been published
+   */
+   public boolean isPublished() {
+      return false;
+   }
+
+   /**
+   * Returns whether or not the test can be taken home.
+   */
+   public boolean isTakeHome() {
+      return false;
+   }
+
+   /**
+   * Try to retake this test, if the test can be retaken, return the test
+   * instance in a state ready to be taken. Otherwise, return
+   * <code>Optional.empty()</code>
+   */
+   public Optional<Test> retake() {
+      return null;
+   }
 }
