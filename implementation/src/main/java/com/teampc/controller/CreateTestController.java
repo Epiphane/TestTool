@@ -5,18 +5,17 @@ import com.teampc.dao.TestDAO;
 import com.teampc.model.test.Test;
 import com.teampc.utils.TestUtils;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import org.hibernate.annotations.Check;
+import jfxtras.scene.control.LocalDateTimeTextField;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.net.URL;
-import java.time.ZoneId;
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class CreateTestController implements Initializable {
@@ -29,7 +28,7 @@ public class CreateTestController implements Initializable {
    private CheckBox autoGenerateQuestions;
 
    @FXML
-   private DatePicker endDate;
+   private LocalDateTimeTextField endDate;
 
    @FXML
    private MenuButton assignedStudentsList;
@@ -38,7 +37,7 @@ public class CreateTestController implements Initializable {
    private Spinner numberOfQuestions;
 
    @FXML
-   private DatePicker startDate;
+   private LocalDateTimeTextField startDate;
 
    @FXML
    private TextField testName;
@@ -114,8 +113,11 @@ public class CreateTestController implements Initializable {
       Date userStartDate = null;
       Date userEndDate = null;
 
-      if (startDate.getValue() != null) { userStartDate = TestUtils.localDateToDate(startDate.getValue()); }
-      if (endDate.getValue() != null) { userEndDate = TestUtils.localDateToDate(endDate.getValue()); }
+      LocalDateTime startLocalDate = startDate.getDisplayedLocalDateTime();
+      LocalDateTime endLocalDate = endDate.getDisplayedLocalDateTime();
+
+      if (startLocalDate != null) { userStartDate = TestUtils.localDateToDate(startLocalDate); }
+      if (endLocalDate != null) { userEndDate = TestUtils.localDateToDate(endLocalDate); }
 
       Test newTest = new Test(testName.getText(), userStartDate, userEndDate, courseType.getText());
       TestDAO.getInstance().insert(newTest);

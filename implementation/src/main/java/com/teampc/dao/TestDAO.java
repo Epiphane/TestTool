@@ -35,28 +35,12 @@ public class TestDAO extends AbstractDAO<Test> {
     */
    @Override
    public void insert(Test newTest) {
-//      Session session = HibernateUtils.getSessionFactory().openSession();
-//      Transaction transaction = session.beginTransaction();
-//
-//      try {
-         newTest.getName();
-         newTest.getStartDate();
-         newTest.getEndDate();
-         newTest.getCourseName();
+      super.insert(newTest);
 
-//         session.save(newTest);
-//
-//         session.flush();
-//         transaction.commit();
-//      } catch(Exception e) {
-//         if (transaction != null) {
-//            LOG.error("Rolling back insert");
-//            transaction.rollback();
-//         }
-//         throw e;
-//      } finally {
-//         session.close();
-//      }
+      newTest.getName();
+      newTest.getStartDate();
+      newTest.getEndDate();
+      newTest.getCourseName();
    }
 
    /**
@@ -64,13 +48,6 @@ public class TestDAO extends AbstractDAO<Test> {
     */
    public void findById(String id) {
       LOG.info("Find by id: " + id);
-   }
-
-   /**
-    * Get all Tests for a specified user. User is identified by userId
-    */
-   public void getAll(String userId) {
-      LOG.info("Find test for user: " + userId);
    }
 
    /**
