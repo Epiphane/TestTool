@@ -37,6 +37,7 @@ public abstract class AbstractDAO<T> {
     * @param items items to insert
     */
    public void insert(Collection<T> items) {
+      log.debug("Inserting {} items into {}'s database", items.size(), getEntityClass().getSimpleName());
       if (DEBUG) {
          return;
       }
@@ -61,6 +62,7 @@ public abstract class AbstractDAO<T> {
     * @return List of items in this object's table
     */
    public List<T> fetchAll() {
+      log.debug("Fetching all items from {}'s database", getEntityClass().getSimpleName());
       if (DEBUG) {
          return Collections.emptyList();
       }
