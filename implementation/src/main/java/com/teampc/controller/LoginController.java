@@ -24,16 +24,22 @@ public class LoginController {
    @Setter
    private Stage primaryStage;
 
-    @FXML private javafx.scene.control.Button loginbutton;
+   @FXML private javafx.scene.control.Button loginbutton;
 
-    @FXML
-    void onLoginClick(ActionEvent event) throws IOException {
-        UserSession session = new UserSession(new User());
-        session.login(new User());
-        User user = session.getLoggedInUser();
+   @FXML private javafx.scene.control.PasswordField passwordField;
 
-        log.debug(user.getDisplayName());
+   @FXML private javafx.scene.control.TextField username;
 
-        FXUtils.switchToScreenAndConfigureController(primaryStage, "navbar.fxml", NavBarController::setPrimaryStage);
-    }
+   @FXML private javafx.scene.control.Hyperlink register;
+
+   @FXML
+   void onLoginClick(ActionEvent event) throws IOException {
+      UserSession session = new UserSession(new User());
+      session.login(new User());
+      User user = session.getLoggedInUser();
+
+      log.debug(user.getDisplayName());
+
+      FXUtils.switchToScreenAndConfigureController(primaryStage, "navbar.fxml", NavBarController::setPrimaryStage);
+   }
 }
