@@ -6,6 +6,7 @@ import com.teampc.utils.FXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.Pane;
@@ -45,6 +46,15 @@ public class LoginController {
 
    @FXML
    void onRegisterClick(ActionEvent event) throws IOException{
-      //FXUtils.switchToScreenAndConfigureController(primaryStage, "register.fxml", RegisterController::setPrimaryStage);
+      showLayout("register.fxml");
+   }
+
+   private void showLayout(String resource) throws IOException {
+      Stage stage = new Stage();
+      Parent parent = FXMLLoader.load(getClass().getClassLoader().getResource(resource));
+
+      Scene scene = new Scene(parent);
+      stage.setScene(scene);
+      stage.show();
    }
 }
