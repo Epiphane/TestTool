@@ -121,7 +121,7 @@ def createRunSpestTask(isValidate) {
       dependsOn compileJava
       classpath = files("$projectDir/libs/testCompile/spest-patched.jar")
       main = 'controller.Launcher'
-      def tempArgs = ['-s', '.',  '-t', "${sourceSets.test.java.srcDirs.first()}", "${isValidate ? '-v' : '-g'}", '-l', 'DEBUG']
+      def tempArgs = ['-s', '.',  '-t', "${sourceSets.test.java.srcDirs.first()}", "${isValidate ? '-v' : '-g'}", '-l', 'WARN']
       sourceSets.main.java.files.each { tempArgs << it }
       args = tempArgs
       standardInput = System.in

@@ -55,24 +55,24 @@ public abstract class Student extends User {
     * The method will remove the Enrolled instance
     * from the enrolledCourses list.
     *
+    * <pre>
      pre:
       //
       // The enrolledCourses list must already contain the course being removed
       //
-      <pre>
       exists(Course cother;
          enrolledCourses.contains(cother);
             cother.equals(course))
-      </pre>
+    * </pre>
+    * <pre>
     post:
       //
       // The resulting enrolledCourses list will not contain the course being removed
       //
-      <post>
       !exists(Course cother;
          enrolledCourses.contains(cother);
             cother.equals(course))
-      </post>
+    * </pre>
     */
    public abstract void removeCourse(Course course);
 }

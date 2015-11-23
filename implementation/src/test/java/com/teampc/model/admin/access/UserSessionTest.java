@@ -34,8 +34,8 @@ public class UserSessionTest
     private Class clazz = com.teampc.model.admin.access.UserSession.class;
 
     private Cloner cloner = new Cloner();
-    private File rootDirectory = new File("/Users/adufrene/school/TestTool/implementation");
-    private File sourceFile = new File("/Users/adufrene/school/TestTool/implementation/src/main/java/com/teampc/model/admin/access/UserSession.java");
+    private File rootDirectory = new File("/home/andy/dev/school/TestTool/implementation");
+    private File sourceFile = new File("/home/andy/dev/school/TestTool/implementation/src/main/java/com/teampc/model/admin/access/UserSession.java");
     private JavaTestUtility javaTestUtility = new JavaTestUtility(rootDirectory, sourceFile, false);
     private com.teampc.model.admin.access.UserSession testObj;
     @Test

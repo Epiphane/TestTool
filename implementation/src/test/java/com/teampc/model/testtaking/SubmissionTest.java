@@ -1,6 +1,6 @@
-package com.teampc.model.admin;
+package com.teampc.model.testtaking;
 
-import com.teampc.model.admin.User;
+import com.teampc.model.testtaking.Submission;
 import testing.CombinationSupport;
 
 import org.junit.runner.RunWith;
@@ -11,7 +11,7 @@ import org.junit.Assert;
 
 import testing.JavaTestUtility;
 import format.ClassNameFormat;
-import com.teampc.model.admin.User;
+import com.teampc.model.testtaking.Submission;
 
 import java.io.File;
 import com.rits.cloning.Cloner;
@@ -21,31 +21,21 @@ import java.util.*;
 import static testing.JavaTestUtility.getFieldValue;
 
 @RunWith(SpestRunner.class)
-public class UserTest
+public class SubmissionTest
 {
     @Before
     public void setUp()
     {
-        testObj = (com.teampc.model.admin.User)javaTestUtility.getSampleObject(clazz);
+        testObj = (com.teampc.model.testtaking.Submission)javaTestUtility.getSampleObject(clazz);
 
     }
 
     /*Start generated tests*/
-    private Class clazz = com.teampc.model.admin.User.class;
+    private Class clazz = com.teampc.model.testtaking.Submission.class;
 
     private Cloner cloner = new Cloner();
     private File rootDirectory = new File("/home/andy/dev/school/TestTool/implementation");
-    private File sourceFile = new File("/home/andy/dev/school/TestTool/implementation/src/main/java/com/teampc/model/admin/User.java");
+    private File sourceFile = new File("/home/andy/dev/school/TestTool/implementation/src/main/java/com/teampc/model/testtaking/Submission.java");
     private JavaTestUtility javaTestUtility = new JavaTestUtility(rootDirectory, sourceFile, false);
-    private com.teampc.model.admin.User testObj;
-    @Test
-    public void getDisplayNameTest_0() throws Exception
-    {
-
-        String methodId = "getDisplayName";
-
-        testObj.getDisplayName();
-        setUp();
-    }
-    /*End generated tests*/
+    private com.teampc.model.testtaking.Submission testObj;    /*End generated tests*/
 }

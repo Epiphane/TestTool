@@ -91,7 +91,8 @@ public class Test {
    /**
     *
     * <pre>
-    *     pre: startDate != null & endDate != null
+          pre: startDate != null && endDate != null
+    *
     * </pre>
     *
     * Assess and set the point value on a response to this question.
@@ -116,9 +117,10 @@ public class Test {
    /**
     *
     * <pre>
-    *     pre: from > 0 & from < questions.size() &
-    *             to > 0 & to < questions.size() &
-    *             from != to
+          pre: from > 0 && from < questions.size() &&
+                  to > 0 && to < questions.size() &&
+                  from != to
+    * 
     * </pre>
     *
     * Assess and set the point value on a response to this question.
@@ -146,12 +148,14 @@ public class Test {
    /**
     *
     * <pre>
-    *     pre: !published
+          pre: !published
+    * 
     * </pre>
     *
-    * <post>
-    *     pre: published
-    * </post>
+    * <pre>
+          pre: published
+    * 
+    * </pre>
     *
     * Publish this test
     */
@@ -178,7 +182,7 @@ public class Test {
    /**
    * Try to retake this test, if the test can be retaken, return the test
    * instance in a state ready to be taken. Otherwise, return
-   * <code>Optional.empty()</code>
+   * Optional.empty()
    */
    public Optional<Test> retake() {
       return null;
