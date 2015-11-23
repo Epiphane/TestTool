@@ -24,7 +24,11 @@
                </font>
             </TextArea>
             <PasswordField fx:id="passwordField" layoutX="155.0" layoutY="219.0" promptText="Password" />
-            <Hyperlink fx:id="register" layoutX="280.0" layoutY="297.0" text="New User?" />
+            <Hyperlink fx:id="register" layoutX="280.0" layoutY="297.0" text="New User?">
+               <font>
+                  <Font name="Helvetica Neue Italic" size="13.0" />
+               </font>
+            </Hyperlink>
       </children>
     </AnchorPane>
       <TextField />

@@ -42,4 +42,9 @@ public class LoginController {
 
       FXUtils.switchToScreenAndConfigureController(primaryStage, "navbar.fxml", NavBarController::setPrimaryStage);
    }
+
+   @FXML
+   void onRegisterClick(ActionEvent event) throws IOException{
+      //FXUtils.switchToScreenAndConfigureController(primaryStage, "register.fxml", RegisterController::setPrimaryStage);
+   }
 }
