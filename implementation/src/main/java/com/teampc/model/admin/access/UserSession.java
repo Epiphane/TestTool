@@ -47,6 +47,10 @@ public class UserSession {
 
    /**
     * Ends the current user session
+    *
+       pre: loggedIn && loggedInUser.equals(user)
+    *
+       post: !loggedIn
     */
    public void endUserSession(){
 
