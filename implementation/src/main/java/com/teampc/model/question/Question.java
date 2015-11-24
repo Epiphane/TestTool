@@ -23,6 +23,7 @@ public abstract class Question<T extends QuestionResponse> {
    //a QuestionResponse object of the appropriate type
    private T correctAnswer;
 
+   @SuppressWarnings("unchecked")
    /**
     *
     * Assess and set the point value on a response to this question.
@@ -31,7 +32,6 @@ public abstract class Question<T extends QuestionResponse> {
     * 
       post: response.getPoints() > 0
     */
-   @SuppressWarnings("unchecked")
    public void grade(T response) {
       correctAnswer.assignPoints(response);
    }

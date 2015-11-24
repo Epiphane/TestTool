@@ -144,17 +144,12 @@ public class Test {
 
    /**
     *
-    * 
+    * Publish this test
+    *
           pre: !published
     * 
+          post: published
     * 
-    *
-    * 
-          pre: published
-    * 
-    * 
-    *
-    * Publish this test
     */
    public void publish() {
       assert !published;

@@ -40,6 +40,7 @@ public abstract class Student extends User {
       !exists (Course cother;
          enrolledCourses.contains(cother);
             cother.equals(course))
+    *
      post:
       //
       // The resulting enrolledCourses list will contain the course being added

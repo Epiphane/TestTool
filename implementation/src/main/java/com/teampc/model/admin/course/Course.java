@@ -60,8 +60,6 @@ public class Course {
     * Gets a list of students enrolled in this course
     *
     * 
-     pre:
-      // no preconditions yet.
     * 
     * 
      post:

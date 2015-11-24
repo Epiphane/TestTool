@@ -26,15 +26,16 @@ public abstract class QuestionResponse<T extends QuestionResponse> {
 
    /**
     *
+    *
+    * Using self as the model for a correct answer, grade the argument response and assign points
+    * to questionResponse.pointsReceived based on how correct its answer is.
+    * @param questionResponse response to grade
+    *
           pre: questionResponse != null && questionResponse.isComplete()
     *
     *
           post: questionResponse.pointsReceived >= 0
     *
-    *
-    * Using self as the model for a correct answer, grade the argument response and assign points
-    * to questionResponse.pointsReceived based on how correct its answer is.
-    * @param questionResponse response to grade
     */
    public abstract void assignPoints(T questionResponse);
 
