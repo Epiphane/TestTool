@@ -89,13 +89,10 @@ public class Test {
    }
 
    /**
-    *
-    * <pre>
-          pre: startDate != null && endDate != null
-    *
-    * </pre>
-    *
     * Assess and set the point value on a response to this question.
+    *
+      pre: startDate != null && endDate != null
+    *
     */
    public String toString() {
       DateFormat df = new SimpleDateFormat("EE MMM d, YYYY");
@@ -116,16 +113,16 @@ public class Test {
 
    /**
     *
-    * <pre>
-          pre: from > 0 && from < questions.size() &&
-                  to > 0 && to < questions.size() &&
-                  from != to
     * 
-    * </pre>
+    * 
+    * 
     *
     * Assess and set the point value on a response to this question.
     * Reorders the question list by moving the question in position
     * `from` to position `to`.
+      pre: from > 0 && from < questions.size() &&
+         to > 0 && to < questions.size() &&
+         from != to
     */
    public void moveQuestion(int from, int to) {
 
@@ -147,15 +144,15 @@ public class Test {
 
    /**
     *
-    * <pre>
+    * 
           pre: !published
     * 
-    * </pre>
+    * 
     *
-    * <pre>
+    * 
           pre: published
     * 
-    * </pre>
+    * 
     *
     * Publish this test
     */

@@ -59,11 +59,11 @@ public class Course {
    /**
     * Gets a list of students enrolled in this course
     *
-    * <pre>
+    * 
      pre:
       // no preconditions yet.
-    * </pre>
-    * <pre>
+    * 
+    * 
      post:
       //
       // The return value is a list of students enrolled in this course.
@@ -72,7 +72,7 @@ public class Course {
       //
       forall(int i; i>=0 && i<return.size()-1;
          return.get(i).compareTo(return.get(i+1)) <= 0)
-    * </pre>
+    * 
     */
    public List<Student> getEnrolledStudents() {
       return Collections.EMPTY_LIST;

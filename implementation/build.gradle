@@ -91,6 +91,12 @@ test {
    }
 }
 
+tasks.withType(JavaCompile) {
+   sourceCompatibility = '1.8'
+   targetCompatibility = '1.8'
+   options.compilerArgs << '-Xlint:all'
+}
+
 task copyJar(dependsOn: shadowJar, type: Copy) {
     from shadowJar.outputs.files.asPath
     into "$projectDir/executables/"
@@ -116,18 +122,35 @@ def createSpestTask(isValidate) {
    }
 }
 
+def hasSpest(file) {
+   def hasSpest = false
+   file.eachLine {
+      if (!hasSpest && it =~ /^\s*(pre|post):/) {
+         hasSpest = true;
+      }
+   }
+   hasSpest
+}
+
 def createRunSpestTask(isValidate) {
    tasks.create("run${isValidate ? 'Validate' : 'Generate'}Spest", JavaExec) {
       dependsOn compileJava
+      dependsOn delombok
       classpath = files("$projectDir/libs/testCompile/spest-patched.jar")
       main = 'controller.Launcher'
       def tempArgs = ['-s', '.',  '-t', "${sourceSets.test.java.srcDirs.first()}", "${isValidate ? '-v' : '-g'}", '-l', 'WARN']
-      sourceSets.main.java.files.each { tempArgs << it }
+      sourceSets.main.java.files.findAll(this.&hasSpest).each {
+         tempArgs << it.canonicalPath.replace('^.*src/main/java', "$buildDir/src-delomboked")
+      }
       args = tempArgs
-      standardInput = System.in
    }
 }
 
 createSpestTask true
 createSpestTask false
 
+task findSpest << {
+   sourceSets.main.java.files.findAll(this.&hasSpest).each {
+      println it
+   }
+}

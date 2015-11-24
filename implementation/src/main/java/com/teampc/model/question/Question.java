@@ -25,17 +25,11 @@ public abstract class Question<T extends QuestionResponse> {
 
    /**
     *
-    * <pre>
-          pre: response != null && response.isComplete()
-    *
-    * </pre>
-    *
-    * <pre>
-          post: response.getPoints() > 0
-    *
-    * </pre>
-    *
     * Assess and set the point value on a response to this question.
+    * 
+      pre: response != null && response.isComplete()
+    * 
+      post: response.getPoints() > 0
     */
    @SuppressWarnings("unchecked")
    public void grade(T response) {
