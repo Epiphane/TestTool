@@ -2,6 +2,7 @@ package com.teampc;
 
 import com.teampc.controller.LoginController;
 import com.teampc.controller.NavBarController;
+import com.teampc.model.admin.User;
 import com.teampc.utils.FXUtils;
 import javafx.application.Application;
 import javafx.scene.layout.Pane;
@@ -12,9 +13,15 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.function.Consumer;
 
 public class TestToolMain extends Application {
+
+   /**
+    * Collection of all users registered with the system. (Use until user accounts are hooked into DB).
+    */
+   private HashMap<String, User> userList = new HashMap<String, User>();
 
    public static void main(String... args) {
       launch(args);

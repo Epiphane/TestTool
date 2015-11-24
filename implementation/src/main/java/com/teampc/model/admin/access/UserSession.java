@@ -32,6 +32,11 @@ public class UserSession {
       System.out.println("User gsawers logged in to TestTool.");
    }
 
+   public void Register(String username, String pass, String first, String last){
+      User user = new User(username, first, last, pass);
+
+   }
+
    /**
     * Get the currently logged in user
     *
