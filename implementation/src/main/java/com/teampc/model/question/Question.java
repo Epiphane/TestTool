@@ -32,7 +32,7 @@ public abstract class Question<T extends QuestionResponse> {
     *
       post: response.getPoints() != null
     */
-   public void grade(QuestionResponse response) {
+   public void grade(T response) {
       correctAnswer.assignPoints(response);
    }
 
