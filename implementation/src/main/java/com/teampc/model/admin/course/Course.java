@@ -59,9 +59,6 @@ public class Course {
    /**
     * Gets a list of students enrolled in this course
     *
-    * 
-    * 
-    * 
      post:
       //
       // The return value is a list of students enrolled in this course.
@@ -69,8 +66,8 @@ public class Course {
       // is expected to have compareTo properly implemented
       //
       forall(int i; i>=0 && i<return.size()-1;
-         return.get(i).compareTo(return.get(i+1)) <= 0)
-    * 
+         return.get(i).compareTo(return.get(i+1)) != null)
+    *
     */
    public List<Student> getEnrolledStudents() {
       return Collections.EMPTY_LIST;
