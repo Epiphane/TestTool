@@ -27,12 +27,12 @@ public abstract class Question<T extends QuestionResponse> {
    /**
     *
     * Assess and set the point value on a response to this question.
-    * 
+    *
       pre: response != null && response.isComplete()
-    * 
-      post: response.getPoints() > 0
+    *
+      post: response.getPoints() != null
     */
-   public void grade(T response) {
+   public void grade(QuestionResponse response) {
       correctAnswer.assignPoints(response);
    }
 
