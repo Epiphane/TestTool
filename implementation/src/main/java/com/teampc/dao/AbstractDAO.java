@@ -22,11 +22,20 @@ public abstract class AbstractDAO<T> {
 
    private static final boolean DEBUG = true;
 
+   /**
+    * Returns the entity mapping class for this dao
+    * @return class this dao maps entities to
+    */
    protected abstract Class<T> getEntityClass();
 
    /**
     * Inserts one item into the database
     * @param item item to insert
+    *
+      pre: item != null
+    * 
+      post: this.fetchAll()'.contains(item)
+    *
     */
    public void insert(T item) {
       insert(Collections.singleton(item));
@@ -35,6 +44,10 @@ public abstract class AbstractDAO<T> {
    /**
     * Inserts items into database specified by entity annotations on class T
     * @param items items to insert
+    *
+      pre: items != null
+    *
+      post: forall (T item_other; items.contains(item_other); this.fetchAll()'.contains(item_other))
     */
    public void insert(Collection<T> items) {
       log.debug("Inserting {} items into {}'s database", items.size(), getEntityClass().getSimpleName());
