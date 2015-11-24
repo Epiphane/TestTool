@@ -34,7 +34,7 @@ public abstract class AbstractDAO<T> {
     *
       pre: item != null
     * 
-      post: this.fetchAll()'.contains(item)
+      post: this.fetchAll().contains(item)
     *
     */
    public void insert(T item) {

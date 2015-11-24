@@ -49,9 +49,9 @@ public class StudentTest
 
         Class[] parameterClasses = {com.teampc.model.admin.course.Course.class};
         List<com.teampc.model.admin.course.Course> cothers_0 = javaTestUtility.getUniversalValues(testObj, methodId, 0);
-        boolean exists_1 = false;
+        boolean exists_0 = false;
         List<com.teampc.model.admin.course.Course> cothers_1 = javaTestUtility.getUniversalValues(testObj, methodId, 1);
-        boolean exists_2 = false;
+        boolean exists_1 = false;
         com.teampc.model.admin.course.Course param_0;
         for(testComboIndex = 0; testComboIndex < combinations.length; testComboIndex++)
         {
@@ -63,9 +63,9 @@ public class StudentTest
             }
             for(com.teampc.model.admin.course.Course cother : cothers_1)
             {
-                exists_2 = exists_2 || (cother.equals(param_0));
+                exists_1 = exists_1 || (cother.equals(param_0));
             }
-            Assert.assertTrue(exists_2);
+            Assert.assertTrue(exists_1);
 
             setUp();
         }
@@ -84,9 +84,9 @@ public class StudentTest
 
         Class[] parameterClasses = {com.teampc.model.admin.course.Course.class};
         List<com.teampc.model.admin.course.Course> cothers_0 = javaTestUtility.getUniversalValues(testObj, methodId, 0);
-        boolean exists_3 = false;
+        boolean exists_2 = false;
         List<com.teampc.model.admin.course.Course> cothers_1 = javaTestUtility.getUniversalValues(testObj, methodId, 1);
-        boolean exists_4 = false;
+        boolean exists_3 = false;
         com.teampc.model.admin.course.Course param_0;
         for(testComboIndex = 0; testComboIndex < combinations.length; testComboIndex++)
         {
@@ -95,13 +95,13 @@ public class StudentTest
             testObj.removeCourse(param_0);
             for(com.teampc.model.admin.course.Course cother : cothers_0)
             {
-                exists_3 = exists_3 || (cother.equals(param_0));
+                exists_2 = exists_2 || (cother.equals(param_0));
             }
-            Assert.assertTrue(exists_3);
+            Assert.assertTrue(exists_2);
             for(com.teampc.model.admin.course.Course cother : cothers_1)
             {
             }
-            Assert.assertTrue(!(exists_4));
+            Assert.assertTrue(!(exists_3));
 
             setUp();
         }

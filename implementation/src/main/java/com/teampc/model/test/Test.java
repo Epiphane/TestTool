@@ -112,14 +112,10 @@ public class Test {
    }
 
    /**
-    *
-    * 
-    * 
-    * 
-    *
     * Assess and set the point value on a response to this question.
     * Reorders the question list by moving the question in position
-    * `from` to position `to`.
+    * 'from' to position 'to'.
+    *
       pre: from > 0 && from < questions.size() &&
          to > 0 && to < questions.size() &&
          from != to
