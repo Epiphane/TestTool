@@ -41,7 +41,7 @@ mainClassName = 'com.teampc.TestToolMain'
 
 // stolen from: http://stackoverflow.com/questions/24997441/delombok-using-gradle
 task delombok {
-    def outputDir = "${buildDir}/src-delomboked"
+    def outputDir = "$buildDir/src-delomboked"
 
     inputs.files sourceSets.main.java
     outputs.dir file(outputDir)
@@ -103,7 +103,31 @@ task copyJavadoc(dependsOn: javadoc, type: Copy) {
 
 task release(dependsOn: ['copyJar', 'copyJavadoc'])
 
-task spest(type: JavaExec) {
-   classpath = files("$projectDir/libs/testCompile/spest.jar")
-   main = 'controller.Launcher'
+def createSpestTask(isValidate) {
+   def dependent = createRunSpestTask isValidate
+   tasks.create("${isValidate ? 'validate' : 'generate'}Spest") {
+      dependsOn dependent
+      copy {
+         from './resources/tmp'
+         into sourceSets.test.resources.srcDirs.first()
+      }
+
+      delete('./resources')
+   }
 }
+
+def createRunSpestTask(isValidate) {
+   tasks.create("run${isValidate ? 'Validate' : 'Generate'}Spest", JavaExec) {
+      dependsOn compileJava
+      classpath = files("$projectDir/libs/testCompile/spest-patched.jar")
+      main = 'controller.Launcher'
+      def tempArgs = ['-s', '.',  '-t', "${sourceSets.test.java.srcDirs.first()}", "${isValidate ? '-v' : '-g'}", '-l', 'WARN']
+      sourceSets.main.java.files.each { tempArgs << it }
+      args = tempArgs
+      standardInput = System.in
+   }
+}
+
+createSpestTask true
+createSpestTask false
+

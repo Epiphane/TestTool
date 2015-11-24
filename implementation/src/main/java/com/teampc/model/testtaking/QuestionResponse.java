@@ -26,13 +26,11 @@ public abstract class QuestionResponse<T extends QuestionResponse> {
 
    /**
     *
-    * <pre>
-    *     pre: questionResponse != null && questionResponse.isComplete()
-    * </pre>
+          pre: questionResponse != null && questionResponse.isComplete()
     *
-    * <pre>
-    *     post: questionResponse.pointsReceived >= 0
-    * </pre>
+    *
+          post: questionResponse.pointsReceived >= 0
+    *
     *
     * Using self as the model for a correct answer, grade the argument response and assign points
     * to questionResponse.pointsReceived based on how correct its answer is.
