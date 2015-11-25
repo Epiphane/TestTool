@@ -1,8 +1,6 @@
 com.teampc
 com.teampc.controller
 com.teampc.dao
-com.teampc.db
-com.teampc.example
 com.teampc.model.admin
 com.teampc.model.admin.access
 com.teampc.model.admin.course
