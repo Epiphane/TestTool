@@ -34,7 +34,7 @@
                      <children>
                         <ListView fx:id="testListView" layoutX="14.0" layoutY="14.0" prefHeight="200.0" prefWidth="528.0" />
                         <TextArea fx:id="filterTestInput" layoutX="14.0" layoutY="226.0" prefHeight="34.0" prefWidth="373.0" />
-                        <Button layoutX="403.0" layoutY="230.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="119.0" text="Filter Tests" />
+                        <Button fx:id="filterTestButton" layoutX="403.0" layoutY="230.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="119.0" text="Filter Tests" onAction="#onFilterTestsClick" />
                         <Text layoutX="14.0" layoutY="288.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sort by:" wrappingWidth="80.21875" />
                         <RadioButton layoutX="94.0" layoutY="274.0" mnemonicParsing="false" selected="true" text="Name">
                            <toggleGroup>

@@ -92,6 +92,9 @@ public class QuestionSearchController implements Initializable {
    @FXML
    private Button filterCourseButton;
 
+   @FXML
+   private Button filterTestButton;
+
    @Override
    /**
     * Initialize the Question Search UI with appropriate values for the tests,
@@ -144,6 +147,9 @@ public class QuestionSearchController implements Initializable {
 
    }
 
+   /**
+    * Initialize the course list
+    */
    private void initCourseList() {
       exampleCourse1 = new Course("CPE 101", Term.Fall, 2015, 1);
       exampleCourse2 = new Course("CPE 102", Term.Fall, 2015, 1);
@@ -192,10 +198,27 @@ public class QuestionSearchController implements Initializable {
    }
 
    @FXML
-   void onFilterCoursesClick() {
+   /**
+    * Filter the course list when the filter course list button is pressed.
+    pre: courseListView != null
+    post:
+    */
+   public void onFilterCoursesClick() {
       LOG.info("filterCourseInput text: " + filterCourseInput.getParagraphs().get(0));
       courseListView.setItems(FXCollections.observableList(
          courseListView.getItems().stream().filter((course -> course.getTitle().contains(filterCourseInput.getParagraphs().get(0)))).collect(Collectors.toCollection(ArrayList::new))));
+   }
+
+   @FXML
+   /**
+    * Filter the test list when the filter course list button is pressed.
+    pre: testListView != null
+    post:
+    */
+   public void onFilterTestsClick() {
+      LOG.info("filterTestInput text: " + filterTestInput.getParagraphs().get(0));
+      testListView.setItems(FXCollections.observableList(
+         testListView.getItems().stream().filter((test -> test.toString().contains(filterTestInput.getParagraphs().get(0)))).collect(Collectors.toCollection(ArrayList::new))));
    }
 
 }
