@@ -147,9 +147,17 @@ def createRunSpestTask(isValidate) {
       classpath = files("$projectDir/libs/testCompile/spest-patched.jar")
       main = 'controller.Launcher'
       def tempArgs = ['-s', '.',  '-t', "${sourceSets.test.java.srcDirs.last()}", "${isValidate ? '-v' : '-g'}", '-l', 'WARN']
-      sourceSets.main.java.files.findAll(this.&hasSpest).each {
+      def files
+      if (project.hasProperty('spestFiles')) {
+         files = spestFiles.tokenize(',').collect{ new File(it.trim()) }
+      } else {
+         files = sourceSets.main.java.files
+      }
+
+      files.findAll(this.&hasSpest).each {
          tempArgs << it.path
       }
+
       args = tempArgs
    }
 }

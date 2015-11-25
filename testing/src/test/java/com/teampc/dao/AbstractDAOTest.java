@@ -69,7 +69,7 @@ public class AbstractDAOTest
 
         Class[] parameterClasses = {java.util.Collection.class};
         List<java.lang.Object> item_others_0 = javaTestUtility.getUniversalValues(testObj, methodId, 0);
-        boolean forall_5 = true;
+        boolean forall_0 = true;
         java.util.Collection param_0;
         for(testComboIndex = 0; testComboIndex < combinations.length; testComboIndex++)
         {
@@ -78,9 +78,9 @@ public class AbstractDAOTest
             testObj.insert(param_0);
             for(java.lang.Object item_other : item_others_0)
             {
-                forall_5 = forall_5 && (testObj.fetchAll().contains(item_other));
+                forall_0 = forall_0 && (testObj.fetchAll().contains(item_other));
             }
-            Assert.assertTrue(forall_5);
+            Assert.assertTrue(forall_0);
 
             setUp();
         }
