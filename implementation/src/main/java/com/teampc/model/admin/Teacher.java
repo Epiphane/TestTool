@@ -31,9 +31,9 @@ public abstract class Teacher extends User {
     /**
      * Add the course to the Teacher's list of courses, and, if necessary, set the courses teacher to this teacher.
      * @param course Which course to add
-      pre: courses != null && isAssignedToAllCourses()
+      pre: this.courses != null && isAssignedToAllCourses()
 
-      post: courses != null && courses.size() > 0 && isAssignedToAllCourses()
+      post: this.courses != null && this.courses.size() > 0 && isAssignedToAllCourses()
 
      */
     public abstract void addCourse(Course course);
@@ -41,9 +41,9 @@ public abstract class Teacher extends User {
     /**
      * Remove the course from the Teacher's list of courses.
      * @param course Which course to remove.
-      pre: courses != null && isAssignedToAllCourses()
+      pre: this.courses != null && isAssignedToAllCourses()
 
-      post: courses != null && isAssignedToAllCourses()
+      post: this.courses != null && isAssignedToAllCourses()
 
      */
     public abstract void removeCourse(Course course);
@@ -51,16 +51,16 @@ public abstract class Teacher extends User {
     /**
      * Determines if teacher is currently teaching a given course.
      * @param course which to look for
-      pre: courses != null && isAssignedToAllCourses()
+      pre: this.courses != null && isAssignedToAllCourses()
 
-      post: courses != null && isAssignedToAllCourses()
+      post: this.courses != null && isAssignedToAllCourses()
     */
     public abstract void teachesCourse(Course course);
 
 
     private boolean isAssignedToAllCourses() {
         for (int i = 0; i < courses.size(); i++) {
-            if (((Course)courses.get(i)).teacher != this) {
+            if (((Course)this.courses.get(i)).teacher != this) {
                 return false;
             }
         }
