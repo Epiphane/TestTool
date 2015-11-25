@@ -58,7 +58,7 @@ public abstract class Teacher extends User {
     public abstract void teachesCourse(Course course);
 
 
-    private boolean isAssignedToAllCourses() {
+    boolean isAssignedToAllCourses() {
         for (int i = 0; i < courses.size(); i++) {
             if (((Course)this.courses.get(i)).teacher != this) {
                 return false;
