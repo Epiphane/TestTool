@@ -6,7 +6,7 @@ import com.teampc.model.testtaking.MatchingQuestionResponse;
  * This class represents a matching question.
  * @author David Ellison
  */
-public class MatchingQuestion extends Question<MatchingQuestionResponse> {
+public class MatchingQuestion extends Question/*<MatchingQuestionResponse>*/ {
 
    /** {@inheritDoc} */
    @Override

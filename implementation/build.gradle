@@ -94,7 +94,7 @@ test {
 tasks.withType(JavaCompile) {
    sourceCompatibility = '1.8'
    targetCompatibility = '1.8'
-   options.compilerArgs << '-Xlint:all'
+//   options.compilerArgs << '-Xlint:all'
 }
 
 task copyJar(dependsOn: shadowJar, type: Copy) {

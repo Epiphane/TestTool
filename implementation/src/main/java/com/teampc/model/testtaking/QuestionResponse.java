@@ -9,7 +9,7 @@ import lombok.Setter;
  * @author Thomas Steinke
  *
  */
-public abstract class QuestionResponse<T extends QuestionResponse> {
+public abstract class QuestionResponse/*<T extends QuestionResponse>*/ {
 
    @Getter
    @Setter
@@ -37,6 +37,6 @@ public abstract class QuestionResponse<T extends QuestionResponse> {
           post: questionResponse.pointsReceived >= 0
     *
     */
-   public abstract void assignPoints(T questionResponse);
+   public abstract void assignPoints(QuestionResponse questionResponse);
 
 }

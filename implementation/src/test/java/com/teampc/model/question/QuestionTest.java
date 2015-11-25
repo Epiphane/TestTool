@@ -34,8 +34,8 @@ public class QuestionTest
     private Class clazz = com.teampc.model.question.Question.class;
 
     private Cloner cloner = new Cloner();
-    private File rootDirectory = new File("/Users/james/TestTool/implementation");
-    private File sourceFile = new File("/Users/james/TestTool/implementation/src/main/java/com/teampc/model/question/Question.java");
+    private File rootDirectory = new File("/home/andy/dev/school/TestTool/implementation");
+    private File sourceFile = new File("/home/andy/dev/school/TestTool/implementation/src/main/java/com/teampc/model/question/Question.java");
     private JavaTestUtility javaTestUtility = new JavaTestUtility(rootDirectory, sourceFile, false);
     private com.teampc.model.question.Question testObj;
     @Test

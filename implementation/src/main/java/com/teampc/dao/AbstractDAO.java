@@ -18,7 +18,7 @@ import java.util.List;
  * Abstract class for database operations
  * @param T class mapped to database table
  */
-public abstract class AbstractDAO<T> {
+public abstract class AbstractDAO/*<T>*/ {
 
    private static final boolean DEBUG = true;
 
@@ -26,7 +26,7 @@ public abstract class AbstractDAO<T> {
     * Returns the entity mapping class for this dao
     * @return class this dao maps entities to
     */
-   protected abstract Class<T> getEntityClass();
+   protected abstract Class/*<T>*/ getEntityClass();
 
    /**
     * Inserts one item into the database
@@ -37,7 +37,7 @@ public abstract class AbstractDAO<T> {
       post: this.fetchAll().contains(item)
     *
     */
-   public void insert(T item) {
+   public void insert(Object item) {
       insert(Collections.singleton(item));
    }
 
@@ -47,9 +47,9 @@ public abstract class AbstractDAO<T> {
     *
       pre: items != null
     *
-      post: forall (T item_other; items.contains(item_other); this.fetchAll()'.contains(item_other))
+      post: forall (Object item_other; items.contains(item_other); this.fetchAll().contains(item_other))
     */
-   public void insert(Collection<T> items) {
+   public void insert(Collection items) {
       log.debug("Inserting {} items into {}'s database", items.size(), getEntityClass().getSimpleName());
       if (DEBUG) {
          return;
@@ -74,7 +74,7 @@ public abstract class AbstractDAO<T> {
     * Fetches all items in the database for this object's table
     * @return List of items in this object's table
     */
-   public List<T> fetchAll() {
+   public List/*<T>*/ fetchAll() {
       log.debug("Fetching all items from {}'s database", getEntityClass().getSimpleName());
       if (DEBUG) {
          return Collections.emptyList();
@@ -84,7 +84,7 @@ public abstract class AbstractDAO<T> {
          Criteria criteria = session.createCriteria(getEntityClass());
 
          @SuppressWarnings("unchecked")
-         List<T> items = criteria.list();
+         List/*<T>*/ items = criteria.list();
 
          return items;
       } finally {

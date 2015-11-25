@@ -5,7 +5,7 @@ import com.teampc.model.question.Question;
 /**
  * Created by adufrene on 11/9/15.
  */
-public class QuestionDAO extends AbstractDAO<Question> {
+public class QuestionDAO extends AbstractDAO/*<Question>*/ {
 
    private static QuestionDAO instance = null;
 
@@ -19,7 +19,7 @@ public class QuestionDAO extends AbstractDAO<Question> {
    private QuestionDAO() {}
 
    @Override
-   protected Class<Question> getEntityClass() {
+   protected Class/*<Question>*/ getEntityClass() {
       return Question.class;
    }
 }

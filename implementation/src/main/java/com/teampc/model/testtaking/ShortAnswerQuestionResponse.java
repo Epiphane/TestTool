@@ -7,7 +7,7 @@ import lombok.AllArgsConstructor;
  * @author Zach Arend
  */
 @AllArgsConstructor
-public class ShortAnswerQuestionResponse extends QuestionResponse<ShortAnswerQuestionResponse> {
+public class ShortAnswerQuestionResponse extends QuestionResponse/*<ShortAnswerQuestionResponse>*/ {
    private String answer;
 
    /** {@inheritDoc} */
@@ -18,7 +18,7 @@ public class ShortAnswerQuestionResponse extends QuestionResponse<ShortAnswerQue
 
    /** {@inheritDoc} */
    @Override
-   public void assignPoints(ShortAnswerQuestionResponse questionResponse) {
+   public void assignPoints(/*ShortAnswerQuestionResponse*/ QuestionResponse questionResponse) {
       // need manual grading
    }
 

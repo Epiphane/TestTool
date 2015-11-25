@@ -11,7 +11,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class CodeQuestion extends Question<CodeQuestionResponse> {
+public class CodeQuestion extends Question/*<CodeQuestionResponse>*/ {
 
    //TODO 10-21-2015: Figure out how grading scripts will work.
    //The raw text of the grading script that answers will be evaluated against.

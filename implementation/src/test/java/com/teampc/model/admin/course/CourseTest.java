@@ -34,8 +34,8 @@ public class CourseTest
     private Class clazz = com.teampc.model.admin.course.Course.class;
 
     private Cloner cloner = new Cloner();
-    private File rootDirectory = new File("/Users/james/TestTool/implementation");
-    private File sourceFile = new File("/Users/james/TestTool/implementation/src/main/java/com/teampc/model/admin/course/Course.java");
+    private File rootDirectory = new File("/home/andy/dev/school/TestTool/implementation");
+    private File sourceFile = new File("/home/andy/dev/school/TestTool/implementation/src/main/java/com/teampc/model/admin/course/Course.java");
     private JavaTestUtility javaTestUtility = new JavaTestUtility(rootDirectory, sourceFile, false);
     private com.teampc.model.admin.course.Course testObj;
     @Test
@@ -46,14 +46,14 @@ public class CourseTest
         String methodId = "getEnrolledStudents";
         Class[] parameterClasses = {};
         List<java.lang.Integer> is_0 = javaTestUtility.getUniversalValues(testObj, methodId, 0);
-        boolean forall_91 = true;
+        boolean forall_2 = true;
 
         ret = testObj.getEnrolledStudents();
         for(int i : is_0)
         {
-            forall_91 = forall_91 && ((ret.get(i).compareTo(ret.get(i + 1)) >= 0));
+            forall_2 = forall_2 && (ret.get(i).compareTo(ret.get(i + 1)) != null);
         }
-        Assert.assertTrue(forall_91);
+        Assert.assertTrue(forall_2);
 
         setUp();
     }

@@ -10,7 +10,7 @@ import lombok.AllArgsConstructor;
  * @author Zach Arend
  */
 @AllArgsConstructor
-public class MatchingQuestionResponse extends QuestionResponse<MatchingQuestionResponse> {
+public class MatchingQuestionResponse extends QuestionResponse/*<MatchingQuestionResponse>*/ {
    private Map<String, String> pairings;
 
    /** {@inheritDoc} */
@@ -21,7 +21,8 @@ public class MatchingQuestionResponse extends QuestionResponse<MatchingQuestionR
 
    /** {@inheritDoc} */
    @Override
-   public void assignPoints(MatchingQuestionResponse questionResponse) {
+   public void assignPoints(QuestionResponse tmpResponse) {
+      MatchingQuestionResponse questionResponse = (MatchingQuestionResponse) tmpResponse;
       Map<String, String> otherPairings = questionResponse.pairings;
       int differences = Maps.difference(pairings, otherPairings).entriesOnlyOnLeft().size();
 

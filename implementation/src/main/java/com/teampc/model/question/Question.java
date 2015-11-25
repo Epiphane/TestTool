@@ -15,13 +15,13 @@ import com.teampc.model.testtaking.QuestionResponse;
 //TODO 10-21-15: Make this class generic on <T extends QuestionResponse>.
 @Getter
 @Setter
-public abstract class Question<T extends QuestionResponse> {
+public abstract class Question/*<T extends QuestionResponse>*/ {
    //The text prompt for the question.
    private String prompt;
    //the integer point value of this question.
    private int points;
    //a QuestionResponse object of the appropriate type
-   private T correctAnswer;
+   private QuestionResponse correctAnswer;
 
    @SuppressWarnings("unchecked")
    /**
@@ -31,8 +31,9 @@ public abstract class Question<T extends QuestionResponse> {
       pre: response != null && response.isComplete()
     *
       post: response.getPoints() != null
+    *
     */
-   public void grade(T response) {
+   public void grade(QuestionResponse response) {
       correctAnswer.assignPoints(response);
    }
 
