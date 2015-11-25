@@ -86,7 +86,7 @@ public class StudentTest
         List<com.teampc.model.admin.course.Course> cothers_0 = javaTestUtility.getUniversalValues(testObj, methodId, 0);
         boolean exists_2 = false;
         List<com.teampc.model.admin.course.Course> cothers_1 = javaTestUtility.getUniversalValues(testObj, methodId, 1);
-        boolean exists_4 = false;
+        boolean exists_3 = false;
         com.teampc.model.admin.course.Course param_0;
         for(testComboIndex = 0; testComboIndex < combinations.length; testComboIndex++)
         {
@@ -101,7 +101,7 @@ public class StudentTest
             for(com.teampc.model.admin.course.Course cother : cothers_1)
             {
             }
-            Assert.assertTrue(!(exists_4));
+            Assert.assertTrue(!(exists_3));
 
             setUp();
         }
