@@ -35,6 +35,15 @@ sourceSets {
             srcDir 'src/main/layout'
         }
     }
+
+    test {
+       java {
+          srcDir "$projectDir/../testing/src/test/java"
+       }
+       resources {
+          srcDir "$projectDir/../testing/src/test/resources"
+       }
+    }
 }
 
 mainClassName = 'com.teampc.TestToolMain'
@@ -115,7 +124,7 @@ def createSpestTask(isValidate) {
       dependsOn dependent
       copy {
          from './resources/tmp'
-         into sourceSets.test.resources.srcDirs.first()
+         into sourceSets.test.resources.srcDirs.last()
       }
 
       delete('./resources')
@@ -137,7 +146,7 @@ def createRunSpestTask(isValidate) {
       dependsOn compileJava
       classpath = files("$projectDir/libs/testCompile/spest-patched.jar")
       main = 'controller.Launcher'
-      def tempArgs = ['-s', '.',  '-t', "${sourceSets.test.java.srcDirs.first()}", "${isValidate ? '-v' : '-g'}", '-l', 'WARN']
+      def tempArgs = ['-s', '.',  '-t', "${sourceSets.test.java.srcDirs.last()}", "${isValidate ? '-v' : '-g'}", '-l', 'WARN']
       sourceSets.main.java.files.findAll(this.&hasSpest).each {
          tempArgs << it.path
       }
