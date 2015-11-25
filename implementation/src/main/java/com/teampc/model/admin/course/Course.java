@@ -46,7 +46,10 @@ public class Course {
     * Course will be constructed with the title, term, year, and section
     */
    public Course(String title, Term term, int year, int section) {
-
+      this.title = title;
+      this.term = term;
+      this.year = year;
+      this.section = section;
    }
 
    /**
@@ -71,5 +74,16 @@ public class Course {
     */
    public List<Student> getEnrolledStudents() {
       return Collections.EMPTY_LIST;
+   }
+
+   /**
+    * Return a String representation of this course for display purposes.
+    *
+     <pre>
+         pre: title != null && term != null
+     </pre>
+    */
+   public String toString() {
+      return "" + title + "-" + String.format("%02d", section) + ", " + term.name() + " " + year;
    }
 }

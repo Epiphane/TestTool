@@ -44,7 +44,6 @@ public class TakeTestController implements Initializable {
 
    private void selectTest(Test selection) {
       currentSelection = selection;
-
       testSelector.setText(selection.toString());
    }
 

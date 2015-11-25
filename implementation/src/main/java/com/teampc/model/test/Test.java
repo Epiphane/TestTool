@@ -9,6 +9,7 @@ import java.util.*;
 import java.text.*;
 
 import com.teampc.model.admin.*;
+import com.teampc.model.admin.course.Course;
 import com.teampc.model.question.*;
 
 /**
@@ -38,6 +39,8 @@ public class Test {
 
    @Column(name = "course_name")
    private String courseName;
+
+   private Course course;
 
    private Teacher owner;
 
@@ -143,9 +146,9 @@ public class Test {
     * Publish this test
     *
           pre: !published
-    * 
+    *
           post: published
-    * 
+    *
     */
    public void publish() {
       assert !published;
