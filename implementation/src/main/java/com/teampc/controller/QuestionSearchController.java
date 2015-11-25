@@ -92,18 +92,15 @@ public class QuestionSearchController implements Initializable {
    @FXML
    private Button filterCourseButton;
 
+   @Override
    /**
     * Initialize the Question Search UI with appropriate values for the tests,
     * questions, and courses available, and set up handlers for click events.
     *
-     <pre>
-        courseListView == null && testListView == null && questionListView == null
-     </pre>
-     <post>
-        courseListView != null && testListView != null && questionListView != null
-     </post>
+      pre: courseListView == null && testListView == null && questionListView == null
+    *
+      post: courseListView != null && testListView != null && questionListView != null
     */
-   @Override
    public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
       //set up the change handler for tab pane
       tabPane.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {

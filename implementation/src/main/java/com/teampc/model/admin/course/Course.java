@@ -79,9 +79,7 @@ public class Course {
    /**
     * Return a String representation of this course for display purposes.
     *
-     <pre>
          pre: title != null && term != null
-     </pre>
     */
    public String toString() {
       return "" + title + "-" + String.format("%02d", section) + ", " + term.name() + " " + year;
