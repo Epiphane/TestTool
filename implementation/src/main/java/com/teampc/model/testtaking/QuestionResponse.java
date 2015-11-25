@@ -6,7 +6,7 @@ import lombok.Setter;
 
 /**
  * The response to a Test Question
- * @author Thomas Steinke
+ * @author adufrene
  *
  */
 public abstract class QuestionResponse/*<T extends QuestionResponse>*/ {
