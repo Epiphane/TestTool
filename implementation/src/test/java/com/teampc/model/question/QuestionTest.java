@@ -53,7 +53,7 @@ public class QuestionTest
             param_0 = testPoints_0.get(combinations[testComboIndex][0]);
 
             testObj.grade(param_0);
-            Assert.assertTrue(param_0.getPoints() != null);
+            Assert.assertTrue(param_0.getPointsReceived() >= 0);
             setUp();
         }
     }

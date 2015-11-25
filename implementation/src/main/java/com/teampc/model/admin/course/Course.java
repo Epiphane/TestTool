@@ -66,7 +66,7 @@ public class Course {
       // is expected to have compareTo properly implemented
       //
       forall(int i; i>=0 && i<return.size()-1;
-         return.get(i).compareTo(return.get(i+1)) != null)
+         return.get(i).compareTo(return.get(i+1)) < 0)
     *
     */
    public List<Student> getEnrolledStudents() {

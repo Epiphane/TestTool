@@ -15,7 +15,7 @@ import java.util.List;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public abstract class Student extends User {
+public abstract class Student extends User implements Comparable<Student> {
    /**
     * Student enrolled courses list
     **/
@@ -76,4 +76,5 @@ public abstract class Student extends User {
     * 
     */
    public abstract void removeCourse(Course course);
+
 }

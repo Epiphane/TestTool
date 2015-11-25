@@ -30,7 +30,7 @@ public abstract class Question/*<T extends QuestionResponse>*/ {
     *
       pre: response != null && response.isComplete()
     *
-      post: response.getPoints() != null
+      post: response.getPointsReceived() >= 0
     *
     */
    public void grade(QuestionResponse response) {
