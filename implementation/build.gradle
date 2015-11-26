@@ -118,16 +118,18 @@ task copyJavadoc(dependsOn: javadoc, type: Copy) {
 
 task release(dependsOn: ['copyJar', 'copyJavadoc'])
 
-def createSpestTask(isValidate) {
+def createCleanupSpestTask(isValidate) {
    def dependent = createRunSpestTask isValidate
+   tasks.create("cleanup${isValidate ? 'Validate' : 'Generate'}Spest", Delete) {
+      dependsOn dependent
+      delete './resources'
+   }
+}
+
+def createSpestTask(isValidate) {
+   def dependent = createCleanupSpestTask(isValidate)
    tasks.create("${isValidate ? 'validate' : 'generate'}Spest") {
       dependsOn dependent
-      copy {
-         from './resources/tmp'
-         into sourceSets.test.resources.srcDirs.last()
-      }
-
-      delete('./resources')
    }
 }
 

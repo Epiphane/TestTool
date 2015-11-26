@@ -66,5 +66,25 @@ public class QuestionSearchControllerTest
             setUp();
         }
     }
+
+    @Test
+    public void onFilterCoursesClickTest_1() throws Exception
+    {
+
+        String methodId = "onFilterCoursesClick";
+
+        testObj.onFilterCoursesClick();
+        setUp();
+    }
+
+    @Test
+    public void onFilterTestsClickTest_2() throws Exception
+    {
+
+        String methodId = "onFilterTestsClick";
+
+        testObj.onFilterTestsClick();
+        setUp();
+    }
     /*End generated tests*/
 }
