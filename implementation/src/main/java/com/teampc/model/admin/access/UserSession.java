@@ -13,6 +13,8 @@ import java.util.Scanner;
  * UserSession identifies the user that is currently logged into the application.
  * Users can have set restrictions, to prevent or allow access to parts
  * of the application
+ *
+ * @author Greg Sawers gsawers (gsawers@calpoly.edu)
  */
 public class UserSession {
 
@@ -20,7 +22,7 @@ public class UserSession {
    public static User loggedInUser;
 
    /**
-    *
+    * A check to see if a user is logged in.
     */
    public static boolean loggedIn = false;
 
