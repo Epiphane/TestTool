@@ -7,7 +7,7 @@ import lombok.AllArgsConstructor;
  * @author Zach Arend
  */
 @AllArgsConstructor
-public class MultipleChoiceQuestionResponse extends QuestionResponse/*<MultipleChoiceQuestionResponse>*/ {
+public class MultipleChoiceQuestionResponse extends QuestionResponse<MultipleChoiceQuestionResponse> {
     // an int representing which answer was chosen. 1 for A, 2 for B, etc
     private int answer;
 
@@ -19,9 +19,12 @@ public class MultipleChoiceQuestionResponse extends QuestionResponse/*<MultipleC
 
    /** {@inheritDoc} */
    @Override
-   public void assignPoints(QuestionResponse tmpResponse) {
-      MultipleChoiceQuestionResponse questionResponse = (MultipleChoiceQuestionResponse) tmpResponse;
+   public void assignPoints(MultipleChoiceQuestionResponse questionResponse) {
       questionResponse.pointsReceived = answer == questionResponse.answer ? 1 : 0;
    }
 
+   @Override
+   public String toString() {
+      return Character.toString(Character.toChars('a' + answer)[0]);
+   }
 }

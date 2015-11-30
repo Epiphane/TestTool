@@ -11,7 +11,7 @@ import java.io.IOException;
  */
 @AllArgsConstructor
 @Slf4j
-public class CodeQuestionResponse extends QuestionResponse/*<CodeQuestionResponse>*/ {
+public class CodeQuestionResponse extends QuestionResponse<CodeQuestionResponse> {
    //A plaintext version of the student'sn answer, or the path to the grading script.
    private String codeAnswer;
 
@@ -23,8 +23,7 @@ public class CodeQuestionResponse extends QuestionResponse/*<CodeQuestionRespons
 
    /** {@inheritDoc} */
    @Override
-   public void assignPoints(QuestionResponse tmpResponse) {
-      CodeQuestionResponse questionResponse = (CodeQuestionResponse) tmpResponse;
+   public void assignPoints(CodeQuestionResponse questionResponse) {
       int score = 0;
       try {
          Process process = Runtime.getRuntime().exec(new String[] { codeAnswer, questionResponse.codeAnswer});
@@ -33,5 +32,10 @@ public class CodeQuestionResponse extends QuestionResponse/*<CodeQuestionRespons
          log.error("Error grading code question with script: " + codeAnswer, e);
       }
       questionResponse.pointsReceived = score;
+   }
+
+   @Override
+   public String toString() {
+      return codeAnswer;
    }
 }

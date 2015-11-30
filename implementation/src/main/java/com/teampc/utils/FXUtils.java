@@ -71,4 +71,10 @@ public class FXUtils {
       stage.show();
       return stage;
    }
+
+   /**
+    * noop biconsumer, used primarily in <code>switchToScreenAndConfigureController</code>
+     */
+   public static <T, S> void noop(T t, S s) {}
+
 }

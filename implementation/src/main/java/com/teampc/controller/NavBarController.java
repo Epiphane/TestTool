@@ -1,5 +1,6 @@
 package com.teampc.controller;
 
+import com.teampc.utils.FXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -53,12 +54,7 @@ public class NavBarController {
    }
 
    private void showLayout(String resource) throws IOException {
-      Stage stage = new Stage();
-      Parent parent = FXMLLoader.load(getClass().getClassLoader().getResource(resource));
-
-      Scene scene = new Scene(parent);
-      stage.setScene(scene);
-      stage.show();
+      FXUtils.newScreenAndConfigureController(resource, (x, y) -> {});
    }
 
 }
