@@ -18,7 +18,7 @@ public class TestRow extends Pane {
 
    public TestRow(Test test) {
       FXMLLoader loader = new FXMLLoader(
-            getClass().getClassLoader().getResource("view-test-row.fxml"));
+            getClass().getClassLoader().getResource("view-tests-row.fxml"));
       loader.setController(new TestRowController(test));
 
       try {
