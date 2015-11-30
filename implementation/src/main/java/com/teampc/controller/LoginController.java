@@ -36,9 +36,17 @@ public class LoginController {
 
    @FXML private Label invalidText;
 
+   /**
+    *  Handles clicks of the login button
+    * @param event Clicking of the login button
+    * @throws IOException
+    */
    @FXML
    void onLoginClick(ActionEvent event) throws IOException {
 
+      /**
+       * If the username corresponds to an existing user and the password is correct for that user, login to the app.
+       */
       if(UserSession.login(username.getText(), passwordField.getText())) {
          User user = UserSession.getLoggedInUser();
 
@@ -46,11 +54,19 @@ public class LoginController {
 
          FXUtils.switchToScreenAndConfigureController(primaryStage, "navbar.fxml", NavBarController::setPrimaryStage);
       }
+      /**
+       * Otherwise tell the user their login information is incorrect
+       */
       else{
          invalidText.setVisible(true);
       }
    }
 
+   /**
+    * Handles clicks of the New User hyperlink
+    * @param event Clicking on the new user hyperlink
+    * @throws IOException
+    */
    @FXML
    void onRegisterClick(ActionEvent event) throws IOException{
       invalidText.setVisible(false);
