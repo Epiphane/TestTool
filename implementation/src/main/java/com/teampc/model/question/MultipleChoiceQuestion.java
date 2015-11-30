@@ -14,13 +14,13 @@ import java.util.ArrayList;
  */
 @Getter
 @Setter
-public class MultipleChoiceQuestion extends Question<MultipleChoiceQuestionResponse> {
+public class MultipleChoiceQuestion extends Question/*<MultipleChoiceQuestionResponse>*/ {
    //the list of possible answers for this question.
    private ArrayList<String> answers;
 
    /** {@inheritDoc} */
    @Override
-   public QuestionTypeName getTypeName() {
-      return QuestionTypeName.MULTIPLE_CHOICE;
+   public QuestionType getType() {
+      return QuestionType.MULTIPLE_CHOICE;
    }
 }

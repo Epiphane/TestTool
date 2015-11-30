@@ -9,7 +9,9 @@ import java.util.*;
 import java.text.*;
 
 import com.teampc.model.admin.*;
+import com.teampc.model.admin.course.Course;
 import com.teampc.model.question.*;
+import com.teampc.model.testtaking.*;
 
 /**
  * A general Test Class
@@ -36,8 +38,13 @@ public class Test {
    @Column(name = "end_date")
    private Date endDate;
 
+   @Column(name = "time_limit")
+   private int timeLimit;
+
    @Column(name = "course_name")
    private String courseName;
+
+   private Course course;
 
    private Teacher owner;
 
@@ -50,6 +57,8 @@ public class Test {
       this.startDate = startDate;
       this.endDate = endDate;
       this.courseName = courseName;
+
+      this.questions = new ArrayList<Question>();
    }
 
    public Test() {
@@ -80,6 +89,32 @@ public class Test {
       return endDate;
    }
 
+   public int getTimeLimit() {
+      LOG.info("Getting time limit: " + timeLimit);
+      return timeLimit;
+   }
+
+   /**
+    * Determines whether the test is available to be taken
+    */
+   public boolean isOpen() {
+      if (!published) {
+         return false; // Not published yet!
+      }
+
+      Date today = new Date();
+
+      if (today.compareTo(startDate) < 0) {
+         return false; // Not open yet
+      }
+      else if (today.compareTo(endDate) < 0) {
+         return true; // Open!
+      }
+      else {
+         return false; // Closed already
+      }
+   }
+
    /**
     * Get the name of the course/subject
     */
@@ -89,13 +124,10 @@ public class Test {
    }
 
    /**
-    *
-    * <pre>
-          pre: startDate != null && endDate != null
-    *
-    * </pre>
-    *
     * Assess and set the point value on a response to this question.
+    *
+      pre: startDate != null && endDate != null
+    *
     */
    public String toString() {
       DateFormat df = new SimpleDateFormat("EE MMM d, YYYY");
@@ -115,17 +147,13 @@ public class Test {
    }
 
    /**
-    *
-    * <pre>
-          pre: from > 0 && from < questions.size() &&
-                  to > 0 && to < questions.size() &&
-                  from != to
-    * 
-    * </pre>
-    *
     * Assess and set the point value on a response to this question.
     * Reorders the question list by moving the question in position
-    * `from` to position `to`.
+    * from to position to.
+    *
+      pre: from > 0 && from < questions.size() &&
+         to > 0 && to < questions.size() &&
+         from != to
     */
    public void moveQuestion(int from, int to) {
 
@@ -135,6 +163,7 @@ public class Test {
     * Return the list of questions.
     */
    public List<Question> getQuestions() {
+      LOG.info("Getting questions");
       return questions;
    }
 
@@ -147,17 +176,12 @@ public class Test {
 
    /**
     *
-    * <pre>
-          pre: !published
-    * 
-    * </pre>
-    *
-    * <pre>
-          pre: published
-    * 
-    * </pre>
-    *
     * Publish this test
+    *
+          pre: !published
+    *
+          post: published
+    *
     */
    public void publish() {
       assert !published;
@@ -177,6 +201,21 @@ public class Test {
    */
    public boolean isTakeHome() {
       return false;
+   }
+
+   public Submission takeTest(User forUser) {
+      Submission newSubmission = new Submission();
+
+      newSubmission.setTaker(forUser);
+      newSubmission.setTest(this);
+
+      ArrayList<QuestionResponse> responseShells = new ArrayList<QuestionResponse>();
+
+      for (int qNum = 0; qNum < questions.size(); qNum ++) {
+         responseShells.add(questions.get(qNum).createResponse());
+      }
+
+      return newSubmission;
    }
 
    /**

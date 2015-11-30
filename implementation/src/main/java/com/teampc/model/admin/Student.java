@@ -15,7 +15,7 @@ import java.util.List;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public abstract class Student extends User {
+public abstract class Student extends User implements Comparable<Student> {
    /**
     * Student enrolled courses list
     **/
@@ -40,6 +40,7 @@ public abstract class Student extends User {
       !exists (Course cother;
          enrolledCourses.contains(cother);
             cother.equals(course))
+    *
      post:
       //
       // The resulting enrolledCourses list will contain the course being added
@@ -55,7 +56,7 @@ public abstract class Student extends User {
     * The method will remove the Enrolled instance
     * from the enrolledCourses list.
     *
-    * <pre>
+    * 
      pre:
       //
       // The enrolledCourses list must already contain the course being removed
@@ -63,8 +64,8 @@ public abstract class Student extends User {
       exists(Course cother;
          enrolledCourses.contains(cother);
             cother.equals(course))
-    * </pre>
-    * <pre>
+    * 
+    * 
     post:
       //
       // The resulting enrolledCourses list will not contain the course being removed
@@ -72,7 +73,8 @@ public abstract class Student extends User {
       !exists(Course cother;
          enrolledCourses.contains(cother);
             cother.equals(course))
-    * </pre>
+    * 
     */
    public abstract void removeCourse(Course course);
+
 }

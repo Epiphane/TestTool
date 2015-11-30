@@ -89,9 +89,9 @@ public class UserSession {
    /**
     * Ends the current user session
     *
-       pre: loggedIn && loggedInUser.equals(user)
+       pre: loggedIn
     *
-       post: !loggedIn
+       post: !loggedIn && loggedInUser == null
     */
    public static void endUserSession(){
 

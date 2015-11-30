@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html><head><meta content="text/html; charset=ISO-8859-1" http-equiv="content-type"><title>ms8-duties</title></head><body style="outline-color: navy ! important; outline-style: dashed ! important; outline-width: 2px ! important;"><span style="font-weight: bold;">Jameson</span><br>
+<br>
+I worked on test generation. To see this run, click on the &#8216;Create
+Test&#8217; button that is on the navigation bar. When the GUI pops up, enter
+some values and press the 'Next&#8217;' button. The values for &#8216;Test Name&#8217;,
+&#8216;Start Date&#8217;, and &#8216;End Date&#8217; are inserted into the database. These
+operations appear in stdout.<br>
+<br>
+The model classes with Spest specifications are in:<br>
+implementation/src/main/java/com/teampc/model/admin/Student.java<br>
+implementation/src/main/java/com/teampc/model/admin/Course.java<br>
+The generated Spest tests are in:<br>
+implementation/src/test/java/com/teampc/model/admin/Student.java<br>
+implementation/src/test/java/com/teampc/model/admin/Course.java<br>
+<br>
+<span style="font-weight: bold;">Zach</span><br>
+<br>
+I worked on test grading. To see this: login, click 'View Tests' button on the navigation bar. When the GUI pop ups, click 'Grade' next to '307 Midterm 1'. The student submissions will appear and they are added to the database. The grade will show next to each student's score. TF and MC fill-in's will be automatically graded.<br>
+<br>
+The Model classes with Spest specifications are in:<br>
+implementation/src/main/java/com/teampc/model/admin/Teacher.java<br>
+<br>
+<span style="font-weight: bold;">Andy</span><br>
+<br>
+I worked on the question table view of the question bank and the
+question response validation. The question table screen can be accessed
+by clicking the view questions button from the main toolbar. If you
+click the &#8220;New Question&#8221; button in the lower left hand corner, we
+currently hardcode in values for a new question and insert it only into
+the view; we have yet to insert the question into a database. All of
+the button clicks on this screen are logged in the controller, and the
+fake database insertion operations are logged at the dao level.<br>
+<br>
+The model classes with Spest specifications are in: <br>
+implementation/src/main/java/com/teampc/dao/AbstractDAO.java<br>
+implementation/src/main/java/com/teampc/model/testtaking/QuestionResponse.java<br>
+The generated Spest tests are in:<br>
+implementation/src/test/java/com/teampc/dao/AbstractDAO.java<br>
+implementation/src/test/java/com/teampc/model/testtaking/QuestionResponse.java<br>
+<br>
+<span style="font-weight: bold;">Greg</span><br>
+<br>
+I worked on login and user authentication. This is the first screen you
+see when you open up the app. On the login page, enter a username and
+password. You will notice that if you are not registered, you will not
+be able to login to the app. Click the new user hyperlink to open the
+registration screen to register for the app. Once you fill in your
+information, click the register button and you will be taken back to
+the login page, where you can now login to the app. <br>
+<br>
+The model classes with Spest specifications are in: <br>implementation/src/main/java/com/teampc/model/admin/access/UserSession.java<br>
+<br>
+<span style="font-weight: bold;">Thomas</span><br>
+<br>
+I worked on test presentation. To see this run, click the "View Tests" button on the navigation bar. When the GUI pops up, select an existing test and click "View Test" to see the test's data. This shows a paginated list of the test questions, formatted as the student can expect to see them.<br>
+<br>
+The model classes with Spest specifications are in:<br>
+implementation/src/main/java/com/teampc/model/test/Test.java<br>
+<br>
+<span style="font-weight: bold;">David</span><br>
+<br>
+I worked on the Question Bank Search feature and on implementing the database connectivity/object mapping. In order to use the Question Bank Search feature, navigate to the Question Bank from the top navbar. Click "Search Questions" in the lower left to bring up the question search window. Changing tabs will filter tests by the selected course, if one is selected. Courses can also be filtered by entering text and clicking "Filter Courses". This functionality will be extended to the Tests and Questions in later versions.<br>
+<br>
+My Spest classes:<br>
+implementation/src/main/java/com/teampc/controller/QuestionSearchController.java<br>
+<br>
+</body></html>

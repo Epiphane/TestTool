@@ -27,36 +27,7 @@ public class TestDAO extends AbstractDAO<Test> {
     * Gets all tests assigned to a given student from the database
     */
    public void read() {
-      
-   }
 
-   /**
-    * Inserts a new test into the database
-    */
-   @Override
-   public void insert(Test newTest) {
-//      Session session = HibernateUtils.getSessionFactory().openSession();
-//      Transaction transaction = session.beginTransaction();
-//
-//      try {
-         newTest.getName();
-         newTest.getStartDate();
-         newTest.getEndDate();
-         newTest.getCourseName();
-
-//         session.save(newTest);
-//
-//         session.flush();
-//         transaction.commit();
-//      } catch(Exception e) {
-//         if (transaction != null) {
-//            LOG.error("Rolling back insert");
-//            transaction.rollback();
-//         }
-//         throw e;
-//      } finally {
-//         session.close();
-//      }
    }
 
    /**

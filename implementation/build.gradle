@@ -35,6 +35,15 @@ sourceSets {
             srcDir 'src/main/layout'
         }
     }
+
+    test {
+       java {
+          srcDir "$projectDir/../testing/src/test/java"
+       }
+       resources {
+          srcDir "$projectDir/../testing/src/test/resources"
+       }
+    }
 }
 
 mainClassName = 'com.teampc.TestToolMain'
@@ -91,6 +100,12 @@ test {
    }
 }
 
+tasks.withType(JavaCompile) {
+   sourceCompatibility = '1.8'
+   targetCompatibility = '1.8'
+//   options.compilerArgs << '-Xlint:all'
+}
+
 task copyJar(dependsOn: shadowJar, type: Copy) {
     from shadowJar.outputs.files.asPath
     into "$projectDir/executables/"
@@ -103,17 +118,29 @@ task copyJavadoc(dependsOn: javadoc, type: Copy) {
 
 task release(dependsOn: ['copyJar', 'copyJavadoc'])
 
-def createSpestTask(isValidate) {
+def createCleanupSpestTask(isValidate) {
    def dependent = createRunSpestTask isValidate
+   tasks.create("cleanup${isValidate ? 'Validate' : 'Generate'}Spest", Delete) {
+      dependsOn dependent
+      delete './resources'
+   }
+}
+
+def createSpestTask(isValidate) {
+   def dependent = createCleanupSpestTask(isValidate)
    tasks.create("${isValidate ? 'validate' : 'generate'}Spest") {
       dependsOn dependent
-      copy {
-         from './resources/tmp'
-         into sourceSets.test.resources.srcDirs.first()
-      }
-
-      delete('./resources')
    }
+}
+
+def hasSpest(file) {
+   def hasSpest = false
+   file.eachLine {
+      if (!hasSpest && it =~ /^\s*(pre|post):/) {
+         hasSpest = true;
+      }
+   }
+   hasSpest
 }
 
 def createRunSpestTask(isValidate) {
@@ -121,13 +148,25 @@ def createRunSpestTask(isValidate) {
       dependsOn compileJava
       classpath = files("$projectDir/libs/testCompile/spest-patched.jar")
       main = 'controller.Launcher'
-      def tempArgs = ['-s', '.',  '-t', "${sourceSets.test.java.srcDirs.first()}", "${isValidate ? '-v' : '-g'}", '-l', 'WARN']
-      sourceSets.main.java.files.each { tempArgs << it }
+      def logLevel = project.hasProperty('spestLog') ? spestLog : 'WARN'
+      def tempArgs = ['-s', '.',  '-t', "${sourceSets.test.java.srcDirs.last()}", "${isValidate ? '-v' : '-g'}", '-l', logLevel]
+      def files = project.hasProperty('spestFiles') ?
+         spestFiles.tokenize(',').collect{ new File(it.trim()) } :
+         sourceSets.main.java.files
+
+      files.findAll(this.&hasSpest).each {
+         tempArgs << it.path
+      }
+
       args = tempArgs
-      standardInput = System.in
    }
 }
 
 createSpestTask true
 createSpestTask false
 
+task findSpest << {
+   sourceSets.main.java.files.findAll(this.&hasSpest).each {
+      println it
+   }
+}

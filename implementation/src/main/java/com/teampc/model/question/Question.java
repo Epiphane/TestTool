@@ -3,7 +3,7 @@ package com.teampc.model.question;
 import lombok.Getter;
 import lombok.Setter;
 
-import com.teampc.model.testtaking.QuestionResponse;
+import com.teampc.model.testtaking.*;
 
 /**
  * A class that represents a test question.
@@ -15,30 +15,25 @@ import com.teampc.model.testtaking.QuestionResponse;
 //TODO 10-21-15: Make this class generic on <T extends QuestionResponse>.
 @Getter
 @Setter
-public abstract class Question<T extends QuestionResponse> {
+public abstract class Question/*<T extends QuestionResponse>*/ {
    //The text prompt for the question.
    private String prompt;
    //the integer point value of this question.
    private int points;
    //a QuestionResponse object of the appropriate type
-   private T correctAnswer;
+   private QuestionResponse correctAnswer;
 
+   @SuppressWarnings("unchecked")
    /**
     *
-    * <pre>
-          pre: response != null && response.isComplete()
-    *
-    * </pre>
-    *
-    * <pre>
-          post: response.getPoints() > 0
-    *
-    * </pre>
-    *
     * Assess and set the point value on a response to this question.
+    *
+      pre: response != null && response.isComplete()
+    *
+      post: response.getPointsReceived() >= 0
+    *
     */
-   @SuppressWarnings("unchecked")
-   public void grade(T response) {
+   public void grade(QuestionResponse response) {
       correctAnswer.assignPoints(response);
    }
 
@@ -46,23 +41,39 @@ public abstract class Question<T extends QuestionResponse> {
     * Get the specific type of the question, used to display strings for question types
     * @return type of this question
     */
-   public abstract QuestionTypeName getTypeName();
+   public abstract QuestionType getType();
 
-   public enum QuestionTypeName {
-      CODE("Code"),
-      MATCHING("Matching"),
-      MULTIPLE_CHOICE("Multiple Choice"),
-      SHORT_ANSWER("Short Answer");
+   public enum QuestionType {
+      CODE("Code", CodeQuestionResponse.class),
+      MATCHING("Matching", MatchingQuestionResponse.class),
+      MULTIPLE_CHOICE("Multiple Choice", MultipleChoiceQuestionResponse.class),
+      SHORT_ANSWER("Short Answer", ShortAnswerQuestionResponse.class);
 
       private String displayText;
+      private Class responseClass;
 
-      QuestionTypeName(String displayText) {
+      QuestionType(String displayText, Class responseClass) {
          this.displayText = displayText;
+         this.responseClass = responseClass;
       }
 
       @Override
       public String toString() {
          return displayText;
       }
+
+      public QuestionResponse createResponse() {
+         try {
+            return (QuestionResponse) responseClass.getConstructor().newInstance(new Object[] {});
+         }
+         catch (Exception e) {
+            // Should never happen
+            return null;
+         }
+      }
+   }
+
+   public QuestionResponse createResponse() {
+      return this.getType().createResponse();
    }
 }
