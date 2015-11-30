@@ -12,13 +12,13 @@ import java.io.IOException;
 /**
  * Created by james on 11/9/15.
  */
-public class TestRow extends Pane {
+public class RowView extends Pane {
    @FXML
    private Node testRow;
 
-   public TestRow(Test test) {
+   public RowView(Test test, String resource) {
       FXMLLoader loader = new FXMLLoader(
-            getClass().getClassLoader().getResource("view-tests-row.fxml"));
+            getClass().getClassLoader().getResource(resource));
       loader.setController(new TestRowController(test));
 
       try {

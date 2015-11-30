@@ -8,7 +8,7 @@ import java.net.URL;
 import java.util.Date;
 import java.util.ResourceBundle;
 
-public class ViewTestsController extends ListViewController<RowView> {
+public class ViewQuestionsController extends ListViewController<RowView> {
 
    private static final String RESOURCE = "view-test-row.fxml";
 
