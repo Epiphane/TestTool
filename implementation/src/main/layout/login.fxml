@@ -29,6 +29,11 @@
                   <Font name="Helvetica Neue Italic" size="13.0" />
                </font>
             </Hyperlink>
+            <Label fx:id="invalidText" layoutX="384.0" layoutY="211.0" text="Invalid Username or Password" textFill="#e40c0c" underline="true" visible="false">
+               <font>
+                  <Font name="System Italic" size="13.0" />
+               </font>
+            </Label>
       </children>
     </AnchorPane>
       <TextField />

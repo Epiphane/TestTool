@@ -33,19 +33,26 @@ public class LoginController {
 
    @FXML private javafx.scene.control.Hyperlink register;
 
+   @FXML private javafx.scene.control.Label invalidText;
+
    @FXML
    void onLoginClick(ActionEvent event) throws IOException {
-      UserSession session = new UserSession(new User());
-      session.login(new User());
-      User user = session.getLoggedInUser();
 
-      log.debug(user.getDisplayName());
+      if(UserSession.login(username.getText(), passwordField.getText())) {
+         User user = UserSession.getLoggedInUser();
 
-      FXUtils.switchToScreenAndConfigureController(primaryStage, "navbar.fxml", NavBarController::setPrimaryStage);
+         log.debug(user.getDisplayName());
+
+         FXUtils.switchToScreenAndConfigureController(primaryStage, "navbar.fxml", NavBarController::setPrimaryStage);
+      }
+      else{
+         invalidText.setVisible(true);
+      }
    }
 
    @FXML
    void onRegisterClick(ActionEvent event) throws IOException{
+      invalidText.setVisible(false);
       showLayout("register.fxml");
    }
 

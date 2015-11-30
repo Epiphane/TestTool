@@ -25,8 +25,12 @@ public class User {
    }
 
    /**
-   * Defines a user given username, firstName, and lastName
-   */
+    * Defines a user given username, firstName, lastName, and password
+    * @param username Username of the User
+    * @param firstName First name of the User
+    * @param lastName Last Name of the User
+    * @param password Password of the User
+    */
    public User(String username, String firstName, String lastName, String password) {
       this.username = username;
       this.firstName = firstName;
@@ -34,6 +38,19 @@ public class User {
       this.password = password;
    }
 
+   /**
+    * Defines a user given a username, firstName and lastName.
+    * @param username Username of the User
+    * @param firstName First name of the User
+    * @param lastName Last Name of the user
+    */
+   @Deprecated
+   public User(String username, String firstName, String lastName)
+   {
+      this.username = username;
+      this.firstName = firstName;
+      this.lastName = lastName;
+   }
 
    /**
    * Gets the user display name. It is defined as the firstName + lastName
