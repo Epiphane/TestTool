@@ -5,6 +5,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import jfxtras.scene.control.LocalDateTimeTextField?>
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="501.0" prefWidth="679.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.teampc.controller.CreateTestController">
    <children>
        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
@@ -15,8 +16,8 @@
                <Text layoutX="25.0" layoutY="127.0" strokeType="OUTSIDE" strokeWidth="0.0" text="End Date and Time:" wrappingWidth="73.28125" />
                <Text layoutX="23.0" layoutY="241.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Assign To:" wrappingWidth="73.28125" />
                <MenuButton fx:id="assignedStudentsList" layoutX="96.0" layoutY="223.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="252.0" text="Choose Students"/>
-               <DatePicker fx:id="endDate" layoutX="98.0" layoutY="118.0" prefHeight="27.0" prefWidth="252.0" />
-               <DatePicker fx:id="startDate" layoutX="98.0" layoutY="71.0" prefHeight="27.0" prefWidth="252.0" />
+               <LocalDateTimeTextField fx:id="endDate" layoutX="98.0" layoutY="118.0" prefHeight="27.0" prefWidth="252.0" />
+               <LocalDateTimeTextField fx:id="startDate" layoutX="98.0" layoutY="71.0" prefHeight="27.0" prefWidth="252.0" />
                <CheckBox fx:id="enableStartDate" layoutX="368.0" layoutY="76.0" mnemonicParsing="false" onAction="#onStartDateEnable" text="Enable" />
                <CheckBox fx:id="enableEndDate" layoutX="368.0" layoutY="122.0" mnemonicParsing="false" onAction="#onEndDateEnable" text="Enable" />
                <Button layoutX="269.0" layoutY="426.0" mnemonicParsing="false" onAction="#onSubmitCreateTest" text="Generate Questions" />

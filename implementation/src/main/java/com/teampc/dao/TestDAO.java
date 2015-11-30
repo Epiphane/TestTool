@@ -31,17 +31,23 @@ public class TestDAO extends AbstractDAO<Test> {
    }
 
    /**
+    * Inserts a new test into the database
+    */
+   @Override
+   public void insert(Test newTest) {
+      super.insert(newTest);
+
+      newTest.getName();
+      newTest.getStartDate();
+      newTest.getEndDate();
+      newTest.getCourseName();
+   }
+
+   /**
     * Find a test by the test id
     */
    public void findById(String id) {
       LOG.info("Find by id: " + id);
-   }
-
-   /**
-    * Get all Tests for a specified user. User is identified by userId
-    */
-   public void getAll(String userId) {
-      LOG.info("Find test for user: " + userId);
    }
 
    /**
