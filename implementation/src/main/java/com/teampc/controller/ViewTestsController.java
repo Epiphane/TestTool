@@ -16,8 +16,8 @@ public class ViewTestsController extends ListViewController<RowView> {
    public void initialize(URL location, ResourceBundle resources) {
 
       data = FXCollections.observableArrayList(
-         new RowView(new Test("307 Midterm 1", new Date(11), new Date(11), "307"), RESOURCE),
-         new RowView(new Test("307 Midterm 2", new Date(11), new Date(11), "307"), RESOURCE)
+         new RowView(new TestRowController(new Test("307 Midterm 1", new Date(11), new Date(11), "307")), RESOURCE),
+         new RowView(new TestRowController(new Test("307 Midterm 2", new Date(11), new Date(11), "307")), RESOURCE)
       );
 
       super.initialize(location, resources);

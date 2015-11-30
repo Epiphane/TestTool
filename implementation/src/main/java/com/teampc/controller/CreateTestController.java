@@ -3,6 +3,7 @@ package com.teampc.controller;
 import com.google.common.base.Strings;
 import com.teampc.dao.TestDAO;
 import com.teampc.model.test.Test;
+import com.teampc.utils.FXUtils;
 import com.teampc.utils.TestUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,6 +15,7 @@ import jfxtras.scene.control.LocalDateTimeTextField;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -123,10 +125,14 @@ public class CreateTestController implements Initializable {
       TestDAO.getInstance().insert(newTest);
       LOG.info("new test submitted");
 
-      // TODO: remove this and change to the generate questions view
       Node source = (Node) event.getSource();
       Stage stage = (Stage) source.getScene().getWindow();
-      stage.close();
+
+      try {
+         FXUtils.switchToScreen(stage, "view-questions-list.fxml");
+      } catch (IOException e) {
+         LOG.error("Failed to load question list view");
+      }
    }
 
 }

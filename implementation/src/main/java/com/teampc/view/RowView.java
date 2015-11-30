@@ -16,10 +16,10 @@ public class RowView extends Pane {
    @FXML
    private Node testRow;
 
-   public RowView(Test test, String resource) {
+   public RowView(Object controller, String resource) {
       FXMLLoader loader = new FXMLLoader(
             getClass().getClassLoader().getResource(resource));
-      loader.setController(new TestRowController(test));
+      loader.setController(controller);
 
       try {
          testRow = (Pane) loader.load();
