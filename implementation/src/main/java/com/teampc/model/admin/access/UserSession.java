@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 /**
- * Identifies the user that is currently logged into the application.
+ * UserSession identifies the user that is currently logged into the application.
  * Users can have set restrictions, to prevent or allow access to parts
  * of the application
  */
@@ -37,20 +37,13 @@ public class UserSession {
 
 
    /**
-    * A session is defined by the user that is logged in
-    */
-   public  UserSession(User user) {
-
-   }
-
-   /**
     * @param username the username used to login.
     * @param password the password used to login
     *
     *
-     pre: user != null
+     pre: username != null && password != null
     *
-     post: loggedIn == true && loggedInUser.equals(user)
+     post: (loggedIn == true && userList.containsKey(username)) || (loggedIn == false && !userList.containsKey(username))
     */
    public static boolean login(String username, String password){
       populateUserList();
@@ -67,6 +60,13 @@ public class UserSession {
       }
    }
 
+   /**
+    * Register a new User with the class
+    * @param username The username of the new User
+    * @param pass The password of the new User
+    * @param first The first name of the new User
+    * @param last The last name of the new USer
+    */
    public static void Register(String username, String pass, String first, String last){
       User user = new User(username, first, last, pass);
       userlist.put(username, user);
@@ -76,14 +76,16 @@ public class UserSession {
    /**
     * Get the currently logged in user
     *
+    * @return User an instance of the logged in User
+    *
      pre: loggedIn && loggedInUser != null
     *
      post: loggedIn && loggedInUser != null
     */
    public static User getLoggedInUser(){
 
-      System.out.println("gsawers is currently logged in");
-      return new User();
+      System.out.println(loggedInUser.getDisplayName() + " is logged in");
+      return loggedInUser;
    }
 
    /**
@@ -125,6 +127,7 @@ public class UserSession {
 
    }
 
+   
    private static void registerUser(String username, User user){
 
       String fileName = "";
