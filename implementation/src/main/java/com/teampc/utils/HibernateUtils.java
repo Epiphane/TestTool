@@ -1,9 +1,8 @@
 package com.teampc.utils;
 
+import com.teampc.model.test.Test;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-
-import com.teampc.example.ExamplePerson;
 
 /**
  * Created by adufrene on 10/26/15.
@@ -11,7 +10,7 @@ import com.teampc.example.ExamplePerson;
 public class HibernateUtils {
     private static SessionFactory sessionFactory = new Configuration()
             .configure()
-            .addAnnotatedClass(ExamplePerson.class)
+            .addAnnotatedClass(Test.class)
             .buildSessionFactory();
 
     public static SessionFactory getSessionFactory() {
