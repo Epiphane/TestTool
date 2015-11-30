@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.collections.*;
 import org.slf4j.Logger;
@@ -27,79 +28,43 @@ public class TakeTestController implements Initializable {
    private URL location;
 
    @FXML
-   private ListView<Test> availableTests;
+   private Text testTitle;
 
    @FXML
-   private MenuButton testSelector;
+   private Text descQuestions;
 
-   private Test currentSelection;
+   @FXML
+   private Text descTimeLimit;
+
+   private Test test;
 
    /**
     * Initializes the Create Test Options UI with values for the selection lists, spinner, and input boxes
     */
    @FXML
    public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
-      initTestList();
    }
 
-   private void selectTest(Test selection) {
-      currentSelection = selection;
-      testSelector.setText(selection.toString());
-   }
+   public void setTest(Test test) {
+      this.test = test;
 
-   private void initTestList() {
-      // TODO Load tests from DAO
-      Date userStartDate = new GregorianCalendar(2015, 12, 11).getTime();
-      Date userEndDate = new GregorianCalendar(2015, 12, 12).getTime();
-      Test testA = new Test("Final", userStartDate, userEndDate, "CPE 101");
+      this.testTitle.setText(test.getCourseName() + " " + test.getName());
+      this.descQuestions.setText("There are " + test.getQuestions().size() + " questions.");
 
-      userStartDate = new GregorianCalendar(2015, 9, 30).getTime();
-      userEndDate = new GregorianCalendar(2015, 9, 31).getTime();
-      Test testB = new Test("SVN Basics", userStartDate, userEndDate, "CPE 307");
-
-      userStartDate = new GregorianCalendar(2015, 12, 10).getTime();
-      userEndDate = new GregorianCalendar(2015, 12, 11).getTime();
-      Test testC = new Test("Final", userStartDate, userEndDate, "CPE 307");
-
-      ObservableList<Test> tests = FXCollections.observableArrayList(testA, testB, testC);
-
-      Collection<MenuItem> testData = new ArrayList<>();
-      tests.forEach(test -> {
-         MenuItem menuItem = new MenuItem(test.toString());
-
-         testData.add(menuItem);
-         menuItem.setOnAction(event -> selectTest(test));
-      });
-
-      availableTests.setItems(tests);
-      testSelector.getItems().addAll(testData);
-
-      selectTest(testB);
+      int timeLimit = test.getTimeLimit();
+      if (timeLimit > 0) {
+         this.descTimeLimit.setText("You have " + test.getTimeLimit() / 60 + " minutes.");
+      }
+      else {
+         this.descTimeLimit.setText("");
+      }
    }
 
    /**
     * Handler for the create test button
     */
    @FXML
-   void onTakeTest(ActionEvent event) {
-      // if (Strings.isNullOrEmpty(testName.getText()) || Strings.isNullOrEmpty(courseType.getText())) {
-      //    LOG.info("missing test name, courseType, ...");
-      //    return;
-      // }
-
-      // Date userStartDate = null;
-      // Date userEndDate = null;
-
-      // if (startDate.getValue() != null) { userStartDate = TestUtils.localDateToDate(startDate.getValue()); }
-      // if (endDate.getValue() != null) { userEndDate = TestUtils.localDateToDate(endDate.getValue()); }
-
-      // Test newTest = new Test(testName.getText(), userStartDate, userEndDate, courseType.getText());
-      // TestDAO.getInstance().insert(newTest);
-      // LOG.info("new test submitted");
-
-      // // TODO: remove this and change to the generate questions view
-      // Node source = (Node) event.getSource();
-      // Stage stage = (Stage) source.getScene().getWindow();
-      // stage.close();
+   void onBegin(ActionEvent event) {
+      LOG.info("Begin!");
    }
 }
