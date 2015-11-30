@@ -46,7 +46,10 @@ public class Course {
     * Course will be constructed with the title, term, year, and section
     */
    public Course(String title, Term term, int year, int section) {
-
+      this.title = title;
+      this.term = term;
+      this.year = year;
+      this.section = section;
    }
 
    /**
@@ -59,20 +62,26 @@ public class Course {
    /**
     * Gets a list of students enrolled in this course
     *
-     pre:
-      // no preconditions yet.
      post:
       //
       // The return value is a list of students enrolled in this course.
       // The list is expected to be sorted by the student's name. Student
       // is expected to have compareTo properly implemented
       //
-      <post>
       forall(int i; i>=0 && i<return.size()-1;
-         return.get(i).compareTo(return.get(i+1)) <= 0)
-      </post>
+         return.get(i).compareTo(return.get(i+1)) < 0)
+    *
     */
    public List<Student> getEnrolledStudents() {
       return Collections.EMPTY_LIST;
+   }
+
+   /**
+    * Return a String representation of this course for display purposes.
+    *
+         pre: title != null && term != null
+    */
+   public String toString() {
+      return "" + title + "-" + String.format("%02d", section) + ", " + term.name() + " " + year;
    }
 }

@@ -33,4 +33,9 @@ public class CodeQuestionResponse extends QuestionResponse<CodeQuestionResponse>
       }
       questionResponse.pointsReceived = score;
    }
+
+   @Override
+   public String toString() {
+      return codeAnswer;
+   }
 }

@@ -36,13 +36,22 @@ sourceSets {
             srcDir 'src/main/layout'
         }
     }
+
+    test {
+       java {
+          srcDir "$projectDir/../testing/src/test/java"
+       }
+       resources {
+          srcDir "$projectDir/../testing/src/test/resources"
+       }
+    }
 }
 
 mainClassName = 'com.teampc.TestToolMain'
 
 // stolen from: http://stackoverflow.com/questions/24997441/delombok-using-gradle
 task delombok {
-    def outputDir = "${buildDir}/src-delomboked"
+    def outputDir = "$buildDir/src-delomboked"
 
     inputs.files sourceSets.main.java
     outputs.dir file(outputDir)
@@ -92,6 +101,12 @@ test {
    }
 }
 
+tasks.withType(JavaCompile) {
+   sourceCompatibility = '1.8'
+   targetCompatibility = '1.8'
+//   options.compilerArgs << '-Xlint:all'
+}
+
 task copyJar(dependsOn: shadowJar, type: Copy) {
     from shadowJar.outputs.files.asPath
     into "$projectDir/executables/"
@@ -104,7 +119,55 @@ task copyJavadoc(dependsOn: javadoc, type: Copy) {
 
 task release(dependsOn: ['copyJar', 'copyJavadoc'])
 
-task spest(type: JavaExec) {
-   classpath = files("$projectDir/libs/testCompile/spest.jar")
-   main = 'controller.Launcher'
+def createCleanupSpestTask(isValidate) {
+   def dependent = createRunSpestTask isValidate
+   tasks.create("cleanup${isValidate ? 'Validate' : 'Generate'}Spest", Delete) {
+      dependsOn dependent
+      delete './resources'
+   }
+}
+
+def createSpestTask(isValidate) {
+   def dependent = createCleanupSpestTask(isValidate)
+   tasks.create("${isValidate ? 'validate' : 'generate'}Spest") {
+      dependsOn dependent
+   }
+}
+
+def hasSpest(file) {
+   def hasSpest = false
+   file.eachLine {
+      if (!hasSpest && it =~ /^\s*(pre|post):/) {
+         hasSpest = true;
+      }
+   }
+   hasSpest
+}
+
+def createRunSpestTask(isValidate) {
+   tasks.create("run${isValidate ? 'Validate' : 'Generate'}Spest", JavaExec) {
+      dependsOn compileJava
+      classpath = files("$projectDir/libs/testCompile/spest-patched.jar")
+      main = 'controller.Launcher'
+      def logLevel = project.hasProperty('spestLog') ? spestLog : 'WARN'
+      def tempArgs = ['-s', '.',  '-t', "${sourceSets.test.java.srcDirs.last()}", "${isValidate ? '-v' : '-g'}", '-l', logLevel]
+      def files = project.hasProperty('spestFiles') ?
+         spestFiles.tokenize(',').collect{ new File(it.trim()) } :
+         sourceSets.main.java.files
+
+      files.findAll(this.&hasSpest).each {
+         tempArgs << it.path
+      }
+
+      args = tempArgs
+   }
+}
+
+createSpestTask true
+createSpestTask false
+
+task findSpest << {
+   sourceSets.main.java.files.findAll(this.&hasSpest).each {
+      println it
+   }
 }

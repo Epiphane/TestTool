@@ -22,4 +22,8 @@ public class ShortAnswerQuestionResponse extends QuestionResponse<ShortAnswerQue
       // need manual grading
    }
 
+   @Override
+   public String toString() {
+      return answer;
+   }
 }

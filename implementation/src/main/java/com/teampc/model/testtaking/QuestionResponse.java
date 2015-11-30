@@ -6,7 +6,7 @@ import lombok.Setter;
 
 /**
  * The response to a Test Question
- * @author Thomas Steinke
+ * @author adufrene
  *
  */
 public abstract class QuestionResponse<T extends QuestionResponse> {
@@ -26,17 +26,16 @@ public abstract class QuestionResponse<T extends QuestionResponse> {
 
    /**
     *
-    * <pre>
-    *     pre: questionResponse != null && questionResponse.isComplete()
-    * </pre>
-    *
-    * <pre>
-    *     post: questionResponse.pointsReceived >= 0
-    * </pre>
     *
     * Using self as the model for a correct answer, grade the argument response and assign points
     * to questionResponse.pointsReceived based on how correct its answer is.
     * @param questionResponse response to grade
+    *
+          pre: questionResponse != null && questionResponse.isComplete()
+    *
+    *
+          post: questionResponse.pointsReceived >= 0
+    *
     */
    public abstract void assignPoints(T questionResponse);
 

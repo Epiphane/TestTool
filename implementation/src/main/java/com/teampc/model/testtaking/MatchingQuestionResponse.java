@@ -30,4 +30,13 @@ public class MatchingQuestionResponse extends QuestionResponse<MatchingQuestionR
       questionResponse.pointsReceived = pairings.size() - differences;
    }
 
+   @Override
+   public String toString() {
+      StringBuilder sb = new StringBuilder();
+      pairings.forEach((key, value) -> sb.append(", ").append(key).append(" => ").append(value));
+      if (sb.length() > 2) {
+         sb.deleteCharAt(0).deleteCharAt(0);
+      }
+      return sb.toString();
+   }
 }

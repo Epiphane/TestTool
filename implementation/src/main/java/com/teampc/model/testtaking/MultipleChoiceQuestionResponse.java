@@ -23,4 +23,8 @@ public class MultipleChoiceQuestionResponse extends QuestionResponse<MultipleCho
       questionResponse.pointsReceived = answer == questionResponse.answer ? 1 : 0;
    }
 
+   @Override
+   public String toString() {
+      return Character.toString(Character.toChars('a' + answer)[0]);
+   }
 }
