@@ -20,7 +20,7 @@ public class CodeQuestion extends Question/*<CodeQuestionResponse>*/ {
 
    /** {@inheritDoc} */
    @Override
-   public QuestionTypeName getTypeName() {
-      return QuestionTypeName.CODE;
+   public QuestionType getType() {
+      return QuestionType.CODE;
    }
 }

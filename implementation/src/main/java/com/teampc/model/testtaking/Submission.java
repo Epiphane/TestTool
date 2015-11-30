@@ -4,12 +4,17 @@ import com.teampc.model.admin.*;
 import com.teampc.model.test.*;
 import java.util.*;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * An instance of an in-progress test being taken
  * @author Thomas Steinke
  *
  */
-public abstract class Submission {
+@Getter
+@Setter
+public class Submission {
 
    private Test test;
 
@@ -24,21 +29,24 @@ public abstract class Submission {
    /**
     * Return whether the test is complete or not
     */
-   public abstract boolean isComplete();
+   public boolean isComplete() { 
+      return complete;
+   }
 
    /**
     * Determine how many questions have been completed so far.
     */
-   public abstract int questionsCompleted();
+   public int questionsCompleted() {
+      return 0;
+   }
+
+   public int getNextUnansweredQuestion() {
+      return 0;
+   }
 
    /**
     * Grade the test against a teacher's key
     */
-   public abstract void gradeTest(Key correctAnswers);
-
-   /**
-    * Return the completed Test's grade
-    */
-   public abstract void getGrade();
+   public void gradeTest(Key correctAnswers) {}
 
 }

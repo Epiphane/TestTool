@@ -11,6 +11,7 @@ import java.text.*;
 import com.teampc.model.admin.*;
 import com.teampc.model.admin.course.Course;
 import com.teampc.model.question.*;
+import com.teampc.model.testtaking.*;
 
 /**
  * A general Test Class
@@ -200,6 +201,21 @@ public class Test {
    */
    public boolean isTakeHome() {
       return false;
+   }
+
+   public Submission takeTest(User forUser) {
+      Submission newSubmission = new Submission();
+
+      newSubmission.setTaker(forUser);
+      newSubmission.setTest(this);
+
+      ArrayList<QuestionResponse> responseShells = new ArrayList<QuestionResponse>();
+
+      for (int qNum = 0; qNum < questions.size(); qNum ++) {
+         responseShells.add(questions.get(qNum).createResponse());
+      }
+
+      return newSubmission;
    }
 
    /**

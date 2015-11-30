@@ -61,6 +61,9 @@ public class TakeTestBaseController implements Initializable {
       Question question = new ShortAnswerQuestion();
       question.setPrompt("What is your name?");
       questions.add(question);
+      question = new ShortAnswerQuestion();
+      question.setPrompt("What is your number?");
+      questions.add(question);
 
       testA.publish();
 
