@@ -1,5 +1,6 @@
 package com.teampc.controller;
 
+import com.teampc.controller.question.*;
 import com.teampc.model.admin.*;
 import com.teampc.model.test.*;
 import com.teampc.model.testtaking.*;
@@ -55,6 +56,8 @@ public class TakeTestController implements Initializable {
    private Text prompt;
 
    private Test test;
+
+   private TestSectionController currentQuestionController;
    private int currentQuestion;
 
    private Submission submission;
@@ -117,22 +120,21 @@ public class TakeTestController implements Initializable {
       }
 
       FXMLLoader loader = new FXMLLoader(FXUtils.class.getClassLoader().getResource("question/" + questionFileString + ".fxml"));
-      loader.setController(this);
 
       Scene newScene = new Scene(loader.load());
+      currentQuestionController = loader.getController();
+      currentQuestionController.setParent(this);
       
       questionPane.getChildren().clear();
       questionPane.getChildren().add(newScene.getRoot());
 
       if (question != null) {
-         LOG.info("There's a prompt! Question: " + qNumber);
-
-         prompt.setText(question.getPrompt());
+         currentQuestionController.setQuestion(question);
       }
    }
 
    @FXML
-   void onBegin(ActionEvent event) throws IOException {
+   public void onBegin(ActionEvent event) throws IOException {
       if (submission != null) {
          throw new IOException("Cannot begin a test. There is already a submission");
       }
@@ -143,17 +145,25 @@ public class TakeTestController implements Initializable {
    }
 
    @FXML
-   void onNext(ActionEvent event) throws IOException {
+   public void onNext(ActionEvent event) throws IOException {
+      if (currentQuestionController != null) {
+         currentQuestionController.onLeave();
+      }
+
       setQuestion(currentQuestion + 1);
    }
 
    @FXML
-   void onPrev(ActionEvent event) throws IOException {
+   public void onPrev(ActionEvent event) throws IOException {
+      if (currentQuestionController != null) {
+         currentQuestionController.onLeave();
+      }
+      
       setQuestion(currentQuestion - 1);
    }
 
    @FXML
-   void onSubmitTest(ActionEvent event) throws IOException {
+   public void onSubmitTest(ActionEvent event) throws IOException {
       LOG.info("Submit Test responses");
    }
 }
