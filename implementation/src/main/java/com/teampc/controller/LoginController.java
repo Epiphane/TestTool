@@ -14,6 +14,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import javafx.scene.control.*;
 
 import java.io.IOException;
 
@@ -25,15 +26,15 @@ public class LoginController {
    @Setter
    private Stage primaryStage;
 
-   @FXML private javafx.scene.control.Button loginbutton;
+   @FXML private Button loginbutton;
 
-   @FXML private javafx.scene.control.PasswordField passwordField;
+   @FXML private PasswordField passwordField;
 
-   @FXML private javafx.scene.control.TextField username;
+   @FXML private TextField username;
 
-   @FXML private javafx.scene.control.Hyperlink register;
+   @FXML private Hyperlink register;
 
-   @FXML private javafx.scene.control.Label invalidText;
+   @FXML private Label invalidText;
 
    @FXML
    void onLoginClick(ActionEvent event) throws IOException {
