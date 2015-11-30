@@ -1,6 +1,7 @@
 package com.teampc.controller;
 
 import com.teampc.model.test.*;
+import com.teampc.model.question.*;
 import com.teampc.utils.FXUtils;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -14,6 +15,7 @@ import javafx.collections.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.ZoneId;
 import java.util.*;
@@ -53,6 +55,13 @@ public class TakeTestBaseController implements Initializable {
       Date userStartDate = new GregorianCalendar(2015, 10, 11).getTime();
       Date userEndDate = new GregorianCalendar(2015, 12, 12).getTime();
       Test testA = new Test("Final", userStartDate, userEndDate, "CPE 101");
+      
+      // Add fake questions to test A...
+      List<Question> questions = testA.getQuestions();
+      Question question = new ShortAnswerQuestion();
+      question.setPrompt("What is your name?");
+      questions.add(question);
+
       testA.publish();
 
       userStartDate = new GregorianCalendar(2015, 9, 30).getTime();
@@ -85,18 +94,20 @@ public class TakeTestBaseController implements Initializable {
     * Handler for the create test button
     */
    @FXML
-   void onTakeTest(ActionEvent event) {
+   void onTakeTest(ActionEvent event) throws IOException {
       LOG.info("Take test! " + currentSelection.toString());
 
       if (currentSelection.isOpen()) {
-         try {
-            FXUtils.switchToScreenAndConfigureController((Stage) ((Node) event.getSource()).getScene().getWindow(), "take-test.fxml",
-               (controller, stage) -> ((TakeTestController) controller).setTest(currentSelection));
-         }
-         catch (Exception e) {
-            LOG.info("Error opening test for taking: " + currentSelection.toString());
-            LOG.info(e.getMessage());
-         }
+         FXUtils.switchToScreenAndConfigureController((Stage) ((Node) event.getSource()).getScene().getWindow(), "take-test.fxml",
+            (controller, stage) -> {
+               try {
+                  ((TakeTestController) controller).setTest(currentSelection);
+               }
+               catch (Exception e) {
+                  LOG.info("ERROR");
+                  LOG.info(e.getMessage());
+               }
+            });
       }
       else {
          LOG.info("Cannot take test: it is not open!");

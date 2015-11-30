@@ -38,6 +38,17 @@ public class FXUtils {
       return stage;
    }
 
+   public static <T> Scene newSceneAndConfigureController(String layoutFilename, Consumer<T> controllerConfigurationFunction) throws IOException {
+      log.debug("Loading new scene: " + layoutFilename);
+
+      FXMLLoader loader = new FXMLLoader(FXUtils.class.getClassLoader().getResource(layoutFilename));
+      Scene scene = new Scene(loader.load());
+
+      controllerConfigurationFunction.accept(loader.getController());
+
+      return scene;
+   }
+
    /**
     * Switches the main screen of the app to the new layout specified by the file name. Returns the new screen
     * @param stage The old screen of the app

@@ -17,9 +17,28 @@
             <Text fx:id="descTimeLimit" layoutX="444.0" layoutY="55.0" scaleX="1.0" scaleY="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You have 30 minutes" />
           </children>
         </AnchorPane>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+        <AnchorPane id="questionPane" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
           <children>
-            <Button layoutX="269.0" layoutY="101.0" mnemonicParsing="false" onAction="#onBegin" text="Begin" />
+            <BorderPane layoutX="0.0" layoutY="1.0" prefHeight="308.0" prefWidth="596.0">
+              <bottom>
+                <AnchorPane prefHeight="38.0" prefWidth="596.0">
+                  <children>
+                    <Button layoutX="14.0" layoutY="9.0" mnemonicParsing="false" onAction="#onPrev" text="Prev" />
+                    <Button layoutX="71.0" layoutY="10.0" mnemonicParsing="false" onAction="#onNext" text="Next" />
+                  </children>
+                </AnchorPane>
+              </bottom>
+              <center>
+                <AnchorPane fx:id="questionPane" prefHeight="200.0" prefWidth="200.0" />
+              </center>
+              <top>
+                <AnchorPane prefHeight="38.0" prefWidth="596.0">
+                  <children>
+                    <Text layoutX="31.0" layoutY="24.0" scaleX="1.5" scaleY="1.5" strokeType="OUTSIDE" strokeWidth="0.0" text="Question 0" />
+                  </children>
+                </AnchorPane>
+              </top>
+            </BorderPane>
           </children>
         </AnchorPane>
       </items>
