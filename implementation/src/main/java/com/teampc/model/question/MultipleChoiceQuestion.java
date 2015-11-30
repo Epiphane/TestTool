@@ -20,7 +20,7 @@ public class MultipleChoiceQuestion extends Question/*<MultipleChoiceQuestionRes
 
    /** {@inheritDoc} */
    @Override
-   public QuestionTypeName getTypeName() {
-      return QuestionTypeName.MULTIPLE_CHOICE;
+   public QuestionType getType() {
+      return QuestionType.MULTIPLE_CHOICE;
    }
 }

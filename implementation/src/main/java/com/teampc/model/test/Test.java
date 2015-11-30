@@ -11,6 +11,7 @@ import java.text.*;
 import com.teampc.model.admin.*;
 import com.teampc.model.admin.course.Course;
 import com.teampc.model.question.*;
+import com.teampc.model.testtaking.*;
 
 /**
  * A general Test Class
@@ -37,6 +38,9 @@ public class Test {
    @Column(name = "end_date")
    private Date endDate;
 
+   @Column(name = "time_limit")
+   private int timeLimit;
+
    @Column(name = "course_name")
    private String courseName;
 
@@ -53,6 +57,8 @@ public class Test {
       this.startDate = startDate;
       this.endDate = endDate;
       this.courseName = courseName;
+
+      this.questions = new ArrayList<Question>();
    }
 
    public Test() {
@@ -81,6 +87,32 @@ public class Test {
    public Date getEndDate() {
       LOG.info("Getting endDate: " + endDate);
       return endDate;
+   }
+
+   public int getTimeLimit() {
+      LOG.info("Getting time limit: " + timeLimit);
+      return timeLimit;
+   }
+
+   /**
+    * Determines whether the test is available to be taken
+    */
+   public boolean isOpen() {
+      if (!published) {
+         return false; // Not published yet!
+      }
+
+      Date today = new Date();
+
+      if (today.compareTo(startDate) < 0) {
+         return false; // Not open yet
+      }
+      else if (today.compareTo(endDate) < 0) {
+         return true; // Open!
+      }
+      else {
+         return false; // Closed already
+      }
    }
 
    /**
@@ -131,6 +163,7 @@ public class Test {
     * Return the list of questions.
     */
    public List<Question> getQuestions() {
+      LOG.info("Getting questions");
       return questions;
    }
 
@@ -168,6 +201,21 @@ public class Test {
    */
    public boolean isTakeHome() {
       return false;
+   }
+
+   public Submission takeTest(User forUser) {
+      Submission newSubmission = new Submission();
+
+      newSubmission.setTaker(forUser);
+      newSubmission.setTest(this);
+
+      ArrayList<QuestionResponse> responseShells = new ArrayList<QuestionResponse>();
+
+      for (int qNum = 0; qNum < questions.size(); qNum ++) {
+         responseShells.add(questions.get(qNum).createResponse());
+      }
+
+      return newSubmission;
    }
 
    /**

@@ -1,18 +1,28 @@
 package com.teampc.controller;
 
+import com.teampc.controller.question.*;
+import com.teampc.model.admin.*;
 import com.teampc.model.test.*;
+import com.teampc.model.testtaking.*;
+import com.teampc.model.question.*;
+import com.teampc.utils.FXUtils;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.Node;
+import javafx.scene.layout.Pane;
 import javafx.scene.control.*;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.collections.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.ZoneId;
 import java.util.*;
@@ -27,79 +37,133 @@ public class TakeTestController implements Initializable {
    private URL location;
 
    @FXML
-   private ListView<Test> availableTests;
+   private Text testTitle;
 
    @FXML
-   private MenuButton testSelector;
+   private Text descQuestions;
 
-   private Test currentSelection;
+   @FXML
+   private Text descTimeLimit;
+
+   @FXML
+   private Pane questionPane;
+
+   @FXML
+   private Text questionNumber;
+
+   /* Question stuff */
+   @FXML 
+   private Text prompt;
+
+   private Test test;
+
+   private TestSectionController currentQuestionController;
+   private int currentQuestion;
+
+   private Submission submission;
 
    /**
     * Initializes the Create Test Options UI with values for the selection lists, spinner, and input boxes
     */
    @FXML
    public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
-      initTestList();
    }
 
-   private void selectTest(Test selection) {
-      currentSelection = selection;
-      testSelector.setText(selection.toString());
+   public void setTest(Test test) throws IOException {
+      this.test = test;
+
+      this.testTitle.setText(test.getCourseName() + " " + test.getName());
+      this.descQuestions.setText("There are " + test.getQuestions().size() + " questions.");
+
+      int timeLimit = test.getTimeLimit();
+      if (timeLimit > 0) {
+         this.descTimeLimit.setText("You have " + test.getTimeLimit() / 60 + " minutes.");
+      }
+      else {
+         this.descTimeLimit.setText("");
+      }
+
+      if (submission == null) {
+         this.setQuestion(-1);
+      }
+      else {
+         this.setQuestion(submission.getNextUnansweredQuestion());
+      }
    }
 
-   private void initTestList() {
-      // TODO Load tests from DAO
-      Date userStartDate = new GregorianCalendar(2015, 12, 11).getTime();
-      Date userEndDate = new GregorianCalendar(2015, 12, 12).getTime();
-      Test testA = new Test("Final", userStartDate, userEndDate, "CPE 101");
+   private void setQuestion(int qNumber) throws IOException {
+      int numQuestions = test.getQuestions().size();
+      Question question = null;
+      if (qNumber < 0) {
+         qNumber = -1;
 
-      userStartDate = new GregorianCalendar(2015, 9, 30).getTime();
-      userEndDate = new GregorianCalendar(2015, 9, 31).getTime();
-      Test testB = new Test("SVN Basics", userStartDate, userEndDate, "CPE 307");
+         if (submission != null) {
+            qNumber = 0;
+         }
+      }
+      else if (qNumber >= numQuestions) {
+         qNumber = numQuestions;
+      }
+      else {
+         question = test.getQuestions().get(qNumber);
+      }
 
-      userStartDate = new GregorianCalendar(2015, 12, 10).getTime();
-      userEndDate = new GregorianCalendar(2015, 12, 11).getTime();
-      Test testC = new Test("Final", userStartDate, userEndDate, "CPE 307");
+      currentQuestion = qNumber;
+      String questionFileString = "begin-test";
+      questionNumber.setText("");
+      if (qNumber >= 0 && qNumber < numQuestions) {
+         questionFileString = "short-answer";
+         questionNumber.setText("Question " + (qNumber + 1));
+      }
+      else if (qNumber == numQuestions) {
+         questionFileString = "complete-test";
+      }
 
-      ObservableList<Test> tests = FXCollections.observableArrayList(testA, testB, testC);
+      FXMLLoader loader = new FXMLLoader(FXUtils.class.getClassLoader().getResource("question/" + questionFileString + ".fxml"));
 
-      Collection<MenuItem> testData = new ArrayList<>();
-      tests.forEach(test -> {
-         MenuItem menuItem = new MenuItem(test.toString());
+      Scene newScene = new Scene(loader.load());
+      currentQuestionController = loader.getController();
+      currentQuestionController.setParent(this);
+      
+      questionPane.getChildren().clear();
+      questionPane.getChildren().add(newScene.getRoot());
 
-         testData.add(menuItem);
-         menuItem.setOnAction(event -> selectTest(test));
-      });
-
-      availableTests.setItems(tests);
-      testSelector.getItems().addAll(testData);
-
-      selectTest(testB);
+      if (question != null) {
+         currentQuestionController.setQuestion(question);
+      }
    }
 
-   /**
-    * Handler for the create test button
-    */
    @FXML
-   void onTakeTest(ActionEvent event) {
-      // if (Strings.isNullOrEmpty(testName.getText()) || Strings.isNullOrEmpty(courseType.getText())) {
-      //    LOG.info("missing test name, courseType, ...");
-      //    return;
-      // }
+   public void onBegin(ActionEvent event) throws IOException {
+      if (submission != null) {
+         throw new IOException("Cannot begin a test. There is already a submission");
+      }
 
-      // Date userStartDate = null;
-      // Date userEndDate = null;
+      submission = test.takeTest(new User());
 
-      // if (startDate.getValue() != null) { userStartDate = TestUtils.localDateToDate(startDate.getValue()); }
-      // if (endDate.getValue() != null) { userEndDate = TestUtils.localDateToDate(endDate.getValue()); }
+      setQuestion(0);
+   }
 
-      // Test newTest = new Test(testName.getText(), userStartDate, userEndDate, courseType.getText());
-      // TestDAO.getInstance().insert(newTest);
-      // LOG.info("new test submitted");
+   @FXML
+   public void onNext(ActionEvent event) throws IOException {
+      if (currentQuestionController != null) {
+         currentQuestionController.onLeave();
+      }
 
-      // // TODO: remove this and change to the generate questions view
-      // Node source = (Node) event.getSource();
-      // Stage stage = (Stage) source.getScene().getWindow();
-      // stage.close();
+      setQuestion(currentQuestion + 1);
+   }
+
+   @FXML
+   public void onPrev(ActionEvent event) throws IOException {
+      if (currentQuestionController != null) {
+         currentQuestionController.onLeave();
+      }
+      
+      setQuestion(currentQuestion - 1);
+   }
+
+   @FXML
+   public void onSubmitTest(ActionEvent event) throws IOException {
+      LOG.info("Submit Test responses");
    }
 }

@@ -10,8 +10,8 @@ public class MatchingQuestion extends Question/*<MatchingQuestionResponse>*/ {
 
    /** {@inheritDoc} */
    @Override
-   public QuestionTypeName getTypeName() {
-      return QuestionTypeName.MATCHING;
+   public QuestionType getType() {
+      return QuestionType.MATCHING;
    }
 
    //Correct answer is a Map containing all the correct pairings of answers
