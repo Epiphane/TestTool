@@ -36,6 +36,7 @@ public class TestDAO extends AbstractDAO<Test> {
    @Override
    public void insert(Test newTest) {
       super.insert(newTest);
+      LOG.info("Inserting a new test");
 
       newTest.getName();
       newTest.getStartDate();
