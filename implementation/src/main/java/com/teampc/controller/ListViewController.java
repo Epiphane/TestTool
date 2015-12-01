@@ -11,9 +11,12 @@ import java.util.ResourceBundle;
 
 public abstract class ListViewController<T> implements Initializable {
    @FXML
+   /** A list view for T**/
    private ListView<T> viewTestList;
+   /** A list of items of type T **/
    protected ObservableList<T> data;
 
+   /** Initializes view with items of type T **/
    protected void initView() {
       viewTestList.setItems(data);
 

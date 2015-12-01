@@ -8,8 +8,10 @@ import javafx.scene.text.Text;
 public abstract class QuestionPreviewController implements Initializable {
 
    @FXML
+   /** Text field for the question **/
    private Text questionPrompt;
 
+   /** The question that is displayed in the view **/
    protected Question question;
 
    public QuestionPreviewController(Question question) {

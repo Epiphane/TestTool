@@ -24,30 +24,39 @@ public class CreateTestController implements Initializable {
    private static final Logger LOG = LoggerFactory.getLogger(CreateTestController.class);
 
    @FXML
+   /** The type of Course this test will be assigned to */
    private MenuButton courseType;
 
    @FXML
+   /** The checkbox to show if questions will be automatically generated */
    private CheckBox autoGenerateQuestions;
 
    @FXML
+   /** The end date of the test **/
    private LocalDateTimeTextField endDate;
 
    @FXML
+   /** The list of students that could potentially be assigned to this test */
    private MenuButton assignedStudentsList;
 
    @FXML
+   /** The number of questions in this test **/
    private Spinner numberOfQuestions;
 
    @FXML
+   /** The start date of this test **/
    private LocalDateTimeTextField startDate;
 
    @FXML
+   /** The name of this test **/
    private TextField testName;
 
    @FXML
+   /** Checkbox that enables the start date field **/
    private CheckBox enableStartDate;
 
    @FXML
+   /** Checkbox that enables the end date field **/
    private CheckBox enableEndDate;
 
    /**
@@ -66,6 +75,9 @@ public class CreateTestController implements Initializable {
       endDate.setDisable(true);
    }
 
+   /**
+    * Retrieves list of students and adds it to the view
+    */
    private void initStudentList() {
       Collection<MenuItem> studentListData = new ArrayList<>();
       Collections.addAll(studentListData, new MenuItem("307-01"), new MenuItem("307-02")); //TODO: replace with real student lists
@@ -76,6 +88,9 @@ public class CreateTestController implements Initializable {
       assignedStudentsList.getItems().addAll(studentListData);
    }
 
+   /**
+    * Retrieves list of courses and adds it to the view
+    */
    private void initCourseList() {
       Collection<MenuItem> courseData = new ArrayList<>();
       Collections.addAll(courseData, new MenuItem("307 - Software Engineering"), new MenuItem("101 - Intro to Computer Science")); //TODO: replace with real courses

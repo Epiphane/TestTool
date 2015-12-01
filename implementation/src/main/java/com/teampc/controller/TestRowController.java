@@ -25,24 +25,31 @@ public class TestRowController implements Initializable{
    private static final Logger LOG = LoggerFactory.getLogger(TestRowController.class);
 
    @FXML
+   /** Grade Test Button **/
    private Button gradeButton;
 
    @FXML
+   /** Button to publish test **/
    private Button publishButton;
 
    @FXML
+   /** Button to edit test **/
    private Button editButton;
 
    @FXML
+   /** Text field showing the status of the test */
    private Text testStatus;
 
    @FXML
+   /** Button to view the questions in a test **/
    private Button viewButton;
 
    @FXML
+   /** Button to make the test publicly available to test takers **/
    private ToggleButton publicStatus;
 
    @FXML
+   /** Text field showing the name of the test **/
    private Text testName;
 
    private Test test;
@@ -52,26 +59,31 @@ public class TestRowController implements Initializable{
    }
 
    @FXML
+   /** Button click handler **/
    void onPublicStatusClickHandler(ActionEvent event) {
       TestDAO.getInstance().updateTest(new Test());
    }
 
    @FXML
+   /** Button click handler **/
    void onEditActionHandler(ActionEvent event) {
-
+      LOG.debug("Edit Button Clicked");
    }
 
    @FXML
+   /** Button click handler **/
    void onPublishActionHandler(ActionEvent event) {
       TestDAO.getInstance().updateTest(new Test());
    }
 
    @FXML
+   /** Button click handler **/
    void onGradeActionHandler(ActionEvent event) {
-
+      LOG.debug("Grade Button Clicked");
    }
 
    @FXML
+   /** Button click handler **/
    void onViewActionHandler(ActionEvent event) {
       TestDAO.getInstance().findById(test.getId());
 
@@ -85,6 +97,7 @@ public class TestRowController implements Initializable{
    }
 
    @Override
+   /** Initializes the row view **/
    public void initialize(URL location, ResourceBundle resources) {
       testName.setText(test.getName());
       testStatus.setText(test.isPublished() ? "Completed" : "Incomplete");

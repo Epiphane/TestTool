@@ -8,9 +8,7 @@ import javafx.scene.text.Text;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-/**
- * Created by james on 11/30/15.
- */
+// TODO: remove this class and replace with TestSectionController
 public class ShortQuestionPreviewController extends QuestionPreviewController {
 
    @FXML

@@ -10,6 +10,7 @@ import java.util.Optional;
  */
 public class QuestionPreviewFactory {
 
+   /** Returns a QuestionController given a Question **/
    public static Optional<QuestionPreviewController> getQuestionController(Question question) {
       QuestionType questionType = question.getType();
 
