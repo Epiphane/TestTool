@@ -35,8 +35,9 @@ public abstract class QuestionResponse<T extends QuestionResponse> {
     *
     *
           post: questionResponse.pointsReceived >= 0
+    * @param maxPoints
     *
     */
-   public abstract void assignPoints(T questionResponse);
+   public abstract void assignPoints(T questionResponse, int maxPoints);
 
 }

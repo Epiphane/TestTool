@@ -1,30 +1,15 @@
 package com.teampc.controller.question;
 
-import com.teampc.controller.TakeTestController;
-import com.teampc.model.admin.*;
-import com.teampc.model.test.*;
-import com.teampc.model.testtaking.*;
-import com.teampc.model.question.*;
-import com.teampc.utils.FXUtils;
-import java.net.URL;
-import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
+import com.teampc.controller.test.TestSectionController;
+import com.teampc.model.testtaking.CodeQuestionResponse;
+import com.teampc.model.testtaking.QuestionResponse;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.Scene;
-import javafx.scene.Node;
-import javafx.scene.layout.Pane;
-import javafx.scene.control.*;
-import javafx.stage.Stage;
-import javafx.collections.*;
+import javafx.scene.control.TextArea;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
 import java.net.URL;
-import java.time.ZoneId;
-import java.util.*;
+import java.util.ResourceBundle;
 
 public class CodeController extends TestSectionController {
    private static final Logger LOG = LoggerFactory.getLogger(CodeController.class);
@@ -49,7 +34,7 @@ public class CodeController extends TestSectionController {
 
       qResponse = (CodeQuestionResponse) response;
 
-      this.response.setText(qResponse.getAnswer());
+      this.response.setText(qResponse.getCodeAnswer());
    }
 
    public void onLeave() {
@@ -57,7 +42,7 @@ public class CodeController extends TestSectionController {
          LOG.info("ERROR: No question response set!!");
       }
 
-      qResponse.setAnswer(response.getText());
+      qResponse.setCodeAnswer(response.getText());
 
       LOG.info("Saving short answer response: " + response.getText());
    }

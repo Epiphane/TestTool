@@ -1,5 +1,6 @@
 package com.teampc.model.test;
 
+import com.google.common.collect.Lists;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.extern.slf4j.Slf4j;
@@ -61,7 +62,7 @@ public class Test {
       this.endDate = endDate;
       this.courseName = courseName;
 
-      this.questions = new ArrayList<Question>();
+      this.questions = new ArrayList<>();
    }
 
    public Test() {
@@ -206,19 +207,16 @@ public class Test {
       return false;
    }
 
+   /**
+    * Take test for the given user, creating a minimally instantiated test submission
+     */
    public Submission takeTest(User forUser) {
       Submission newSubmission = new Submission();
 
       newSubmission.setTaker(forUser);
       newSubmission.setTest(this);
 
-      ArrayList<QuestionResponse> responseShells = new ArrayList<QuestionResponse>();
-
-      for (int qNum = 0; qNum < questions.size(); qNum ++) {
-         responseShells.add(questions.get(qNum).createResponse());
-      }
-
-      newSubmission.setResponses(responseShells);
+      newSubmission.setResponses(Lists.newArrayListWithExpectedSize(questions.size()));
 
       return newSubmission;
    }
@@ -229,6 +227,6 @@ public class Test {
    * Optional.empty()
    */
    public Optional<Test> retake() {
-      return null;
+      return Optional.empty();
    }
 }

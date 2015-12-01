@@ -1,10 +1,7 @@
 package com.teampc.model.testtaking;
 
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
+import lombok.*;
 import lombok.extern.slf4j.Slf4j;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.io.IOException;
 
@@ -14,12 +11,14 @@ import java.io.IOException;
  */
 @NoArgsConstructor
 @AllArgsConstructor
+@Data
 @Slf4j
+@EqualsAndHashCode(callSuper = true)
 public class CodeQuestionResponse extends QuestionResponse<CodeQuestionResponse> {
-   //A plaintext version of the student'sn answer, or the path to the grading script.
-   @Getter
-   @Setter
-   private String answer;
+   /**
+    * A plaintext version of the student's answer, or the plaintext grading script
+    */
+   private String codeAnswer;
 
    /** {@inheritDoc} */
    @Override
@@ -29,19 +28,20 @@ public class CodeQuestionResponse extends QuestionResponse<CodeQuestionResponse>
 
    /** {@inheritDoc} */
    @Override
-   public void assignPoints(CodeQuestionResponse questionResponse) {
+   public void assignPoints(CodeQuestionResponse questionResponse, int maxPoints) {
       int score = 0;
       try {
-         Process process = Runtime.getRuntime().exec(new String[] { answer, questionResponse.answer});
+         // This is blatantly wrong, todo: // FIXME: 11/30/15
+         Process process = Runtime.getRuntime().exec(new String[] { codeAnswer, questionResponse.codeAnswer});
          score = process.waitFor();
       } catch (InterruptedException | IOException e) {
-         log.error("Error grading code question with script: " + answer, e);
+         log.error("Error grading code question with script: " + codeAnswer, e);
       }
       questionResponse.pointsReceived = score;
    }
 
    @Override
    public String toString() {
-      return answer;
+      return codeAnswer;
    }
 }

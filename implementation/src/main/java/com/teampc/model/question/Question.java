@@ -1,7 +1,6 @@
 package com.teampc.model.question;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import com.teampc.model.testtaking.*;
 
@@ -12,20 +11,22 @@ import com.teampc.model.testtaking.*;
  * @author David Ellison
  */
 
-//TODO 10-21-15: Make this class generic on <T extends QuestionResponse>.
-@Getter
-@Setter
-public abstract class Question/*<T extends QuestionResponse>*/ {
+@Data
+public class Question<T extends QuestionResponse> {
    /**
     * The text prompt for the question.
     */
-   private String prompt;
+   private String prompt = "";
    /**
     * The integer point value of this question.
     */
-   private int points;
+   private int points = 1;
+
    /** a QuestionResponse object of the appropriate type */
-   private QuestionResponse correctAnswer;
+   private T correctAnswer;
+
+   /** the type of the question */
+   private QuestionType type;
 
    @SuppressWarnings("unchecked")
    /**
@@ -37,21 +38,39 @@ public abstract class Question/*<T extends QuestionResponse>*/ {
       post: response.getPointsReceived() >= 0
     *
     */
-   public void grade(QuestionResponse response) {
-      correctAnswer.assignPoints(response);
+   public void grade(T response) {
+      correctAnswer.assignPoints(response, points);
    }
 
-   /**
-    * Get the specific type of the question, used to display strings for question types
-    * @return type of this question
-    */
-   public abstract QuestionType getType();
 
+   /**
+    * types of allowed questions
+    */
    public enum QuestionType {
-      CODE("Code", CodeQuestionResponse.class, "code"),
-      MATCHING("Matching", MatchingQuestionResponse.class, "matching"),
-      MULTIPLE_CHOICE("Multiple Choice", MultipleChoiceQuestionResponse.class, "multiple-choice"),
-      SHORT_ANSWER("Short Answer", ShortAnswerQuestionResponse.class, "short-answer");
+      CODE("Code", CodeQuestionResponse.class, "code") {
+         @Override
+         public <T> T accept(QuestionTypeVisitor<T> visitor) {
+            return visitor.visitCode();
+         }
+      },
+      MATCHING("Matching", MatchingQuestionResponse.class, "matching") {
+         @Override
+         public <T> T accept(QuestionTypeVisitor<T> visitor) {
+            return visitor.visitMatching();
+         }
+      },
+      MULTIPLE_CHOICE("Multiple Choice", MultipleChoiceQuestionResponse.class, "multiple-choice") {
+         @Override
+         public <T> T accept(QuestionTypeVisitor<T> visitor) {
+            return visitor.visitMultipleChoice();
+         }
+      },
+      SHORT_ANSWER("Short Answer", ShortAnswerQuestionResponse.class, "short-answer") {
+         @Override
+         public <T> T accept(QuestionTypeVisitor<T> visitor) {
+            return visitor.visitShortAnswer();
+         }
+      };
 
       private String displayText;
       private String fileString;
@@ -63,6 +82,11 @@ public abstract class Question/*<T extends QuestionResponse>*/ {
          this.fileString = fileString;
       }
 
+       /**
+        * visitor based on type of enum, used as polymorphic replacement of switch on enum
+        */
+      public abstract <T> T accept(QuestionTypeVisitor<T> visitor);
+
       @Override
       public String toString() {
          return displayText;
@@ -72,21 +96,13 @@ public abstract class Question/*<T extends QuestionResponse>*/ {
          return fileString;
       }
 
-      public QuestionResponse createResponse() {
-         try {
-            return (QuestionResponse) responseClass.getConstructor().newInstance(new Object[] {});
-         }
-         catch (Exception e) {
-            // Should never happen
-            System.out.println("Error creating response for question type: " + this.toString());
-            return null;
-         }
-      }
    }
 
-   public QuestionResponse createResponse() {
-      QuestionResponse response = this.getType().createResponse();
-      response.setQuestion(this);
-      return response;
+   public interface QuestionTypeVisitor<T> {
+      T visitCode();
+      T visitMatching();
+      T visitMultipleChoice();
+      T visitShortAnswer();
    }
+
 }

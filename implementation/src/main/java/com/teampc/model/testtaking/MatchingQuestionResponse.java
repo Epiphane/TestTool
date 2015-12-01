@@ -23,7 +23,7 @@ public class MatchingQuestionResponse extends QuestionResponse<MatchingQuestionR
 
    /** {@inheritDoc} */
    @Override
-   public void assignPoints(MatchingQuestionResponse questionResponse) {
+   public void assignPoints(MatchingQuestionResponse questionResponse, int maxPoints) {
       Map<String, String> otherPairings = questionResponse.pairings;
       int differences = Maps.difference(pairings, otherPairings).entriesOnlyOnLeft().size();
 
