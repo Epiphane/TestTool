@@ -1,6 +1,8 @@
 package com.teampc.model.test;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,8 +23,9 @@ import com.teampc.model.testtaking.*;
 @Data
 @Entity
 @Table(name = "TEST")
+@EqualsAndHashCode(exclude={"id","course","owner","questions","published"})
+@Slf4j
 public class Test {
-   private static final Logger LOG = LoggerFactory.getLogger(Test.class);
 
    @Id
    @GeneratedValue(strategy = GenerationType.AUTO)
@@ -69,7 +72,7 @@ public class Test {
     * Get the name of the test
     */
    public String getName() {
-      LOG.info("Getting name of exam: " + name);
+      log.info("Getting name of exam: " + name);
       return name;
    }
 
@@ -77,7 +80,7 @@ public class Test {
     * Get the test start Date
     */
    public Date getStartDate() {
-      LOG.info("Getting startDate: " + startDate);
+      log.info("Getting startDate: " + startDate);
       return startDate;
    }
 
@@ -85,12 +88,12 @@ public class Test {
     * Get the test end Date
     */
    public Date getEndDate() {
-      LOG.info("Getting endDate: " + endDate);
+      log.info("Getting endDate: " + endDate);
       return endDate;
    }
 
    public int getTimeLimit() {
-      LOG.info("Getting time limit: " + timeLimit);
+      log.info("Getting time limit: " + timeLimit);
       return timeLimit;
    }
 
@@ -119,7 +122,7 @@ public class Test {
     * Get the name of the course/subject
     */
    public String getCourseName() {
-      LOG.info("Getting courseName: " + courseName);
+      log.info("Getting courseName: " + courseName);
       return courseName;
    }
 
@@ -163,7 +166,7 @@ public class Test {
     * Return the list of questions.
     */
    public List<Question> getQuestions() {
-      LOG.info("Getting questions");
+      log.info("Getting questions");
       return questions;
    }
 

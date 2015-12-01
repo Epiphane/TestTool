@@ -92,6 +92,10 @@ public class LoginController {
       showLayout("register.fxml");
    }
 
+   public void setPrimaryStage(Stage stage) {
+      primaryStage = stage;
+   }
+
    private void showLayout(String resource) throws IOException {
       Stage stage = new Stage();
       Parent parent = FXMLLoader.load(getClass().getClassLoader().getResource(resource));
