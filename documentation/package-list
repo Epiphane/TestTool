@@ -1,5 +1,8 @@
 com.teampc
 com.teampc.controller
+com.teampc.controller.question
+com.teampc.controller.questionpreview
+com.teampc.controller.test
 com.teampc.dao
 com.teampc.model.admin
 com.teampc.model.admin.access
