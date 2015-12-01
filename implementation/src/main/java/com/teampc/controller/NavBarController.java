@@ -44,7 +44,7 @@ public class NavBarController {
    @FXML
    void onViewTestsClick(ActionEvent event) {
       try {
-         showLayout("view-test-list.fxml");
+         showLayout("view-tests-list.fxml");
       } catch (IOException e) {
          e.printStackTrace();
       }

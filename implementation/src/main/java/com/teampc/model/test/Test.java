@@ -52,7 +52,7 @@ public class Test {
 
    private Teacher owner;
 
-   private ArrayList<Question> questions;
+   public ArrayList<Question> questions;
 
    private boolean published;
 

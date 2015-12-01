@@ -2,6 +2,7 @@ package com.teampc.controller.question;
 
 import com.teampc.dao.QuestionDAO;
 import com.teampc.model.question.Question;
+import com.teampc.model.question.ShortAnswerQuestion;
 import com.teampc.model.testtaking.MultipleChoiceQuestionResponse;
 import com.teampc.utils.FXUtils;
 import javafx.collections.ObservableList;

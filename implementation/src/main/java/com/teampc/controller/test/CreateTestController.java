@@ -3,6 +3,7 @@ package com.teampc.controller.test;
 import com.google.common.base.Strings;
 import com.teampc.dao.TestDAO;
 import com.teampc.model.test.Test;
+import com.teampc.utils.FXUtils;
 import com.teampc.utils.TestUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,6 +15,7 @@ import jfxtras.scene.control.LocalDateTimeTextField;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -22,30 +24,39 @@ public class CreateTestController implements Initializable {
    private static final Logger LOG = LoggerFactory.getLogger(CreateTestController.class);
 
    @FXML
+   /** The type of Course this test will be assigned to */
    private MenuButton courseType;
 
    @FXML
+   /** The checkbox to show if questions will be automatically generated */
    private CheckBox autoGenerateQuestions;
 
    @FXML
+   /** The end date of the test **/
    private LocalDateTimeTextField endDate;
 
    @FXML
+   /** The list of students that could potentially be assigned to this test */
    private MenuButton assignedStudentsList;
 
    @FXML
+   /** The number of questions in this test **/
    private Spinner numberOfQuestions;
 
    @FXML
+   /** The start date of this test **/
    private LocalDateTimeTextField startDate;
 
    @FXML
+   /** The name of this test **/
    private TextField testName;
 
    @FXML
+   /** Checkbox that enables the start date field **/
    private CheckBox enableStartDate;
 
    @FXML
+   /** Checkbox that enables the end date field **/
    private CheckBox enableEndDate;
 
    /**
@@ -64,6 +75,9 @@ public class CreateTestController implements Initializable {
       endDate.setDisable(true);
    }
 
+   /**
+    * Retrieves list of students and adds it to the view
+    */
    private void initStudentList() {
       Collection<MenuItem> studentListData = new ArrayList<>();
       Collections.addAll(studentListData, new MenuItem("307-01"), new MenuItem("307-02")); //TODO: replace with real student lists
@@ -74,6 +88,9 @@ public class CreateTestController implements Initializable {
       assignedStudentsList.getItems().addAll(studentListData);
    }
 
+   /**
+    * Retrieves list of courses and adds it to the view
+    */
    private void initCourseList() {
       Collection<MenuItem> courseData = new ArrayList<>();
       Collections.addAll(courseData, new MenuItem("307 - Software Engineering"), new MenuItem("101 - Intro to Computer Science")); //TODO: replace with real courses
@@ -123,10 +140,14 @@ public class CreateTestController implements Initializable {
       TestDAO.getInstance().insert(newTest);
       LOG.info("new test submitted");
 
-      // TODO: remove this and change to the generate questions view
       Node source = (Node) event.getSource();
       Stage stage = (Stage) source.getScene().getWindow();
-      stage.close();
+
+      try {
+         FXUtils.switchToScreen(stage, "view-questions-list.fxml");
+      } catch (IOException e) {
+         LOG.error("Failed to load question list view" + e.getMessage());
+      }
    }
 
 }
