@@ -13,7 +13,6 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
@@ -35,7 +34,7 @@ import java.util.*;
  * 
  * @author tsteinke
  */
-public class TakeTestController implements Initializable {
+public class TakeTestController {
    private static final Logger LOG = LoggerFactory.getLogger(TakeTestController.class);
 
    @FXML
