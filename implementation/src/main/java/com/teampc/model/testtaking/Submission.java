@@ -4,6 +4,8 @@ import com.teampc.model.admin.*;
 import com.teampc.model.test.*;
 import java.util.*;
 
+import com.teampc.model.automation.*;
+
 import lombok.Data;
 
 /**
@@ -16,13 +18,13 @@ public class Submission {
 
    private Test test;
 
-   private User taker;
+   public User taker;
 
-   private ArrayList<QuestionResponse> responses;
+   public ArrayList<QuestionResponse> responses = new ArrayList<QuestionResponse>();
 
    private boolean complete;
 
-   private float grade;
+   public float grade;
 
    /**
     * Return whether the test is complete or not
@@ -45,6 +47,14 @@ public class Submission {
    /**
     * Grade the test against a teacher's key
     */
-   public void gradeTest(Key correctAnswers) {}
+   public void gradeTest(Key correctAnswers) {
+      TestGrader.gradeTest(this, correctAnswers);
+
+      this.grade = 0;
+
+      for (QuestionResponse q: responses) {
+         grade += q.getPointsReceived();
+      }
+   }
 
 }
