@@ -1,5 +1,6 @@
 package com.teampc.controller;
 
+import com.sun.glass.ui.View;
 import com.teampc.dao.TestDAO;
 import com.teampc.model.test.Test;
 import com.teampc.utils.FXUtils;
@@ -16,6 +17,10 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import com.teampc.utils.FXUtils;
+
+import java.io.*;
 
 /**
  * Created by james on 11/9/15.
@@ -80,6 +85,17 @@ public class TestRowController implements Initializable{
    /** Button click handler **/
    void onGradeActionHandler(ActionEvent event) {
       LOG.debug("Grade Button Clicked");
+       try {
+          Stage stage = FXUtils.getStageFromEvent(event);
+
+          FXUtils.switchToScreenAndConfigureController(stage, "view-submissions-list.fxml", (controller, gradeStage) -> {
+             ViewSubmissionsController control = (ViewSubmissionsController) controller;
+             control.setCurrentTest(test);
+          });
+
+       } catch (IOException e) {
+          e.printStackTrace();
+       }
    }
 
    @FXML

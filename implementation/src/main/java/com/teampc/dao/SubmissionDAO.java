@@ -22,7 +22,10 @@ public class SubmissionDAO extends AbstractDAO<Submission> {
       return instance;
    }
 
-   private SubmissionDAO() {}
+   private SubmissionDAO() {
+      // add fake stuff
+      
+   }
 
    public Collection<Submission> fetchSubmissionsForTest(Test test) {
       if (DEBUG) {
