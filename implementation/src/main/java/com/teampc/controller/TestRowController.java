@@ -1,5 +1,6 @@
 package com.teampc.controller;
 
+import com.sun.glass.ui.View;
 import com.teampc.dao.TestDAO;
 import com.teampc.model.test.Test;
 import com.teampc.utils.FXUtils;
@@ -86,7 +87,12 @@ public class TestRowController implements Initializable{
       LOG.debug("Grade Button Clicked");
        try {
           Stage stage = FXUtils.getStageFromEvent(event);
-          FXUtils.switchToScreen(stage, "view-grade.fxml");
+
+          FXUtils.switchToScreenAndConfigureController(stage, "view-submissions-list.fxml", (controller, gradeStage) -> {
+             ViewSubmissionsController control = (ViewSubmissionsController) controller;
+             control.setCurrentTest(test);
+          });
+
        } catch (IOException e) {
           e.printStackTrace();
        }
