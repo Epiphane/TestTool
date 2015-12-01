@@ -1,14 +1,20 @@
 package com.teampc.model.testtaking;
 
+import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * A response to a multiple choice question question.
  * @author Zach Arend
  */
+@NoArgsConstructor
 @AllArgsConstructor
 public class MultipleChoiceQuestionResponse extends QuestionResponse<MultipleChoiceQuestionResponse> {
     // an int representing which answer was chosen. 1 for A, 2 for B, etc
+    @Getter
+    @Setter
     private int answer;
 
    /** {@inheritDoc} */

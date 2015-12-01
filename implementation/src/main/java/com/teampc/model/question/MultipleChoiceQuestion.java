@@ -16,7 +16,7 @@ import java.util.ArrayList;
 @Setter
 public class MultipleChoiceQuestion extends Question/*<MultipleChoiceQuestionResponse>*/ {
    //the list of possible answers for this question.
-   private ArrayList<String> answers;
+   private ArrayList<String> answers = new ArrayList<String>();
 
    /** {@inheritDoc} */
    @Override
