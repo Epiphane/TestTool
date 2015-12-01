@@ -107,8 +107,6 @@ public class TakeTestController {
 
       if (submission != null) {
          int numQuestions = submission.getResponses().size();
-         LOG.info("Question: " + qNumber);
-         LOG.info("Question: " + numQuestions);
          if (qNumber < 0) {
             qNumber = 0;
          }
@@ -123,6 +121,8 @@ public class TakeTestController {
             questionFileString = question.getQuestion().getType().getFileString();
             questionNumber.setText("Question " + (qNumber + 1));
          }
+
+         currentQuestion = qNumber;
       }
 
       LOG.info("Loading question type " + questionFileString + "...");

@@ -3,6 +3,7 @@ package com.teampc.controller;
 import com.teampc.dao.QuestionDAO;
 import com.teampc.model.question.MultipleChoiceQuestion;
 import com.teampc.model.question.Question;
+import com.teampc.model.question.ShortAnswerQuestion;
 import com.teampc.model.testtaking.MultipleChoiceQuestionResponse;
 import com.teampc.model.testtaking.QuestionResponse;
 import com.teampc.utils.FXUtils;
@@ -61,7 +62,7 @@ public class QuestionTableController {
    private void newQuestion() {
 
       // Make fake question temporarily
-      MultipleChoiceQuestion question = new MultipleChoiceQuestion();
+      ShortAnswerQuestion question = new ShortAnswerQuestion();
 
       question.setPoints(1);
       question.setPrompt("What is a question?");

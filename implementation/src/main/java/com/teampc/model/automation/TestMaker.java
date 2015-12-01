@@ -9,7 +9,7 @@ import java.util.ArrayList;
 /**
  * A class to auto-generate a test.
  *
- * Created by Greg.
+ * @author Greg Sawers (gsawers@calpoly.edu)
  */
 public abstract class TestMaker {
 
