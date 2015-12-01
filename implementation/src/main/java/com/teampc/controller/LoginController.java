@@ -27,6 +27,7 @@ import java.io.IOException;
 @Slf4j
 public class LoginController {
 
+   @Setter
    private Stage primaryStage;
 
    /**
