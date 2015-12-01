@@ -1,20 +1,12 @@
-package com.teampc.controller;
+package com.teampc.controller.question;
 
 import com.teampc.dao.QuestionDAO;
-import com.teampc.model.question.MultipleChoiceQuestion;
 import com.teampc.model.question.Question;
-import com.teampc.model.question.ShortAnswerQuestion;
-import com.teampc.model.testtaking.MultipleChoiceQuestionResponse;
-import com.teampc.model.testtaking.QuestionResponse;
 import com.teampc.utils.FXUtils;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableView;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -46,10 +38,14 @@ public class QuestionTableController {
    }
 
    @FXML
+   /**
+    * Setup layout, fetch saved questions from db and display
+    */
    private void initialize() {
       questionDAO = QuestionDAO.getInstance();
 
       ObservableList<Question> questions = questionTable.getItems();
+      questionDAO.fetchAll().stream().map(question -> question.getType() + "").forEach(log::debug);
       questions.addAll(questionDAO.fetchAll());
 
       questionTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
@@ -59,19 +55,9 @@ public class QuestionTableController {
     * Opens new question screen
     */
    @FXML
-   private void newQuestion() {
-
-      // Make fake question temporarily
-      ShortAnswerQuestion question = new ShortAnswerQuestion();
-
-      question.setPoints(1);
-      question.setPrompt("What is a question?");
-      question.setCorrectAnswer(new MultipleChoiceQuestionResponse(2));
-
-      questionDAO.insert(question);
-      questionTable.getItems().add(question);
-
+   private void newQuestion() throws IOException {
       log.debug("New Question");
+      FXUtils.switchToScreenAndConfigureController(primaryStage, "question-edit-main.fxml", QuestionEditController::setPrimaryStage);
    }
 
    /**
@@ -80,7 +66,7 @@ public class QuestionTableController {
    @FXML
    private void searchQuestions() throws IOException {
       log.debug("Searching questions");
-      FXUtils.newScreenAndConfigureController("question-bank-search.fxml", FXUtils::noop);
+      FXUtils.newScreenAndConfigureController("question-bank-search.fxml", QuestionSearchController::setPrimaryStage);
    }
    /**
     * Opens new test screen, sending currently selected questions along

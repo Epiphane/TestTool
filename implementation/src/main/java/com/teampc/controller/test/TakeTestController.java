@@ -1,7 +1,5 @@
-package com.teampc.controller;
+package com.teampc.controller.test;
 
-import com.teampc.controller.question.*;
-import com.teampc.model.admin.*;
 import com.teampc.model.admin.access.UserSession;
 import com.teampc.model.test.*;
 import com.teampc.model.testtaking.*;
@@ -14,24 +12,17 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
-import javafx.scene.Node;
 import javafx.scene.layout.Pane;
-import javafx.scene.control.*;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
-import javafx.collections.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.net.URL;
-import java.time.ZoneId;
-import java.util.*;
 
 /**
  * TakeTestController handles the test taking session, displays questions, and
  * persists the student's submission to the Database.
- * 
+ *
  * @author tsteinke
  */
 public class TakeTestController {
@@ -57,6 +48,10 @@ public class TakeTestController {
 
    @FXML
    private Text questionNumber;
+
+   /* Question stuff */
+   @FXML
+   private Text prompt;
 
    private Test test;
    private TestSectionController currentQuestionController;
@@ -101,7 +96,7 @@ public class TakeTestController {
    private void setQuestion(int qNumber) throws IOException {
       QuestionResponse question = null;
       String questionFileString = "begin-test";
-      
+
       currentQuestion = -1;
       questionNumber.setText("");
 
@@ -132,7 +127,7 @@ public class TakeTestController {
       currentQuestionController = loader.getController();
       currentQuestionController.setParent(this);
       currentQuestionController.setQuestion(question);
-      
+
       LOG.info("Adding question to pane...");
       questionPane.getChildren().clear();
       questionPane.getChildren().add(newScene.getRoot());
@@ -164,7 +159,7 @@ public class TakeTestController {
       if (currentQuestionController != null) {
          currentQuestionController.onLeave();
       }
-      
+
       setQuestion(currentQuestion - 1);
    }
 

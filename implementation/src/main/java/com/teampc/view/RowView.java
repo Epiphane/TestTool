@@ -1,6 +1,6 @@
 package com.teampc.view;
 
-import com.teampc.controller.TestRowController;
+import com.teampc.controller.test.TestRowController;
 import com.teampc.model.test.Test;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

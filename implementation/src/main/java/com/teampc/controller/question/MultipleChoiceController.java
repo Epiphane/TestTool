@@ -1,31 +1,20 @@
 package com.teampc.controller.question;
 
-import com.teampc.controller.TakeTestController;
-import com.teampc.model.admin.*;
-import com.teampc.model.test.*;
-import com.teampc.model.testtaking.*;
-import com.teampc.model.question.*;
-import com.teampc.utils.FXUtils;
-import java.net.URL;
-import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
+
+import com.teampc.controller.test.TestSectionController;
+import com.teampc.model.testtaking.MultipleChoiceQuestionResponse;
+import com.teampc.model.testtaking.QuestionResponse;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.Scene;
-import javafx.scene.Node;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.control.*;
-import javafx.stage.Stage;
-import javafx.collections.*;
-import javafx.beans.value.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
 import java.net.URL;
-import java.time.ZoneId;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
 
 public class MultipleChoiceController extends TestSectionController {
    private static final Logger LOG = LoggerFactory.getLogger(MultipleChoiceController.class);
@@ -52,8 +41,8 @@ public class MultipleChoiceController extends TestSectionController {
 
       qResponse = (MultipleChoiceQuestionResponse) response;
 
-      // Add Radio buttons...      
-      ArrayList<String> options = ((MultipleChoiceQuestion) qResponse.getQuestion()).getAnswers();
+      // Add Radio buttons...
+      List<String> options = qResponse.getChoices();
 
       for (int i = 0; i < options.size(); i ++) {
          String option = options.get(i);
@@ -75,7 +64,7 @@ public class MultipleChoiceController extends TestSectionController {
 
       String answer = ((RadioButton) this.answer.getSelectedToggle()).getText();
 
-      ArrayList<String> options = ((MultipleChoiceQuestion) qResponse.getQuestion()).getAnswers();
+      List<String> options = qResponse.getChoices();
       qResponse.setAnswer(options.indexOf(answer));
 
       LOG.info("Saving multiple choice response: " + answer);

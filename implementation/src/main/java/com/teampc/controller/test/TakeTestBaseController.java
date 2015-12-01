@@ -1,7 +1,9 @@
-package com.teampc.controller;
+package com.teampc.controller.test;
 
+import com.google.common.collect.Lists;
 import com.teampc.model.test.*;
 import com.teampc.model.question.*;
+import com.teampc.model.testtaking.MultipleChoiceQuestionResponse;
 import com.teampc.utils.FXUtils;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -16,8 +18,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.net.URL;
-import java.time.ZoneId;
 import java.util.*;
 
 /**
@@ -61,18 +61,21 @@ public class TakeTestBaseController implements Initializable {
       Date userStartDate = new GregorianCalendar(2015, 10, 11).getTime();
       Date userEndDate = new GregorianCalendar(2015, 12, 12).getTime();
       Test testA = new Test("Final", userStartDate, userEndDate, "CPE 101");
-      
+
       // Add fake questions to test A...
       List<Question> questions = testA.getQuestions();
-      Question question = new ShortAnswerQuestion();
+      Question question = new Question();
+      question.setType(Question.QuestionType.SHORT_ANSWER);
       question.setPrompt("What is your name?");
       questions.add(question);
-      question = new ShortAnswerQuestion();
+      question = new Question();
+      question.setType(Question.QuestionType.SHORT_ANSWER);
       question.setPrompt("What is your number?");
       questions.add(question);
-      question = new MultipleChoiceQuestion();
+      question = new Question();
+      question.setType(Question.QuestionType.MULTIPLE_CHOICE);
       question.setPrompt("What is your favorite color?");
-      ((MultipleChoiceQuestion) question).setAnswers(new ArrayList<String> (Arrays.asList("Blue", "Red", "Green", "Yellow")));
+      question.setCorrectAnswer(new MultipleChoiceQuestionResponse(1, Lists.newArrayList("Blue", "Red", "Green", "Yellow")));
       questions.add(question);
 
       testA.publish();
