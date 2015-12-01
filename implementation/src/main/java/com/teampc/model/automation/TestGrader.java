@@ -7,7 +7,7 @@ import java.util.ArrayList;
 /**
  * Class to auto-grade a test.
  *
- * Created by Greg
+ * @author Zach Arend (zarend@calpoly.edu)
  */
 public abstract class TestGrader {
 
