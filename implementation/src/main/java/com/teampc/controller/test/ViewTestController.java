@@ -2,7 +2,7 @@ package com.teampc.controller.test;
 
 import com.teampc.model.test.Test;
 import com.teampc.view.SimpleCellFactory;
-import com.teampc.view.TestRow;
+//import com.teampc.view.TestRow;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -15,11 +15,11 @@ import java.util.ResourceBundle;
 
 public class ViewTestController implements Initializable {
   @FXML
-  private ListView<TestRow> viewTestList;
+  private ListView/*<TestRow>*/ viewTestList;
 
-  ObservableList<TestRow> data = FXCollections.observableArrayList(
-        new TestRow(new Test("307 Midterm 1", new Date(11), new Date(11), "307")),
-        new TestRow(new Test("307 Midterm 2", new Date(11), new Date(11), "307"))
+  ObservableList/*<TestRow>*/ data = FXCollections.observableArrayList(
+//        new TestRow(new Test("307 Midterm 1", new Date(11), new Date(11), "307")),
+//        new TestRow(new Test("307 Midterm 2", new Date(11), new Date(11), "307"))
   );
 
   @Override
