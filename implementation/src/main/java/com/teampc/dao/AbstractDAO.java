@@ -1,11 +1,13 @@
 package com.teampc.dao;
 
 import com.google.common.collect.Maps;
+import com.teampc.model.Model;
 import com.teampc.utils.HibernateUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -20,11 +22,12 @@ import static java.util.stream.Collectors.toMap;
 @Slf4j
 /**
  * Abstract class for database operations
- * @param T class mapped to database table
+ * @param T a model class
+ * @param D a database entity class
  */
-public abstract class AbstractDAO<T extends HasId> {
+public abstract class AbstractDAO<T extends Model, D extends DataDefinition<T>> {
 
-   protected static final boolean DEBUG = true;
+   protected static final boolean DEBUG = false;
 
    protected static final AtomicInteger idCounter = new AtomicInteger(0);
    protected Map<Integer, T> fakeDB = Maps.newHashMap();
@@ -33,7 +36,7 @@ public abstract class AbstractDAO<T extends HasId> {
     * Returns the entity mapping class for this dao
     * @return class this dao maps entities to
     */
-   protected abstract Class<T> getEntityClass();
+   protected abstract Class<D> getEntityClass();
 
    /**
     * Inserts one item into the database
@@ -57,7 +60,7 @@ public abstract class AbstractDAO<T extends HasId> {
       post: forall (Object item_other; items.contains(item_other); this.fetchAll().contains(item_other))
     */
    public void insert(Collection<T> items) {
-      log.debug("Inserting {} items into {}'s database", items.size(), getEntityClass().getSimpleName());
+      /*log.debug("Inserting {} items into {}'s database", items.size(), getEntityClass().getSimpleName());
       if (DEBUG) {
          items.stream().forEach(item ->  {
             Integer newId = idCounter.incrementAndGet();
@@ -65,12 +68,17 @@ public abstract class AbstractDAO<T extends HasId> {
             fakeDB.put(newId, item);
          });
          return;
-      }
+      }*/
       Session session = HibernateUtils.getSessionFactory().openSession();
       Transaction transaction = session.beginTransaction();
 
+      Collection<D> dds = toDD(items);
+      log.debug("number of dd objects to insert: " + dds.size());
+
       try {
-         items.forEach(session::save);
+         for (D data : dds) {
+            data.save(session);
+         }
          session.flush();
          transaction.commit();
       } catch (Exception e) {
@@ -96,9 +104,9 @@ public abstract class AbstractDAO<T extends HasId> {
          Criteria criteria = session.createCriteria(getEntityClass());
 
          @SuppressWarnings("unchecked")
-         List<T> items = criteria.list();
+         List<D> items = criteria.list();
 
-         return items;
+         return toModel(items);
       } finally {
          session.close();
       }
@@ -126,7 +134,9 @@ public abstract class AbstractDAO<T extends HasId> {
       Session session = HibernateUtils.getSessionFactory().openSession();
       Transaction transaction = session.beginTransaction();
       try {
-         items.forEach(session::save);
+         for (D item : toDD(items)) {
+            item.save(session);
+         }
          session.flush();
          transaction.commit();
       } catch (Exception e) {
@@ -170,4 +180,43 @@ public abstract class AbstractDAO<T extends HasId> {
       }
    }
 
+   /**
+    * Get the records with IDs equal to the ones
+    * @param ids a list of Integer ids for the data class.
+    * @return a list of DD objects
+    */
+   public List<D> findByIds(List<Integer> ids) {
+      Session session = HibernateUtils.getSessionFactory().openSession();
+      Criteria criteria = session.createCriteria(getEntityClass());
+
+      criteria.add(Restrictions.in("id", ids));
+      List<D> items = criteria.list();
+
+      return items;
+   }
+
+   public D findById(Integer id) {
+      return findByIds(Collections.singletonList(id)).get(0);
+   }
+
+
+   private List<T> toModel(Collection<D> dds) {
+      List<T> modelList = new ArrayList<>();
+
+      for (D data : dds) {
+         modelList.add(data.asModel());
+      }
+
+      return modelList;
+   }
+
+   private List<D> toDD(Collection<T> models) {
+      List<D> ddList = new ArrayList<>();
+
+      for (T model : models) {
+         ddList.add((D)model.asEntity());
+      }
+
+      return ddList;
+   }
 }

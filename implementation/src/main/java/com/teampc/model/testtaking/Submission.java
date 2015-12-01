@@ -1,6 +1,9 @@
 package com.teampc.model.testtaking;
 
 import com.teampc.dao.HasId;
+import com.teampc.dao.definitions.SubmissionDD;
+import com.teampc.dao.definitions.response.QuestionResponseDD;
+import com.teampc.model.Model;
 import com.teampc.model.admin.*;
 import com.teampc.model.test.*;
 import java.util.*;
@@ -20,10 +23,9 @@ import static java.util.stream.Collectors.toList;
  *
  */
 @Data
-@NoArgsConstructor
-public class Submission implements HasId {
+public class Submission implements Model<SubmissionDD> {
 
-   private int id;
+   private Integer id;
 
    private Test test;
 
@@ -88,4 +90,24 @@ public class Submission implements HasId {
       isGraded = true;
    }
 
+
+   public SubmissionDD asEntity() {
+      SubmissionDD submission = new SubmissionDD();
+
+      submission.setUserId(taker.getUsername());
+      submission.setId(id);
+      //HACK: test.asEntity calls question.asEntity
+      //which sets the question fields on QuestionResponse,
+      //which are NOT set by QuestionResponse.asEntity.
+      submission.setTest(test.asEntity());
+      //submission.setUser();
+
+      submission.setQuestionResponses(new HashSet<QuestionResponseDD>());
+
+      for (QuestionResponse response : responses) {
+         submission.getQuestionResponses().add((QuestionResponseDD) response.asEntity());
+      }
+
+      return submission;
+   }
 }

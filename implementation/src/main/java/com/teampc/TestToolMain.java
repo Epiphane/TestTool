@@ -4,6 +4,7 @@ import com.teampc.controller.LoginController;
 import com.teampc.controller.NavBarController;
 import com.teampc.model.admin.User;
 import com.teampc.utils.FXUtils;
+import com.teampc.utils.HibernateUtils;
 import javafx.application.Application;
 import javafx.scene.layout.Pane;
 import javafx.scene.control.ToolBar;

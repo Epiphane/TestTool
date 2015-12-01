@@ -1,0 +1,12 @@
+BEGIN TRANSACTION; 
+DROP TABLE matching_pairs;
+DROP TABLE question_responses;
+DROP TABLE test_questions;
+DROP TABLE mc_options;
+DROP TABLE questions;
+DROP TABLE submissions;
+DROP TABLE tests;
+DROP TABLE user_associations;
+DROP TABLE courses;
+DROP TABLE users;
+COMMIT TRANSACTION;

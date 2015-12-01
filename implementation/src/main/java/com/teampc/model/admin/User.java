@@ -1,5 +1,7 @@
 package com.teampc.model.admin;
 
+import com.teampc.dao.definitions.UserDD;
+import com.teampc.model.Model;
 import lombok.Data;
 
 import java.util.Scanner;
@@ -12,10 +14,6 @@ import java.util.Scanner;
 @Data
 public abstract class User {
 
-   /**
-    * Unique User ID
-    **/
-   private int userId;
    /**
     * Username used for login
     **/

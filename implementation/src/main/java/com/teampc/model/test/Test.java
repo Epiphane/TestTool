@@ -2,6 +2,9 @@ package com.teampc.model.test;
 
 import com.google.common.collect.Lists;
 import com.teampc.dao.HasId;
+import com.teampc.dao.definitions.TestDD;
+import com.teampc.dao.definitions.TestQuestionDD;
+import com.teampc.model.Model;
 import com.teampc.model.admin.Teacher;
 import com.teampc.model.admin.User;
 import com.teampc.model.admin.course.Course;
@@ -14,9 +17,9 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.persistence.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -28,32 +31,20 @@ import static java.util.stream.Collectors.toList;
  *
  */
 @Data
-@Entity
-@Table(name = "TEST")
+@NoArgsConstructor
 @EqualsAndHashCode(exclude={"id","course","owner","questions","published"})
 @Slf4j
-@NoArgsConstructor
-public class Test implements HasId {
+public class Test implements Model<TestDD> {
 
-   @Id
-   @GeneratedValue(strategy = GenerationType.AUTO)
-   @Column(name = "id")
-   private int id;
+   private Integer id;
 
-   @Column(name = "name")
    private String name;
 
-   @Column(name = "start_date")
    private Date startDate;
 
-   @Column(name = "end_date")
    private Date endDate;
 
-   @Column(name = "time_limit")
    private int timeLimit;
-
-   @Column(name = "course_name")
-   private String courseName;
 
    private Course course;
 
@@ -61,14 +52,12 @@ public class Test implements HasId {
 
    private List<Question> questions;
 
-   @Column(name = "published")
    private boolean published;
 
    public Test(String name, Date startDate, Date endDate, String courseName) {
       this.name = name;
       this.startDate = startDate;
       this.endDate = endDate;
-      this.courseName = courseName;
 
       this.questions = new ArrayList<>();
    }
@@ -146,8 +135,11 @@ public class Test implements HasId {
     * Get the name of the course/subject
     */
    public String getCourseName() {
-      log.info("Getting courseName: " + courseName);
-      return courseName;
+      if (course != null) {
+         log.info("Getting courseName: " + course.getTitle());
+         return course.getTitle();
+      }
+      return "";
    }
 
    /**
@@ -160,7 +152,7 @@ public class Test implements HasId {
       DateFormat df = new SimpleDateFormat("EE MMM d, YYYY");
       Date today = new Date();
 
-      String info = courseName + " " + name + " - ";
+      String info = (course == null ? "<null course>" : course.getTitle()) + " " + name + " - ";
 
       if(startDate == null || endDate == null) {
          return info;
@@ -302,12 +294,38 @@ public class Test implements HasId {
       key.setTest(this);
 
       ArrayList<QuestionResponse> correctResponses = new ArrayList<>();
-      for (Question nextQuestion: questions) {
+      for (Question nextQuestion : questions) {
          correctResponses.add(nextQuestion.getCorrectAnswer());
       }
 
       key.setResponses(correctResponses);
 
       return key;
+   }
+
+   public TestDD asEntity() {
+      log.debug("Turning this test into entity. This test: \n");
+      log.debug(String.format("Test Title: %s, Course: %s, Start Date: " + startDate + ", End Date: " + endDate + "",
+            getName(), getCourseName()));
+      log.debug("===========================\n");
+      TestDD test = new TestDD();
+      test.setCourse(course != null ? course.asEntity() : null);
+      test.setId(id);
+      test.setTitle(name);
+      test.setStartDate(new java.sql.Date(startDate.getTime()));
+      test.setEndDate(new java.sql.Date(endDate.getTime()));
+      test.setTimeAllowed(timeLimit);
+      test.setQuestions(new HashSet<TestQuestionDD>());
+
+      for (Question question : questions) {
+         //create a new TestQuestionDD object and add it to questions
+         TestQuestionDD testQuestion = new TestQuestionDD();
+         testQuestion.setTest(test);
+         testQuestion.setQuestion(question.asEntity());
+         testQuestion.setRank(questions.indexOf(question));
+         test.getQuestions().add(testQuestion);
+      }
+
+      return test;
    }
 }

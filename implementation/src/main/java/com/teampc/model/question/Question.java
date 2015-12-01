@@ -1,27 +1,35 @@
 package com.teampc.model.question;
 
-import com.teampc.dao.HasId;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import com.teampc.model.testtaking.*;
 import lombok.NoArgsConstructor;
+import com.teampc.dao.definitions.question.QuestionDD;
+import com.teampc.dao.definitions.response.QuestionResponseDD;
+import com.teampc.model.Model;
+
 import lombok.extern.slf4j.Slf4j;
 
 /**
  * A class that represents a test question.
- * Different question types extend this type.
  *
  * @author David Ellison
  */
 
 @Data
 @Slf4j
-@AllArgsConstructor
-@NoArgsConstructor
-public class Question<T extends QuestionResponse> implements HasId {
+public class Question<T extends QuestionResponse> implements Model<QuestionDD> {
 
-   private int id;
+   /**
+    * an integer rating for the difficulty of the question
+    */
+   private int difficulty;
+
+   /**
+    * A unique identifier for the question.
+    */
+   private Integer id;
 
    /**
     * The text prompt for the question.
@@ -130,6 +138,10 @@ public class Question<T extends QuestionResponse> implements HasId {
       }
    }
 
+   public String toString() {
+      return "Question: " + prompt + " Answer: " + getCorrectAnswer().toString();
+   }
+
    public interface QuestionTypeVisitor<T> {
       T visitCode();
       T visitMatching();
@@ -144,5 +156,21 @@ public class Question<T extends QuestionResponse> implements HasId {
       result.setQuestion(this);
 
       return result;
+   }
+
+   public QuestionDD asEntity() {
+      log.debug("Transforming this question to entity.");
+      log.debug("" + this);
+
+      QuestionDD question = new QuestionDD();
+      question.setId(id);
+      question.setPoints(points);
+      question.setDifficulty(difficulty);
+      question.setPrompt(prompt);
+      question.setType(type);
+
+      question.setCorrectAnswer((QuestionResponseDD) correctAnswer.asEntity());
+      question.getCorrectAnswer().setQuestion(question);
+      return question;
    }
 }

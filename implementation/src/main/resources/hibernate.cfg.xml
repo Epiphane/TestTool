@@ -4,11 +4,28 @@
    <session-factory>
       <property name="hibernate.dialect">org.hibernate.dialect.SQLiteDialect</property>
       <property name="hibernate.connection.driver_class">org.sqlite.JDBC</property>
-      <property name="hibernate.connection.url">jdbc:sqlite:test.db</property>
-      <property name="hibernate.hbm2ddl.auto">create</property>
+      <property name="hibernate.connection.url">jdbc:sqlite:testtool.db</property>
       <property name="hibernate.connection.autocommit">true</property>
-      <property name="show_sql">false</property>
+      <property name="show_sql">true</property>
 
-      <mapping class="com.teampc.model.test.Test"/>
+      <property name="hibernate.hbm2ddl.auto.">update</property>
+      <property name="hibernate.connection.username"></property>
+      <property name="hibernate.connection.password"></property>
+
+      <mapping class="com.teampc.dao.definitions.question.MultipleChoiceOptionDD" />
+      <mapping class="com.teampc.dao.definitions.question.QuestionDD" />
+      <mapping class="com.teampc.dao.definitions.response.CodeQuestionResponseDD" />
+      <mapping class="com.teampc.dao.definitions.response.MatchingQuestionPairDD" />
+      <mapping class="com.teampc.dao.definitions.response.MatchingQuestionResponseDD" />
+      <mapping class="com.teampc.dao.definitions.response.MultipleChoiceQuestionResponseDD" />
+      <mapping class="com.teampc.dao.definitions.response.QuestionResponseDD" />
+      <mapping class="com.teampc.dao.definitions.response.ShortAnswerQuestionResponseDD" />
+      <mapping class="com.teampc.dao.definitions.CourseDD" />
+      <mapping class="com.teampc.dao.definitions.TestDD" />
+      <mapping class="com.teampc.dao.definitions.SubmissionDD" />
+      <mapping class="com.teampc.dao.definitions.TestQuestionDD" />
+      <mapping class="com.teampc.dao.definitions.UserDD" />
+
+
    </session-factory>
 </hibernate-configuration>

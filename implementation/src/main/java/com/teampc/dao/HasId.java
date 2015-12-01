@@ -7,10 +7,10 @@ public interface HasId {
    /**
     * Returns the id of this object
     */
-   int getId();
+   Integer getId();
 
    /**
     * Sets the given id in the object
     */
-   void setId(int id);
+   void setId(Integer id);
 }

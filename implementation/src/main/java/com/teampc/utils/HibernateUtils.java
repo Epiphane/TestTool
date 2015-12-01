@@ -1,6 +1,8 @@
 package com.teampc.utils;
 
-import com.teampc.model.test.Test;
+import com.teampc.dao.definitions.*;
+import com.teampc.dao.definitions.question.*;
+import com.teampc.dao.definitions.response.*;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
@@ -9,10 +11,13 @@ import org.hibernate.cfg.Configuration;
  *
  */
 public class HibernateUtils {
-    private static SessionFactory sessionFactory = new Configuration()
-            .configure()
-            .addAnnotatedClass(Test.class)
-            .buildSessionFactory();
+    private static SessionFactory sessionFactory;
+
+    static {
+       Configuration cfg = new Configuration()
+             .configure();
+       sessionFactory = cfg.buildSessionFactory();
+    }
 
     public static SessionFactory getSessionFactory() {
         return sessionFactory;

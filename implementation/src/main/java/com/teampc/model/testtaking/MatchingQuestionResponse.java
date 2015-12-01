@@ -1,19 +1,27 @@
 package com.teampc.model.testtaking;
 
 import java.util.HashMap;
+import java.util.Set;
+import java.util.HashSet;
 import java.util.Map;
 
 import com.google.common.collect.Maps;
+import com.teampc.dao.definitions.response.MatchingQuestionPairDD;
+import com.teampc.dao.definitions.response.MatchingQuestionResponseDD;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  * An answer to a matching question.
  * @author Zach Arend
  */
+
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 public class MatchingQuestionResponse extends QuestionResponse<MatchingQuestionResponse> {
    @Getter
    private Map<String, String> pairings;
@@ -67,5 +75,27 @@ public class MatchingQuestionResponse extends QuestionResponse<MatchingQuestionR
          sb.deleteCharAt(0).deleteCharAt(0);
       }
       return sb.toString();
+   }
+
+   public MatchingQuestionResponseDD asEntity() {
+      MatchingQuestionResponseDD response = new MatchingQuestionResponseDD();
+
+      response.setId(id);
+      response.setPointsReceived(pointsReceived);
+      response.setPairs(new HashSet<>());
+
+      //Ensure that the pairs are cleared from the table
+      //and re-saved on update and insert.
+      //FOR SOME REASON, THIS ISN'T SAVING NON-CORRECT PAIRS.
+      for (Map.Entry<String, String> entry : pairings.entrySet()) {
+         MatchingQuestionPairDD pair = new MatchingQuestionPairDD();
+         pair.setPrompt(entry.getKey());
+         pair.setResponse(entry.getValue());
+
+         pair.setQuestion(response);
+         response.getPairs().add(pair);
+      }
+
+      return response;
    }
 }

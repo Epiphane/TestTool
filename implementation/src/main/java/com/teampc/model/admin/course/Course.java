@@ -1,5 +1,7 @@
 package com.teampc.model.admin.course;
 
+import com.teampc.dao.definitions.CourseDD;
+import com.teampc.model.Model;
 import lombok.Data;
 import lombok.Builder;
 
@@ -20,7 +22,9 @@ import static java.util.stream.Collectors.toList;
  * @author Jameson Li (jrli@calpoly.edu)
  */
 @Data
-public class Course {
+public class Course implements Model<CourseDD> {
+
+   private Integer id;
    /**
     * Teacher assigned to the course
     */
@@ -99,5 +103,18 @@ public class Course {
     */
    public String toString() {
       return "" + title + "-" + String.format("%02d", section) + ", " + term.name() + " " + year;
+   }
+
+   public CourseDD asEntity() {
+      CourseDD course = new CourseDD();
+
+      course.setId(id);
+      course.setTitle(title);
+      course.setYear(year);
+      course.setTerm(term);
+      course.setSection(section);
+      //course.setOwner()
+
+      return course;
    }
 }

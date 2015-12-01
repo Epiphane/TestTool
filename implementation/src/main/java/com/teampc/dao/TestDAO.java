@@ -1,5 +1,6 @@
 package com.teampc.dao;
 
+import com.teampc.dao.definitions.TestDD;
 import com.teampc.model.test.Test;
 import com.teampc.utils.HibernateUtils;
 import org.hibernate.Session;
@@ -16,10 +17,11 @@ import com.teampc.model.test.*;
  *
  * @author Jameson Li (jrli@calpoly.edu)
  */
-public class TestDAO extends AbstractDAO<Test> {
 
+public class TestDAO extends AbstractDAO<Test, TestDD> {
    /** Provides logging for TestDAO **/
    private static final Logger LOG = LoggerFactory.getLogger(TestDAO.class);
+
    /** Create a single instance of TestDAO **/
    private static final TestDAO INSTANCE = new TestDAO();
 
@@ -37,8 +39,8 @@ public class TestDAO extends AbstractDAO<Test> {
    /**
     * Provides the class entity
     */
-   protected Class<Test> getEntityClass() {
-      return Test.class;
+   protected Class<TestDD> getEntityClass() {
+      return TestDD.class;
    }
 
    /**
@@ -47,6 +49,24 @@ public class TestDAO extends AbstractDAO<Test> {
    public void read() {
 
    }
+
+   /**
+    * Inserts a new test into the database
+    */
+   /*
+   @Override
+   public void insert(Test newTest) {
+      //Create a TestDD object.
+      //Create TestQuestionDD rows corresponding to the questions
+      //Remove all TestQuestionDD rows for that test.
+      //
+      super.insert(newTest);
+
+      newTest.getName();
+      newTest.getStartDate();
+      newTest.getEndDate();
+      newTest.getCourseName();
+   }*/
 
    /**
     * Find a test by the test id

@@ -1,6 +1,7 @@
 package com.teampc.dao;
 
 import com.teampc.model.admin.access.UserSession;
+import com.teampc.dao.definitions.SubmissionDD;
 import com.teampc.model.test.Test;
 import com.teampc.model.testtaking.Submission;
 import com.teampc.utils.HibernateUtils;
@@ -15,7 +16,7 @@ import static java.util.stream.Collectors.toList;
 import static org.hibernate.criterion.Restrictions.eq;
 
 @Slf4j
-public class SubmissionDAO extends AbstractDAO<Submission> {
+public class SubmissionDAO extends AbstractDAO<Submission, SubmissionDD> {
 
    private static SubmissionDAO instance = null;
 
@@ -62,8 +63,8 @@ public class SubmissionDAO extends AbstractDAO<Submission> {
    }
 
    @Override
-   protected Class<Submission> getEntityClass() {
-      return Submission.class;
+   protected Class<SubmissionDD> getEntityClass() {
+      return SubmissionDD.class;
    }
 
 }

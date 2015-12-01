@@ -1,6 +1,8 @@
 package com.teampc.model.testtaking;
 
+import com.teampc.dao.definitions.response.CodeQuestionResponseDD;
 import lombok.*;
+
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
@@ -61,5 +63,17 @@ public class CodeQuestionResponse extends QuestionResponse<CodeQuestionResponse>
    @Override
    public String toString() {
       return codeAnswer;
+   }
+
+   //It's the caller's responsibility to set the response's question.
+   public CodeQuestionResponseDD asEntity() {
+      CodeQuestionResponseDD response = new CodeQuestionResponseDD();
+      response.setId(id);
+      response.setPointsReceived(pointsReceived);
+      response.setGivenCode(givenCode);
+      response.setCodeResponse(codeAnswer);
+
+
+      return response;
    }
 }

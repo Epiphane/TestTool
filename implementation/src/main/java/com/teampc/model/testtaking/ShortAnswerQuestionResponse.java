@@ -1,6 +1,7 @@
 package com.teampc.model.testtaking;
 
 import com.google.common.base.Strings;
+import com.teampc.dao.definitions.response.ShortAnswerQuestionResponseDD;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,6 +19,7 @@ import static java.util.stream.Collectors.toList;
  */
 
 @AllArgsConstructor
+@NoArgsConstructor
 public class ShortAnswerQuestionResponse extends QuestionResponse<ShortAnswerQuestionResponse> {
    @Getter
    @Setter
@@ -101,4 +103,15 @@ public class ShortAnswerQuestionResponse extends QuestionResponse<ShortAnswerQue
       public abstract int grade(String shortAnswer, int maxPoints, Collection<String> keywords);
    }
 
+   public ShortAnswerQuestionResponseDD asEntity() {
+      ShortAnswerQuestionResponseDD response = new ShortAnswerQuestionResponseDD();
+
+      response.setPointsReceived(pointsReceived);
+      response.setId(id);
+      response.setAnswer(answer);
+      response.setType(matchType);
+
+
+      return response;
+   }
 }

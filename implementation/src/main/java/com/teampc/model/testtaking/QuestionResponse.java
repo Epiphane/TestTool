@@ -1,6 +1,9 @@
 package com.teampc.model.testtaking;
 
+import com.teampc.dao.HasId;
+import com.teampc.dao.definitions.response.QuestionResponseDD;
 import com.teampc.model.question.Question;
+import com.teampc.model.Model;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,11 +12,14 @@ import lombok.Setter;
  * @author adufrene
  *
  */
-public abstract class QuestionResponse<T extends QuestionResponse> {
+public abstract class QuestionResponse<T extends QuestionResponse> implements Model<QuestionResponseDD> {
+   @Getter
+   @Setter
+   protected Integer id;
 
    @Getter
    @Setter
-   private Question<?> question;
+   protected Question<?> question;
 
    @Getter
    @Setter
