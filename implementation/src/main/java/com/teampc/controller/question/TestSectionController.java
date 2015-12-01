@@ -36,7 +36,7 @@ public abstract class TestSectionController implements Initializable {
    @FXML
    private Text prompt;
 
-   protected Question question;
+   protected QuestionResponse question;
    protected TakeTestController parent;
 
    /**
@@ -47,13 +47,17 @@ public abstract class TestSectionController implements Initializable {
    }
 
    public void setParent(TakeTestController parent) {
+      LOG.info("Setting parent...");
       this.parent = parent;
    }
 
-   public void setQuestion(Question question) {
-      this.question = question;
+   public void setQuestion(QuestionResponse response) {
+      LOG.info("Setting question response...");
+      this.question = response;
 
-      prompt.setText(question.getPrompt());
+      if (prompt != null) {
+         prompt.setText(question.getQuestion().getPrompt());
+      }
    }
 
    public void onLeave() {

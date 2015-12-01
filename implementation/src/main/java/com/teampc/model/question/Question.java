@@ -44,22 +44,28 @@ public abstract class Question/*<T extends QuestionResponse>*/ {
    public abstract QuestionType getType();
 
    public enum QuestionType {
-      CODE("Code", CodeQuestionResponse.class),
-      MATCHING("Matching", MatchingQuestionResponse.class),
-      MULTIPLE_CHOICE("Multiple Choice", MultipleChoiceQuestionResponse.class),
-      SHORT_ANSWER("Short Answer", ShortAnswerQuestionResponse.class);
+      CODE("Code", CodeQuestionResponse.class, "code"),
+      MATCHING("Matching", MatchingQuestionResponse.class, "matching"),
+      MULTIPLE_CHOICE("Multiple Choice", MultipleChoiceQuestionResponse.class, "multiple-choice"),
+      SHORT_ANSWER("Short Answer", ShortAnswerQuestionResponse.class, "short-answer");
 
       private String displayText;
+      private String fileString;
       private Class responseClass;
 
-      QuestionType(String displayText, Class responseClass) {
+      QuestionType(String displayText, Class responseClass, String fileString) {
          this.displayText = displayText;
          this.responseClass = responseClass;
+         this.fileString = fileString;
       }
 
       @Override
       public String toString() {
          return displayText;
+      }
+
+      public String getFileString() {
+         return fileString;
       }
 
       public QuestionResponse createResponse() {
@@ -68,12 +74,15 @@ public abstract class Question/*<T extends QuestionResponse>*/ {
          }
          catch (Exception e) {
             // Should never happen
+            System.out.println("Error creating response for question type: " + this.toString());
             return null;
          }
       }
    }
 
    public QuestionResponse createResponse() {
-      return this.getType().createResponse();
+      QuestionResponse response = this.getType().createResponse();
+      response.setQuestion(this);
+      return response;
    }
 }

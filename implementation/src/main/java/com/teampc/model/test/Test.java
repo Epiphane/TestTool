@@ -215,6 +215,8 @@ public class Test {
          responseShells.add(questions.get(qNum).createResponse());
       }
 
+      newSubmission.setResponses(responseShells);
+
       return newSubmission;
    }
 

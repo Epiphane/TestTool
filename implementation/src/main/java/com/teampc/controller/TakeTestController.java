@@ -92,45 +92,43 @@ public class TakeTestController implements Initializable {
    }
 
    private void setQuestion(int qNumber) throws IOException {
-      int numQuestions = test.getQuestions().size();
-      Question question = null;
-      if (qNumber < 0) {
-         qNumber = -1;
+      QuestionResponse question = null;
+      String questionFileString = "begin-test";
+      
+      currentQuestion = -1;
+      questionNumber.setText("");
 
-         if (submission != null) {
+      if (submission != null) {
+         int numQuestions = submission.getResponses().size();
+         LOG.info("Question: " + qNumber);
+         LOG.info("Question: " + numQuestions);
+         if (qNumber < 0) {
             qNumber = 0;
          }
-      }
-      else if (qNumber >= numQuestions) {
-         qNumber = numQuestions;
-      }
-      else {
-         question = test.getQuestions().get(qNumber);
+         else if (qNumber >= numQuestions) {
+            qNumber = numQuestions;
+            questionFileString = "complete-test";
+         }
+
+         if (qNumber < numQuestions) {
+            question = submission.getResponses().get(qNumber);
+
+            questionFileString = question.getQuestion().getType().getFileString();
+            questionNumber.setText("Question " + (qNumber + 1));
+         }
       }
 
-      currentQuestion = qNumber;
-      String questionFileString = "begin-test";
-      questionNumber.setText("");
-      if (qNumber >= 0 && qNumber < numQuestions) {
-         questionFileString = "short-answer";
-         questionNumber.setText("Question " + (qNumber + 1));
-      }
-      else if (qNumber == numQuestions) {
-         questionFileString = "complete-test";
-      }
-
+      LOG.info("Loading question type " + questionFileString + "...");
       FXMLLoader loader = new FXMLLoader(FXUtils.class.getClassLoader().getResource("question/" + questionFileString + ".fxml"));
 
       Scene newScene = new Scene(loader.load());
       currentQuestionController = loader.getController();
       currentQuestionController.setParent(this);
+      currentQuestionController.setQuestion(question);
       
+      LOG.info("Adding quesiton to pane...");
       questionPane.getChildren().clear();
       questionPane.getChildren().add(newScene.getRoot());
-
-      if (question != null) {
-         currentQuestionController.setQuestion(question);
-      }
    }
 
    @FXML
@@ -163,7 +161,7 @@ public class TakeTestController implements Initializable {
    }
 
    @FXML
-   public void onSubmitTest(ActionEvent event) throws IOException {
+   public void onSubmitTest() {
       LOG.info("Submit Test responses");
    }
 }
