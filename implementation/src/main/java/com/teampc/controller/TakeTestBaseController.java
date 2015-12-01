@@ -70,6 +70,10 @@ public class TakeTestBaseController implements Initializable {
       question = new ShortAnswerQuestion();
       question.setPrompt("What is your number?");
       questions.add(question);
+      question = new MultipleChoiceQuestion();
+      question.setPrompt("What is your favorite color?");
+      ((MultipleChoiceQuestion) question).setAnswers(new ArrayList<String> (Arrays.asList("Blue", "Red", "Green", "Yellow")));
+      questions.add(question);
 
       testA.publish();
 
