@@ -67,6 +67,7 @@ public class QuestionTableController {
       question.setPrompt("What is a question?");
       question.setCorrectAnswer(new MultipleChoiceQuestionResponse(2));
 
+      questionDAO.insert(question);
       questionTable.getItems().add(question);
 
       log.debug("New Question");
@@ -76,18 +77,9 @@ public class QuestionTableController {
     * Opens to search question screen
     */
    @FXML
-   private void searchQuestions() {
+   private void searchQuestions() throws IOException {
       log.debug("Searching questions");
-      try {
-         Stage stage = new Stage();
-         Parent parent = FXMLLoader.load(getClass().getClassLoader().getResource("question-bank-search.fxml"));
-
-         Scene scene = new Scene(parent);
-         stage.setScene(scene);
-         stage.show();
-      } catch (IOException e) {
-         e.printStackTrace();
-      }
+      FXUtils.newScreenAndConfigureController("question-bank-search.fxml", FXUtils::noop);
    }
    /**
     * Opens new test screen, sending currently selected questions along

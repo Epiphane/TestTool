@@ -7,7 +7,7 @@ import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TestDAO extends AbstractDAO/*<Test>*/ {
+public class TestDAO extends AbstractDAO<Test> {
 
    private static final Logger LOG = LoggerFactory.getLogger(TestDAO.class);
    private static final TestDAO INSTANCE = new TestDAO();
@@ -19,7 +19,7 @@ public class TestDAO extends AbstractDAO/*<Test>*/ {
    private TestDAO() {}
 
    @Override
-   protected Class/*<Test>*/ getEntityClass() {
+   protected Class<Test> getEntityClass() {
       return Test.class;
    }
 
@@ -27,38 +27,21 @@ public class TestDAO extends AbstractDAO/*<Test>*/ {
     * Gets all tests assigned to a given student from the database
     */
    public void read() {
-      
+
    }
 
    /**
     * Inserts a new test into the database
     */
    @Override
-   public void insert(Object obj) {
-      // dumb spest
-      Test newTest = (Test) obj;
-//      Session session = HibernateUtils.getSessionFactory().openSession();
-//      Transaction transaction = session.beginTransaction();
-//
-//      try {
-         newTest.getName();
-         newTest.getStartDate();
-         newTest.getEndDate();
-         newTest.getCourseName();
+   public void insert(Test newTest) {
+      super.insert(newTest);
+      LOG.info("Inserting a new test");
 
-//         session.save(newTest);
-//
-//         session.flush();
-//         transaction.commit();
-//      } catch(Exception e) {
-//         if (transaction != null) {
-//            LOG.error("Rolling back insert");
-//            transaction.rollback();
-//         }
-//         throw e;
-//      } finally {
-//         session.close();
-//      }
+      newTest.getName();
+      newTest.getStartDate();
+      newTest.getEndDate();
+      newTest.getCourseName();
    }
 
    /**
@@ -66,13 +49,6 @@ public class TestDAO extends AbstractDAO/*<Test>*/ {
     */
    public void findById(String id) {
       LOG.info("Find by id: " + id);
-   }
-
-   /**
-    * Get all Tests for a specified user. User is identified by userId
-    */
-   public void getAll(String userId) {
-      LOG.info("Find test for user: " + userId);
    }
 
    /**

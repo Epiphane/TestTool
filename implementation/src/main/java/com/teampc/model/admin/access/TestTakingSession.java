@@ -22,7 +22,9 @@ public abstract class TestTakingSession extends UserSession{
      */
     private long timeLimit;
 
-    private TestTakingSession(User user, long limit){super(user);}
+    private TestTakingSession(User user, long limit) {
+       super();
+    }
 
     /**
      * Get what type of test is being taken (In Class, Take Home, Practice).

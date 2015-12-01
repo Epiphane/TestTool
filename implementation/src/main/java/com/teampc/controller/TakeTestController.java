@@ -2,10 +2,12 @@ package com.teampc.controller;
 
 import com.teampc.controller.question.*;
 import com.teampc.model.admin.*;
+import com.teampc.model.admin.access.UserSession;
 import com.teampc.model.test.*;
 import com.teampc.model.testtaking.*;
 import com.teampc.model.question.*;
 import com.teampc.utils.FXUtils;
+import com.teampc.dao.SubmissionDAO;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -27,6 +29,12 @@ import java.net.URL;
 import java.time.ZoneId;
 import java.util.*;
 
+/**
+ * TakeTestController handles the test taking session, displays questions, and
+ * persists the student's submission to the Database.
+ * 
+ * @author tsteinke
+ */
 public class TakeTestController implements Initializable {
    private static final Logger LOG = LoggerFactory.getLogger(TakeTestController.class);
 
@@ -51,24 +59,21 @@ public class TakeTestController implements Initializable {
    @FXML
    private Text questionNumber;
 
-   /* Question stuff */
-   @FXML 
-   private Text prompt;
-
    private Test test;
-
    private TestSectionController currentQuestionController;
    private int currentQuestion;
 
    private Submission submission;
 
-   /**
-    * Initializes the Create Test Options UI with values for the selection lists, spinner, and input boxes
-    */
-   @FXML
-   public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
+   private SubmissionDAO submissionDAO;
+
+   public TakeTestController() {
+      submissionDAO = SubmissionDAO.getInstance();
    }
 
+   /**
+    * Sets the test being taken
+    */
    public void setTest(Test test) throws IOException {
       this.test = test;
 
@@ -91,6 +96,9 @@ public class TakeTestController implements Initializable {
       }
    }
 
+   /**
+    * Sets which question is currently being worked on
+    */
    private void setQuestion(int qNumber) throws IOException {
       QuestionResponse question = null;
       String questionFileString = "begin-test";
@@ -126,7 +134,7 @@ public class TakeTestController implements Initializable {
       currentQuestionController.setParent(this);
       currentQuestionController.setQuestion(question);
       
-      LOG.info("Adding quesiton to pane...");
+      LOG.info("Adding question to pane...");
       questionPane.getChildren().clear();
       questionPane.getChildren().add(newScene.getRoot());
    }
@@ -137,7 +145,8 @@ public class TakeTestController implements Initializable {
          throw new IOException("Cannot begin a test. There is already a submission");
       }
 
-      submission = test.takeTest(new User());
+      submission = test.takeTest(UserSession.loggedInUser);
+      submissionDAO.insert(submission);
 
       setQuestion(0);
    }

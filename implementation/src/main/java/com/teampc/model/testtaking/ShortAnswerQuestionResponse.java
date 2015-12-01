@@ -8,8 +8,8 @@ import lombok.Setter;
  * A response to a short answer question.
  * @author Zach Arend
  */
-public class ShortAnswerQuestionResponse extends QuestionResponse/*<ShortAnswerQuestionResponse>*/ {
-
+@AllArgsConstructor
+public class ShortAnswerQuestionResponse extends QuestionResponse<ShortAnswerQuestionResponse> {
    @Getter
    @Setter
    private String answer;
@@ -22,8 +22,12 @@ public class ShortAnswerQuestionResponse extends QuestionResponse/*<ShortAnswerQ
 
    /** {@inheritDoc} */
    @Override
-   public void assignPoints(/*ShortAnswerQuestionResponse*/ QuestionResponse questionResponse) {
+   public void assignPoints(ShortAnswerQuestionResponse questionResponse) {
       // need manual grading
    }
 
+   @Override
+   public String toString() {
+      return answer;
+   }
 }

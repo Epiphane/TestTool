@@ -16,11 +16,15 @@ import com.teampc.model.testtaking.*;
 @Getter
 @Setter
 public abstract class Question/*<T extends QuestionResponse>*/ {
-   //The text prompt for the question.
+   /**
+    * The text prompt for the question.
+    */
    private String prompt;
-   //the integer point value of this question.
+   /**
+    * The integer point value of this question.
+    */
    private int points;
-   //a QuestionResponse object of the appropriate type
+   /** a QuestionResponse object of the appropriate type */
    private QuestionResponse correctAnswer;
 
    @SuppressWarnings("unchecked")
