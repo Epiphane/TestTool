@@ -14,12 +14,12 @@ import java.util.ResourceBundle;
 
 public class ViewQuestionsController extends ListViewController<RowView> {
 
-   private static final String RESOURCE = "view-question-row.fxml";
+   private static final String RESOURCE = "preview-short-question-row.fxml";
 
    @Override
    public void initialize(URL location, ResourceBundle resources) {
 
-      data = FXCollections.emptyObservableList();
+      data = FXCollections.observableArrayList();
 
       List<Question> questionList = QuestionDAO.getInstance().fetchAll();
       questionList.forEach(question -> {

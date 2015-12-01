@@ -131,7 +131,7 @@ public class CreateTestController implements Initializable {
       try {
          FXUtils.switchToScreen(stage, "view-questions-list.fxml");
       } catch (IOException e) {
-         LOG.error("Failed to load question list view");
+         LOG.error("Failed to load question list view" + e.getMessage());
       }
    }
 
