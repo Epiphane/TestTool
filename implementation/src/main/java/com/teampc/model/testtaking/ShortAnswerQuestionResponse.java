@@ -1,5 +1,6 @@
 package com.teampc.model.testtaking;
 
+import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,6 +9,8 @@ import lombok.Setter;
  * A response to a short answer question.
  * @author Zach Arend
  */
+
+@NoArgsConstructor
 @AllArgsConstructor
 public class ShortAnswerQuestionResponse extends QuestionResponse<ShortAnswerQuestionResponse> {
    @Getter
