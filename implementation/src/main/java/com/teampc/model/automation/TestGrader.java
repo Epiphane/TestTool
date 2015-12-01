@@ -4,6 +4,8 @@ import com.teampc.model.test.Test;
 
 import java.util.ArrayList;
 
+import com.teampc.model.testtaking.*;
+
 /**
  * Class to auto-grade a test.
  *
@@ -30,5 +32,9 @@ public abstract class TestGrader {
      */
     public abstract void gradeTests();
 
-
+    public static void gradeTest(Submission s, Key key) {
+        for (int i = 0; i < s.responses.size(); i++) {
+            key.responses.get(i).assignPoints(s.responses.get(i), 1);
+        }
+    }
 }

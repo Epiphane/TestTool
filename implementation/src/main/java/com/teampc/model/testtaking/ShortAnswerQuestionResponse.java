@@ -15,7 +15,7 @@ import lombok.Setter;
 public class ShortAnswerQuestionResponse extends QuestionResponse<ShortAnswerQuestionResponse> {
    @Getter
    @Setter
-   private String answer;
+   private String answer = "";
    private MatchType matchType;
 
    /** {@inheritDoc} */
@@ -28,6 +28,7 @@ public class ShortAnswerQuestionResponse extends QuestionResponse<ShortAnswerQue
    @Override
    public void assignPoints(ShortAnswerQuestionResponse questionResponse, int maxPoints) {
       // need manual grading
+      questionResponse.pointsReceived = answer.equals(questionResponse) ? maxPoints : 0;
    }
 
    @Override
