@@ -1,37 +1,25 @@
-package com.teampc.controller;
+package com.teampc.controller.question;
 
 
 import com.teampc.model.admin.course.Course;
 import com.teampc.model.admin.course.Term;
 import com.teampc.model.question.Question;
-import com.teampc.model.question.MultipleChoiceQuestion;
-import com.teampc.model.question.ShortAnswerQuestion;
 import com.teampc.model.test.Test;
-import com.teampc.utils.TestUtils;
 import com.google.common.collect.ImmutableList;
-import javafx.beans.InvalidationListener;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.beans.value.WeakChangeListener;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.SortedList;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.control.cell.ComboBoxListCell;
 import javafx.stage.Stage;
-import org.hibernate.annotations.Check;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.net.URL;
-import java.time.ZoneId;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -55,6 +43,8 @@ public class QuestionSearchController implements Initializable {
    private Test currentTest;
 
    private List<Test> allTests;
+
+   private Stage primaryStage;
 
    /** The UI element containing the organization tabs*/
    @FXML
@@ -174,9 +164,9 @@ public class QuestionSearchController implements Initializable {
    }
 
    private void initQuestionList() {
-      exampleQ1 = new MultipleChoiceQuestion();
-      exampleQ2 = new MultipleChoiceQuestion();
-      exampleQ3 = new ShortAnswerQuestion();
+      exampleQ1 = new Question();
+      exampleQ2 = new Question();
+      exampleQ3 = new Question();
 
       exampleQ1.setPrompt("A ________ converts a source code program into machine code.");
       exampleQ1.setPoints(5);
@@ -219,6 +209,10 @@ public class QuestionSearchController implements Initializable {
       LOG.info("filterTestInput text: " + filterTestInput.getParagraphs().get(0));
       testListView.setItems(FXCollections.observableList(
          testListView.getItems().stream().filter((test -> test.toString().contains(filterTestInput.getParagraphs().get(0)))).collect(Collectors.toCollection(ArrayList::new))));
+   }
+
+   public void setPrimaryStage(Stage stage) {
+      primaryStage = stage;
    }
 
 }

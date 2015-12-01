@@ -1,4 +1,4 @@
-package com.teampc.controller;
+package com.teampc.controller.test;
 
 import com.google.common.base.Strings;
 import com.teampc.dao.TestDAO;

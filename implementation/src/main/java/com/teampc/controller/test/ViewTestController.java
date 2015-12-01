@@ -1,4 +1,4 @@
-package com.teampc.controller;
+package com.teampc.controller.test;
 
 import com.teampc.model.test.Test;
 import com.teampc.view.SimpleCellFactory;

@@ -1,4 +1,4 @@
-package com.teampc.controller;
+package com.teampc.controller.test;
 
 import com.teampc.dao.TestDAO;
 import com.teampc.model.test.Test;

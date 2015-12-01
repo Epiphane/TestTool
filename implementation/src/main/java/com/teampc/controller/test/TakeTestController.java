@@ -1,7 +1,5 @@
-package com.teampc.controller;
+package com.teampc.controller.test;
 
-import com.teampc.controller.question.*;
-import com.teampc.model.admin.*;
 import com.teampc.model.admin.access.UserSession;
 import com.teampc.model.test.*;
 import com.teampc.model.testtaking.*;
@@ -15,19 +13,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.Node;
 import javafx.scene.layout.Pane;
-import javafx.scene.control.*;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
-import javafx.collections.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.net.URL;
-import java.time.ZoneId;
-import java.util.*;
 
 public class TakeTestController implements Initializable {
    private static final Logger LOG = LoggerFactory.getLogger(TakeTestController.class);
@@ -54,7 +45,7 @@ public class TakeTestController implements Initializable {
    private Text questionNumber;
 
    /* Question stuff */
-   @FXML 
+   @FXML
    private Text prompt;
 
    private Test test;
@@ -132,7 +123,7 @@ public class TakeTestController implements Initializable {
       Scene newScene = new Scene(loader.load());
       currentQuestionController = loader.getController();
       currentQuestionController.setParent(this);
-      
+
       questionPane.getChildren().clear();
       questionPane.getChildren().add(newScene.getRoot());
 
@@ -167,7 +158,7 @@ public class TakeTestController implements Initializable {
       if (currentQuestionController != null) {
          currentQuestionController.onLeave();
       }
-      
+
       setQuestion(currentQuestion - 1);
    }
 

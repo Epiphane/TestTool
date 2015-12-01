@@ -1,6 +1,6 @@
 package com.teampc.model.test;
 
-import com.teampc.model.question.Answer;
+import com.teampc.model.testtaking.QuestionResponse;
 
 import java.util.List;
 
@@ -13,5 +13,5 @@ public abstract class PracticeTest extends TakeHomeTest {
     /**
      * Returns list of correct answers to this test
      */
-    public abstract List<Answer> getCorrectAnswers();
+    public abstract List<QuestionResponse> getCorrectAnswers();
 }

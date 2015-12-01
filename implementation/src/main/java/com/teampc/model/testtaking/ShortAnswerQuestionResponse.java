@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class ShortAnswerQuestionResponse extends QuestionResponse<ShortAnswerQuestionResponse> {
    private String answer;
+   private MatchType matchType;
 
    /** {@inheritDoc} */
    @Override
@@ -18,12 +19,18 @@ public class ShortAnswerQuestionResponse extends QuestionResponse<ShortAnswerQue
 
    /** {@inheritDoc} */
    @Override
-   public void assignPoints(ShortAnswerQuestionResponse questionResponse) {
+   public void assignPoints(ShortAnswerQuestionResponse questionResponse, int maxPoints) {
       // need manual grading
    }
 
    @Override
    public String toString() {
       return answer;
+   }
+
+   public enum MatchType {
+      EXACTLY,
+      ANY,
+      ALL
    }
 }

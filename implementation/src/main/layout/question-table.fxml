@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.teampc.controller.QuestionTableController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.teampc.controller.question.QuestionTableController">
    <children>
       <HBox AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <VBox alignment="BOTTOM_CENTER" prefWidth="100.0">
@@ -38,7 +38,7 @@
                   <!--</TableColumn>-->
                   <TableColumn text="Type">
                      <cellValueFactory>
-                        <PropertyValueFactory property="typeName" />
+                        <PropertyValueFactory property="type" />
                      </cellValueFactory>
                   </TableColumn>
                   <TableColumn text="Question">

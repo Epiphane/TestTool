@@ -1,4 +1,4 @@
-package com.teampc.controller;
+package com.teampc.controller.test;
 
 import com.teampc.model.test.*;
 import com.teampc.model.question.*;
@@ -16,8 +16,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.net.URL;
-import java.time.ZoneId;
 import java.util.*;
 
 public class TakeTestBaseController implements Initializable {
@@ -55,13 +53,15 @@ public class TakeTestBaseController implements Initializable {
       Date userStartDate = new GregorianCalendar(2015, 10, 11).getTime();
       Date userEndDate = new GregorianCalendar(2015, 12, 12).getTime();
       Test testA = new Test("Final", userStartDate, userEndDate, "CPE 101");
-      
+
       // Add fake questions to test A...
       List<Question> questions = testA.getQuestions();
-      Question question = new ShortAnswerQuestion();
+      Question question = new Question();
+      question.setType(Question.QuestionType.SHORT_ANSWER);
       question.setPrompt("What is your name?");
       questions.add(question);
-      question = new ShortAnswerQuestion();
+      question = new Question();
+      question.setType(Question.QuestionType.SHORT_ANSWER);
       question.setPrompt("What is your number?");
       questions.add(question);
 

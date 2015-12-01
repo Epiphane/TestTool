@@ -2,14 +2,17 @@ package com.teampc.model.testtaking;
 
 import lombok.AllArgsConstructor;
 
+import java.util.List;
+
 /**
  * A response to a multiple choice question question.
  * @author Zach Arend
  */
 @AllArgsConstructor
 public class MultipleChoiceQuestionResponse extends QuestionResponse<MultipleChoiceQuestionResponse> {
-    // an int representing which answer was chosen. 1 for A, 2 for B, etc
-    private int answer;
+   // an int representing which answer was chosen. 1 for A, 2 for B, etc
+   private int answer;
+   private List<String> choices;
 
    /** {@inheritDoc} */
    @Override
@@ -19,7 +22,7 @@ public class MultipleChoiceQuestionResponse extends QuestionResponse<MultipleCho
 
    /** {@inheritDoc} */
    @Override
-   public void assignPoints(MultipleChoiceQuestionResponse questionResponse) {
+   public void assignPoints(MultipleChoiceQuestionResponse questionResponse, int maxPoints) {
       questionResponse.pointsReceived = answer == questionResponse.answer ? 1 : 0;
    }
 

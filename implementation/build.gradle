@@ -24,6 +24,7 @@ dependencies {
     compile 'org.hibernate:hibernate-core:5.0.2.Final'
     compile 'org.hibernate:hibernate-annotations:3.5.6-Final'
     compile 'org.jfxtras:jfxtras-labs:8.0-r4'
+    compile 'commons-io:commons-io:2.4'
     compile fileTree(dir: "$projectDir/libs/compile", include: '*.jar')
 
     testCompile fileTree(dir: "$projectDir/libs/testCompile", include: '*.jar')

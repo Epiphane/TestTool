@@ -12,7 +12,9 @@ import java.io.IOException;
 @AllArgsConstructor
 @Slf4j
 public class CodeQuestionResponse extends QuestionResponse<CodeQuestionResponse> {
-   //A plaintext version of the student'sn answer, or the path to the grading script.
+   /**
+    * A plaintext version of the student's answer, or the plaintext grading script
+    */
    private String codeAnswer;
 
    /** {@inheritDoc} */
@@ -23,7 +25,7 @@ public class CodeQuestionResponse extends QuestionResponse<CodeQuestionResponse>
 
    /** {@inheritDoc} */
    @Override
-   public void assignPoints(CodeQuestionResponse questionResponse) {
+   public void assignPoints(CodeQuestionResponse questionResponse, int maxPoints) {
       int score = 0;
       try {
          Process process = Runtime.getRuntime().exec(new String[] { codeAnswer, questionResponse.codeAnswer});
