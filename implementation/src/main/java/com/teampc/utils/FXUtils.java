@@ -1,6 +1,8 @@
 package com.teampc.utils;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
@@ -70,6 +72,11 @@ public class FXUtils {
 
       stage.show();
       return stage;
+   }
+
+   public static Stage getStageFromEvent(ActionEvent event) {
+      Node source = (Node) event.getSource();
+      return (Stage) source.getScene().getWindow();
    }
 
    /**

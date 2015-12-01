@@ -12,14 +12,14 @@ import java.io.IOException;
 /**
  * Created by james on 11/9/15.
  */
-public class TestRow extends Pane {
+public class RowView extends Pane {
    @FXML
    private Node testRow;
 
-   public TestRow(Test test) {
+   public RowView(Object controller, String resource) {
       FXMLLoader loader = new FXMLLoader(
-            getClass().getClassLoader().getResource("view-test-row.fxml"));
-      loader.setController(new TestRowController(test));
+            getClass().getClassLoader().getResource(resource));
+      loader.setController(controller);
 
       try {
          testRow = (Pane) loader.load();
