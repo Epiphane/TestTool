@@ -39,4 +39,9 @@ public class CompleteTestController extends TestSectionController {
    @FXML
    public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
    }
+
+   @FXML
+   public void onSubmitTest(ActionEvent event) {
+      parent.onSubmitTest();
+   }
 }
