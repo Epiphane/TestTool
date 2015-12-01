@@ -29,6 +29,12 @@ import java.net.URL;
 import java.time.ZoneId;
 import java.util.*;
 
+/**
+ * TakeTestController handles the test taking session, displays questions, and
+ * persists the student's submission to the Database.
+ * 
+ * @author tsteinke
+ */
 public class TakeTestController implements Initializable {
    private static final Logger LOG = LoggerFactory.getLogger(TakeTestController.class);
 
@@ -53,12 +59,7 @@ public class TakeTestController implements Initializable {
    @FXML
    private Text questionNumber;
 
-   /* Question stuff */
-   @FXML 
-   private Text prompt;
-
    private Test test;
-
    private TestSectionController currentQuestionController;
    private int currentQuestion;
 
@@ -71,12 +72,8 @@ public class TakeTestController implements Initializable {
    }
 
    /**
-    * Initializes the Create Test Options UI with values for the selection lists, spinner, and input boxes
+    * Sets the test being taken
     */
-   @FXML
-   public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
-   }
-
    public void setTest(Test test) throws IOException {
       this.test = test;
 
@@ -99,6 +96,9 @@ public class TakeTestController implements Initializable {
       }
    }
 
+   /**
+    * Sets which question is currently being worked on
+    */
    private void setQuestion(int qNumber) throws IOException {
       int numQuestions = test.getQuestions().size();
       Question question = null;
@@ -120,7 +120,7 @@ public class TakeTestController implements Initializable {
       String questionFileString = "begin-test";
       questionNumber.setText("");
       if (qNumber >= 0 && qNumber < numQuestions) {
-         questionFileString = "short-answer";
+         questionFileString = "short-answers";
          questionNumber.setText("Question " + (qNumber + 1));
       }
       else if (qNumber == numQuestions) {
