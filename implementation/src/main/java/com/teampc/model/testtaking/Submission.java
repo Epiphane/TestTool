@@ -4,16 +4,14 @@ import com.teampc.model.admin.*;
 import com.teampc.model.test.*;
 import java.util.*;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 /**
  * An instance of an in-progress test being taken
  * @author Thomas Steinke
  *
  */
-@Getter
-@Setter
+@Data
 public class Submission {
 
    private Test test;

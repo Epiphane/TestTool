@@ -3,6 +3,7 @@ package com.teampc.model.admin;
 import com.teampc.model.admin.course.Course;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.List;
 
@@ -12,6 +13,7 @@ import java.util.List;
  * Created by Greg.
  */
 @Data
+@EqualsAndHashCode(callSuper=true)
 public abstract class Teacher extends User {
 
     /**

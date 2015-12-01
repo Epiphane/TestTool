@@ -2,10 +2,12 @@ package com.teampc.controller;
 
 import com.teampc.controller.question.*;
 import com.teampc.model.admin.*;
+import com.teampc.model.admin.access.UserSession;
 import com.teampc.model.test.*;
 import com.teampc.model.testtaking.*;
 import com.teampc.model.question.*;
 import com.teampc.utils.FXUtils;
+import com.teampc.dao.SubmissionDAO;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -61,6 +63,12 @@ public class TakeTestController implements Initializable {
    private int currentQuestion;
 
    private Submission submission;
+
+   private SubmissionDAO submissionDAO;
+
+   public TakeTestController() {
+      submissionDAO = SubmissionDAO.getInstance();
+   }
 
    /**
     * Initializes the Create Test Options UI with values for the selection lists, spinner, and input boxes
@@ -137,7 +145,8 @@ public class TakeTestController implements Initializable {
          throw new IOException("Cannot begin a test. There is already a submission");
       }
 
-      submission = test.takeTest(new User());
+      submission = test.takeTest(UserSession.loggedInUser);
+      submissionDAO.insert(submission);
 
       setQuestion(0);
    }

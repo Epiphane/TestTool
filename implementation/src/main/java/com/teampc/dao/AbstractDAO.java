@@ -23,9 +23,9 @@ import java.util.Set;
  */
 public abstract class AbstractDAO<T> {
 
-   private static final boolean DEBUG = true;
+   protected static final boolean DEBUG = true;
 
-   private Set<T> debugCollection = Sets.newHashSet();
+   protected Set<T> debugCollection = Sets.newHashSet();
 
    /**
     * Returns the entity mapping class for this dao
