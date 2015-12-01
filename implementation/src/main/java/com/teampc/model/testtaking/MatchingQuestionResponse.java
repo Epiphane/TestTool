@@ -3,12 +3,14 @@ package com.teampc.model.testtaking;
 import java.util.Map;
 
 import com.google.common.collect.Maps;
+import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 
 /**
  * An answer to a matching question.
  * @author Zach Arend
  */
+@NoArgsConstructor
 @AllArgsConstructor
 public class MatchingQuestionResponse extends QuestionResponse<MatchingQuestionResponse> {
    private Map<String, String> pairings;

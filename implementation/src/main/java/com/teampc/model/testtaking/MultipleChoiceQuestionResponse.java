@@ -1,6 +1,6 @@
 package com.teampc.model.testtaking;
 
-import lombok.AllArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
@@ -8,7 +8,10 @@ import java.util.List;
  * A response to a multiple choice question question.
  * @author Zach Arend
  */
+@NoArgsConstructor
 @AllArgsConstructor
+@Data
+@EqualsAndHashCode(callSuper = true)
 public class MultipleChoiceQuestionResponse extends QuestionResponse<MultipleChoiceQuestionResponse> {
    // an int representing which answer was chosen. 1 for A, 2 for B, etc
    private int answer;

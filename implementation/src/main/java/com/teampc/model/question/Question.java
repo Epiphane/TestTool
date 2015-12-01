@@ -47,25 +47,25 @@ public class Question<T extends QuestionResponse> {
     * types of allowed questions
     */
    public enum QuestionType {
-      CODE("Code", CodeQuestionResponse.class) {
+      CODE("Code", CodeQuestionResponse.class, "code") {
          @Override
          public <T> T accept(QuestionTypeVisitor<T> visitor) {
             return visitor.visitCode();
          }
       },
-      MATCHING("Matching", MatchingQuestionResponse.class) {
+      MATCHING("Matching", MatchingQuestionResponse.class, "matching") {
          @Override
          public <T> T accept(QuestionTypeVisitor<T> visitor) {
             return visitor.visitMatching();
          }
       },
-      MULTIPLE_CHOICE("Multiple Choice", MultipleChoiceQuestionResponse.class) {
+      MULTIPLE_CHOICE("Multiple Choice", MultipleChoiceQuestionResponse.class, "multiple-choice") {
          @Override
          public <T> T accept(QuestionTypeVisitor<T> visitor) {
             return visitor.visitMultipleChoice();
          }
       },
-      SHORT_ANSWER("Short Answer", ShortAnswerQuestionResponse.class) {
+      SHORT_ANSWER("Short Answer", ShortAnswerQuestionResponse.class, "short-answer") {
          @Override
          public <T> T accept(QuestionTypeVisitor<T> visitor) {
             return visitor.visitShortAnswer();
@@ -73,11 +73,13 @@ public class Question<T extends QuestionResponse> {
       };
 
       private String displayText;
+      private String fileString;
       private Class responseClass;
 
-      QuestionType(String displayText, Class responseClass) {
+      QuestionType(String displayText, Class responseClass, String fileString) {
          this.displayText = displayText;
          this.responseClass = responseClass;
+         this.fileString = fileString;
       }
 
        /**
@@ -88,6 +90,10 @@ public class Question<T extends QuestionResponse> {
       @Override
       public String toString() {
          return displayText;
+      }
+
+      public String getFileString() {
+         return fileString;
       }
 
    }

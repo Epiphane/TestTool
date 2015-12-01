@@ -11,7 +11,6 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
@@ -20,7 +19,13 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
-public class TakeTestController implements Initializable {
+/**
+ * TakeTestController handles the test taking session, displays questions, and
+ * persists the student's submission to the Database.
+ *
+ * @author tsteinke
+ */
+public class TakeTestController {
    private static final Logger LOG = LoggerFactory.getLogger(TakeTestController.class);
 
    @FXML
@@ -49,7 +54,6 @@ public class TakeTestController implements Initializable {
    private Text prompt;
 
    private Test test;
-
    private TestSectionController currentQuestionController;
    private int currentQuestion;
 
@@ -62,12 +66,8 @@ public class TakeTestController implements Initializable {
    }
 
    /**
-    * Initializes the Create Test Options UI with values for the selection lists, spinner, and input boxes
+    * Sets the test being taken
     */
-   @FXML
-   public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
-   }
-
    public void setTest(Test test) throws IOException {
       this.test = test;
 
@@ -90,46 +90,47 @@ public class TakeTestController implements Initializable {
       }
    }
 
+   /**
+    * Sets which question is currently being worked on
+    */
    private void setQuestion(int qNumber) throws IOException {
-      int numQuestions = test.getQuestions().size();
-      Question question = null;
-      if (qNumber < 0) {
-         qNumber = -1;
+      QuestionResponse question = null;
+      String questionFileString = "begin-test";
 
-         if (submission != null) {
+      currentQuestion = -1;
+      questionNumber.setText("");
+
+      if (submission != null) {
+         int numQuestions = submission.getResponses().size();
+         if (qNumber < 0) {
             qNumber = 0;
          }
-      }
-      else if (qNumber >= numQuestions) {
-         qNumber = numQuestions;
-      }
-      else {
-         question = test.getQuestions().get(qNumber);
+         else if (qNumber >= numQuestions) {
+            qNumber = numQuestions;
+            questionFileString = "complete-test";
+         }
+
+         if (qNumber < numQuestions) {
+            question = submission.getResponses().get(qNumber);
+
+            questionFileString = question.getQuestion().getType().getFileString();
+            questionNumber.setText("Question " + (qNumber + 1));
+         }
+
+         currentQuestion = qNumber;
       }
 
-      currentQuestion = qNumber;
-      String questionFileString = "begin-test";
-      questionNumber.setText("");
-      if (qNumber >= 0 && qNumber < numQuestions) {
-         questionFileString = "short-answer";
-         questionNumber.setText("Question " + (qNumber + 1));
-      }
-      else if (qNumber == numQuestions) {
-         questionFileString = "complete-test";
-      }
-
+      LOG.info("Loading question type " + questionFileString + "...");
       FXMLLoader loader = new FXMLLoader(FXUtils.class.getClassLoader().getResource("question/" + questionFileString + ".fxml"));
 
       Scene newScene = new Scene(loader.load());
       currentQuestionController = loader.getController();
       currentQuestionController.setParent(this);
+      currentQuestionController.setQuestion(question);
 
+      LOG.info("Adding question to pane...");
       questionPane.getChildren().clear();
       questionPane.getChildren().add(newScene.getRoot());
-
-      if (question != null) {
-         currentQuestionController.setQuestion(question);
-      }
    }
 
    @FXML
@@ -163,7 +164,7 @@ public class TakeTestController implements Initializable {
    }
 
    @FXML
-   public void onSubmitTest(ActionEvent event) throws IOException {
+   public void onSubmitTest() {
       LOG.info("Submit Test responses");
    }
 }

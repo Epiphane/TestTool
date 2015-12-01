@@ -1,17 +1,18 @@
-package com.teampc.controller.test;
+package com.teampc.controller.question;
+
+import com.teampc.controller.test.TestSectionController;
+import com.teampc.model.testtaking.CodeQuestionResponse;
+import com.teampc.model.testtaking.QuestionResponse;
+import javafx.fxml.FXML;
+import javafx.scene.control.TextArea;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import com.teampc.model.testtaking.QuestionResponse;
-import com.teampc.model.testtaking.ShortAnswerQuestionResponse;
-import javafx.fxml.FXML;
-import javafx.scene.control.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-public class ShortAnswerController extends TestSectionController {
-   private static final Logger LOG = LoggerFactory.getLogger(ShortAnswerController.class);
+public class CodeController extends TestSectionController {
+   private static final Logger LOG = LoggerFactory.getLogger(CodeController.class);
 
    @FXML
    private ResourceBundle resources;
@@ -19,7 +20,7 @@ public class ShortAnswerController extends TestSectionController {
    @FXML
    private TextArea response;
 
-   private ShortAnswerQuestionResponse qResponse;
+   private CodeQuestionResponse qResponse;
 
    /**
     * Initializes the Test Section
@@ -31,9 +32,9 @@ public class ShortAnswerController extends TestSectionController {
    public void setQuestion(QuestionResponse response) {
       super.setQuestion(response);
 
-      qResponse = (ShortAnswerQuestionResponse) response;
+      qResponse = (CodeQuestionResponse) response;
 
-      this.response.setText(qResponse.getAnswer());
+      this.response.setText(qResponse.getCodeAnswer());
    }
 
    public void onLeave() {
@@ -41,7 +42,7 @@ public class ShortAnswerController extends TestSectionController {
          LOG.info("ERROR: No question response set!!");
       }
 
-      qResponse.setAnswer(response.getText());
+      qResponse.setCodeAnswer(response.getText());
 
       LOG.info("Saving short answer response: " + response.getText());
    }

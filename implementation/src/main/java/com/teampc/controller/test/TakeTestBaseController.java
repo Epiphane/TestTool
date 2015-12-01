@@ -1,7 +1,9 @@
 package com.teampc.controller.test;
 
+import com.google.common.collect.Lists;
 import com.teampc.model.test.*;
 import com.teampc.model.question.*;
+import com.teampc.model.testtaking.MultipleChoiceQuestionResponse;
 import com.teampc.utils.FXUtils;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -18,6 +20,12 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.util.*;
 
+/**
+ * TakeTestBaseController is the list of available tests, and allows a student to select
+ * a test and begin work on it.
+ *
+ * @author tsteinke
+ */
 public class TakeTestBaseController implements Initializable {
    private static final Logger LOG = LoggerFactory.getLogger(TakeTestBaseController.class);
 
@@ -64,6 +72,11 @@ public class TakeTestBaseController implements Initializable {
       question.setType(Question.QuestionType.SHORT_ANSWER);
       question.setPrompt("What is your number?");
       questions.add(question);
+      question = new Question();
+      question.setType(Question.QuestionType.MULTIPLE_CHOICE);
+      question.setPrompt("What is your favorite color?");
+      question.setCorrectAnswer(new MultipleChoiceQuestionResponse(1, Lists.newArrayList("Blue", "Red", "Green", "Yellow")));
+      questions.add(question);
 
       testA.publish();
 
@@ -94,7 +107,7 @@ public class TakeTestBaseController implements Initializable {
    }
 
    /**
-    * Handler for the create test button
+    * Handler for the take test button
     */
    @FXML
    void onTakeTest(ActionEvent event) throws IOException {
@@ -115,24 +128,5 @@ public class TakeTestBaseController implements Initializable {
       else {
          LOG.info("Cannot take test: it is not open!");
       }
-      // if (Strings.isNullOrEmpty(testName.getText()) || Strings.isNullOrEmpty(courseType.getText())) {
-      //    LOG.info("missing test name, courseType, ...");
-      //    return;
-      // }
-
-      // Date userStartDate = null;
-      // Date userEndDate = null;
-
-      // if (startDate.getValue() != null) { userStartDate = TestUtils.localDateToDate(startDate.getValue()); }
-      // if (endDate.getValue() != null) { userEndDate = TestUtils.localDateToDate(endDate.getValue()); }
-
-      // Test newTest = new Test(testName.getText(), userStartDate, userEndDate, courseType.getText());
-      // TestDAO.getInstance().insert(newTest);
-      // LOG.info("new test submitted");
-
-      // // TODO: remove this and change to the generate questions view
-      // Node source = (Node) event.getSource();
-      // Stage stage = (Stage) source.getScene().getWindow();
-      // stage.close();
    }
 }

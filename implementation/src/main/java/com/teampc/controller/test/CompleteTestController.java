@@ -3,6 +3,7 @@ package com.teampc.controller.test;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,5 +19,10 @@ public class CompleteTestController extends TestSectionController {
     */
    @FXML
    public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
+   }
+
+   @FXML
+   public void onSubmitTest(ActionEvent event) {
+      parent.onSubmitTest();
    }
 }
