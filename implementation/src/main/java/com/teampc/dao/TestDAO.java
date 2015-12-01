@@ -46,7 +46,7 @@ public class TestDAO extends AbstractDAO<Test> {
    /**
     * Find a test by the test id
     */
-   public void findById(String id) {
+   public void findById(int id) {
       LOG.info("Find by id: " + id);
    }
 
