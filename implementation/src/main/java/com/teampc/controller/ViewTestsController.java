@@ -20,7 +20,7 @@ public class ViewTestsController extends ListViewController<RowView> {
          new RowView(new TestRowController(new Test("307 Midterm 2", new Date(11), new Date(11), "307")), RESOURCE)
       );
 
-      super.initialize(location, resources);
+      initView();
    }
 
 }

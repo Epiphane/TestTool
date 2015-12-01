@@ -14,12 +14,7 @@ public abstract class ListViewController<T> implements Initializable {
    private ListView<T> viewTestList;
    protected ObservableList<T> data;
 
-   @Override
-   public void initialize(URL location, ResourceBundle resources) {
-      initTestList();
-   }
-
-   private void initTestList() {
+   protected void initView() {
       viewTestList.setItems(data);
 
       viewTestList.setCellFactory(list -> new SimpleCellFactory<>());

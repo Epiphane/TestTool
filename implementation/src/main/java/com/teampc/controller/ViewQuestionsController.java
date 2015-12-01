@@ -29,7 +29,6 @@ public class ViewQuestionsController extends ListViewController<RowView> {
          }
       });
 
-      super.initialize(location, resources);
+      initView();
    }
-
 }
