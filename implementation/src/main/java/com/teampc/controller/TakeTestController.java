@@ -13,7 +13,6 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
@@ -29,7 +28,13 @@ import java.net.URL;
 import java.time.ZoneId;
 import java.util.*;
 
-public class TakeTestController implements Initializable {
+/**
+ * TakeTestController handles the test taking session, displays questions, and
+ * persists the student's submission to the Database.
+ * 
+ * @author tsteinke
+ */
+public class TakeTestController {
    private static final Logger LOG = LoggerFactory.getLogger(TakeTestController.class);
 
    @FXML
@@ -53,12 +58,7 @@ public class TakeTestController implements Initializable {
    @FXML
    private Text questionNumber;
 
-   /* Question stuff */
-   @FXML 
-   private Text prompt;
-
    private Test test;
-
    private TestSectionController currentQuestionController;
    private int currentQuestion;
 
@@ -71,12 +71,8 @@ public class TakeTestController implements Initializable {
    }
 
    /**
-    * Initializes the Create Test Options UI with values for the selection lists, spinner, and input boxes
+    * Sets the test being taken
     */
-   @FXML
-   public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
-   }
-
    public void setTest(Test test) throws IOException {
       this.test = test;
 
@@ -99,6 +95,9 @@ public class TakeTestController implements Initializable {
       }
    }
 
+   /**
+    * Sets which question is currently being worked on
+    */
    private void setQuestion(int qNumber) throws IOException {
       QuestionResponse question = null;
       String questionFileString = "begin-test";
@@ -134,7 +133,7 @@ public class TakeTestController implements Initializable {
       currentQuestionController.setParent(this);
       currentQuestionController.setQuestion(question);
       
-      LOG.info("Adding quesiton to pane...");
+      LOG.info("Adding question to pane...");
       questionPane.getChildren().clear();
       questionPane.getChildren().add(newScene.getRoot());
    }
