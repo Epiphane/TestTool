@@ -18,13 +18,13 @@ public class Submission {
 
    private Test test;
 
-   private User taker;
+   public User taker;
 
-   public ArrayList<QuestionResponse> responses;
+   public ArrayList<QuestionResponse> responses = new ArrayList<QuestionResponse>();
 
    private boolean complete;
 
-   private float grade;
+   public float grade;
 
    /**
     * Return whether the test is complete or not

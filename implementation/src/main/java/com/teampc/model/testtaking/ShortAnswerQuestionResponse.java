@@ -15,7 +15,7 @@ import lombok.Setter;
 public class ShortAnswerQuestionResponse extends QuestionResponse<ShortAnswerQuestionResponse> {
    @Getter
    @Setter
-   private String answer;
+   private String answer = "";
 
    /** {@inheritDoc} */
    @Override
@@ -26,7 +26,7 @@ public class ShortAnswerQuestionResponse extends QuestionResponse<ShortAnswerQue
    /** {@inheritDoc} */
    @Override
    public void assignPoints(ShortAnswerQuestionResponse questionResponse) {
-      // need manual grading
+      questionResponse.pointsReceived = answer.equals(questionResponse.answer) ? 1 : 0;
    }
 
    @Override

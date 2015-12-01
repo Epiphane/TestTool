@@ -34,7 +34,7 @@ public abstract class TestGrader {
 
     public static void gradeTest(Submission s, Key key) {
         for (int i = 0; i < s.responses.size(); i++) {
-            s.responses.get(i).assignPoints(key.responses.get(i));
+            key.responses.get(i).assignPoints(s.responses.get(i));
         }
     }
 }
