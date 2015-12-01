@@ -16,6 +16,7 @@ public class ShortAnswerQuestionResponse extends QuestionResponse<ShortAnswerQue
    @Getter
    @Setter
    private String answer = "";
+   private MatchType matchType;
 
    /** {@inheritDoc} */
    @Override
@@ -25,12 +26,19 @@ public class ShortAnswerQuestionResponse extends QuestionResponse<ShortAnswerQue
 
    /** {@inheritDoc} */
    @Override
-   public void assignPoints(ShortAnswerQuestionResponse questionResponse) {
-      questionResponse.pointsReceived = answer.equals(questionResponse.answer) ? 1 : 0;
+   public void assignPoints(ShortAnswerQuestionResponse questionResponse, int maxPoints) {
+      // need manual grading
+      questionResponse.pointsReceived = answer.equals(questionResponse) ? maxPoints : 0;
    }
 
    @Override
    public String toString() {
       return answer;
+   }
+
+   public enum MatchType {
+      EXACTLY,
+      ANY,
+      ALL
    }
 }

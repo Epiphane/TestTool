@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="541.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.teampc.controller.question.QuestionEditController">
+   <children>
+      <Label alignment="CENTER" layoutX="153.0" layoutY="79.0" prefHeight="23.0" prefWidth="275.0" text="Edit Question" textAlignment="CENTER">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="questionType" layoutX="78.0" layoutY="128.0" prefWidth="150.0" promptText="Choose Question Type.." />
+      <Label layoutX="78.0" layoutY="161.0" prefHeight="18.0" prefWidth="138.0" text="Enter Question Text:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField layoutX="216.0" layoutY="157.0" prefHeight="26.0" prefWidth="355.0" promptText="Question Text..." fx:id="prompt"/>
+      <StackPane layoutX="78.0" layoutY="200.0" prefHeight="150.0" prefWidth="495.0">
+         <children>
+            <fx:include fx:id="multipleChoiceNode" source="multiple-choice-question.fxml" />
+            <fx:include fx:id="codeNode" source="code-question.fxml" />
+            <fx:include fx:id="matchingNode" source="matching-question.fxml" />
+            <fx:include fx:id="shortAnswerNode" source="short-answer-question.fxml" />
+         </children>
+      </StackPane>
+      <Button layoutX="519.0" layoutY="469.0" mnemonicParsing="false" text="Save" onAction="#saveQuestion" >
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+   </children>
+</Pane>

@@ -20,6 +20,8 @@ import java.util.ResourceBundle;
 
 import com.teampc.model.testtaking.*;
 
+import java.util.*;
+
 /**
  * Created by james on 11/9/15.
  */
@@ -46,9 +48,9 @@ public class SubmissionRowController implements Initializable{
 
       this.key = new Key();
       this.key.responses.add(new MultipleChoiceQuestionResponse());
-      this.key.responses.add(new MultipleChoiceQuestionResponse(1));
+      this.key.responses.add(new MultipleChoiceQuestionResponse(1, new ArrayList<String>()));
       this.key.responses.add(new ShortAnswerQuestionResponse());
-      this.key.responses.add(new ShortAnswerQuestionResponse("one"));
+      this.key.responses.add(new ShortAnswerQuestionResponse("one", ShortAnswerQuestionResponse.MatchType.ALL));
    }
 
    @Override

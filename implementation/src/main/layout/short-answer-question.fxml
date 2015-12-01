@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="115.0" prefWidth="403.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.teampc.controller.question.ShortAnswerQuestionController">
+   <children>
+      <TextField layoutX="27.0" layoutY="33.0" prefHeight="26.0" prefWidth="363.0" promptText="keywords" fx:id="keywords" />
+      <RadioButton layoutX="27.0" layoutY="76.0" mnemonicParsing="false" selected="true" text="is exactly">
+         <toggleGroup>
+            <ToggleGroup fx:id="matchGroup" />
+         </toggleGroup>
+      </RadioButton>
+      <RadioButton layoutX="140.0" layoutY="76.0" mnemonicParsing="false" text="contains any" toggleGroup="$matchGroup" />
+      <RadioButton layoutX="258.0" layoutY="76.0" mnemonicParsing="false" text="contains all" toggleGroup="$matchGroup" />
+   </children>
+</Pane>

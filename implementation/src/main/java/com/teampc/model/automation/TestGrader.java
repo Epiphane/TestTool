@@ -9,7 +9,7 @@ import com.teampc.model.testtaking.*;
 /**
  * Class to auto-grade a test.
  *
- * Created by Greg
+ * @author Zach Arend (zarend@calpoly.edu)
  */
 public abstract class TestGrader {
 
@@ -34,7 +34,7 @@ public abstract class TestGrader {
 
     public static void gradeTest(Submission s, Key key) {
         for (int i = 0; i < s.responses.size(); i++) {
-            key.responses.get(i).assignPoints(s.responses.get(i));
+            key.responses.get(i).assignPoints(s.responses.get(i), 1);
         }
     }
 }
