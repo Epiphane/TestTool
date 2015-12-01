@@ -7,6 +7,9 @@ import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.*;
+import com.teampc.model.test.*;
+
 public class TestDAO extends AbstractDAO<Test> {
 
    private static final Logger LOG = LoggerFactory.getLogger(TestDAO.class);
@@ -16,7 +19,11 @@ public class TestDAO extends AbstractDAO<Test> {
       return INSTANCE;
    }
 
-   private TestDAO() {}
+   private TestDAO() {
+      // add fake stuff
+      this.insert(new Test("307 Midterm 1", new Date(11), new Date(11), "307"));
+      this.insert(new Test("307 Midterm 2", new Date(11), new Date(11), "307"));
+   }
 
    @Override
    protected Class<Test> getEntityClass() {

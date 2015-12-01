@@ -13,23 +13,31 @@ import java.net.URL;
 import java.util.Date;
 import java.util.ResourceBundle;
 
+import com.teampc.dao.*;
+import java.util.*;
+
 public class ViewTestController implements Initializable {
-  @FXML
-  private ListView<TestRow> viewTestList;
+   @FXML
+   private ListView<TestRow> viewTestList;
 
-  ObservableList<TestRow> data = FXCollections.observableArrayList(
-        new TestRow(new Test("307 Midterm 1", new Date(11), new Date(11), "307")),
-        new TestRow(new Test("307 Midterm 2", new Date(11), new Date(11), "307"))
-  );
+   ObservableList<TestRow> data; 
 
-  @Override
-  public void initialize(URL location, ResourceBundle resources) {
-     initTestList();
-  }
+   public ViewTestController() {
+   List<TestRow> rows = new ArrayList<TestRow>();
+      for (Test t: TestDAO.getInstance().fetchAll()) {
+         rows.add(new TestRow(t));
+      }
+      data = FXCollections.observableArrayList(rows);
+   }
 
-  private void initTestList() {
-     viewTestList.setItems(data);
+   @Override
+   public void initialize(URL location, ResourceBundle resources) {
+      initTestList();
+   }
 
-     viewTestList.setCellFactory(list -> new SimpleCellFactory<>());
-  }
+   private void initTestList() {
+      viewTestList.setItems(data);
+
+      viewTestList.setCellFactory(list -> new SimpleCellFactory<>());
+   }
 }
