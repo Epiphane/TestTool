@@ -10,9 +10,11 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 /**
- * Identifies the user that is currently logged into the application.
+ * UserSession identifies the user that is currently logged into the application.
  * Users can have set restrictions, to prevent or allow access to parts
  * of the application
+ *
+ * @author Greg Sawers gsawers (gsawers@calpoly.edu)
  */
 public class UserSession {
 
@@ -20,7 +22,7 @@ public class UserSession {
    public static User loggedInUser;
 
    /**
-    *
+    * A check to see if a user is logged in.
     */
    public static boolean loggedIn = false;
 
@@ -37,23 +39,25 @@ public class UserSession {
 
 
    /**
-    * A session is defined by the user that is logged in
-    */
-   public  UserSession(User user) {
-
-   }
-
-   /**
+    *
+    * Check to see if the username and password are correct.
     * @param username the username used to login.
     * @param password the password used to login
     *
+    *@return Return true if the user exists and the password is correct, else return false
     *
-     pre: user != null
+     pre: username != null && password != null
     *
-     post: loggedIn == true && loggedInUser.equals(user)
+     post: (loggedIn == true && userList.containsKey(username)) || (loggedIn == false && !userList.containsKey(username))
     */
    public static boolean login(String username, String password){
+      /**
+       * Build the list of users. Will be replaced with a Database hook later.
+       */
       populateUserList();
+      /**
+       * If the username exists and the password is correct for thr user, log the user in and return true
+       */
       if(userlist.containsKey(username) && userlist.get(username).getPassword().equals(password))  {
          User user = userlist.get(username);
          loggedInUser = user;
@@ -61,12 +65,22 @@ public class UserSession {
          System.out.println("User gsawers logged in to TestTool.");
          return true;
       }
+      /**
+       * Otherwise return false
+       */
       else {
          System.out.println("Invalid username or password");
          return false;
       }
    }
 
+   /**
+    * Register a new User with the application
+    * @param username The username of the new User
+    * @param pass The password of the new User
+    * @param first The first name of the new User
+    * @param last The last name of the new USer
+    */
    public static void Register(String username, String pass, String first, String last){
       User user = new User(username, first, last, pass);
       userlist.put(username, user);
@@ -76,14 +90,16 @@ public class UserSession {
    /**
     * Get the currently logged in user
     *
+    * @return User an instance of the logged in User
+    *
      pre: loggedIn && loggedInUser != null
     *
      post: loggedIn && loggedInUser != null
     */
    public static User getLoggedInUser(){
 
-      System.out.println("gsawers is currently logged in");
-      return new User();
+      System.out.println(loggedInUser.getDisplayName() + " is logged in");
+      return loggedInUser;
    }
 
    /**
@@ -91,10 +107,11 @@ public class UserSession {
     *
        pre: loggedIn
     *
-       post: !loggedIn && loggedInUser == null
+       post: !loggedIn && loggedInUser == null;
     */
    public static void endUserSession(){
-
+      loggedIn = false;
+      loggedInUser = null;
    }
 
    private static void populateUserList(){
@@ -124,6 +141,7 @@ public class UserSession {
 
 
    }
+
 
    private static void registerUser(String username, User user){
 
