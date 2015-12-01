@@ -17,6 +17,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.teampc.utils.FXUtils;
+
+import java.io.*;
+
 /**
  * Created by james on 11/9/15.
  */
@@ -80,6 +84,12 @@ public class TestRowController implements Initializable{
    /** Button click handler **/
    void onGradeActionHandler(ActionEvent event) {
       LOG.debug("Grade Button Clicked");
+       try {
+          Stage stage = FXUtils.getStageFromEvent(event);
+          FXUtils.switchToScreen(stage, "view-grade.fxml");
+       } catch (IOException e) {
+          e.printStackTrace();
+       }
    }
 
    @FXML
