@@ -15,6 +15,7 @@ import java.util.ResourceBundle;
 import com.teampc.utils.FXUtils;
 
 import java.io.*;
+import java.util.*;
 
 /**
  * Created by james on 11/9/15.
@@ -46,6 +47,10 @@ public class TestRowController implements Initializable{
 
    public TestRowController(Test test) {
       this.test = test;
+
+      // List<Question> theQuestions = new List<Question>();
+
+      // this.test.questions = theQuestions;
    }
 
    @FXML
@@ -67,7 +72,7 @@ public class TestRowController implements Initializable{
    void onGradeActionHandler(ActionEvent event) {
       // try {
          // FXUtils.switchToScreenAndConfigureController("view-grade.fxml",(stage, NewController controller) -> {
-         //    controller.setTest(this.test);
+         //    controller.setSubmission(this.test);
          // });
       // } catch (IOException e) {
       //    e.printStackTrace();
