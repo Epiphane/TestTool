@@ -61,7 +61,11 @@ public class QuestionTableController {
    @FXML
    private void newQuestion() throws IOException {
       log.debug("New Question");
-      FXUtils.switchToScreenAndConfigureController(primaryStage, "question-edit-main.fxml", QuestionEditController::setPrimaryStage);
+      FXUtils.switchToScreenAndConfigureController(primaryStage, "question-edit-main.fxml", 
+            (QuestionEditController controller, Stage stage) -> {
+         controller.setPrimaryStage(stage);
+         controller.setQuestionAction(new NewAction());
+      });
    }
 
    /**

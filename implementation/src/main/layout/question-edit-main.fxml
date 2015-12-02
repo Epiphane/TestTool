@@ -10,7 +10,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="541.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.teampc.controller.question.QuestionEditController">
    <children>
-      <Label alignment="CENTER" layoutX="153.0" layoutY="79.0" prefHeight="23.0" prefWidth="275.0" text="Edit Question" textAlignment="CENTER">
+      <Label alignment="CENTER" layoutX="153.0" layoutY="79.0" prefHeight="23.0" prefWidth="275.0" textAlignment="CENTER" fx:id="title" >
          <font>
             <Font size="18.0" />
          </font>
@@ -38,6 +38,12 @@
       <Button layoutX="454.0" layoutY="469.0" mnemonicParsing="false" onAction="#cancel" text="Cancel">
          <font>
             <Font size="14.0" />
-         </font></Button>
+         </font>
+      </Button>
+      <Button layoutX="300.0" layoutY="469.0" mnemonicParsing="false" onAction="#saveAsNewQuestion" text="Save as New Question" fx:id="saveAsNewButton" >
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
    </children>
 </Pane>

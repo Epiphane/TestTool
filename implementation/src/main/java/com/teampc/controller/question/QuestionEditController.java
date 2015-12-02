@@ -10,13 +10,16 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 import java.util.Optional;
+import java.util.function.Consumer;
 
 /**
  * Created by adufrene on 11/30/15.
@@ -54,10 +57,19 @@ public class QuestionEditController {
    @FXML
    private TextField prompt;
 
+   @FXML
+   private Button saveAsNewButton;
+
+   @FXML
+   private Label title;
+
    private Optional<QuestionTypeController> currentController = Optional.empty();
 
    @Setter
    private Stage primaryStage;
+
+   @Setter
+   private QuestionAction questionAction;
 
    /**
     * Visitor to get view node of corresponding question type
@@ -109,10 +121,10 @@ public class QuestionEditController {
       }
    };
 
-   @FXML
    /**
     * Set up question screen, mostly hiding or showing appropriate layouts
     */
+   @FXML
    private void initialize() {
       questionType.setItems(FXCollections.observableArrayList(Question.QuestionType.values()));
       questionType.getSelectionModel().selectedItemProperty().addListener((selected, oldType, newType) -> {
@@ -126,17 +138,35 @@ public class QuestionEditController {
       matchingNode.setVisible(false);
       multipleChoiceNode.setVisible(false);
       shortAnswerNode.setVisible(false);
+
+      questionAction.displaySaveAsNewButton(saveAsNewButton);
+      title.setText(questionAction.getTitle());
    }
 
     /**
-     * Save question, filling appropriate fields based on type of question
+     * Save question or update question depending on if this is a new or existing question
      */
    @FXML
    private void saveQuestion() throws IOException {
+      saveQuestionUsingSaver(questionAction::save);
+   }
+
+   /**
+    * Save question as new question
+    */
+   @FXML
+   private void saveAsNewQuestion() throws IOException {
+      saveQuestionUsingSaver(questionAction::saveAsNew);
+   }
+
+   /**
+    * Save question using supplied questionSaver consumer, then exit screen
+    */
+   private void saveQuestionUsingSaver(Consumer<Question> questionSaver) throws IOException {
       currentController.ifPresent(controller -> {
          try {
             Question question = controller.createQuestion(prompt.getCharacters().toString());
-            QuestionDAO.getInstance().insert(question);
+            questionAction.save(question);
          } catch (InvalidQuestionException e) {
             log.error("Error creating question, not saving", e);
          }
