@@ -1,6 +1,7 @@
 package com.teampc.controller.question;
 
 
+import com.teampc.dao.QuestionDAO;
 import com.teampc.model.admin.course.Course;
 import com.teampc.model.admin.course.Term;
 import com.teampc.model.question.Question;
@@ -176,6 +177,8 @@ public class QuestionSearchController implements Initializable {
 
       exampleQ3.setPrompt("Functions on Java classes are called _______");
       exampleQ3.setPoints(3);
+
+      questionListView.getItems().addAll(QuestionDAO.getInstance().fetchAll());
    }
 
    private void setTestListByCourse(Course currentCourse) {

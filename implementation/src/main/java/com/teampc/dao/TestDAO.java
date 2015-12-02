@@ -38,20 +38,6 @@ public class TestDAO extends AbstractDAO<Test> {
    }
 
    /**
-    * Inserts a new test into the database
-    */
-   @Override
-   public void insert(Test newTest) {
-      super.insert(newTest);
-      LOG.info("Inserting a new test");
-
-      newTest.getName();
-      newTest.getStartDate();
-      newTest.getEndDate();
-      newTest.getCourseName();
-   }
-
-   /**
     * Find a test by the test id
     */
    public void findById(int id) {

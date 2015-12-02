@@ -13,6 +13,10 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Objects;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 /**
  * Created by adufrene on 11/9/15.
@@ -45,8 +49,8 @@ public class QuestionTableController {
       questionDAO = QuestionDAO.getInstance();
 
       ObservableList<Question> questions = questionTable.getItems();
-      questionDAO.fetchAll().stream().map(question -> question.getType() + "").forEach(log::debug);
-      questions.addAll(questionDAO.fetchAll());
+      questions.addAll(questionDAO.fetchAll().stream().filter(Objects::nonNull).collect(toList()));
+      questions.stream().map(question -> question.getType() + "").forEach(log::debug);
 
       questionTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
    }
@@ -79,5 +83,13 @@ public class QuestionTableController {
          return;
       }
       log.debug("Making test with selected questions: " + Arrays.toString(selectedItems.toArray(new Question[selectedItems.size()])));
+   }
+
+    /**
+     * Deletes the currently selected question
+     */
+   @FXML
+   private void deleteSelectedQuestions() {
+
    }
 }
