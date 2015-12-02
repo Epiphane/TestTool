@@ -78,7 +78,14 @@ public class TestRowController implements Initializable{
    @FXML
    /** Button click handler **/
    void onEditActionHandler(ActionEvent event) {
-      LOG.debug("Edit Button Clicked");
+      TestDAO.getInstance().findById(test.getId());
+
+      Stage stage = FXUtils.getStageFromEvent(event);
+      try {
+         FXUtils.switchToScreen(stage, "view-questions-list.fxml");
+      } catch (IOException e) {
+         LOG.error("Failed to load question list view" + e.getMessage());
+      }
    }
 
    @FXML
