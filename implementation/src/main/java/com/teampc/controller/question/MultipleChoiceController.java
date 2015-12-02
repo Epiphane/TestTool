@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.net.URL;
+import java.util.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -36,13 +37,15 @@ public class MultipleChoiceController extends TestSectionController {
    public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
    }
 
+   public List<String> options = Arrays.asList("blue", "red", "green", "yellow");
+
    public void setQuestion(QuestionResponse response) {
       super.setQuestion(response);
 
       qResponse = (MultipleChoiceQuestionResponse) response;
 
       // Add Radio buttons...
-      List<String> options = qResponse.getChoices();
+      // List<String> options = ;
 
       for (int i = 0; i < options.size(); i ++) {
          String option = options.get(i);
@@ -64,7 +67,7 @@ public class MultipleChoiceController extends TestSectionController {
 
       String answer = ((RadioButton) this.answer.getSelectedToggle()).getText();
 
-      List<String> options = qResponse.getChoices();
+      // List<String> options = qResponse.getChoices();
       qResponse.setAnswer(options.indexOf(answer));
 
       LOG.info("Saving multiple choice response: " + answer);

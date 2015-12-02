@@ -96,6 +96,16 @@ public class Question<T extends QuestionResponse> {
          return fileString;
       }
 
+      public QuestionResponse createResponse() {   
+         try {   
+            return (QuestionResponse) responseClass.getConstructor().newInstance(new Object[] {});   
+         }   
+         catch (Exception e) {   
+            // Should never happen  
+            System.out.println("Something went wrong with creation");
+            return null;   
+         }   
+      }
    }
 
    public interface QuestionTypeVisitor<T> {
@@ -105,4 +115,12 @@ public class Question<T extends QuestionResponse> {
       T visitShortAnswer();
    }
 
+     
+   public QuestionResponse createResponse() {
+      QuestionResponse result = this.getType().createResponse();
+
+      result.setQuestion(this);
+
+      return result;
+   }
 }

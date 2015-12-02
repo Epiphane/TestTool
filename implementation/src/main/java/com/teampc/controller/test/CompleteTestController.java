@@ -23,6 +23,6 @@ public class CompleteTestController extends TestSectionController {
 
    @FXML
    public void onSubmitTest(ActionEvent event) {
-      parent.onSubmitTest();
+      parent.onSubmitTest(event);
    }
 }

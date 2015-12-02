@@ -11,6 +11,8 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.FXML;
+import javafx.stage.Stage;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
@@ -164,7 +166,12 @@ public class TakeTestController {
    }
 
    @FXML
-   public void onSubmitTest() {
+   public void onSubmitTest(ActionEvent event) {
       LOG.info("Submit Test responses");
+
+      Node source = (Node) event.getSource();
+      Stage stage = (Stage) source.getScene().getWindow();
+
+      stage.close();
    }
 }

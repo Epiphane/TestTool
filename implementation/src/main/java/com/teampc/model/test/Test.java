@@ -216,7 +216,13 @@ public class Test {
       newSubmission.setTaker(forUser);
       newSubmission.setTest(this);
 
-      newSubmission.setResponses(Lists.newArrayListWithExpectedSize(questions.size()));
+      ArrayList<QuestionResponse> responseShells = new ArrayList<QuestionResponse>();
+   
+      for (int qNum = 0; qNum < questions.size(); qNum ++) {   
+         responseShells.add(questions.get(qNum).createResponse());   
+      }
+
+      newSubmission.setResponses(responseShells);
 
       return newSubmission;
    }
