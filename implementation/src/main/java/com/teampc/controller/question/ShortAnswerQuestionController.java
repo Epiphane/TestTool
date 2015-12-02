@@ -42,7 +42,12 @@ public class ShortAnswerQuestionController implements QuestionTypeController<Sho
       Question<ShortAnswerQuestionResponse> question = new Question<>();
       question.setPrompt(prompt);
       question.setType(Question.QuestionType.SHORT_ANSWER);
-      question.setCorrectAnswer(new ShortAnswerQuestionResponse(keywords.getCharacters().toString(), (ShortAnswerQuestionResponse.MatchType) matchGroup.getSelectedToggle().getUserData()));
+      question.setCorrectAnswer(
+         new ShortAnswerQuestionResponse(
+            keywords.getCharacters().toString(),
+            (ShortAnswerQuestionResponse.MatchType) matchGroup.getSelectedToggle().getUserData()
+         )
+      );
       return question;
    }
 }

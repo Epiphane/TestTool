@@ -141,15 +141,19 @@ public class QuestionEditController {
             log.error("Error creating question, not saving", e);
          }
       });
+      returnToQuestionTable();
+   }
+
+   private void returnToQuestionTable() throws IOException {
       FXUtils.switchToScreenAndConfigureController(primaryStage, "question-table.fxml", QuestionTableController::setPrimaryStage);
    }
 
-    /**
+   /**
      * Cancel the question creation process and return to the table
      */
    @FXML
    private void cancel() throws IOException {
-      FXUtils.switchToScreenAndConfigureController(primaryStage, "question-table.fxml", QuestionTableController::setPrimaryStage);
+      returnToQuestionTable();
    }
 
 }

@@ -1,12 +1,15 @@
 package com.teampc.controller.question;
 
+import com.teampc.model.question.InvalidQuestionException;
 import com.teampc.model.question.Question;
 import com.teampc.model.testtaking.CodeQuestionResponse;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.FileUtils;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Optional;
 
 /**
@@ -32,13 +35,23 @@ public class CodeQuestionController implements QuestionTypeController<CodeQuesti
     * {@inheritDoc}
      */
    @Override
-   public Question<CodeQuestionResponse> createQuestion(String prompt) {
+   public Question<CodeQuestionResponse> createQuestion(String prompt) throws InvalidQuestionException {
       Question<CodeQuestionResponse> question = new Question<>();
       question.setType(Question.QuestionType.CODE);
       question.setPrompt(prompt);
-      question.setCorrectAnswer(new CodeQuestionResponse("1"));
-//      question.setCorrectAnswer(new CodeQuestionResponse(gradingScriptFile.filter(File::isFile)
-//         .map(FileUtils::readFileToString).orElseThrow(() -> new InvalidQuestionException("Missing or invalid grading script"))));
+      question.setCorrectAnswer(
+         new CodeQuestionResponse(gradingScriptFile
+            .filter(File::isFile)
+            .map(file -> {
+               try {
+                  return FileUtils.readFileToString(file);
+               } catch (IOException e) {
+                  return null;
+               }
+            })
+            .orElseThrow(() -> new InvalidQuestionException("Missing or invalid grading script"))
+         )
+      );
       return question;
    }
 }

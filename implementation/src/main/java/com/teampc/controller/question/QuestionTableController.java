@@ -72,6 +72,7 @@ public class QuestionTableController {
       log.debug("Searching questions");
       FXUtils.newScreenAndConfigureController("question-bank-search.fxml", QuestionSearchController::setPrimaryStage);
    }
+
    /**
     * Opens new test screen, sending currently selected questions along
     */
