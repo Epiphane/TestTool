@@ -8,9 +8,9 @@ import java.util.List;
  * A response to a multiple choice question question.
  * @author Zach Arend
  */
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
 @EqualsAndHashCode(callSuper = true)
 public class MultipleChoiceQuestionResponse extends QuestionResponse<MultipleChoiceQuestionResponse> {
    // an int representing which answer was chosen. 1 for A, 2 for B, etc
@@ -31,6 +31,6 @@ public class MultipleChoiceQuestionResponse extends QuestionResponse<MultipleCho
 
    @Override
    public String toString() {
-      return Character.toString(Character.toChars('a' + answer)[0]);
+      return answer < 0 || answer >= choices.size() ? "(No Answer)" : choices.get(answer);
    }
 }

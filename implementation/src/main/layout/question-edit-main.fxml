@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
+
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="541.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.teampc.controller.question.QuestionEditController">
    <children>
       <Label alignment="CENTER" layoutX="153.0" layoutY="79.0" prefHeight="23.0" prefWidth="275.0" text="Edit Question" textAlignment="CENTER">
@@ -17,7 +21,7 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <TextField layoutX="216.0" layoutY="157.0" prefHeight="26.0" prefWidth="355.0" promptText="Question Text..." fx:id="prompt"/>
+      <TextField fx:id="prompt" layoutX="216.0" layoutY="157.0" prefHeight="26.0" prefWidth="355.0" promptText="Question Text..." />
       <StackPane layoutX="78.0" layoutY="200.0" prefHeight="150.0" prefWidth="495.0">
          <children>
             <fx:include fx:id="multipleChoiceNode" source="multiple-choice-question.fxml" />
@@ -26,10 +30,14 @@
             <fx:include fx:id="shortAnswerNode" source="short-answer-question.fxml" />
          </children>
       </StackPane>
-      <Button layoutX="519.0" layoutY="469.0" mnemonicParsing="false" text="Save" onAction="#saveQuestion" >
+      <Button layoutX="519.0" layoutY="469.0" mnemonicParsing="false" onAction="#saveQuestion" text="Save">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
+      <Button layoutX="454.0" layoutY="469.0" mnemonicParsing="false" onAction="#cancel" text="Cancel">
+         <font>
+            <Font size="14.0" />
+         </font></Button>
    </children>
 </Pane>

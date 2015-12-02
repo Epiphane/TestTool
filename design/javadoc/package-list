@@ -1,0 +1,16 @@
+com.teampc
+com.teampc.controller
+com.teampc.controller.question
+com.teampc.controller.questionpreview
+com.teampc.controller.test
+com.teampc.dao
+com.teampc.model.admin
+com.teampc.model.admin.access
+com.teampc.model.admin.course
+com.teampc.model.automation
+com.teampc.model.question
+com.teampc.model.sql
+com.teampc.model.test
+com.teampc.model.testtaking
+com.teampc.utils
+com.teampc.view

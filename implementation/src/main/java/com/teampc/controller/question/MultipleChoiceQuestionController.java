@@ -38,8 +38,14 @@ public class MultipleChoiceQuestionController implements QuestionTypeController<
       if (answerField.getText().isEmpty()) {
          return;
       }
+
+      int selectedIndex = getSelectedIndex();
       choices.getItems().add(answerField.getCharacters().toString());
       answerField.setText("");
+
+      if (selectedIndex >= 0) {
+         group.getToggles().get(selectedIndex).setSelected(true);
+      }
    }
 
    /**
@@ -51,15 +57,12 @@ public class MultipleChoiceQuestionController implements QuestionTypeController<
       question.setPrompt(prompt);
       question.setType(Question.QuestionType.MULTIPLE_CHOICE);
       List<String> stringChoices = choices.getItems();
-      if (group.getSelectedToggle() == null) {
-         throw new InvalidQuestionException("No correct answer selected for multiple choice question");
-      }
-      int correctAnswer = stringChoices.indexOf(group.getSelectedToggle().getUserData());
+      int correctAnswer = getSelectedIndex();
       if (correctAnswer == -1) {
          throw new InvalidQuestionException("No correct answer selected for multiple choice question");
       }
       question.setCorrectAnswer(new MultipleChoiceQuestionResponse(correctAnswer, stringChoices));
-      return null;
+      return question;
    }
 
    // C/P'd from http://stackoverflow.com/questions/30027953/javafxlistview-with-radio-button
@@ -79,5 +82,15 @@ public class MultipleChoiceQuestionController implements QuestionTypeController<
             setGraphic(radioButton);
          }
       }
+   }
+
+   /**
+    * get selected choice's index
+    */
+   private int getSelectedIndex() {
+      if (group.getSelectedToggle() == null) {
+         return -1;
+      }
+      return choices.getItems().indexOf(group.getSelectedToggle().getUserData());
    }
 }
