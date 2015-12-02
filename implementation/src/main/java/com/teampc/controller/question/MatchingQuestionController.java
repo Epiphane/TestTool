@@ -54,7 +54,9 @@ public class MatchingQuestionController implements QuestionTypeController<Matchi
       Question<MatchingQuestionResponse> question = new Question<>();
       question.setPrompt(prompt);
       question.setType(Question.QuestionType.MATCHING);
-      question.setCorrectAnswer(new MatchingQuestionResponse(options.getItems().stream().collect(toMap(MatchingPair::getKey, MatchingPair::getValue))));
+      question.setCorrectAnswer(new MatchingQuestionResponse(
+         options.getItems().stream().collect(toMap(MatchingPair::getKey, MatchingPair::getValue))
+      ));
       return question;
    }
 
