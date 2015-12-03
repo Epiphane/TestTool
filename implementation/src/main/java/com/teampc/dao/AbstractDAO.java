@@ -8,10 +8,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by adufrene on 11/9/15.
@@ -97,6 +94,30 @@ public abstract class AbstractDAO<T> {
          session.close();
       }
 
+   }
+
+   public void delete(T item) {
+      delete(Collections.singleton(item));
+   }
+
+   public void delete(Collection<T> items) {
+      log.debug("Deleting {} from {}'s database", Arrays.toString(items.toArray()), getEntityClass().getSimpleName());
+      if (DEBUG) {
+         debugCollection.removeAll(items);
+         return;
+      }
+      Session session = HibernateUtils.getSessionFactory().openSession();
+      Transaction transaction = session.beginTransaction();
+      try {
+         items.forEach(session::save);
+         session.flush();
+         transaction.commit();
+      } catch (Exception e) {
+         log.error("Error deleting items", e);
+         transaction.rollback();
+      } finally {
+         session.clear();
+      }
    }
 
 }

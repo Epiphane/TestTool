@@ -139,6 +139,13 @@ public class QuestionEditController {
       multipleChoiceNode.setVisible(false);
       shortAnswerNode.setVisible(false);
 
+   }
+
+   /**
+    * This is essentially a delayed "initialize" method. We need some variables to be set before
+    * we can setup the screen, so we call this method after setting the variables.
+    */
+   public void configureFromAction() {
       questionAction.displaySaveAsNewButton(saveAsNewButton);
       title.setText(questionAction.getTitle());
    }

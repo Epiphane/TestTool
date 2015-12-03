@@ -61,11 +61,12 @@ public class QuestionTableController {
    @FXML
    private void newQuestion() throws IOException {
       log.debug("New Question");
-      FXUtils.switchToScreenAndConfigureController(primaryStage, "question-edit-main.fxml", 
-            (QuestionEditController controller, Stage stage) -> {
-         controller.setPrimaryStage(stage);
-         controller.setQuestionAction(new NewAction());
-      });
+      FXUtils.switchToScreenAndConfigureController(primaryStage, "question-edit-main.fxml",
+         (QuestionEditController controller, Stage stage) -> {
+            controller.setPrimaryStage(stage);
+            controller.setQuestionAction(new NewAction());
+            controller.configureFromAction();
+         });
    }
 
    /**
@@ -95,6 +96,12 @@ public class QuestionTableController {
      */
    @FXML
    private void deleteSelectedQuestions() {
+      ObservableList<Question> selectedItems = questionTable.getSelectionModel().getSelectedItems();
+      if (selectedItems.isEmpty()) {
+         return;
+      }
 
+      questionTable.getItems().removeAll(selectedItems);
+      questionDAO.delete(selectedItems);
    }
 }
