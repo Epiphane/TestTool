@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.*?>
-<?import java.util.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.paint.*?>
-<?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="210.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="com.teampc.controller.question.CodeController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="446.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="com.teampc.controller.questionview.CodeQuestionController">
   <children>
-    <Text fx:id="prompt" layoutX="62.0" layoutY="39.0" scaleX="1.5" scaleY="1.5" strokeType="OUTSIDE" strokeWidth="0.0" text="Title of question" />
-    <TextArea fx:id="response" layoutX="36.0" layoutY="55.0" prefHeight="128.0" prefWidth="529.0" promptText="Answer" text="" wrapText="true" />
+    <TextArea fx:id="givenCode" layoutX="18.0" layoutY="14.0" prefHeight="129.0" prefWidth="411.0" promptText="Enter Included Code" />
+    <Button fx:id="gradingScript" layoutX="18.0" layoutY="156.0" mnemonicParsing="false" text="Upload Grading Script" />
   </children>
-</AnchorPane>
+</Pane>

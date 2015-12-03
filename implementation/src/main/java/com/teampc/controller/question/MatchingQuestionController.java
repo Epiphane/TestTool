@@ -2,6 +2,7 @@ package com.teampc.controller.question;
 
 import com.google.common.base.Strings;
 import com.teampc.model.question.Question;
+import com.teampc.model.testtaking.QuestionResponse;
 import com.teampc.model.testtaking.MatchingQuestionResponse;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableView;

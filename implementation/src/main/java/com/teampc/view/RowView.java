@@ -9,6 +9,8 @@ import javafx.scene.layout.Pane;
 
 import java.io.IOException;
 
+import lombok.Getter;
+
 /**
  * Created by james on 11/9/15.
  */
@@ -16,7 +18,12 @@ public class RowView extends Pane {
    @FXML
    private Node testRow;
 
+   @Getter
+   private Object controller;
+
    public RowView(Object controller, String resource) {
+      this.controller = controller;
+
       FXMLLoader loader = new FXMLLoader(
             getClass().getClassLoader().getResource(resource));
       loader.setController(controller);

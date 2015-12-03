@@ -11,8 +11,7 @@
       <items>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="158.0" prefWidth="594.0">
           <children>
-            <Text layoutX="50.0" layoutY="30.0" scaleX="1.5" scaleY="1.5" strokeType="OUTSIDE" strokeWidth="0.0" text="You are about to start:" />
-            <Text fx:id="testTitle" layoutX="93.0" layoutY="57.0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" 101 Midterm - Spring" textAlignment="LEFT" textOrigin="BASELINE" />
+            <Text fx:id="testTitle" layoutX="62.0" layoutY="40.0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TEST NAME" textAlignment="LEFT" textOrigin="BASELINE" />
             <Text id="descQuestion" fx:id="descQuestions" layoutX="442.0" layoutY="30.0" scaleX="1.0" scaleY="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="There are 5 questions" />
             <Text fx:id="descTimeLimit" layoutX="444.0" layoutY="55.0" scaleX="1.0" scaleY="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You have 30 minutes" />
           </children>
@@ -29,12 +28,16 @@
                 </AnchorPane>
               </bottom>
               <center>
-                <AnchorPane fx:id="questionPane" prefHeight="200.0" prefWidth="200.0" />
+                <ScrollPane fx:id="questionPane" prefHeight="200.0" prefWidth="200.0">
+                  <content>
+                    <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="217.0" prefWidth="594.0" />
+                  </content>
+                </ScrollPane>
               </center>
               <top>
                 <AnchorPane prefHeight="38.0" prefWidth="596.0">
                   <children>
-                    <Text fx:id="questionNumber" layoutX="31.0" layoutY="24.0" scaleX="1.5" scaleY="1.5" strokeType="OUTSIDE" strokeWidth="0.0" text="Question 0" />
+                    <Text fx:id="questionNumber" layoutX="31.0" layoutY="24.0" scaleX="1.5" scaleY="1.5" strokeType="OUTSIDE" strokeWidth="0.0" text="Question #" />
                   </children>
                 </AnchorPane>
               </top>

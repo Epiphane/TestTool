@@ -216,13 +216,9 @@ public class Test {
       newSubmission.setTaker(forUser);
       newSubmission.setTest(this);
 
-      ArrayList<QuestionResponse> responseShells = new ArrayList<QuestionResponse>();
-   
-      for (int qNum = 0; qNum < questions.size(); qNum ++) {   
-         responseShells.add(questions.get(qNum).createResponse());   
-      }
-
-      newSubmission.setResponses(responseShells);
+      ArrayList<QuestionResponse> responses = new ArrayList<QuestionResponse>();
+      questions.forEach(question -> responses.add(null));
+      newSubmission.setResponses(responses);
 
       return newSubmission;
    }
