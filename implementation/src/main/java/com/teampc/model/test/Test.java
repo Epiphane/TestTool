@@ -54,6 +54,7 @@ public class Test {
 
    public ArrayList<Question> questions;
 
+   @Column(name = "published")
    private boolean published;
 
    public Test(String name, Date startDate, Date endDate, String courseName) {
@@ -139,6 +140,10 @@ public class Test {
 
       String info = courseName + " " + name + " - ";
 
+      if(startDate == null || endDate == null) {
+         return info;
+      }
+
       if (today.compareTo(startDate) < 0) {
          return info + " opens on " + df.format(startDate);
       }
@@ -197,7 +202,7 @@ public class Test {
    * Returns whether or not the test has been published
    */
    public boolean isPublished() {
-      return false;
+      return published;
    }
 
    /**

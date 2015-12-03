@@ -63,16 +63,11 @@ public class TestRowController implements Initializable{
 
    public TestRowController(Test test) {
       this.test = test;
-
-      // List<Question> theQuestions = new List<Question>();
-
-      // this.test.questions = theQuestions;
    }
 
    @FXML
    /** Button click handler **/
    void onPublicStatusClickHandler(ActionEvent event) {
-      TestDAO.getInstance().updateTest(new Test());
    }
 
    @FXML
@@ -91,7 +86,8 @@ public class TestRowController implements Initializable{
    @FXML
    /** Button click handler **/
    void onPublishActionHandler(ActionEvent event) {
-      TestDAO.getInstance().updateTest(new Test());
+      test.publish();
+//      TestDAO.getInstance().update(test);
    }
 
    @FXML
