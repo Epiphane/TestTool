@@ -16,6 +16,4 @@ include 'api'
 include 'services:webservice'
 */
 
-rootProject.name = 'TestTool'
-
-include 'implementation'
+rootProject.name = 'implementation'
