@@ -71,6 +71,8 @@ node_modules
 #more intellij....
 
 *.iml
+*.ipr
+*.iws
 
 # spest
 implementation/resources
