@@ -1,7 +1,6 @@
 package com.teampc.dao;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
+import com.google.common.collect.Maps;
 import com.teampc.utils.HibernateUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Criteria;
@@ -9,6 +8,11 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
+
+import static java.util.function.Function.identity;
+import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.toMap;
 
 /**
  * Created by adufrene on 11/9/15.
@@ -22,13 +26,27 @@ public abstract class AbstractDAO<T> {
 
    protected static final boolean DEBUG = true;
 
-   protected Set<T> debugCollection = Sets.newHashSet();
+   protected static final AtomicInteger idCounter = new AtomicInteger(0);
+   protected Map<Integer, T> fakeDB = Maps.newHashMap();
 
    /**
     * Returns the entity mapping class for this dao
     * @return class this dao maps entities to
     */
    protected abstract Class<T> getEntityClass();
+
+   // TODO: these two abstract methods should really be methods on T, need to define an interface and bound T to said interface
+   // <T extends Model>
+
+   /**
+    * Returns an id saved in the model class
+    */
+   protected abstract int getId(T item);
+
+   /**
+    * Saves an integer id into a model object
+    */
+   protected abstract void setId(T item, int id);
 
    /**
     * Inserts one item into the database
@@ -54,7 +72,11 @@ public abstract class AbstractDAO<T> {
    public void insert(Collection<T> items) {
       log.debug("Inserting {} items into {}'s database", items.size(), getEntityClass().getSimpleName());
       if (DEBUG) {
-         debugCollection.addAll(items);
+         items.stream().forEach(item ->  {
+            Integer newId = idCounter.incrementAndGet();
+            setId(item, newId);
+            fakeDB.put(newId, item);
+         });
          return;
       }
       Session session = HibernateUtils.getSessionFactory().openSession();
@@ -80,7 +102,7 @@ public abstract class AbstractDAO<T> {
    public List<T> fetchAll() {
       log.debug("Fetching all items from {}'s database", getEntityClass().getSimpleName());
       if (DEBUG) {
-         return Lists.newArrayList(debugCollection);
+         return fakeDB.values().stream().sorted((item1, item2) -> Integer.compare(getId(item1), getId(item2))).collect(toList());
       }
       Session session = HibernateUtils.getSessionFactory().openSession();
       try {
@@ -96,14 +118,22 @@ public abstract class AbstractDAO<T> {
 
    }
 
+   /**
+    * Deletes one item from databse
+    * @param item item to delete
+     */
    public void delete(T item) {
       delete(Collections.singleton(item));
    }
 
+   /**
+    * Deletes supplied items from database
+    * @param items items to delete
+     */
    public void delete(Collection<T> items) {
       log.debug("Deleting {} from {}'s database", Arrays.toString(items.toArray()), getEntityClass().getSimpleName());
       if (DEBUG) {
-         debugCollection.removeAll(items);
+         items.stream().map(this::getId).forEach(fakeDB::remove);
          return;
       }
       Session session = HibernateUtils.getSessionFactory().openSession();
@@ -117,6 +147,39 @@ public abstract class AbstractDAO<T> {
          transaction.rollback();
       } finally {
          session.clear();
+      }
+   }
+
+    /**
+     * Updates one item in database
+     * @param item item to update
+     */
+   public void update(T item) {
+      update(Collections.singleton(item));
+   }
+
+   /**
+    * Updates items in database, relies on id field of model T
+    * @param items items to update
+     */
+   public void update(Collection<T> items) {
+      log.debug("Updating {} in {}'s database", Arrays.toString(items.toArray()), getEntityClass().getSimpleName());
+      if (DEBUG) {
+         fakeDB.putAll(items.stream().collect(toMap(this::getId, identity())));
+         return;
+      }
+
+      Session session = HibernateUtils.getSessionFactory().openSession();
+      Transaction transaction = session.beginTransaction();
+      try {
+         items.forEach(session::update);
+         session.flush();
+         transaction.commit();
+      } catch (Exception e) {
+         log.error("Error updating items", e);
+         transaction.rollback();
+      } finally {
+         session.close();
       }
    }
 

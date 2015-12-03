@@ -16,11 +16,13 @@ import lombok.Data;
 @Data
 public class Submission {
 
+   private int id;
+
    private Test test;
 
    public User taker;
 
-   public ArrayList<QuestionResponse> responses = new ArrayList<QuestionResponse>();
+   public ArrayList<QuestionResponse> responses = new ArrayList<>();
 
    private boolean complete;
 
@@ -29,7 +31,7 @@ public class Submission {
    /**
     * Return whether the test is complete or not
     */
-   public boolean isComplete() { 
+   public boolean isComplete() {
       return complete;
    }
 
