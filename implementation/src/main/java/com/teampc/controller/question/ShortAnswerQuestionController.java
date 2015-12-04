@@ -22,6 +22,8 @@ public class ShortAnswerQuestionController implements QuestionTypeController<Sho
    @FXML
    private ToggleGroup matchGroup;
 
+   private ShortAnswerQuestionResponse.MatchType matchType;
+
    /**
     * Set up layout; match radio buttons on screen with appropriate data values
     */

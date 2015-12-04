@@ -23,6 +23,9 @@ public class ShortAnswerQuestionResponse extends QuestionResponse<ShortAnswerQue
    @Getter
    @Setter
    private String answer = "";
+   
+   @Getter
+   @Setter
    private MatchType matchType;
 
    /** {@inheritDoc} */

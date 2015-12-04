@@ -2,6 +2,7 @@ package com.teampc.controller.question;
 
 import com.teampc.model.question.InvalidQuestionException;
 import com.teampc.model.question.Question;
+import com.teampc.model.testtaking.QuestionResponse;
 import com.teampc.model.testtaking.CodeQuestionResponse;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
