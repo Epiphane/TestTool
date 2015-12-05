@@ -1,16 +1,15 @@
 package com.teampc.dao;
 
-import com.teampc.model.testtaking.Submission;
 import com.teampc.model.test.Test;
+import com.teampc.model.testtaking.Submission;
 import com.teampc.utils.HibernateUtils;
-
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
 
 import java.util.Collection;
 
-import static org.hibernate.criterion.Restrictions.eq;
 import static java.util.stream.Collectors.toList;
+import static org.hibernate.criterion.Restrictions.eq;
 
 @Slf4j
 public class SubmissionDAO extends AbstractDAO<Submission> {
@@ -51,16 +50,6 @@ public class SubmissionDAO extends AbstractDAO<Submission> {
    @Override
    protected Class<Submission> getEntityClass() {
       return Submission.class;
-   }
-
-   @Override
-   protected int getId(Submission item) {
-      return item.getId();
-   }
-
-   @Override
-   protected void setId(Submission item, int id) {
-      item.setId(id);
    }
 
 }

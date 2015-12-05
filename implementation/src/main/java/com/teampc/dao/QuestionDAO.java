@@ -23,13 +23,4 @@ public class QuestionDAO extends AbstractDAO<Question> {
       return Question.class;
    }
 
-   @Override
-   protected int getId(Question item) {
-      return item.getId();
-   }
-
-   @Override
-   protected void setId(Question item, int id) {
-      item.setId(id);
-   }
 }

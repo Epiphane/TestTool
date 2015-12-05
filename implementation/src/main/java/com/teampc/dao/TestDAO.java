@@ -30,16 +30,6 @@ public class TestDAO extends AbstractDAO<Test> {
       return Test.class;
    }
 
-   @Override
-   protected int getId(Test item) {
-      return item.getId();
-   }
-
-   @Override
-   protected void setId(Test item, int id) {
-      item.setId(id);
-   }
-
    /**
     * Gets all tests assigned to a given student from the database
     */

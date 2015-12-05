@@ -22,7 +22,7 @@ import static java.util.stream.Collectors.toMap;
  * Abstract class for database operations
  * @param T class mapped to database table
  */
-public abstract class AbstractDAO<T> {
+public abstract class AbstractDAO<T extends HasId> {
 
    protected static final boolean DEBUG = true;
 
@@ -34,19 +34,6 @@ public abstract class AbstractDAO<T> {
     * @return class this dao maps entities to
     */
    protected abstract Class<T> getEntityClass();
-
-   // TODO: these two abstract methods should really be methods on T, need to define an interface and bound T to said interface
-   // <T extends Model>
-
-   /**
-    * Returns an id saved in the model class
-    */
-   protected abstract int getId(T item);
-
-   /**
-    * Saves an integer id into a model object
-    */
-   protected abstract void setId(T item, int id);
 
    /**
     * Inserts one item into the database
@@ -74,7 +61,7 @@ public abstract class AbstractDAO<T> {
       if (DEBUG) {
          items.stream().forEach(item ->  {
             Integer newId = idCounter.incrementAndGet();
-            setId(item, newId);
+            item.setId(newId);
             fakeDB.put(newId, item);
          });
          return;
@@ -102,7 +89,7 @@ public abstract class AbstractDAO<T> {
    public List<T> fetchAll() {
       log.debug("Fetching all items from {}'s database", getEntityClass().getSimpleName());
       if (DEBUG) {
-         return fakeDB.values().stream().sorted((item1, item2) -> Integer.compare(getId(item1), getId(item2))).collect(toList());
+         return fakeDB.values().stream().sorted((item1, item2) -> Integer.compare(item1.getId(), (item2.getId()))).collect(toList());
       }
       Session session = HibernateUtils.getSessionFactory().openSession();
       try {
@@ -133,7 +120,7 @@ public abstract class AbstractDAO<T> {
    public void delete(Collection<T> items) {
       log.debug("Deleting {} from {}'s database", Arrays.toString(items.toArray()), getEntityClass().getSimpleName());
       if (DEBUG) {
-         items.stream().map(this::getId).forEach(fakeDB::remove);
+         items.stream().map(HasId::getId).forEach(fakeDB::remove);
          return;
       }
       Session session = HibernateUtils.getSessionFactory().openSession();
@@ -165,7 +152,7 @@ public abstract class AbstractDAO<T> {
    public void update(Collection<T> items) {
       log.debug("Updating {} in {}'s database", Arrays.toString(items.toArray()), getEntityClass().getSimpleName());
       if (DEBUG) {
-         fakeDB.putAll(items.stream().collect(toMap(this::getId, identity())));
+         fakeDB.putAll(items.stream().collect(toMap(HasId::getId, identity())));
          return;
       }
 

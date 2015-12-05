@@ -1,20 +1,25 @@
 package com.teampc.model.test;
 
-import com.google.common.collect.Lists;
+import com.teampc.dao.HasId;
+import com.teampc.model.admin.Teacher;
+import com.teampc.model.admin.User;
+import com.teampc.model.admin.course.Course;
+import com.teampc.model.question.Question;
+import com.teampc.model.testtaking.Key;
+import com.teampc.model.testtaking.QuestionResponse;
+import com.teampc.model.testtaking.Submission;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.persistence.*;
-import java.util.*;
-import java.text.*;
-
-import com.teampc.model.admin.*;
-import com.teampc.model.admin.course.Course;
-import com.teampc.model.question.*;
-import com.teampc.model.testtaking.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * A general Test Class
@@ -26,7 +31,8 @@ import com.teampc.model.testtaking.*;
 @Table(name = "TEST")
 @EqualsAndHashCode(exclude={"id","course","owner","questions","published"})
 @Slf4j
-public class Test {
+@NoArgsConstructor
+public class Test implements HasId {
 
    @Id
    @GeneratedValue(strategy = GenerationType.AUTO)
@@ -52,7 +58,9 @@ public class Test {
 
    private Teacher owner;
 
-   public ArrayList<Question> questions;
+   private ArrayList<Question> questions;
+
+   private Key key;
 
    private boolean published;
 
@@ -63,10 +71,6 @@ public class Test {
       this.courseName = courseName;
 
       this.questions = new ArrayList<>();
-   }
-
-   public Test() {
-
    }
 
    /**

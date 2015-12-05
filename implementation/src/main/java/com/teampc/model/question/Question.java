@@ -1,5 +1,6 @@
 package com.teampc.model.question;
 
+import com.teampc.dao.HasId;
 import lombok.Data;
 
 import com.teampc.model.testtaking.*;
@@ -12,7 +13,7 @@ import com.teampc.model.testtaking.*;
  */
 
 @Data
-public class Question<T extends QuestionResponse> {
+public class Question<T extends QuestionResponse> implements HasId {
 
    private int id;
 
