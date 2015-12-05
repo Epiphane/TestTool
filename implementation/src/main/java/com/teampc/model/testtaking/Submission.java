@@ -1,5 +1,6 @@
 package com.teampc.model.testtaking;
 
+import com.teampc.dao.HasId;
 import com.teampc.model.admin.*;
 import com.teampc.model.test.*;
 import java.util.*;
@@ -14,7 +15,7 @@ import lombok.Data;
  *
  */
 @Data
-public class Submission {
+public class Submission implements HasId {
 
    private int id;
 
