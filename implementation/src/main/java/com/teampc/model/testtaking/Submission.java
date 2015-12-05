@@ -8,6 +8,7 @@ import java.util.*;
 import com.teampc.model.automation.*;
 
 import lombok.Data;
+import lombok.Getter;
 
 /**
  * An instance of an in-progress test being taken
@@ -28,6 +29,9 @@ public class Submission implements HasId {
    private boolean complete;
 
    public float grade;
+
+   @Getter
+   private boolean isGraded = false;
 
    /**
     * Return whether the test is complete or not
@@ -58,6 +62,8 @@ public class Submission implements HasId {
       for (QuestionResponse q: responses) {
          grade += q.getPointsReceived();
       }
+
+      isGraded = true;
    }
 
 }

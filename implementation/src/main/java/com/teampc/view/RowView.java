@@ -30,10 +30,9 @@ public class RowView extends Pane {
 
       try {
          testRow = (Pane) loader.load();
+         getChildren().add(testRow);
       } catch (IOException e) {
          e.printStackTrace();
       }
-
-      getChildren().add(testRow);
    }
 }

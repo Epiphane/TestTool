@@ -22,22 +22,39 @@ public class ViewSubmissionsController extends ListViewController<RowView> {
       data = FXCollections.observableArrayList();
    }
 
+   // canned data
    private Submission s;
 
    // todo: alright, let's fix this later :(
    public void setCurrentTest(Test test) {
       this.currentTest = test;
 
-      this.s = new Submission();
-      this.s.responses.add(new MultipleChoiceQuestionResponse());
-      this.s.responses.add(new MultipleChoiceQuestionResponse());
-      this.s.taker = UserSession.loggedInUser;
+      Collection<Submission> submissions = SubmissionDAO.getInstance().fetchSubmissionsForTest(currentTest);
+      Key key = currentTest.getKey();
 
-      Collection<Submission> questionList = new ArrayList<Submission>();
-      questionList.add(s);
-      // SubmissionDAO.getInstance().fetchSubmissionsForTest(currentTest);
-      questionList.forEach(submission -> data.add(new RowView(new SubmissionRowController(submission.getTaker()), RESOURCE)));
+      // CANNED DATA
+      if (submissions.isEmpty()) {
+         Submission s = new Submission();
+         s.responses.add(new MultipleChoiceQuestionResponse());
+         s.responses.add(new MultipleChoiceQuestionResponse());
+         s.responses.add(new ShortAnswerQuestionResponse("", ShortAnswerQuestionResponse.MatchType.ALL));
+         s.responses.add(new ShortAnswerQuestionResponse("", ShortAnswerQuestionResponse.MatchType.ALL));
+         s.taker = UserSession.getLoggedInUser();
 
+         submissions = new ArrayList<>();
+         submissions.add(s);
+
+         key = new Key();
+         key.responses.add(new MultipleChoiceQuestionResponse());
+         key.responses.add(new MultipleChoiceQuestionResponse(1, new ArrayList<>()));
+         key.responses.add(new ShortAnswerQuestionResponse("", ShortAnswerQuestionResponse.MatchType.ALL));
+         key.responses.add(new ShortAnswerQuestionResponse("one", ShortAnswerQuestionResponse.MatchType.ALL));
+      }
+
+      final Key keyPC = key;
+      submissions.stream().forEach(nextSubmission -> nextSubmission.gradeTest(keyPC));
+
+      submissions.forEach(submission -> data.add(new RowView(new SubmissionRowController(submission), RESOURCE)));
       initView();
    }
 

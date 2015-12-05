@@ -32,32 +32,15 @@ public class SubmissionRowController implements Initializable{
    @FXML
    private Text studentName;
 
-   private User user;
+   private Submission submission;
 
-   private Submission s;
-   private Key key;
-
-   public SubmissionRowController(User user) {
-      this.user = user;
-
-      this.s = new Submission();
-      this.s.responses.add(new MultipleChoiceQuestionResponse());
-      this.s.responses.add(new MultipleChoiceQuestionResponse());
-      this.s.responses.add(new ShortAnswerQuestionResponse());
-      this.s.responses.add(new ShortAnswerQuestionResponse());
-
-      this.key = new Key();
-      this.key.responses.add(new MultipleChoiceQuestionResponse());
-      this.key.responses.add(new MultipleChoiceQuestionResponse(1, new ArrayList<String>()));
-      this.key.responses.add(new ShortAnswerQuestionResponse());
-      this.key.responses.add(new ShortAnswerQuestionResponse("one", ShortAnswerQuestionResponse.MatchType.ALL));
+   public SubmissionRowController(Submission s) {
+      this.submission = s;
    }
 
    @Override
    /** Initializes the row view **/
    public void initialize(URL location, ResourceBundle resources) {
-      s.gradeTest(key);
-
-      studentName.setText(user.getDisplayName() + s.grade);
+      studentName.setText(submission.taker.getDisplayName() + submission.grade);
    }
 }

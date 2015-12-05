@@ -107,6 +107,7 @@ public class TestRowController implements Initializable{
           });
 
        } catch (IOException e) {
+          LOG.error("could not show grading for a test");
           e.printStackTrace();
        }
    }
