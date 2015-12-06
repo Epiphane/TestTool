@@ -24,9 +24,6 @@ import com.teampc.utils.FXUtils;
 import java.io.*;
 import java.util.*;
 
-/**
- * Created by james on 11/9/15.
- */
 public class TestRowController implements Initializable{
 
    private static final Logger LOG = LoggerFactory.getLogger(TestRowController.class);

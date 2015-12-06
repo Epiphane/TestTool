@@ -23,6 +23,9 @@ public class ViewSubmissionsController extends ListViewController<RowView> {
    @FXML
    private Text testName;
 
+   @FXML
+   private Text className;
+
    private String getTestDisplayStr(Test t) {
       if (t == null) {
          return "null Test";
@@ -51,6 +54,7 @@ public class ViewSubmissionsController extends ListViewController<RowView> {
       this.currentTest = test;
 
       testName.setText(getTestDisplayStr(currentTest));
+      className.setText(currentTest.getCourseName());
 
       Collection<Submission> submissions = SubmissionDAO.getInstance().fetchSubmissionsForTest(currentTest);
       Key key = currentTest.getKey();

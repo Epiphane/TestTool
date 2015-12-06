@@ -22,15 +22,15 @@ import com.teampc.model.testtaking.*;
 
 import java.util.*;
 
-/**
- * Created by james on 11/9/15.
- */
 public class SubmissionRowController implements Initializable{
 
    private static final Logger LOG = LoggerFactory.getLogger(SubmissionRowController.class);
 
    @FXML
    private Text studentName;
+
+   @FXML
+   private Text studentGrade;
 
    private Submission submission;
 
@@ -41,6 +41,12 @@ public class SubmissionRowController implements Initializable{
    @Override
    /** Initializes the row view **/
    public void initialize(URL location, ResourceBundle resources) {
-      studentName.setText(submission.taker.getDisplayName() + submission.grade);
+      studentName.setText(submission.taker.getDisplayName());
+      studentGrade.setText("" + submission.grade);
+   }
+
+   @FXML
+   void onViewDetailsClickHandler(ActionEvent event) {
+      LOG.debug("hello from onViewDetailsClickHandler");
    }
 }
