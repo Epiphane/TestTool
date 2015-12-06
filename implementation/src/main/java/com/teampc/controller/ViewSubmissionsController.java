@@ -10,12 +10,33 @@ import java.net.URL;
 import java.util.*;
 import com.teampc.model.testtaking.*;
 import com.teampc.model.admin.access.*;
+import javafx.fxml.FXML;
+import javafx.scene.control.*;
+import javafx.scene.text.Text;
 
 public class ViewSubmissionsController extends ListViewController<RowView> {
 
    private static final String RESOURCE = "view-grade.fxml";
 
    private Test currentTest;
+
+   @FXML
+   private Text testName;
+
+   private String getTestDisplayStr(Test t) {
+      if (t == null) {
+         return "null Test";
+      }
+
+      String str = "";
+      if (t.getName() != null) {
+         str += t.getName();
+      }
+      if (t.getCourse() != null) {
+         str += " - " + t.getCourse();
+      }
+      return str;
+   }
 
    @Override
    public void initialize(URL location, ResourceBundle resources) {
@@ -28,6 +49,8 @@ public class ViewSubmissionsController extends ListViewController<RowView> {
    // todo: alright, let's fix this later :(
    public void setCurrentTest(Test test) {
       this.currentTest = test;
+
+      testName.setText(getTestDisplayStr(currentTest));
 
       Collection<Submission> submissions = SubmissionDAO.getInstance().fetchSubmissionsForTest(currentTest);
       Key key = currentTest.getKey();
