@@ -16,9 +16,12 @@ import java.io.IOException;
 @EqualsAndHashCode(callSuper = true)
 public class CodeQuestionResponse extends QuestionResponse<CodeQuestionResponse> {
    /**
-    * A plaintext version of the student's answer, or the plaintext grading script
+    * A plaintext version of the student's answer, or the path to the grading program
     */
    private String codeAnswer;
+
+   // HACK
+   private String givenCode;
 
    /** {@inheritDoc} */
    @Override

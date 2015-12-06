@@ -1,6 +1,7 @@
 package com.teampc.model.admin.access;
 
 import com.teampc.model.admin.User;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -16,6 +17,7 @@ import java.util.Scanner;
  *
  * @author Greg Sawers gsawers (gsawers@calpoly.edu)
  */
+@Slf4j
 public class UserSession {
 
    /** Current logged in user **/
@@ -62,14 +64,13 @@ public class UserSession {
          User user = userlist.get(username);
          loggedInUser = user;
          loggedIn = true;
-         System.out.println("User gsawers logged in to TestTool.");
          return true;
       }
       /**
        * Otherwise return false
        */
       else {
-         System.out.println("Invalid username or password");
+         log.error("Invalid username or password");
          return false;
       }
    }
@@ -98,7 +99,7 @@ public class UserSession {
     */
    public static User getLoggedInUser(){
 
-      System.out.println(loggedInUser.getDisplayName() + " is logged in");
+      log.debug(loggedInUser.getDisplayName() + " is logged in");
       return loggedInUser;
    }
 
@@ -121,9 +122,9 @@ public class UserSession {
 
       try{
 
-         if(file.createNewFile());
-         else
-            System.out.println("File already made");
+         if (!file.createNewFile()) {
+            log.debug("File already made");
+         }
 
          fileScan = new Scanner(file);
 

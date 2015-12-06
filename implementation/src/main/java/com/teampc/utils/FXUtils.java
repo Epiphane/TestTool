@@ -84,4 +84,8 @@ public class FXUtils {
      */
    public static <T, S> void noop(T t, S s) {}
 
+   /**
+    * consumer noop, used primarily in configuration lambda
+     */
+   public static <T> void noop(T t) {}
 }

@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.control.cell.*?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.layout.*?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.teampc.controller.question.QuestionTableController">
    <children>
@@ -28,21 +24,6 @@
                         <Label>No Saved Questions</Label>
                      </placeholder>
                      <columns>
-                        <!--<TableColumn text="Subject">-->
-                           <!--<cellValueFactory>-->
-                              <!--<PropertyValueFactory property="" />-->
-                           <!--</cellValueFactory>-->
-                        <!--</TableColumn>-->
-                        <!--<TableColumn text="Test">-->
-                           <!--<cellValueFactory>-->
-                              <!--<PropertyValueFactory property="" />-->
-                           <!--</cellValueFactory>-->
-                        <!--</TableColumn>-->
-                        <!--<TableColumn text="Number">-->
-                           <!--<cellValueFactory>-->
-                              <!--<PropertyValueFactory property="" />-->
-                           <!--</cellValueFactory>-->
-                        <!--</TableColumn>-->
                         <TableColumn text="Type">
                            <cellValueFactory>
                               <PropertyValueFactory property="type" />

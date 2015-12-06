@@ -4,10 +4,10 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="269.0" prefWidth="353.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.teampc.controller.question.MultipleChoiceQuestionController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="269.0" prefWidth="424.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.teampc.controller.question.MultipleChoiceQuestionController">
    <children>
-      <ListView fx:id="choices" editable="true" layoutX="23.0" layoutY="14.0" prefHeight="200.0" prefWidth="310.0" />
-      <Button layoutX="23.0" layoutY="224.0" mnemonicParsing="false" onAction="#newRow" text="New Choice" />
-      <TextField layoutX="121.0" layoutY="224.0" prefHeight="26.0" prefWidth="209.0" promptText="Answer" fx:id="answerField"/>
+      <ListView fx:id="choices" editable="true" layoutX="23.0" layoutY="14.0" prefHeight="200.0" prefWidth="390.0" />
+      <TextField fx:id="answerField" layoutX="23.0" layoutY="223.0" prefHeight="26.0" prefWidth="292.0" promptText="Answer" />
+      <Button layoutX="323.0" layoutY="223.0" mnemonicParsing="false" onAction="#newRow" text="New Choice" />
    </children>
 </Pane>
