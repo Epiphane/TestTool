@@ -6,18 +6,30 @@ import com.teampc.dao.QuestionDAO;
 import javafx.scene.control.Button;
 
 public class EditAction implements QuestionAction {
+   /**
+    * {@inheritDoc}
+     */
    public void save(Question question) {
-//      QuestionDAO.getInstance().update(question);
+      QuestionDAO.getInstance().update(question);
    }
 
+   /**
+    * {@inheritDoc}
+     */
    public void saveAsNew(Question question) {
       QuestionDAO.getInstance().insert(question);
    }
 
+   /**
+    * {@inheritDoc}
+     */
    public void displaySaveAsNewButton(Button saveAsNewButton) {
       saveAsNewButton.setVisible(true);
    }
 
+   /**
+    * {@inheritDoc}
+     */
    public String getTitle() {
       return "Edit Question";
    }

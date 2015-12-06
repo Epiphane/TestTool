@@ -6,6 +6,7 @@ import com.teampc.utils.FXUtils;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.SelectionMode;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 import lombok.Setter;
@@ -14,7 +15,6 @@ import lombok.extern.slf4j.Slf4j;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 
@@ -50,9 +50,23 @@ public class QuestionTableController {
 
       ObservableList<Question> questions = questionTable.getItems();
       questions.addAll(questionDAO.fetchAll().stream().filter(Objects::nonNull).collect(toList()));
-      questions.stream().map(question -> question.getType() + "").forEach(log::debug);
 
       questionTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+      questionTable.setRowFactory(tv -> {
+         TableRow<Question> row = new TableRow<>();
+         row.setOnMouseClicked(event -> {
+            if (event.getClickCount() > 1 && !row.isEmpty()) {
+               Question<?> question = row.getItem();
+               try {
+                  QuestionEditController.openQuestionEdit(primaryStage, new EditAction(),
+                     controller -> controller.editQuestion(question));
+               } catch (IOException e) {
+                  log.error("Error switching to edit question", e);
+               }
+            }
+         });
+         return row;
+      });
    }
 
    /**
@@ -61,12 +75,7 @@ public class QuestionTableController {
    @FXML
    private void newQuestion() throws IOException {
       log.debug("New Question");
-      FXUtils.switchToScreenAndConfigureController(primaryStage, "question-edit-main.fxml",
-         (QuestionEditController controller, Stage stage) -> {
-            controller.setPrimaryStage(stage);
-            controller.setQuestionAction(new NewAction());
-            controller.configureFromAction();
-         });
+      QuestionEditController.openQuestionEdit(primaryStage, new NewAction(), FXUtils::noop);
    }
 
    /**

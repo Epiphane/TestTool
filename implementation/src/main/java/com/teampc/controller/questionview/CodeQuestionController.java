@@ -1,5 +1,6 @@
 package com.teampc.controller.questionview;
 
+import com.teampc.model.question.InvalidQuestionException;
 import com.teampc.model.question.Question;
 import com.teampc.model.testtaking.CodeQuestionResponse;
 import javafx.fxml.FXML;
@@ -46,6 +47,6 @@ public class CodeQuestionController extends QuestionViewController<CodeQuestionR
     * Get the selected MC response
     */
    public CodeQuestionResponse getResponse() {
-      return new CodeQuestionResponse(givenCode.getText());
+      return new CodeQuestionResponse(gradingScriptFile.map(File::getAbsolutePath).orElse(""), givenCode.getText());
    }
 }
