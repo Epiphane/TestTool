@@ -10,7 +10,8 @@ import lombok.Setter;
 import java.io.IOException;
 
 /**
- * Created by james on 10/26/15.
+ * NavBarController handles the main navigation bar for the Instructors.
+ * @author Jameson li
  */
 public class NavBarController {
 

@@ -30,6 +30,10 @@ public class User {
     **/
    private String password;
 
+   /**
+    * User's type
+    */
+
 
    /**
     * Default constructor
