@@ -48,5 +48,6 @@ public class SubmissionRowController implements Initializable{
    @FXML
    void onViewDetailsClickHandler(ActionEvent event) {
       LOG.debug("hello from onViewDetailsClickHandler");
+      // todo: show individual questions and allow professor to comment/change grade
    }
 }
