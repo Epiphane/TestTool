@@ -81,7 +81,7 @@ public class TestRowController implements Initializable{
       try {
          FXUtils.switchToScreen(stage, "view-questions-list.fxml");
       } catch (IOException e) {
-         LOG.error("Failed to load question list view" + e.getMessage());
+         LOG.error("Failed to load question list view" + e.getMessage(), e);
       }
    }
 
@@ -104,8 +104,7 @@ public class TestRowController implements Initializable{
           });
 
        } catch (IOException e) {
-          LOG.error("could not show grading for a test");
-          e.printStackTrace();
+          LOG.error("could not show grading for a test", e);
        }
    }
 
@@ -118,7 +117,7 @@ public class TestRowController implements Initializable{
       try {
          FXUtils.switchToScreen(stage, "view-questions-list.fxml");
       } catch (IOException e) {
-         LOG.error("Failed to load question list view" + e.getMessage());
+         LOG.error("Failed to load question list view" + e.getMessage(), e);
       }
 
    }

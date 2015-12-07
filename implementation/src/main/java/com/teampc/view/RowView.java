@@ -10,11 +10,15 @@ import javafx.scene.layout.Pane;
 import java.io.IOException;
 
 import lombok.Getter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Created by james on 11/9/15.
  */
 public class RowView extends Pane {
+   private static final Logger LOG = LoggerFactory.getLogger(TestRowController.class);
+
    @FXML
    private Node testRow;
 
@@ -32,7 +36,7 @@ public class RowView extends Pane {
          testRow = (Pane) loader.load();
          getChildren().add(testRow);
       } catch (IOException e) {
-         e.printStackTrace();
+         LOG.error("could not add row", e);
       }
    }
 }
