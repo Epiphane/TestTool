@@ -8,10 +8,12 @@ import com.teampc.model.question.*;
 import com.teampc.utils.FXUtils;
 import com.teampc.dao.SubmissionDAO;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.scene.Node;
@@ -59,11 +61,18 @@ public class TakeTestController {
 
    /** Edit Stuff **/
    @FXML
-   private Pane editButtonsPane;
+   private Pane editQuestionPane;
+   @FXML
+   private Button editQuestionDelete;
+   @FXML
+   private Button editQuestionUp;
+   @FXML
+   private Button editQuestionDown;
 
    private Test test;
    private QuestionViewController currentQuestionController;
    private int currentQuestion;
+   private List<Question> questionsList;
 
    private Submission submission;
 
@@ -81,6 +90,7 @@ public class TakeTestController {
 
       this.testTitle.setText(test.getCourseName() + " " + test.getName());
       this.descQuestions.setText("There are " + test.getQuestions().size() + " questions.");
+      questionsList = test.getQuestions();
 
       int timeLimit = test.getTimeLimit();
       if (timeLimit > 0) {
@@ -210,11 +220,26 @@ public class TakeTestController {
       stage.close();
    }
 
+   @FXML
+   public void onDeleteQuestion(ActionEvent event) {
+      submission.getTest().removeQuestion(questionsList.get(currentQuestion));
+   }
+
+   @FXML
+   public void onUpQuestion(ActionEvent event) {
+      submission.getTest().moveQuestionUp(questionsList.get(currentQuestion));
+   }
+
+   @FXML
+   public void onDownQuestion(ActionEvent event) {
+      submission.getTest().moveQuestionDown(questionsList.get(currentQuestion));
+   }
+
    public void setEventType(TestEvent eventType) {
       // todo: update ui
       switch (eventType) {
          case EDIT_EVENT:
-            editButtonsPane.setVisible(true);
+            editQuestionPane.setVisible(true);
             break;
       }
    }

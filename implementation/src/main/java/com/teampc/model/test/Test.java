@@ -16,10 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import javax.persistence.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * A general Test Class
@@ -234,5 +231,27 @@ public class Test implements HasId {
    */
    public Optional<Test> retake() {
       return Optional.empty();
+   }
+
+   public void removeQuestion(Question question) {
+      if(question == null) { return; }
+      questions.remove(question);
+   }
+
+   public void moveQuestionUp(Question question) {
+      if(question == null || !questions.contains(question)) { return; }
+
+      int curIndex = questions.indexOf(question);
+      if(curIndex <= 0) { return; } // do nothing if first question
+      Collections.swap(questions, curIndex, curIndex - 1);
+   }
+
+   public void moveQuestionDown(Question question) {
+      if(question == null || !questions.contains(question)) { return; }
+
+      int curIndex = questions.indexOf(question);
+      if(curIndex >= questions.size() - 1) { return; } // do nothing if last question
+      Collections.swap(questions, curIndex, curIndex + 1);
+
    }
 }

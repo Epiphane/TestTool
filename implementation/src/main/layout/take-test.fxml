@@ -16,11 +16,11 @@
             <Text fx:id="descTimeLimit" layoutX="444.0" layoutY="55.0" scaleX="1.0" scaleY="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You have 30 minutes" />
           </children>
         </AnchorPane>
-         <Pane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="217.0" prefWidth="594.0">
+         <Pane fx:id="editQuestionPane" minHeight="0.0" minWidth="0.0" prefHeight="217.0" prefWidth="594.0" visible="false">
             <children>
-               <Button layoutX="553.0" layoutY="7.0" mnemonicParsing="false" text="X" />
-               <Button layoutX="526.0" layoutY="7.0" mnemonicParsing="false" text="v" />
-               <Button layoutX="501.0" layoutY="7.0" mnemonicParsing="false" text="^" />
+               <Button fx:id="editQuestionDelete" layoutX="553.0" layoutY="7.0" mnemonicParsing="false" text="X" onAction="#onDeleteQuestion"/>
+               <Button fx:id="editQuestionDown" layoutX="526.0" layoutY="7.0" mnemonicParsing="false" text="v" onAction="#onDownQuestion"/>
+               <Button fx:id="editQuestionUp" layoutX="501.0" layoutY="7.0" mnemonicParsing="false" text="^" onAction="#onUpQuestion"/>
             </children>
          </Pane>
         <AnchorPane id="questionPane" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
