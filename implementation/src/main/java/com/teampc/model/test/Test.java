@@ -16,10 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import javax.persistence.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * A general Test Class
@@ -62,6 +59,7 @@ public class Test implements HasId {
 
    private Key key;
 
+   @Column(name = "published")
    private boolean published;
 
    public Test(String name, Date startDate, Date endDate, String courseName) {
@@ -143,6 +141,10 @@ public class Test implements HasId {
 
       String info = courseName + " " + name + " - ";
 
+      if(startDate == null || endDate == null) {
+         return info;
+      }
+
       if (today.compareTo(startDate) < 0) {
          return info + " opens on " + df.format(startDate);
       }
@@ -201,7 +203,7 @@ public class Test implements HasId {
    * Returns whether or not the test has been published
    */
    public boolean isPublished() {
-      return false;
+      return published;
    }
 
    /**
@@ -234,5 +236,27 @@ public class Test implements HasId {
    */
    public Optional<Test> retake() {
       return Optional.empty();
+   }
+
+   public void removeQuestion(Question question) {
+      if(question == null) { return; }
+      questions.remove(question);
+   }
+
+   public void moveQuestionUp(Question question) {
+      if(question == null || !questions.contains(question)) { return; }
+
+      int curIndex = questions.indexOf(question);
+      if(curIndex <= 0) { return; } // do nothing if first question
+      Collections.swap(questions, curIndex, curIndex - 1);
+   }
+
+   public void moveQuestionDown(Question question) {
+      if(question == null || !questions.contains(question)) { return; }
+
+      int curIndex = questions.indexOf(question);
+      if(curIndex >= questions.size() - 1) { return; } // do nothing if last question
+      Collections.swap(questions, curIndex, curIndex + 1);
+
    }
 }

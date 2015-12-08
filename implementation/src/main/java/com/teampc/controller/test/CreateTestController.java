@@ -5,6 +5,7 @@ import com.teampc.dao.TestDAO;
 import com.teampc.model.question.Question;
 import com.teampc.model.test.Test;
 import com.teampc.utils.FXUtils;
+import com.teampc.utils.TestFXUtils;
 import com.teampc.utils.TestUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -146,14 +147,7 @@ public class CreateTestController implements Initializable {
       TestDAO.getInstance().insert(newTest);
       LOG.info("new test submitted");
 
-      Node source = (Node) event.getSource();
-      Stage stage = (Stage) source.getScene().getWindow();
-
-      try {
-         FXUtils.switchToScreen(stage, "view-questions-list.fxml");
-      } catch (IOException e) {
-         LOG.error("Failed to load question list view" + e.getMessage());
-      }
+      TestFXUtils.openTestViewer(FXUtils.getStageFromEvent(event), newTest, TestEvent.VIEW_EVENT);
    }
 
 }

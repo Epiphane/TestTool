@@ -8,15 +8,21 @@ import com.teampc.model.question.*;
 import com.teampc.utils.FXUtils;
 import com.teampc.dao.SubmissionDAO;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.text.Text;
+import lombok.Getter;
+import lombok.Setter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -56,9 +62,35 @@ public class TakeTestController {
    @FXML
    private Text prompt;
 
+   /** Edit Stuff **/
+   @FXML
+   private Pane editQuestionPane;
+   @FXML
+   private Button editQuestionDelete;
+   @FXML
+   private Button editQuestionUp;
+   @FXML
+   private Button editQuestionDown;
+
+   // grading stuff
+   @FXML
+   private Pane gradingSection;
+   @FXML
+   private TextField gradingComment;
+   @FXML
+   private Button saveCommentButton;
+   @FXML
+   private TextField gradingGradeInput;
+   @FXML
+   private Button saveGradeButton;
+
+   @Getter
+   private boolean isGrading = false;
+
    private Test test;
    private QuestionViewController currentQuestionController;
    private int currentQuestion;
+   private List<Question> questionsList;
 
    private Submission submission;
 
@@ -66,6 +98,43 @@ public class TakeTestController {
 
    public TakeTestController() {
       submissionDAO = SubmissionDAO.getInstance();
+   }
+
+   private void setGradingViewStuff() {
+      QuestionResponse response = submission.getResponses().get(currentQuestion);
+
+      gradingComment.setText(response.getComment());
+      gradingGradeInput.setText("" + response.getPointsReceived());
+   }
+
+   @FXML
+   void onClickSaveCommentButton() {
+      LOG.debug("clicked \"Save Comment\"");
+      if (isGrading) {
+         QuestionResponse response = submission.getResponses().get(currentQuestion);
+         response.setComment(gradingComment.getText());
+         SubmissionDAO.getInstance().update(submission);
+      }
+   }
+
+   @FXML
+   void onClickSaveGradeButton() {
+      LOG.debug("clicked \"Save Grade\"");
+      if (isGrading) {
+         try {
+            QuestionResponse response = submission.getResponses().get(currentQuestion);
+            response.setPointsReceived(Integer.parseInt(gradingGradeInput.getText()));
+            SubmissionDAO.getInstance().update(submission);
+         }
+         catch (NumberFormatException e) {
+            LOG.debug("gradingGradeInput not formatted as Integer", e);
+         }
+      }
+   }
+
+   public void setSubmission(Submission s) {
+      submission = s;
+
    }
 
    /**
@@ -76,6 +145,7 @@ public class TakeTestController {
 
       this.testTitle.setText(test.getCourseName() + " " + test.getName());
       this.descQuestions.setText("There are " + test.getQuestions().size() + " questions.");
+      questionsList = test.getQuestions();
 
       int timeLimit = test.getTimeLimit();
       if (timeLimit > 0) {
@@ -91,7 +161,19 @@ public class TakeTestController {
       else {
          this.setQuestion(submission.getNextUnansweredQuestion());
       }
+
+      setIsGrading(false);
    }
+
+   public void setIsGrading(boolean isGrading) {
+      this.isGrading = isGrading;
+      gradingSection.setVisible(this.isGrading);
+      if (isGrading) {
+         setGradingViewStuff();
+         currentQuestion = 0;
+      }
+   }
+
 
    /**
     * Loads a question and draws the UI for it
@@ -135,7 +217,7 @@ public class TakeTestController {
       if (currentQuestion < 0) {
          currentQuestion = 0;
       }
-      
+
       if (currentQuestion >= numQuestions) {
          currentQuestion = numQuestions;
          drawQuestionUI("complete-test", null);
@@ -152,6 +234,10 @@ public class TakeTestController {
 
          if (response != null) {
             currentQuestionController.setResponse(response);
+         }
+
+         if (isGrading) {
+
          }
       }
    }
@@ -175,7 +261,7 @@ public class TakeTestController {
          if (response == null) {
             return;
          }
-         
+
          response.setQuestion(test.getQuestions().get(currentQuestion));
          submission.getResponses().set(currentQuestion, response);
       }
@@ -203,5 +289,32 @@ public class TakeTestController {
       Stage stage = (Stage) source.getScene().getWindow();
 
       stage.close();
+   }
+
+   @FXML
+   public void onDeleteQuestion(ActionEvent event) {
+      if(currentQuestion < 0 || currentQuestion >= questionsList.size()) { return; }
+      submission.getTest().removeQuestion(questionsList.get(currentQuestion));
+   }
+
+   @FXML
+   public void onUpQuestion(ActionEvent event) {
+      if(currentQuestion < 0 || currentQuestion >= questionsList.size()) { return; }
+      submission.getTest().moveQuestionUp(questionsList.get(currentQuestion));
+   }
+
+   @FXML
+   public void onDownQuestion(ActionEvent event) {
+      if(currentQuestion < 0 || currentQuestion >= questionsList.size()) { return; }
+      submission.getTest().moveQuestionDown(questionsList.get(currentQuestion));
+   }
+
+   public void setEventType(TestEvent eventType) {
+      // todo: update ui
+      switch (eventType) {
+         case EDIT_EVENT:
+            editQuestionPane.setVisible(true);
+            break;
+      }
    }
 }

@@ -1,5 +1,6 @@
 package com.teampc.model.admin;
 
+import com.google.common.collect.Lists;
 import com.teampc.model.admin.course.Course;
 
 import lombok.Data;
@@ -22,16 +23,15 @@ public class Teacher extends User {
      */
     private ArrayList<Course> courses = new ArrayList<Course>();
 
+
     /**
      * Create a new instance of a Teacher
      *
      * @param username The username of the Teacher
      * @param first  The Teacher's first name
      * @param last  The Teacher's last name
+     * @param pass The Teacher's password
      */
-    public Teacher(String username, String first, String last){
-        super(username, first, last);
-    }
 
     public Teacher(String username, String first, String last, String pass){
        super(username, first, last, pass);
@@ -47,7 +47,8 @@ public class Teacher extends User {
       post: this.getCourses() != null && this.getCourses().size() > 0 && this.isAssignedToAllCourses()
 
      */
-    public void addCourse(Course course){
+
+    public void addCourse(Course course) {
        courses.add(course);
     }
 
@@ -59,7 +60,8 @@ public class Teacher extends User {
       post: this.getCourses() != null && this.isAssignedToAllCourses()
 
      */
-    public void removeCourse(Course course){
+
+    public void removeCourse(Course course) {
        courses.remove(course);
     }
 
@@ -70,14 +72,15 @@ public class Teacher extends User {
 
       post: this.getCourses() != null && this.isAssignedToAllCourses()
     */
-    public boolean teachesCourse(Course course){
-       if(courses.contains(course))
-          return true;
-       return false;
+
+    public boolean teachesCourse(Course course) {
+       return courses.contains(course);
     }
 
+
+
     boolean isAssignedToAllCourses() {
-       return this.courses.stream().allMatch(course -> ((Course) course).getTeacher().equals(this));
+       return this.courses.stream().allMatch(course -> course.getTeacher().equals(this));
     }
 
    }

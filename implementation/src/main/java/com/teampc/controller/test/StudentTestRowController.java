@@ -52,7 +52,7 @@ public class StudentTestRowController implements Initializable{
    @FXML
    /** Button click handler **/
    void onPublicStatusClickHandler(ActionEvent event) {
-      TestDAO.getInstance().updateTest(new Test());
+//      TestDAO.getInstance().updateTest(new Test());
    }
 
    @FXML
@@ -71,7 +71,7 @@ public class StudentTestRowController implements Initializable{
    @FXML
    /** Button click handler **/
    void onPublishActionHandler(ActionEvent event) {
-      TestDAO.getInstance().updateTest(new Test());
+//      TestDAO.getInstance().updateTest(new Test());
    }
 
    @FXML

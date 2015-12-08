@@ -85,21 +85,21 @@ public class UserSession {
     * @param first The first name of the new User
     * @param last The last name of the new USer
     */
-   public static void Register(String username, String pass, String first, String last, String type){
 
-      if(type.equals("Instructor")) {
-        Teacher user = new Teacher(username, first, last, pass);
+   public static void Register(String username, String pass, String first, String last, String type) {
+
+      if (type.equals("Instructor")) {
+         Teacher user = new Teacher(username, first, last, pass);
+         userlist.put(username, user);
+         registerUser(username, user);
+      } else {
+         Student user = new Student(username, first, last, pass);
          userlist.put(username, user);
          registerUser(username, user);
       }
-      else{
-         Student user = new Student(username, first,last,pass);
-         userlist.put(username, user);
-         registerUser(username, user);
-      }
-
-
    }
+
+
 
    /**
     * Get the currently logged in user
@@ -129,8 +129,11 @@ public class UserSession {
    }
 
    private static void populateUserList(){
-      String filename = "users.txt", line, username, clazz;
+
+      String filename = "users.txt", line, username, firstName, lastName, password, clazz;;
+
       Scanner fileScan = null, linescan;
+      boolean isAdmin = false;
       File file = new File(filename);
 
       try{
@@ -143,6 +146,7 @@ public class UserSession {
 
          while(fileScan.hasNextLine()) {
             line = fileScan.nextLine();
+
             if(!line.equals("")) {
                linescan = new Scanner(line);
                clazz = linescan.next();
