@@ -77,14 +77,18 @@ public class LoginController {
 
          log.debug(user.getDisplayName());
 
-         switch (user.getType()) {
-            case TEACHER:
-               FXUtils.switchToScreenAndConfigureController(primaryStage, "navbar.fxml", NavBarController::setPrimaryStage);
-               break;
-            case STUDENT:
-               FXUtils.switchToScreenAndConfigureController(primaryStage, "studentnavbar.fxml", StudentNavBarController::setPrimaryStage);
-               break;
-         }
+         String layoutFile = user.accept(new User.Visitor<String>() {
+            @Override
+            public String visitTeacher(Teacher t) {
+               return "navbar.fxml";
+            }
+
+            @Override
+            public String visitStudent(Student s) {
+               return "studentnavbar.fxml";
+            }
+         });
+         FXUtils.switchToScreenAndConfigureController(primaryStage, layoutFile, HasStage::setPrimaryStage);
       }
       /**
        * Otherwise tell the user their login information is incorrect

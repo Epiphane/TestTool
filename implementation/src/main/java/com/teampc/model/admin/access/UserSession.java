@@ -66,7 +66,17 @@ public class UserSession {
          User user = userlist.get(username);
          loggedInUser = user;
          loggedIn = true;
-         log.debug("New user of type: " + user.getType());
+         log.debug("New user of type: " + user.accept(new User.Visitor<User.UserType>() {
+            @Override
+            public User.UserType visitTeacher(Teacher t) {
+               return User.UserType.TEACHER;
+            }
+
+            @Override
+            public User.UserType visitStudent(Student s) {
+               return User.UserType.STUDENT;
+            }
+         }));
          return true;
       }
       /**
@@ -132,8 +142,8 @@ public class UserSession {
 
       String filename = "users.txt", line, username, firstName, lastName, password, type;;
 
-      Scanner fileScan = null, linescan;
-      boolean isAdmin = false;
+      Scanner fileScan, lineScanner;
+      boolean isAdmin;
       File file = new File(filename);
 
       try{
@@ -148,15 +158,15 @@ public class UserSession {
             line = fileScan.nextLine();
 
             if(!line.equals("")) {
-               linescan = new Scanner(line);
-               type = linescan.next();
-               username = linescan.next();
-               firstName = linescan.next();
-               lastName = linescan.next();
-               password = linescan.next();
+               lineScanner = new Scanner(line);
+               type = lineScanner.next();
+               username = lineScanner.next();
+               firstName = lineScanner.next();
+               lastName = lineScanner.next();
+               password = lineScanner.next();
                isAdmin = false;
-               if (linescan.hasNext()) {
-                  isAdmin = Boolean.valueOf(linescan.next());
+               if (lineScanner.hasNext()) {
+                  isAdmin = Boolean.valueOf(lineScanner.next());
                }
 
                User user;
@@ -186,19 +196,18 @@ public class UserSession {
 
    private static void registerUser(String username, User user){
 
-      String output;
-      switch (user.getType()) {
-         case TEACHER:
-            log.debug("Teacher being registered");
-            output = "Teacher";
-            break;
-         case STUDENT:
-            log.debug("Student being registered");
-            output = "Student";
-            break;
-         default:
-            throw new IllegalArgumentException("Unknown user type: " + user.getType());
-      }
+      String output = user.accept(new User.Visitor<String>() {
+         @Override
+         public String visitTeacher(Teacher t) {
+            return User.UserType.TEACHER.name();
+         }
+
+         @Override
+         public String visitStudent(Student s) {
+            return User.UserType.STUDENT.name();
+         }
+      });
+      log.debug("{} being registered", output);
       output = output + username + " " + user.getFirstName() + " " + user.getLastName() + " " + user.getPassword() + "\n";
 
       try {

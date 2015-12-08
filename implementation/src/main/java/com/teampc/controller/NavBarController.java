@@ -9,6 +9,7 @@ import com.teampc.dao.SubmissionDAO;
 import com.teampc.dao.TestDAO;
 import com.teampc.model.admin.Student;
 import com.teampc.model.admin.Teacher;
+import com.teampc.model.admin.User;
 import com.teampc.model.admin.access.UserSession;
 import com.teampc.model.admin.course.Course;
 import com.teampc.model.question.Question;
@@ -39,7 +40,7 @@ import static java.util.stream.Collectors.toList;
  * NavBarController handles the main navigation bar for the Instructors.
  * @author Jameson li
  */
-public class NavBarController {
+public class NavBarController implements HasStage {
 
    @Setter
    private Stage primaryStage;

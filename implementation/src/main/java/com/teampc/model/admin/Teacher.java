@@ -42,8 +42,8 @@ public class Teacher extends User {
    }
 
    @Override
-   public UserType getType() {
-      return UserType.TEACHER;
+   public <T> T accept(Visitor<T> visitor) {
+      return visitor.visitTeacher(this);
    }
 
 

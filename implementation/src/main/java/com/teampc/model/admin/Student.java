@@ -32,8 +32,8 @@ public class Student extends User implements Comparable<Student> {
    }
 
    @Override
-   public UserType getType() {
-      return UserType.STUDENT;
+   public <T> T accept(Visitor<T> visitor) {
+      return visitor.visitStudent(this);
    }
 
    public Student(String username, String firstName, String lastName, String pass){
