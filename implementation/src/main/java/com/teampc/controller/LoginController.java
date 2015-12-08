@@ -77,10 +77,14 @@ public class LoginController {
 
          log.debug(user.getDisplayName());
 
-         if(user instanceof Teacher)
-            FXUtils.switchToScreenAndConfigureController(primaryStage, "navbar.fxml", NavBarController::setPrimaryStage);
-         else
-            FXUtils.switchToScreenAndConfigureController(primaryStage, "studentnavbar.fxml", StudentNavBarController::setPrimaryStage);
+         switch (user.getType()) {
+            case TEACHER:
+               FXUtils.switchToScreenAndConfigureController(primaryStage, "navbar.fxml", NavBarController::setPrimaryStage);
+               break;
+            case STUDENT:
+               FXUtils.switchToScreenAndConfigureController(primaryStage, "studentnavbar.fxml", StudentNavBarController::setPrimaryStage);
+               break;
+         }
       }
       /**
        * Otherwise tell the user their login information is incorrect

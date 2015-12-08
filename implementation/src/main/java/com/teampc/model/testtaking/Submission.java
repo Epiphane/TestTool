@@ -24,7 +24,7 @@ public class Submission implements HasId {
 
    public User taker;
 
-   public ArrayList<QuestionResponse> responses = new ArrayList<>();
+   public List<QuestionResponse> responses = new ArrayList<>();
 
    private boolean complete;
 
