@@ -17,10 +17,7 @@ public class ViewTestController implements Initializable {
   @FXML
   private ListView/*<TestRow>*/ viewTestList;
 
-  ObservableList/*<TestRow>*/ data = FXCollections.observableArrayList(
-//        new TestRow(new Test("307 Midterm 1", new Date(11), new Date(11), "307")),
-//        new TestRow(new Test("307 Midterm 2", new Date(11), new Date(11), "307"))
-  );
+  ObservableList/*<TestRow>*/ data = FXCollections.observableArrayList();
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {

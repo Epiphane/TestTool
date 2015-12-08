@@ -19,12 +19,6 @@ public class TestDAO extends AbstractDAO<Test> {
       return INSTANCE;
    }
 
-   private TestDAO() {
-      // add fake stuff
-      this.insert(new Test("307 Midterm 1", new Date(11), new Date(11), "307"));
-      this.insert(new Test("307 Midterm 2", new Date(11), new Date(11), "307"));
-   }
-
    @Override
    protected Class<Test> getEntityClass() {
       return Test.class;
