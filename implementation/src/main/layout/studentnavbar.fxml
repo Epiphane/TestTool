@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+
+<ToolBar prefHeight="40.0" prefWidth="585.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.teampc.controller.StudentNavBarController">
+  <items>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TestTool" />
+      <Button mnemonicParsing="false" onAction="#onTakeTestClick" text="Take Test" />
+      <Button mnemonicParsing="false" onAction="#onViewTestsClick" text="View Tests" />
+  </items>
+</ToolBar>

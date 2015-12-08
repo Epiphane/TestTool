@@ -1,32 +1,24 @@
 package com.teampc.controller;
 
+
+
 import com.teampc.controller.question.QuestionTableController;
 import com.teampc.utils.FXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.stage.Stage;
 import lombok.Setter;
-
 import java.io.IOException;
 
 /**
- * NavBarController handles the main navigation bar for the Instructors.
- * @author Jameson li
+ * StudentNavBarController handles the main navigation bar for students.
+ * @author Greg Sawers (gsawers@calpoly.edu)
  */
-public class NavBarController {
+public class StudentNavBarController {
 
    @Setter
    private Stage primaryStage;
 
-   @FXML
-   void onCreateTestClick(ActionEvent event) {
-      try {
-         showLayout("create-test-options.fxml");
-      } catch (IOException e) {
-         e.printStackTrace();
-      }
-
-   }
 
    @FXML
    void onTakeTestClick(ActionEvent event) {
@@ -37,15 +29,11 @@ public class NavBarController {
       }
    }
 
-   @FXML
-   private void openQuestionBank() throws IOException {
-      QuestionTableController.showQuestionTable(primaryStage);
-   }
 
    @FXML
    void onViewTestsClick(ActionEvent event) {
       try {
-         showLayout("view-tests-list.fxml");
+         showLayout("studentview-tests-list.fxml");
       } catch (IOException e) {
          e.printStackTrace();
       }
@@ -53,7 +41,8 @@ public class NavBarController {
    }
 
    private void showLayout(String resource) throws IOException {
-      FXUtils.newScreenAndConfigureController(resource, FXUtils::noop);
+      FXUtils.newScreenAndConfigureController(resource, (x, y) -> {
+      });
    }
 
 }
