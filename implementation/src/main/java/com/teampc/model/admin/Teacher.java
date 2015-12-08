@@ -6,6 +6,7 @@ import com.teampc.model.admin.course.Course;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,7 +21,8 @@ public class Teacher extends User {
     /**
      * List of classes the Teacher is instructing.
      */
-    private List<Course> courses = Lists.newArrayList();
+    private ArrayList<Course> courses = new ArrayList<Course>();
+
 
     /**
      * Create a new instance of a Teacher
@@ -28,10 +30,14 @@ public class Teacher extends User {
      * @param username The username of the Teacher
      * @param first  The Teacher's first name
      * @param last  The Teacher's last name
+     * @param pass The Teacher's password
      */
-    public Teacher(String username, String first, String last, String password, boolean isAdmin){
-        super(username, first, last, password, isAdmin);
+
+    public Teacher(String username, String first, String last, String pass){
+       super(username, first, last, pass);
     }
+
+
 
     /**
      * Add the course to the Teacher's list of courses, and, if necessary, set the courses teacher to this teacher.
@@ -41,6 +47,7 @@ public class Teacher extends User {
       post: this.getCourses() != null && this.getCourses().size() > 0 && this.isAssignedToAllCourses()
 
      */
+
     public void addCourse(Course course) {
        courses.add(course);
     }
@@ -53,6 +60,7 @@ public class Teacher extends User {
       post: this.getCourses() != null && this.isAssignedToAllCourses()
 
      */
+
     public void removeCourse(Course course) {
        courses.remove(course);
     }
@@ -64,13 +72,15 @@ public class Teacher extends User {
 
       post: this.getCourses() != null && this.isAssignedToAllCourses()
     */
+
     public boolean teachesCourse(Course course) {
        return courses.contains(course);
     }
+
 
 
     boolean isAssignedToAllCourses() {
        return this.courses.stream().allMatch(course -> course.getTeacher().equals(this));
     }
 
-}
+   }

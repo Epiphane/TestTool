@@ -1,4 +1,2 @@
-gsawers Greg Sawers abc123 true
-andy Andy DuFrene password true
-j J L 1 true
-jharbaugh Jim Harbaugh goblue
+Teacher gsawers Greg Sawers abc123
+Student zho Zach Ho abc123

@@ -32,8 +32,11 @@ public class User {
     **/
    private String password;
 
-   @Setter(AccessLevel.NONE)
-   private boolean admin = false;
+   /**
+    * User's type
+    */
+
+
 
    /**
     * Default constructor
@@ -50,12 +53,11 @@ public class User {
     * @param lastName  Last Name of the User
     * @param password  Password of the User
     */
-   public User(String username, String firstName, String lastName, String password, boolean admin) {
+   public User(String username, String firstName, String lastName, String password) {
       this.username = username;
       this.firstName = firstName;
       this.lastName = lastName;
       this.password = password;
-      this.admin = admin;
    }
 
    /**

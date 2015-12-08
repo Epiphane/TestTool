@@ -70,6 +70,7 @@ public class RegisterController implements Initializable {
    @FXML
    private Label complete;
 
+
    /**
     *  Initialize the screen
     * @param fxmlFileLocation
@@ -108,14 +109,17 @@ public class RegisterController implements Initializable {
        * Grab the last name from the view.
        */
       String last = lastfield.getText();
-
+      /**
+       * Grab the account type
+       */
+      String type = accountchoice.getValue();
 
       /**
        * If all of the necessary fields are filled out, register the user.
        */
-      if(!(username.equals("") || password.equals("") || first.equals("") || last.equals(""))) {
+      if(!(username.equals("") || password.equals("") || first.equals("") || last.equals("") || type.equals(""))) {
          System.out.println(username);
-         UserSession.Register(username, password, first, last);
+         UserSession.Register(username, password, first, last, type);
          Stage stage = (Stage) registerbutton.getScene().getWindow();
          stage.close();
       }

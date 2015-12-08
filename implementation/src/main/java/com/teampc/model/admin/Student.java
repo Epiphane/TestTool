@@ -6,26 +6,33 @@ import lombok.EqualsAndHashCode;
 
 import com.teampc.model.admin.course.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * This class contains information that identifies a Student.
  * <p>
  * It contains information such as courses a Student is enrolled in.
+ *
+ * @author Greg Sawers (gsawers@calpoly.edu)
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public abstract class Student extends User implements Comparable<Student> {
+public class Student extends User implements Comparable<Student> {
    /**
     * Student enrolled courses list
     **/
-   public List<Enrolled> enrolledCourses;
+   public ArrayList<Course> enrolledCourses = new ArrayList<Course>();
 
    /**
     * Creates a new instance of a Student
     */
    public Student(String username, String firstName, String lastName) {
       super(username, firstName, lastName);
+   }
+
+   public Student(String username, String firstName, String lastName, String pass){
+      super(username, firstName, lastName, pass);
    }
 
    /**
@@ -49,14 +56,16 @@ public abstract class Student extends User implements Comparable<Student> {
          enrolledCourses'.contains(cother);
             cother.equals(course))
     */
-   public abstract void addCourse(Course course);
+   public void addCourse(Course course){
+      enrolledCourses.add(course);
+   }
 
    /**
     * Removes a Student from the specified course.
     * The method will remove the Enrolled instance
     * from the enrolledCourses list.
     *
-    * 
+    *
      pre:
       //
       // The enrolledCourses list must already contain the course being removed
@@ -64,8 +73,8 @@ public abstract class Student extends User implements Comparable<Student> {
       exists(Course cother;
          enrolledCourses.contains(cother);
             cother.equals(course))
-    * 
-    * 
+    *
+    *
     post:
       //
       // The resulting enrolledCourses list will not contain the course being removed
@@ -73,8 +82,14 @@ public abstract class Student extends User implements Comparable<Student> {
       !exists(Course cother;
          enrolledCourses.contains(cother);
             cother.equals(course))
-    * 
+    *
     */
-   public abstract void removeCourse(Course course);
+   public void removeCourse(Course course){
+      enrolledCourses.remove(course);
+   }
+
+   public int compareTo(Student other){
+      return 0;
+   }
 
 }

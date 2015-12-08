@@ -1,5 +1,7 @@
 package com.teampc.controller;
 
+import com.teampc.model.admin.Student;
+import com.teampc.model.admin.Teacher;
 import com.teampc.model.admin.User;
 import com.teampc.model.admin.access.UserSession;
 import com.teampc.utils.FXUtils;
@@ -75,7 +77,10 @@ public class LoginController {
 
          log.debug(user.getDisplayName());
 
-         FXUtils.switchToScreenAndConfigureController(primaryStage, "navbar.fxml", NavBarController::setPrimaryStage);
+         if(user instanceof Teacher)
+            FXUtils.switchToScreenAndConfigureController(primaryStage, "navbar.fxml", NavBarController::setPrimaryStage);
+         else
+            FXUtils.switchToScreenAndConfigureController(primaryStage, "studentnavbar.fxml", StudentNavBarController::setPrimaryStage);
       }
       /**
        * Otherwise tell the user their login information is incorrect

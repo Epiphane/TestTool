@@ -32,7 +32,8 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by james on 10/26/15.
+ * NavBarController handles the main navigation bar for the Instructors.
+ * @author Jameson li
  */
 public class NavBarController {
 
@@ -44,7 +45,7 @@ public class NavBarController {
 
    @FXML
    private void initialize() {
-      if (!UserSession.getLoggedInUser().isAdmin()) {
+      if (UserSession.getLoggedInUser() instanceof Teacher) {
          fakeDataButton.setVisible(false);
       } else {
          fakeDataButton.setVisible(true);
@@ -119,7 +120,7 @@ public class NavBarController {
       Test fakeTest = new Test("Midterm 1", new Date(0), new Date(0), "CPE 307");
       fakeTest.setQuestions(questionList);
 
-      Teacher fakeTeacher = new Teacher("c00l te@cher", "Gene", "Fisher", "1 luv te@ching!", false);
+      Teacher fakeTeacher = new Teacher("c00l te@cher", "Gene", "Fisher", "1 luv te@ching!");
       fakeTest.setOwner(fakeTeacher);
 
       TestDAO.getInstance().insert(fakeTest);

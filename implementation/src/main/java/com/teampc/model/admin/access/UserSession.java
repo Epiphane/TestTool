@@ -1,5 +1,7 @@
 package com.teampc.model.admin.access;
 
+import com.teampc.model.admin.Student;
+import com.teampc.model.admin.Teacher;
 import com.teampc.model.admin.User;
 import lombok.extern.slf4j.Slf4j;
 
@@ -64,6 +66,7 @@ public class UserSession {
          User user = userlist.get(username);
          loggedInUser = user;
          loggedIn = true;
+         System.out.println(user.getClass());
          return true;
       }
       /**
@@ -82,11 +85,21 @@ public class UserSession {
     * @param first The first name of the new User
     * @param last The last name of the new USer
     */
-   public static void Register(String username, String pass, String first, String last){
-      User user = new User(username, first, last, pass, false);
-      userlist.put(username, user);
-      registerUser(username, user);
+
+   public static void Register(String username, String pass, String first, String last, String type) {
+
+      if (type.equals("Instructor")) {
+         Teacher user = new Teacher(username, first, last, pass);
+         userlist.put(username, user);
+         registerUser(username, user);
+      } else {
+         Student user = new Student(username, first, last, pass);
+         userlist.put(username, user);
+         registerUser(username, user);
+      }
    }
+
+
 
    /**
     * Get the currently logged in user
@@ -116,7 +129,9 @@ public class UserSession {
    }
 
    private static void populateUserList(){
-      String filename = "users.txt", line, username, firstName, lastName, password;
+
+      String filename = "users.txt", line, username, firstName, lastName, password, clazz;;
+
       Scanner fileScan = null, linescan;
       boolean isAdmin = false;
       File file = new File(filename);
@@ -131,17 +146,20 @@ public class UserSession {
 
          while(fileScan.hasNextLine()) {
             line = fileScan.nextLine();
-            linescan = new Scanner(line);
-            username = linescan.next();
-            firstName = linescan.next();
-            lastName = linescan.next();
-            password = linescan.next();
-            isAdmin = false;
-            if (linescan.hasNext()) {
-               isAdmin = Boolean.valueOf(linescan.next());
+
+            if(!line.equals("")) {
+               linescan = new Scanner(line);
+               clazz = linescan.next();
+               username = linescan.next();
+               if (clazz.equals("Teacher")) {
+                  Teacher user = new Teacher(username, linescan.next(), linescan.next(), linescan.next());
+                  userlist.put(username, user);
+               } else {
+                  Student user = new Student(username, linescan.next(), linescan.next(), linescan.next());
+                  userlist.put(username, user);
+               }
             }
-            User user = new User(username, firstName, lastName, password, isAdmin);
-            userlist.put(username, user);
+
          }
       }
       catch(IOException e){
@@ -156,7 +174,16 @@ public class UserSession {
 
       String fileName = "";
 
-      String output = username + " " + user.getFirstName() + " " + user.getLastName() + " " + user.getPassword() + "\n";
+      String output;
+      if(user instanceof Teacher){
+         System.out.println("Teacher being registered");
+         output = "Teacher ";
+      }
+      else{
+         System.out.println("Student being registered");
+         output = "Student ";
+      }
+      output = output + username + " " + user.getFirstName() + " " + user.getLastName() + " " + user.getPassword() + "\n";
 
       try {
          Files.write(Paths.get("users.txt"), output.getBytes(), StandardOpenOption.APPEND);

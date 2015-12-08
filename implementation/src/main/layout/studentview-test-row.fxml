@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane fx:id="testRow" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="467.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Text fx:id="testName" layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Test Name Placeholder" />
+      <Text layoutX="14.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Status: " />
+      <Text fx:id="testStatus" layoutX="62.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Not Yet Graded" />
+      <Button fx:id="viewButton" layoutX="175.0" layoutY="9.0" mnemonicParsing="false" onAction="#onViewActionHandler" text="View Grade" />
+   </children>
+</Pane>
