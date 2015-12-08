@@ -1,10 +1,10 @@
 package com.teampc.controller.test;
 
-import com.sun.glass.ui.View;
 import com.teampc.controller.ViewSubmissionsController;
 import com.teampc.dao.TestDAO;
 import com.teampc.model.test.Test;
 import com.teampc.utils.FXUtils;
+import com.teampc.utils.TestFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -18,11 +18,6 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
-import com.teampc.utils.FXUtils;
-
-import java.io.*;
-import java.util.*;
 
 public class TestRowController implements Initializable{
 
@@ -75,14 +70,7 @@ public class TestRowController implements Initializable{
    @FXML
    /** Button click handler **/
    void onEditActionHandler(ActionEvent event) {
-      TestDAO.getInstance().findById(test.getId());
-
-      Stage stage = FXUtils.getStageFromEvent(event);
-      try {
-         FXUtils.switchToScreen(stage, "view-questions-list.fxml");
-      } catch (IOException e) {
-         LOG.error("Failed to load question list view" + e.getMessage(), e);
-      }
+      TestFXUtils.openTestViewer(FXUtils.getStageFromEvent(event), test, TestEvent.EDIT_EVENT);
    }
 
    @FXML
@@ -108,18 +96,12 @@ public class TestRowController implements Initializable{
        }
    }
 
+   /**
+    * Handler for the take test button
+    */
    @FXML
-   /** Button click handler **/
-   void onViewActionHandler(ActionEvent event) {
-      TestDAO.getInstance().findById(test.getId());
-
-      Stage stage = FXUtils.getStageFromEvent(event);
-      try {
-         FXUtils.switchToScreen(stage, "view-questions-list.fxml");
-      } catch (IOException e) {
-         LOG.error("Failed to load question list view" + e.getMessage(), e);
-      }
-
+   public void onViewActionHandler(ActionEvent event) throws IOException {
+      TestFXUtils.openTestViewer(FXUtils.getStageFromEvent(event), test, TestEvent.VIEW_EVENT);
    }
 
    @Override
@@ -129,4 +111,5 @@ public class TestRowController implements Initializable{
       testStatus.setText(test.isPublished() ? "Completed" : "Incomplete");
       publicStatus.setSelected(test.isPublished());
    }
+
 }

@@ -135,7 +135,7 @@ public class TakeTestController {
       if (currentQuestion < 0) {
          currentQuestion = 0;
       }
-      
+
       if (currentQuestion >= numQuestions) {
          currentQuestion = numQuestions;
          drawQuestionUI("complete-test", null);
@@ -175,7 +175,7 @@ public class TakeTestController {
          if (response == null) {
             return;
          }
-         
+
          response.setQuestion(test.getQuestions().get(currentQuestion));
          submission.getResponses().set(currentQuestion, response);
       }
@@ -203,5 +203,9 @@ public class TakeTestController {
       Stage stage = (Stage) source.getScene().getWindow();
 
       stage.close();
+   }
+
+   public void setEventType(TestEvent eventType) {
+      // todo: update ui
    }
 }
