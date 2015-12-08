@@ -1,6 +1,7 @@
 package com.teampc.controller.test;
 
 import com.google.common.base.Strings;
+import com.teampc.dao.QuestionDAO;
 import com.teampc.dao.TestDAO;
 import com.teampc.model.question.Question;
 import com.teampc.model.test.Test;
@@ -22,6 +23,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class CreateTestController implements Initializable {
    private static final Logger LOG = LoggerFactory.getLogger(CreateTestController.class);
@@ -63,7 +65,7 @@ public class CreateTestController implements Initializable {
    private CheckBox enableEndDate;
 
    @Setter
-   private List<Question> questions = Collections.emptyList();
+   private List<Question> questions = new ArrayList<>();
 
    /**
     * Initializes the Create Test Options UI with values for the selection lists, spinner, and input boxes
@@ -143,11 +145,16 @@ public class CreateTestController implements Initializable {
       if (endLocalDate != null) { userEndDate = TestUtils.localDateToDate(endLocalDate); }
 
       Test newTest = new Test(testName.getText(), userStartDate, userEndDate, courseType.getText());
+      questions.addAll(generateQuestions());
       newTest.setQuestions(questions);
       TestDAO.getInstance().insert(newTest);
       LOG.info("new test submitted");
 
       TestFXUtils.openTestViewer(FXUtils.getStageFromEvent(event), newTest, TestEvent.VIEW_EVENT);
+   }
+
+   private Collection<Question> generateQuestions() {
+      return QuestionDAO.getInstance().fetchAll().stream().limit(numberOfQuestions.getValue()).collect(Collectors.toList());
    }
 
 }
