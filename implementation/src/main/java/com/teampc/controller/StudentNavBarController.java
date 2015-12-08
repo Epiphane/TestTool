@@ -4,8 +4,12 @@ package com.teampc.controller;
 
 import com.teampc.controller.question.QuestionTableController;
 import com.teampc.utils.FXUtils;
+import com.teampc.utils.FakeDataSrvc;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 import lombok.Setter;
 import java.io.IOException;
@@ -19,6 +23,8 @@ public class StudentNavBarController {
    @Setter
    private Stage primaryStage;
 
+   @FXML
+   private Button fakeDataButton;
 
    @FXML
    void onTakeTestClick(ActionEvent event) {
@@ -45,4 +51,9 @@ public class StudentNavBarController {
       });
    }
 
+   @FXML
+   private void addFakeData() {
+      FakeDataSrvc.addFakeData();
+      new Alert(Alert.AlertType.INFORMATION, "Inserted fake data", ButtonType.CLOSE).show();
+   }
 }
