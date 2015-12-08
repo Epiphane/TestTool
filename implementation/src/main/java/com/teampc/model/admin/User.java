@@ -1,14 +1,12 @@
 package com.teampc.model.admin;
 
-import lombok.AccessLevel;
 import lombok.Data;
-import lombok.Setter;
 
 /**
  * Defines user details including name, username
  */
 @Data
-public class User {
+public abstract class User {
 
    /**
     * Unique User ID
@@ -33,16 +31,15 @@ public class User {
    private String password;
 
    /**
-    * User's type
+    * Is admin user
     */
-
-
+   private final boolean admin;
 
    /**
     * Default constructor
     */
    public User() {
-
+      admin = false;
    }
 
    /**
@@ -58,6 +55,15 @@ public class User {
       this.firstName = firstName;
       this.lastName = lastName;
       this.password = password;
+      admin = false;
+   }
+
+   public User(String username, String firstName, String lastName, String password, boolean admin) {
+      this.username = username;
+      this.firstName = firstName;
+      this.lastName = lastName;
+      this.password = password;
+      this.admin = admin;
    }
 
    /**
@@ -72,6 +78,7 @@ public class User {
       this.username = username;
       this.firstName = firstName;
       this.lastName = lastName;
+      admin = false;
    }
 
    /**
@@ -83,5 +90,14 @@ public class User {
       return firstName + " " + lastName;
    }
 
+   /**
+    * User's type
+    */
+   public abstract UserType getType();
+
+   public enum UserType {
+      STUDENT,
+      TEACHER
+   }
 }
 
