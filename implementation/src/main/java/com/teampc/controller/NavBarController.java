@@ -19,6 +19,7 @@ import com.teampc.model.testtaking.MatchingQuestionResponse;
 import com.teampc.model.testtaking.MultipleChoiceQuestionResponse;
 import com.teampc.model.testtaking.Submission;
 import com.teampc.utils.FXUtils;
+import com.teampc.utils.FakeDataSrvc;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -95,63 +96,7 @@ public class NavBarController {
 
    @FXML
    private void addFakeData() {
-      Question<MultipleChoiceQuestionResponse> question1 = new Question<>();
-      question1.setPoints(1);
-      question1.setPrompt("What is the name of the version control tool used in CPE 307?");
-      question1.setType(Question.QuestionType.MULTIPLE_CHOICE);
-
-      MultipleChoiceQuestionResponse mcCorrectAnswer = new MultipleChoiceQuestionResponse(1, Lists.newArrayList("git", "svn", "mercurial", "repo"));
-      question1.setCorrectAnswer(mcCorrectAnswer);
-
-      Question<MatchingQuestionResponse> question2 = new Question<>();
-      question2.setPoints(3);
-      question2.setPrompt("Match the model classes to their corresponding test classes.");
-      question2.setType(Question.QuestionType.MATCHING);
-
-      MatchingQuestionResponse matchingCorrectAnswer = new MatchingQuestionResponse(ImmutableMap.of(
-         "Question.java", "QuestionTest.java",
-         "Test.java", "TestTest.java",
-         "User.java", "UserTest.java"
-      ));
-
-      question2.setCorrectAnswer(matchingCorrectAnswer);
-
-      List<Question> questionList = Lists.newArrayList(question1, question2);
-
-      QuestionDAO.getInstance().insert(questionList);
-
-      Test fakeTest = new Test("Midterm 1", new Date(0), new Date(0), "CPE 307");
-      fakeTest.setQuestions(questionList);
-
-      Teacher fakeTeacher = new Teacher("c00l te@cher", "Gene", "Fisher", "1 luv te@ching!");
-      fakeTest.setOwner(fakeTeacher);
-
-      Key fakeKey = new Key();
-      fakeKey.setComplete(true);
-      fakeKey.setResponses(fakeTest.getQuestions().stream().map(Question::getCorrectAnswer).collect(toList()));
-      fakeKey.setTest(fakeTest);
-
-      fakeTest.setKey(fakeKey);
-
-      TestDAO.getInstance().insert(fakeTest);
-
-      Submission fakeSubmission = new Submission();
-      fakeSubmission.setComplete(true);
-      fakeSubmission.setTaker(UserSession.getLoggedInUser());
-      fakeSubmission.setTest(fakeTest);
-      fakeSubmission.setGraded(false);
-      fakeSubmission.setResponses(Lists.newArrayList(
-         MultipleChoiceQuestionResponse.studentResponse(0),
-         new MatchingQuestionResponse(ImmutableMap.of(
-            "Question.java", "QuestionTest.java",
-            "Test.java", "UserTest.java",
-            "User.java", "TestTest.java"
-         ))
-      ));
-      fakeSubmission.setGrade(0.0f);
-
-      SubmissionDAO.getInstance().insert(fakeSubmission);
-
+      FakeDataSrvc.addFakeData();
       new Alert(Alert.AlertType.INFORMATION, "Inserted fake data", ButtonType.CLOSE).show();
    }
 }
