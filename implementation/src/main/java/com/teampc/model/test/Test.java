@@ -58,7 +58,7 @@ public class Test implements HasId {
 
    private Teacher owner;
 
-   private ArrayList<Question> questions;
+   private List<Question> questions;
 
    private Key key;
 

@@ -2,6 +2,7 @@ package com.teampc.controller.test;
 
 import com.google.common.base.Strings;
 import com.teampc.dao.TestDAO;
+import com.teampc.model.question.Question;
 import com.teampc.model.test.Test;
 import com.teampc.utils.FXUtils;
 import com.teampc.utils.TestUtils;
@@ -12,6 +13,7 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import jfxtras.scene.control.LocalDateTimeTextField;
+import lombok.Setter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,7 +43,7 @@ public class CreateTestController implements Initializable {
 
    @FXML
    /** The number of questions in this test **/
-   private Spinner numberOfQuestions;
+   private Spinner<Integer> numberOfQuestions;
 
    @FXML
    /** The start date of this test **/
@@ -58,6 +60,9 @@ public class CreateTestController implements Initializable {
    @FXML
    /** Checkbox that enables the end date field **/
    private CheckBox enableEndDate;
+
+   @Setter
+   private List<Question> questions = Collections.emptyList();
 
    /**
     * Initializes the Create Test Options UI with values for the selection lists, spinner, and input boxes
@@ -137,6 +142,7 @@ public class CreateTestController implements Initializable {
       if (endLocalDate != null) { userEndDate = TestUtils.localDateToDate(endLocalDate); }
 
       Test newTest = new Test(testName.getText(), userStartDate, userEndDate, courseType.getText());
+      newTest.setQuestions(questions);
       TestDAO.getInstance().insert(newTest);
       LOG.info("new test submitted");
 
