@@ -1,6 +1,8 @@
 package com.teampc.model.admin;
 
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.Setter;
 
 /**
  * Defines user details including name, username
@@ -30,6 +32,8 @@ public class User {
     **/
    private String password;
 
+   @Setter(AccessLevel.NONE)
+   private boolean admin = false;
 
    /**
     * Default constructor
@@ -46,11 +50,12 @@ public class User {
     * @param lastName  Last Name of the User
     * @param password  Password of the User
     */
-   public User(String username, String firstName, String lastName, String password) {
+   public User(String username, String firstName, String lastName, String password, boolean admin) {
       this.username = username;
       this.firstName = firstName;
       this.lastName = lastName;
       this.password = password;
+      this.admin = admin;
    }
 
    /**

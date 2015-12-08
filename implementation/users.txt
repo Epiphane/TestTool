@@ -1,4 +1,4 @@
-gsawers Greg Sawers abc123
-andy Andy DuFrene password
-j J L 1
+gsawers Greg Sawers abc123 true
+andy Andy DuFrene password true
+j J L 1 true
 jharbaugh Jim Harbaugh goblue

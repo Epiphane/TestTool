@@ -2,6 +2,7 @@ package com.teampc.model.testtaking;
 
 import lombok.*;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -35,5 +36,9 @@ public class MultipleChoiceQuestionResponse extends QuestionResponse<MultipleCho
          return "(No Choices)";
       }
       return answer < 0 || answer >= choices.size() ? "(No Answer)" : choices.get(answer);
+   }
+
+   public static MultipleChoiceQuestionResponse studentResponse(int answer) {
+      return new MultipleChoiceQuestionResponse(answer, Collections.emptyList());
    }
 }

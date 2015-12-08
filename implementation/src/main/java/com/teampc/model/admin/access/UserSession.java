@@ -83,7 +83,7 @@ public class UserSession {
     * @param last The last name of the new USer
     */
    public static void Register(String username, String pass, String first, String last){
-      User user = new User(username, first, last, pass);
+      User user = new User(username, first, last, pass, false);
       userlist.put(username, user);
       registerUser(username, user);
    }
@@ -116,8 +116,9 @@ public class UserSession {
    }
 
    private static void populateUserList(){
-      String filename = "users.txt", line, username;
+      String filename = "users.txt", line, username, firstName, lastName, password;
       Scanner fileScan = null, linescan;
+      boolean isAdmin = false;
       File file = new File(filename);
 
       try{
@@ -132,7 +133,14 @@ public class UserSession {
             line = fileScan.nextLine();
             linescan = new Scanner(line);
             username = linescan.next();
-            User user = new User(username, linescan.next(), linescan.next(), linescan.next());
+            firstName = linescan.next();
+            lastName = linescan.next();
+            password = linescan.next();
+            isAdmin = false;
+            if (linescan.hasNext()) {
+               isAdmin = Boolean.valueOf(linescan.next());
+            }
+            User user = new User(username, firstName, lastName, password, isAdmin);
             userlist.put(username, user);
          }
       }
