@@ -10,7 +10,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class ViewTestsController extends ListViewController<RowView> {
+public class ViewTestsController extends ListViewController<RowView<TestRowController>> {
 
    private static final String RESOURCE = "view-test-row.fxml";
 
@@ -20,7 +20,7 @@ public class ViewTestsController extends ListViewController<RowView> {
       data = FXCollections.observableArrayList();
 
       List<Test> testList = TestDAO.getInstance().fetchAll();
-      testList.forEach(test -> data.add(new RowView(new TestRowController(test), RESOURCE)));
+      testList.forEach(test -> data.add(new RowView<>(new TestRowController(test), RESOURCE)));
 
       initView();
    }

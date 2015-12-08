@@ -24,9 +24,6 @@ import com.teampc.utils.FXUtils;
 import java.io.*;
 import java.util.*;
 
-/**
- * Created by james on 11/9/15.
- */
 public class TestRowController implements Initializable{
 
    private static final Logger LOG = LoggerFactory.getLogger(TestRowController.class);
@@ -79,7 +76,7 @@ public class TestRowController implements Initializable{
       try {
          FXUtils.switchToScreen(stage, "view-questions-list.fxml");
       } catch (IOException e) {
-         LOG.error("Failed to load question list view" + e.getMessage());
+         LOG.error("Failed to load question list view" + e.getMessage(), e);
       }
    }
 
@@ -103,7 +100,7 @@ public class TestRowController implements Initializable{
           });
 
        } catch (IOException e) {
-          e.printStackTrace();
+          LOG.error("could not show grading for a test", e);
        }
    }
 
@@ -116,7 +113,7 @@ public class TestRowController implements Initializable{
       try {
          FXUtils.switchToScreen(stage, "view-questions-list.fxml");
       } catch (IOException e) {
-         LOG.error("Failed to load question list view" + e.getMessage());
+         LOG.error("Failed to load question list view" + e.getMessage(), e);
       }
 
    }

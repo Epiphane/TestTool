@@ -6,8 +6,8 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="292.0" prefWidth="596.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="com.teampc.controller.test.BeginTestController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="250.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
   <children>
-    <Button layoutX="218.0" layoutY="109.0" mnemonicParsing="false" onAction="#onBegin" prefHeight="74.0" prefWidth="160.0" text="Begin Test" />
+    <Button layoutX="45.0" layoutY="38.0" mnemonicParsing="false" onAction="#onBegin" prefHeight="74.0" prefWidth="160.0" text="Begin Test" />
   </children>
 </AnchorPane>

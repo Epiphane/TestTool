@@ -11,19 +11,19 @@
   <children>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="390.0" prefWidth="640.0" VBox.vgrow="ALWAYS">
       <children>
-        <Label alignment="CENTER" layoutX="155.0" layoutY="177.0" style="&#10;" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
+        <Label alignment="CENTER" layoutX="34.0" layoutY="177.0" prefHeight="23.0" prefWidth="121.0" style="&#10;" text="User Name:" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
           <font>
             <Font size="18.0" />
           </font>
         </Label>
-            <Button fx:id="loginbutton" layoutX="278.0" layoutY="254.0" mnemonicParsing="false" onAction="#onLoginClick" prefHeight="27.0" prefWidth="74.0" text="Login" />
-            <TextField fx:id="username" layoutX="155.0" layoutY="175.0" promptText="User Name" />
+            <TextField fx:id="username" layoutX="155.0" layoutY="175.0" />
+            <PasswordField fx:id="passwordField" layoutX="155.0" layoutY="219.0" />
+            <Button fx:id="loginbutton" layoutX="278.0" layoutY="254.0" mnemonicParsing="false" onAction="#onLoginClick" onKeyReleased="#onKeyReleased" prefHeight="27.0" prefWidth="74.0" text="Login" />
             <TextArea layoutX="123.0" layoutY="29.0" prefHeight="111.0" prefWidth="383.0" text="Welcome to the TestTool &#10;By Team PC">
                <font>
                   <Font name="Helvetica Bold" size="28.0" />
                </font>
             </TextArea>
-            <PasswordField fx:id="passwordField" layoutX="155.0" layoutY="219.0" promptText="Password" />
             <Hyperlink fx:id="register" layoutX="280.0" layoutY="297.0" onAction="#onRegisterClick" text="New User?">
                <font>
                   <Font name="Helvetica Neue Italic" size="13.0" />
@@ -32,6 +32,11 @@
             <Label fx:id="invalidText" layoutX="384.0" layoutY="211.0" text="Invalid Username or Password" textFill="#e40c0c" underline="true" visible="false">
                <font>
                   <Font name="System Italic" size="13.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutX="34.0" layoutY="221.0" prefHeight="23.0" prefWidth="121.0" style="&#10;" text="Password:" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
+               <font>
+                  <Font size="18.0" />
                </font>
             </Label>
       </children>

@@ -1,19 +1,18 @@
 package com.teampc.controller.question;
 
-import com.teampc.dao.QuestionDAO;
 import com.teampc.model.question.InvalidQuestionException;
 import com.teampc.model.question.Question;
 import com.teampc.model.testtaking.QuestionResponse;
-import com.teampc.model.testtaking.ShortAnswerQuestionResponse;
 import com.teampc.utils.FXUtils;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
+import lombok.NonNull;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
@@ -23,6 +22,7 @@ import java.util.function.Consumer;
 
 /**
  * Created by adufrene on 11/30/15.
+ *
  */
 @Slf4j
 public class QuestionEditController {
@@ -63,13 +63,15 @@ public class QuestionEditController {
    @FXML
    private Label title;
 
+   @Setter
+   @NonNull
+   private ExitFunction exitFunction = this::returnToQuestionTable;
+
    private Optional<QuestionTypeController> currentController = Optional.empty();
 
-   @Setter
    private Stage primaryStage;
-
-   @Setter
    private QuestionAction questionAction;
+   private Optional<Integer> questionId = Optional.empty();
 
    /**
     * Visitor to get view node of corresponding question type
@@ -121,10 +123,36 @@ public class QuestionEditController {
       }
    };
 
+    /**
+     * Open Question Edit/New Screen
+     * @throws IOException
+     */
+   public static void openQuestionEdit(Stage primaryStage,
+                                       QuestionAction questionAction,
+                                       Consumer<QuestionEditController> configurationFunc) throws IOException {
+      FXUtils.switchToScreenAndConfigureController(primaryStage, "question-edit-main.fxml",
+         (QuestionEditController controller, Stage stage) -> {
+            controller.setPrimaryStage(stage);
+            controller.setQuestionAction(questionAction);
+            configurationFunc.accept(controller);
+         });
+   }
+
+    /**
+     * Begin edit question flow
+     */
+   public <T extends QuestionResponse> void editQuestion(Question<T> question) {
+      questionType.getSelectionModel().select(question.getType());
+      currentController.ifPresent(controller -> controller.setQuestion(question.getCorrectAnswer()));
+      questionId = Optional.of(question.getId());
+      prompt.setText(question.getPrompt());
+   }
+
    /**
     * Set up question screen, mostly hiding or showing appropriate layouts
     */
    @FXML
+   @SuppressWarnings("unused")
    private void initialize() {
       questionType.setItems(FXCollections.observableArrayList(Question.QuestionType.values()));
       questionType.getSelectionModel().selectedItemProperty().addListener((selected, oldType, newType) -> {
@@ -134,18 +162,39 @@ public class QuestionEditController {
          currentController = Optional.of(newType.accept(controllerQuestionTypeVisitor));
       });
 
+
       codeNode.setVisible(false);
       matchingNode.setVisible(false);
       multipleChoiceNode.setVisible(false);
       shortAnswerNode.setVisible(false);
-
    }
 
    /**
-    * This is essentially a delayed "initialize" method. We need some variables to be set before
-    * we can setup the screen, so we call this method after setting the variables.
+    * Set the questionAction, perform ui configuration from new action
     */
-   public void configureFromAction() {
+   public void setQuestionAction(QuestionAction questionAction) {
+      if (questionAction == null) {
+         throw new NullPointerException("Question Action cannot be null");
+      }
+      this.questionAction = questionAction;
+      configureFromAction();
+   }
+
+    /**
+     * Set primary stage, and set nested controllers
+     */
+   public void setPrimaryStage(Stage primaryStage) {
+      if (primaryStage == null) {
+         throw new NullPointerException("Primary Stage cannot be null");
+      }
+      this.primaryStage = primaryStage;
+      codeNodeController.setPrimaryStage(primaryStage);
+   }
+
+   /**
+    * Configure based on question action
+    */
+   private void configureFromAction() {
       questionAction.displaySaveAsNewButton(saveAsNewButton);
       title.setText(questionAction.getTitle());
    }
@@ -154,33 +203,50 @@ public class QuestionEditController {
      * Save question or update question depending on if this is a new or existing question
      */
    @FXML
+   @SuppressWarnings("unused")
    private void saveQuestion() throws IOException {
-      saveQuestionUsingSaver(questionAction::save);
+      saveQuestionUsingSaver(questionAction::save, questionId);
    }
 
    /**
     * Save question as new question
     */
    @FXML
+   @SuppressWarnings("unused")
    private void saveAsNewQuestion() throws IOException {
-      saveQuestionUsingSaver(questionAction::saveAsNew);
+      saveQuestionUsingSaver(questionAction::saveAsNew, Optional.empty());
+   }
+
+   @FXML
+   void onKeyReleased(KeyEvent event) throws IOException {
+      if (event.getCode().equals(KeyCode.ENTER)) {
+         ActionEvent.fireEvent(event.getTarget(), new ActionEvent());
+      }
    }
 
    /**
     * Save question using supplied questionSaver consumer, then exit screen
     */
-   private void saveQuestionUsingSaver(Consumer<Question> questionSaver) throws IOException {
+   private void saveQuestionUsingSaver(Consumer<Question> questionSaver, Optional<Integer> maybeId) throws IOException {
       currentController.ifPresent(controller -> {
          try {
-            Question question = controller.createQuestion(prompt.getCharacters().toString());
-            questionAction.save(question);
+            Question question = controller.createQuestion(prompt.getCharacters().toString(), maybeId);
+            questionSaver.accept(question);
+            exitFunction.exit();
          } catch (InvalidQuestionException e) {
             log.error("Error creating question, not saving", e);
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Error saving question: " + e.getMessage(), ButtonType.CLOSE);
+            alert.show();
+         } catch (IOException e) {
+            log.error("Error returning to question table screen");
          }
       });
-      returnToQuestionTable();
    }
 
+   /**
+    * return to question table screen
+    * @throws IOException
+     */
    private void returnToQuestionTable() throws IOException {
       FXUtils.switchToScreenAndConfigureController(primaryStage, "question-table.fxml", QuestionTableController::setPrimaryStage);
    }
@@ -189,8 +255,14 @@ public class QuestionEditController {
      * Cancel the question creation process and return to the table
      */
    @FXML
+   @SuppressWarnings("unused")
    private void cancel() throws IOException {
-      returnToQuestionTable();
+      exitFunction.exit();
+   }
+
+   @FunctionalInterface
+   public interface ExitFunction {
+      void exit() throws IOException;
    }
 
 }

@@ -22,4 +22,5 @@ public class QuestionDAO extends AbstractDAO<Question> {
    protected Class<Question> getEntityClass() {
       return Question.class;
    }
+
 }

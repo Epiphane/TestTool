@@ -1,6 +1,7 @@
 package com.teampc.controller.test;
 
 import com.teampc.model.admin.access.UserSession;
+import com.teampc.controller.questionview.QuestionViewController;
 import com.teampc.model.test.*;
 import com.teampc.model.testtaking.*;
 import com.teampc.model.question.*;
@@ -14,7 +15,7 @@ import javafx.fxml.FXML;
 import javafx.stage.Stage;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.text.Text;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,7 +47,7 @@ public class TakeTestController {
    private Text descTimeLimit;
 
    @FXML
-   private Pane questionPane;
+   private ScrollPane questionPane;
 
    @FXML
    private Text questionNumber;
@@ -56,7 +57,7 @@ public class TakeTestController {
    private Text prompt;
 
    private Test test;
-   private TestSectionController currentQuestionController;
+   private QuestionViewController currentQuestionController;
    private int currentQuestion;
 
    private Submission submission;
@@ -93,46 +94,66 @@ public class TakeTestController {
    }
 
    /**
+    * Loads a question and draws the UI for it
+    */
+   private void drawQuestionUI(String fileString, Question question) throws IOException {
+      LOG.info("Loading " + fileString + "...");
+      FXMLLoader loader = new FXMLLoader(FXUtils.class.getClassLoader().getResource("question/" + fileString + ".fxml"));
+
+      if (question == null) {
+         questionNumber.setText("");
+
+         currentQuestionController = null;
+         loader.setController(this);
+      }
+
+      Scene newScene = new Scene(loader.load());
+      if (question != null) {
+         questionNumber.setText("Question " + (currentQuestion + 1));
+
+         currentQuestionController = loader.getController();
+         currentQuestionController.setQuestion(question);
+      }
+
+      LOG.info("Adding question to pane...");
+      questionPane.setContent(newScene.getRoot());
+   }
+
+   /**
     * Sets which question is currently being worked on
     */
    private void setQuestion(int qNumber) throws IOException {
-      QuestionResponse question = null;
-      String questionFileString = "begin-test";
-
-      currentQuestion = -1;
-      questionNumber.setText("");
-
-      if (submission != null) {
-         int numQuestions = submission.getResponses().size();
-         if (qNumber < 0) {
-            qNumber = 0;
-         }
-         else if (qNumber >= numQuestions) {
-            qNumber = numQuestions;
-            questionFileString = "complete-test";
-         }
-
-         if (qNumber < numQuestions) {
-            question = submission.getResponses().get(qNumber);
-
-            questionFileString = question.getQuestion().getType().getFileString();
-            questionNumber.setText("Question " + (qNumber + 1));
-         }
-
-         currentQuestion = qNumber;
+      if (submission == null) {
+         drawQuestionUI("begin-test", null);
+         return;
       }
 
-      LOG.info("Loading question type " + questionFileString + "...");
-      FXMLLoader loader = new FXMLLoader(FXUtils.class.getClassLoader().getResource("question/" + questionFileString + ".fxml"));
+      currentQuestion = qNumber;
+      questionNumber.setText("");
 
-      Scene newScene = new Scene(loader.load());
-      currentQuestionController = loader.getController();
-      currentQuestionController.setParent(this);
-      currentQuestionController.setQuestion(question);
+      int numQuestions = submission.getTest().getQuestions().size();
+      if (currentQuestion < 0) {
+         currentQuestion = 0;
+      }
+      
+      if (currentQuestion >= numQuestions) {
+         currentQuestion = numQuestions;
+         drawQuestionUI("complete-test", null);
+         return;
+      }
 
-      LOG.info("Adding question to pane...");
-      questionPane.getChildren().clear();
-      questionPane.getChildren().add(newScene.getRoot());
+      Question question = submission.getTest().getQuestions().get(currentQuestion);
+
+      drawQuestionUI(question.getType().getFileString(), question);
+
+      if (currentQuestionController != null) {
+         // Attempt to auto-populate response
+         QuestionResponse response = submission.getResponses().get(currentQuestion);
+
+         if (response != null) {
+            currentQuestionController.setResponse(response);
+         }
+      }
    }
 
    @FXML
@@ -147,20 +168,29 @@ public class TakeTestController {
       setQuestion(0);
    }
 
+   private void save() {
+      if (currentQuestionController != null) {
+         QuestionResponse response = currentQuestionController.getResponse();
+
+         if (response == null) {
+            return;
+         }
+         
+         response.setQuestion(test.getQuestions().get(currentQuestion));
+         submission.getResponses().set(currentQuestion, response);
+      }
+   }
+
    @FXML
    public void onNext(ActionEvent event) throws IOException {
-      if (currentQuestionController != null) {
-         currentQuestionController.onLeave();
-      }
+      save();
 
       setQuestion(currentQuestion + 1);
    }
 
    @FXML
    public void onPrev(ActionEvent event) throws IOException {
-      if (currentQuestionController != null) {
-         currentQuestionController.onLeave();
-      }
+      save();
 
       setQuestion(currentQuestion - 1);
    }

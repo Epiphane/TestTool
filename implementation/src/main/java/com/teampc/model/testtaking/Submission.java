@@ -1,5 +1,6 @@
 package com.teampc.model.testtaking;
 
+import com.teampc.dao.HasId;
 import com.teampc.model.admin.*;
 import com.teampc.model.test.*;
 import java.util.*;
@@ -7,6 +8,7 @@ import java.util.*;
 import com.teampc.model.automation.*;
 
 import lombok.Data;
+import lombok.Getter;
 
 /**
  * An instance of an in-progress test being taken
@@ -14,22 +16,27 @@ import lombok.Data;
  *
  */
 @Data
-public class Submission {
+public class Submission implements HasId {
+
+   private int id;
 
    private Test test;
 
    public User taker;
 
-   public ArrayList<QuestionResponse> responses = new ArrayList<QuestionResponse>();
+   public ArrayList<QuestionResponse> responses = new ArrayList<>();
 
    private boolean complete;
 
    public float grade;
 
+   @Getter
+   private boolean isGraded = false;
+
    /**
     * Return whether the test is complete or not
     */
-   public boolean isComplete() { 
+   public boolean isComplete() {
       return complete;
    }
 
@@ -55,6 +62,8 @@ public class Submission {
       for (QuestionResponse q: responses) {
          grade += q.getPointsReceived();
       }
+
+      isGraded = true;
    }
 
 }

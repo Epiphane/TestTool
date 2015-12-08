@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="207.5" prefWidth="497.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="com.teampc.controller.questionview.MatchingQuestionController">
+  <children>
+    <Text fx:id="prompt" layoutX="64.0" layoutY="33.0" scaleX="1.5" scaleY="1.5" strokeType="OUTSIDE" strokeWidth="0.0" text="Question Prompt" />
+    <ListView id="leftSide" fx:id="pairs" layoutX="44.0" layoutY="56.0" prefHeight="127.0" prefWidth="406.0" />
+  </children>
+</Pane>
