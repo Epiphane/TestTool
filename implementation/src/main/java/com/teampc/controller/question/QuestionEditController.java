@@ -5,9 +5,12 @@ import com.teampc.model.question.Question;
 import com.teampc.model.testtaking.QuestionResponse;
 import com.teampc.utils.FXUtils;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import lombok.NonNull;
 import lombok.Setter;
@@ -212,6 +215,13 @@ public class QuestionEditController {
    @SuppressWarnings("unused")
    private void saveAsNewQuestion() throws IOException {
       saveQuestionUsingSaver(questionAction::saveAsNew, Optional.empty());
+   }
+
+   @FXML
+   void onKeyReleased(KeyEvent event) throws IOException {
+      if (event.getCode().equals(KeyCode.ENTER)) {
+         ActionEvent.fireEvent(event.getTarget(), new ActionEvent());
+      }
    }
 
    /**

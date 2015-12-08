@@ -17,6 +17,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -107,6 +108,8 @@ public class QuestionSearchController implements Initializable {
             }
          }
       });
+
+      questionListView.setCellFactory(param -> new QuestionRow());
 
       //Set up the question list stuff
       questionListView.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -218,4 +221,15 @@ public class QuestionSearchController implements Initializable {
       primaryStage = stage;
    }
 
+   private static class QuestionRow extends ListCell<Question> {
+      @Override
+      protected void updateItem(Question item, boolean empty) {
+         super.updateItem(item, empty);
+         if (empty) {
+            setText(null);
+         } else {
+            setText(String.format(Locale.getDefault(), "%s -- %s -- %s", item.getPrompt(), item.getType(), item.getCorrectAnswer()));
+         }
+      }
+   }
 }

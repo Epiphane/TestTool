@@ -8,6 +8,6 @@
    <children>
       <ListView fx:id="choices" editable="true" layoutX="23.0" layoutY="14.0" prefHeight="200.0" prefWidth="390.0" />
       <TextField fx:id="answerField" layoutX="23.0" layoutY="223.0" prefHeight="26.0" prefWidth="292.0" promptText="Answer" />
-      <Button layoutX="323.0" layoutY="223.0" mnemonicParsing="false" onAction="#newRow" text="New Choice" />
+      <Button layoutX="323.0" layoutY="223.0" mnemonicParsing="false" onAction="#newRow" text="New Choice" onKeyReleased="#onKeyReleased" />
    </children>
 </Pane>

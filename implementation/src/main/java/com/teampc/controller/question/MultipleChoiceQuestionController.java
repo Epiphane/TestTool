@@ -4,9 +4,12 @@ import com.google.common.base.Preconditions;
 import com.teampc.model.question.InvalidQuestionException;
 import com.teampc.model.question.Question;
 import com.teampc.model.testtaking.MultipleChoiceQuestionResponse;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
@@ -142,6 +145,13 @@ public class MultipleChoiceQuestionController implements QuestionTypeController<
 
             setGraphic(rowController.getBox());
          }
+      }
+   }
+
+   @FXML
+   void onKeyReleased(KeyEvent event) throws IOException {
+      if (event.getCode().equals(KeyCode.ENTER)) {
+         ActionEvent.fireEvent(event.getTarget(), new ActionEvent());
       }
    }
 
