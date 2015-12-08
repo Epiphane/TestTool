@@ -7,6 +7,7 @@ import com.teampc.controller.question.QuestionTableController;
 import com.teampc.dao.QuestionDAO;
 import com.teampc.dao.SubmissionDAO;
 import com.teampc.dao.TestDAO;
+import com.teampc.model.admin.Student;
 import com.teampc.model.admin.Teacher;
 import com.teampc.model.admin.access.UserSession;
 import com.teampc.model.admin.course.Course;
@@ -45,7 +46,7 @@ public class NavBarController {
 
    @FXML
    private void initialize() {
-      if (UserSession.getLoggedInUser() instanceof Teacher) {
+      if (UserSession.getLoggedInUser() instanceof Student) {
          fakeDataButton.setVisible(false);
       } else {
          fakeDataButton.setVisible(true);
