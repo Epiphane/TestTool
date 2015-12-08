@@ -1,5 +1,6 @@
 package com.teampc.model.admin;
 
+import com.google.common.collect.Lists;
 import com.teampc.model.admin.course.Course;
 
 import lombok.Data;
@@ -14,12 +15,12 @@ import java.util.List;
  */
 @Data
 @EqualsAndHashCode(callSuper=true)
-public abstract class Teacher extends User {
+public class Teacher extends User {
 
     /**
      * List of classes the Teacher is instructing.
      */
-    private List/*<Course>*/ courses;
+    private List<Course> courses = Lists.newArrayList();
 
     /**
      * Create a new instance of a Teacher
@@ -28,8 +29,8 @@ public abstract class Teacher extends User {
      * @param first  The Teacher's first name
      * @param last  The Teacher's last name
      */
-    public Teacher(String username, String first, String last){
-        super(username, first, last);
+    public Teacher(String username, String first, String last, String password, boolean isAdmin){
+        super(username, first, last, password, isAdmin);
     }
 
     /**
@@ -40,7 +41,9 @@ public abstract class Teacher extends User {
       post: this.getCourses() != null && this.getCourses().size() > 0 && this.isAssignedToAllCourses()
 
      */
-    public abstract void addCourse(Course course);
+    public void addCourse(Course course) {
+       courses.add(course);
+    }
 
     /**
      * Remove the course from the Teacher's list of courses.
@@ -50,7 +53,9 @@ public abstract class Teacher extends User {
       post: this.getCourses() != null && this.isAssignedToAllCourses()
 
      */
-    public abstract void removeCourse(Course course);
+    public void removeCourse(Course course) {
+       courses.remove(course);
+    }
 
     /**
      * Determines if teacher is currently teaching a given course.
@@ -59,11 +64,13 @@ public abstract class Teacher extends User {
 
       post: this.getCourses() != null && this.isAssignedToAllCourses()
     */
-    public abstract void teachesCourse(Course course);
+    public boolean teachesCourse(Course course) {
+       return courses.contains(course);
+    }
 
 
     boolean isAssignedToAllCourses() {
-       return this.courses.stream().allMatch(course -> ((Course) course).getTeacher().equals(this));
+       return this.courses.stream().allMatch(course -> course.getTeacher().equals(this));
     }
 
 }
