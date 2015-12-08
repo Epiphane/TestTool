@@ -16,16 +16,16 @@ import org.slf4j.LoggerFactory;
 /**
  * Created by james on 11/9/15.
  */
-public class RowView extends Pane {
+public class RowView<T> extends Pane {
    private static final Logger LOG = LoggerFactory.getLogger(TestRowController.class);
 
    @FXML
    private Node testRow;
 
    @Getter
-   private Object controller;
+   private T controller;
 
-   public RowView(Object controller, String resource) {
+   public RowView(T controller, String resource) {
       this.controller = controller;
 
       FXMLLoader loader = new FXMLLoader(

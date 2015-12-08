@@ -52,7 +52,7 @@ public class NavBarController {
    }
 
    private void showLayout(String resource) throws IOException {
-      FXUtils.newScreenAndConfigureController(resource, (x, y) -> {});
+      FXUtils.newScreenAndConfigureController(resource, FXUtils::noop);
    }
 
 }

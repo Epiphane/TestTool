@@ -24,9 +24,7 @@ public class ViewQuestionsController extends ListViewController<RowView> {
       List<Question> questionList = QuestionDAO.getInstance().fetchAll();
       questionList.forEach(question -> {
          Optional<QuestionPreviewController> controller = QuestionPreviewFactory.getQuestionController(question);
-         if(controller.isPresent()) {
-            data.add(new RowView(controller.get(), RESOURCE));
-         }
+         controller.ifPresent(c -> data.add(new RowView<>(c, RESOURCE)));
       });
 
       initView();

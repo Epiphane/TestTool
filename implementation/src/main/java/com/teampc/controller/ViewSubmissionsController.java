@@ -14,7 +14,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
 
-public class ViewSubmissionsController extends ListViewController<RowView> {
+public class ViewSubmissionsController extends ListViewController<RowView<SubmissionRowController>> {
 
    private static final String RESOURCE = "view-grade.fxml";
 
@@ -81,7 +81,7 @@ public class ViewSubmissionsController extends ListViewController<RowView> {
       final Key keyPC = key;
       submissions.stream().forEach(nextSubmission -> nextSubmission.gradeTest(keyPC));
 
-      submissions.forEach(submission -> data.add(new RowView(new SubmissionRowController(submission), RESOURCE)));
+      submissions.forEach(submission -> data.add(new RowView<>(new SubmissionRowController(submission), RESOURCE)));
       initView();
    }
 

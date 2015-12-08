@@ -9,6 +9,8 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import lombok.NonNull;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
@@ -57,6 +59,10 @@ public class QuestionEditController {
 
    @FXML
    private Label title;
+
+   @Setter
+   @NonNull
+   private ExitFunction exitFunction = this::returnToQuestionTable;
 
    private Optional<QuestionTypeController> currentController = Optional.empty();
 
@@ -164,6 +170,9 @@ public class QuestionEditController {
     * Set the questionAction, perform ui configuration from new action
     */
    public void setQuestionAction(QuestionAction questionAction) {
+      if (questionAction == null) {
+         throw new NullPointerException("Question Action cannot be null");
+      }
       this.questionAction = questionAction;
       configureFromAction();
    }
@@ -172,6 +181,9 @@ public class QuestionEditController {
      * Set primary stage, and set nested controllers
      */
    public void setPrimaryStage(Stage primaryStage) {
+      if (primaryStage == null) {
+         throw new NullPointerException("Primary Stage cannot be null");
+      }
       this.primaryStage = primaryStage;
       codeNodeController.setPrimaryStage(primaryStage);
    }
@@ -210,7 +222,7 @@ public class QuestionEditController {
          try {
             Question question = controller.createQuestion(prompt.getCharacters().toString(), maybeId);
             questionSaver.accept(question);
-            returnToQuestionTable();
+            exitFunction.exit();
          } catch (InvalidQuestionException e) {
             log.error("Error creating question, not saving", e);
             Alert alert = new Alert(Alert.AlertType.ERROR, "Error saving question: " + e.getMessage(), ButtonType.CLOSE);
@@ -235,7 +247,12 @@ public class QuestionEditController {
    @FXML
    @SuppressWarnings("unused")
    private void cancel() throws IOException {
-      returnToQuestionTable();
+      exitFunction.exit();
+   }
+
+   @FunctionalInterface
+   public interface ExitFunction {
+      void exit() throws IOException;
    }
 
 }

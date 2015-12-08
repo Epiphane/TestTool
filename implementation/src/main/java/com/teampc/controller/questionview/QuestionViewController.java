@@ -1,11 +1,9 @@
 package com.teampc.controller.questionview;
 
-import com.teampc.model.question.InvalidQuestionException;
 import com.teampc.model.question.Question;
 import com.teampc.model.testtaking.QuestionResponse;
 import javafx.fxml.FXML;
 import javafx.scene.text.Text;
-import javafx.scene.control.TextField;
 
 /**
  * Created by adufrene on 11/30/15.
