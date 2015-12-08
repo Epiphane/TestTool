@@ -293,16 +293,19 @@ public class TakeTestController {
 
    @FXML
    public void onDeleteQuestion(ActionEvent event) {
+      if(currentQuestion < 0 || currentQuestion >= questionsList.size()) { return; }
       submission.getTest().removeQuestion(questionsList.get(currentQuestion));
    }
 
    @FXML
    public void onUpQuestion(ActionEvent event) {
+      if(currentQuestion < 0 || currentQuestion >= questionsList.size()) { return; }
       submission.getTest().moveQuestionUp(questionsList.get(currentQuestion));
    }
 
    @FXML
    public void onDownQuestion(ActionEvent event) {
+      if(currentQuestion < 0 || currentQuestion >= questionsList.size()) { return; }
       submission.getTest().moveQuestionDown(questionsList.get(currentQuestion));
    }
 
