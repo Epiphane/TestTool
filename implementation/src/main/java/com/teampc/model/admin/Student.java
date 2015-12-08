@@ -31,8 +31,17 @@ public class Student extends User implements Comparable<Student> {
       super(username, firstName, lastName);
    }
 
+   @Override
+   public UserType getType() {
+      return UserType.STUDENT;
+   }
+
    public Student(String username, String firstName, String lastName, String pass){
       super(username, firstName, lastName, pass);
+   }
+
+   public Student(String username, String firstName, String lastName, String pass, boolean admin) {
+      super(username, firstName, lastName, pass, admin);
    }
 
    /**

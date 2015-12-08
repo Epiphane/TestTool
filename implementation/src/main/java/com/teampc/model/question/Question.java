@@ -4,6 +4,7 @@ import com.teampc.dao.HasId;
 import lombok.Data;
 
 import com.teampc.model.testtaking.*;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * A class that represents a test question.
@@ -13,6 +14,7 @@ import com.teampc.model.testtaking.*;
  */
 
 @Data
+@Slf4j
 public class Question<T extends QuestionResponse> implements HasId {
 
    private int id;
@@ -106,7 +108,7 @@ public class Question<T extends QuestionResponse> implements HasId {
          }
          catch (Exception e) {
             // Should never happen
-            System.out.println("Something went wrong with creation");
+            log.error("Something went wrong with creation", e);
             return null;
          }
       }

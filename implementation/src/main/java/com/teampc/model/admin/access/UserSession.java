@@ -66,7 +66,7 @@ public class UserSession {
          User user = userlist.get(username);
          loggedInUser = user;
          loggedIn = true;
-         System.out.println(user.getClass());
+         log.debug("New user of type: " + user.getType());
          return true;
       }
       /**
@@ -130,7 +130,7 @@ public class UserSession {
 
    private static void populateUserList(){
 
-      String filename = "users.txt", line, username, firstName, lastName, password, clazz;;
+      String filename = "users.txt", line, username, firstName, lastName, password, type;;
 
       Scanner fileScan = null, linescan;
       boolean isAdmin = false;
@@ -149,14 +149,28 @@ public class UserSession {
 
             if(!line.equals("")) {
                linescan = new Scanner(line);
-               clazz = linescan.next();
+               type = linescan.next();
                username = linescan.next();
-               if (clazz.equals("Teacher")) {
-                  Teacher user = new Teacher(username, linescan.next(), linescan.next(), linescan.next());
-                  userlist.put(username, user);
-               } else {
-                  Student user = new Student(username, linescan.next(), linescan.next(), linescan.next());
-                  userlist.put(username, user);
+               firstName = linescan.next();
+               lastName = linescan.next();
+               password = linescan.next();
+               isAdmin = false;
+               if (linescan.hasNext()) {
+                  isAdmin = Boolean.valueOf(linescan.next());
+               }
+
+               User user;
+               switch (User.UserType.valueOf(type.toUpperCase())) {
+                  case TEACHER:
+                     user = new Teacher(username, firstName, lastName, password, isAdmin);
+                     userlist.put(username, user);
+                     break;
+                  case STUDENT:
+                     user = new Student(username, firstName, lastName, password, isAdmin);
+                     userlist.put(username, user);
+                     break;
+                  default:
+                     log.warn("Could not determine user type from: " + type);
                }
             }
 
@@ -172,16 +186,18 @@ public class UserSession {
 
    private static void registerUser(String username, User user){
 
-      String fileName = "";
-
       String output;
-      if(user instanceof Teacher){
-         System.out.println("Teacher being registered");
-         output = "Teacher ";
-      }
-      else{
-         System.out.println("Student being registered");
-         output = "Student ";
+      switch (user.getType()) {
+         case TEACHER:
+            log.debug("Teacher being registered");
+            output = "Teacher";
+            break;
+         case STUDENT:
+            log.debug("Student being registered");
+            output = "Student";
+            break;
+         default:
+            throw new IllegalArgumentException("Unknown user type: " + user.getType());
       }
       output = output + username + " " + user.getFirstName() + " " + user.getLastName() + " " + user.getPassword() + "\n";
 

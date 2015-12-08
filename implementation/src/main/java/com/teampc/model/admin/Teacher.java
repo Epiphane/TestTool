@@ -37,9 +37,17 @@ public class Teacher extends User {
        super(username, first, last, pass);
     }
 
+   public Teacher(String username, String first, String last, String pass, boolean admin) {
+      super(username, first, last, pass, admin);
+   }
+
+   @Override
+   public UserType getType() {
+      return UserType.TEACHER;
+   }
 
 
-    /**
+   /**
      * Add the course to the Teacher's list of courses, and, if necessary, set the courses teacher to this teacher.
      * @param course Which course to add
       pre: this.getCourses() != null && this.isAssignedToAllCourses()
