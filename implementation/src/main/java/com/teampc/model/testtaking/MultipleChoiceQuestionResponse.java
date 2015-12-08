@@ -31,6 +31,9 @@ public class MultipleChoiceQuestionResponse extends QuestionResponse<MultipleCho
 
    @Override
    public String toString() {
+      if (choices == null) {
+         return "(No Choices)";
+      }
       return answer < 0 || answer >= choices.size() ? "(No Answer)" : choices.get(answer);
    }
 }

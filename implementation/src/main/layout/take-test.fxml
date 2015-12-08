@@ -27,12 +27,7 @@
           <children>
             <BorderPane layoutX="0.0" layoutY="1.0" prefHeight="308.0" prefWidth="596.0">
               <bottom>
-                <AnchorPane prefHeight="38.0" prefWidth="596.0">
-                  <children>
-                    <Button layoutX="14.0" layoutY="9.0" mnemonicParsing="false" onAction="#onPrev" text="Prev" />
-                    <Button layoutX="71.0" layoutY="10.0" mnemonicParsing="false" onAction="#onNext" text="Next" />
-                  </children>
-                </AnchorPane>
+                <AnchorPane prefHeight="38.0" prefWidth="596.0" />
               </bottom>
               <center>
                 <ScrollPane fx:id="questionPane" prefHeight="200.0" prefWidth="200.0">
@@ -49,9 +44,21 @@
                 </AnchorPane>
               </top>
             </BorderPane>
+        <Button layoutX="18.0" layoutY="303.0" mnemonicParsing="false" onAction="#onPrev" text="Prev" />
+        <Button layoutX="73.0" layoutY="303.0" mnemonicParsing="false" onAction="#onNext" text="Next" />
           </children>
         </AnchorPane>
       </items>
     </SplitPane>
+      <Pane fx:id="gradingSection" layoutX="141.0" layoutY="377.0" prefHeight="100.0" prefWidth="453.0">
+         <children>
+            <Text layoutX="20.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Comment" />
+            <TextField fx:id="gradingComment" layoutX="14.0" layoutY="37.0" />
+            <Button fx:id="saveCommentButton" layoutX="17.0" layoutY="64.0" mnemonicParsing="false" onAction="#onClickSaveCommentButton" text="Save Comment" />
+            <Text layoutX="267.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Grade:" />
+            <TextField fx:id="gradingGradeInput" layoutX="267.0" layoutY="37.0" />
+            <Button fx:id="saveGradeButton" layoutX="267.0" layoutY="64.0" mnemonicParsing="false" onAction="#onClickSaveGradeButton" text="Save Grade" />
+         </children>
+      </Pane>
   </children>
 </AnchorPane>

@@ -14,12 +14,15 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.text.Text;
+import lombok.Getter;
+import lombok.Setter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -69,6 +72,21 @@ public class TakeTestController {
    @FXML
    private Button editQuestionDown;
 
+   // grading stuff
+   @FXML
+   private Pane gradingSection;
+   @FXML
+   private TextField gradingComment;
+   @FXML
+   private Button saveCommentButton;
+   @FXML
+   private TextField gradingGradeInput;
+   @FXML
+   private Button saveGradeButton;
+
+   @Getter
+   private boolean isGrading = false;
+
    private Test test;
    private QuestionViewController currentQuestionController;
    private int currentQuestion;
@@ -80,6 +98,43 @@ public class TakeTestController {
 
    public TakeTestController() {
       submissionDAO = SubmissionDAO.getInstance();
+   }
+
+   private void setGradingViewStuff() {
+      QuestionResponse response = submission.getResponses().get(currentQuestion);
+
+      gradingComment.setText(response.getComment());
+      gradingGradeInput.setText("" + response.getPointsReceived());
+   }
+
+   @FXML
+   void onClickSaveCommentButton() {
+      LOG.debug("clicked \"Save Comment\"");
+      if (isGrading) {
+         QuestionResponse response = submission.getResponses().get(currentQuestion);
+         response.setComment(gradingComment.getText());
+         SubmissionDAO.getInstance().update(submission);
+      }
+   }
+
+   @FXML
+   void onClickSaveGradeButton() {
+      LOG.debug("clicked \"Save Grade\"");
+      if (isGrading) {
+         try {
+            QuestionResponse response = submission.getResponses().get(currentQuestion);
+            response.setPointsReceived(Integer.parseInt(gradingGradeInput.getText()));
+            SubmissionDAO.getInstance().update(submission);
+         }
+         catch (NumberFormatException e) {
+            LOG.debug("gradingGradeInput not formatted as Integer", e);
+         }
+      }
+   }
+
+   public void setSubmission(Submission s) {
+      submission = s;
+
    }
 
    /**
@@ -106,7 +161,19 @@ public class TakeTestController {
       else {
          this.setQuestion(submission.getNextUnansweredQuestion());
       }
+
+      setIsGrading(false);
    }
+
+   public void setIsGrading(boolean isGrading) {
+      this.isGrading = isGrading;
+      gradingSection.setVisible(this.isGrading);
+      if (isGrading) {
+         setGradingViewStuff();
+         currentQuestion = 0;
+      }
+   }
+
 
    /**
     * Loads a question and draws the UI for it
@@ -167,6 +234,10 @@ public class TakeTestController {
 
          if (response != null) {
             currentQuestionController.setResponse(response);
+         }
+
+         if (isGrading) {
+
          }
       }
    }
