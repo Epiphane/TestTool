@@ -5,6 +5,7 @@ import java.util.Map;
 import com.google.common.collect.Maps;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 /**
  * An answer to a matching question.
@@ -13,6 +14,7 @@ import lombok.AllArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MatchingQuestionResponse extends QuestionResponse<MatchingQuestionResponse> {
+   @Getter
    private Map<String, String> pairings;
 
    /** {@inheritDoc} */

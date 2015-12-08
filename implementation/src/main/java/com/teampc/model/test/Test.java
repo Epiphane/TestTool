@@ -1,20 +1,22 @@
 package com.teampc.model.test;
 
-import com.google.common.collect.Lists;
+import com.teampc.dao.HasId;
+import com.teampc.model.admin.Teacher;
+import com.teampc.model.admin.User;
+import com.teampc.model.admin.course.Course;
+import com.teampc.model.question.Question;
+import com.teampc.model.testtaking.Key;
+import com.teampc.model.testtaking.QuestionResponse;
+import com.teampc.model.testtaking.Submission;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.persistence.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
-import java.text.*;
-
-import com.teampc.model.admin.*;
-import com.teampc.model.admin.course.Course;
-import com.teampc.model.question.*;
-import com.teampc.model.testtaking.*;
 
 /**
  * A general Test Class
@@ -26,7 +28,8 @@ import com.teampc.model.testtaking.*;
 @Table(name = "TEST")
 @EqualsAndHashCode(exclude={"id","course","owner","questions","published"})
 @Slf4j
-public class Test {
+@NoArgsConstructor
+public class Test implements HasId {
 
    @Id
    @GeneratedValue(strategy = GenerationType.AUTO)
@@ -52,8 +55,11 @@ public class Test {
 
    private Teacher owner;
 
-   public ArrayList<Question> questions;
+   private List<Question> questions;
 
+   private Key key;
+
+   @Column(name = "published")
    private boolean published;
 
    public Test(String name, Date startDate, Date endDate, String courseName) {
@@ -63,10 +69,6 @@ public class Test {
       this.courseName = courseName;
 
       this.questions = new ArrayList<>();
-   }
-
-   public Test() {
-
    }
 
    /**
@@ -139,6 +141,10 @@ public class Test {
 
       String info = courseName + " " + name + " - ";
 
+      if(startDate == null || endDate == null) {
+         return info;
+      }
+
       if (today.compareTo(startDate) < 0) {
          return info + " opens on " + df.format(startDate);
       }
@@ -197,7 +203,7 @@ public class Test {
    * Returns whether or not the test has been published
    */
    public boolean isPublished() {
-      return false;
+      return published;
    }
 
    /**
@@ -216,13 +222,9 @@ public class Test {
       newSubmission.setTaker(forUser);
       newSubmission.setTest(this);
 
-      ArrayList<QuestionResponse> responseShells = new ArrayList<QuestionResponse>();
-   
-      for (int qNum = 0; qNum < questions.size(); qNum ++) {   
-         responseShells.add(questions.get(qNum).createResponse());   
-      }
-
-      newSubmission.setResponses(responseShells);
+      ArrayList<QuestionResponse> responses = new ArrayList<QuestionResponse>();
+      questions.forEach(question -> responses.add(null));
+      newSubmission.setResponses(responses);
 
       return newSubmission;
    }
@@ -234,5 +236,27 @@ public class Test {
    */
    public Optional<Test> retake() {
       return Optional.empty();
+   }
+
+   public void removeQuestion(Question question) {
+      if(question == null) { return; }
+      questions.remove(question);
+   }
+
+   public void moveQuestionUp(Question question) {
+      if(question == null || !questions.contains(question)) { return; }
+
+      int curIndex = questions.indexOf(question);
+      if(curIndex <= 0) { return; } // do nothing if first question
+      Collections.swap(questions, curIndex, curIndex - 1);
+   }
+
+   public void moveQuestionDown(Question question) {
+      if(question == null || !questions.contains(question)) { return; }
+
+      int curIndex = questions.indexOf(question);
+      if(curIndex >= questions.size() - 1) { return; } // do nothing if last question
+      Collections.swap(questions, curIndex, curIndex + 1);
+
    }
 }

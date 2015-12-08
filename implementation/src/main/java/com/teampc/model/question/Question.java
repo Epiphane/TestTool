@@ -1,5 +1,6 @@
 package com.teampc.model.question;
 
+import com.teampc.dao.HasId;
 import lombok.Data;
 
 import com.teampc.model.testtaking.*;
@@ -12,7 +13,10 @@ import com.teampc.model.testtaking.*;
  */
 
 @Data
-public class Question<T extends QuestionResponse> {
+public class Question<T extends QuestionResponse> implements HasId {
+
+   private int id;
+
    /**
     * The text prompt for the question.
     */
@@ -96,15 +100,15 @@ public class Question<T extends QuestionResponse> {
          return fileString;
       }
 
-      public QuestionResponse createResponse() {   
-         try {   
-            return (QuestionResponse) responseClass.getConstructor().newInstance(new Object[] {});   
-         }   
-         catch (Exception e) {   
-            // Should never happen  
+      public QuestionResponse createResponse() {
+         try {
+            return (QuestionResponse) responseClass.getConstructor().newInstance(new Object[] {});
+         }
+         catch (Exception e) {
+            // Should never happen
             System.out.println("Something went wrong with creation");
-            return null;   
-         }   
+            return null;
+         }
       }
    }
 
@@ -115,7 +119,7 @@ public class Question<T extends QuestionResponse> {
       T visitShortAnswer();
    }
 
-     
+
    public QuestionResponse createResponse() {
       QuestionResponse result = this.getType().createResponse();
 

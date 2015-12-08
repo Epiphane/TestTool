@@ -6,8 +6,10 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane fx:id="testRow" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="467.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<Pane fx:id="testRow" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="44.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Text fx:id="studentName" layoutX="14.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Student Name" />
+      <Text fx:id="studentName" layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Student Name" />
+      <Text fx:id="studentGrade" layoutX="246.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Grade" />
+      <Button layoutX="292.0" layoutY="9.0" mnemonicParsing="false" onAction="#onViewDetailsClickHandler" text="View Details" />
    </children>
 </Pane>

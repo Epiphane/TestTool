@@ -12,5 +12,6 @@
       <Button mnemonicParsing="false" onAction="#onCreateTestClick" text="Create Test" />
       <Button mnemonicParsing="false" onAction="#onViewTestsClick" text="View Tests" />
       <Button mnemonicParsing="false" text="Question Bank" onAction="#openQuestionBank" />
+      <Button mnemonicParsing="false" text="Add Fake Data" onAction="#addFakeData" fx:id="fakeDataButton" />
   </items>
 </ToolBar>

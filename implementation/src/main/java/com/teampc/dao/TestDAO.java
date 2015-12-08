@@ -44,10 +44,4 @@ public class TestDAO extends AbstractDAO<Test> {
       LOG.info("Find by id: " + id);
    }
 
-   /**
-    * Updates an existing Test
-    */
-   public void updateTest(Test update) {
-      LOG.info("Update test with: " + update.toString());
-   }
 }

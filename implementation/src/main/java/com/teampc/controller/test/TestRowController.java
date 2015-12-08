@@ -1,10 +1,10 @@
 package com.teampc.controller.test;
 
-import com.sun.glass.ui.View;
 import com.teampc.controller.ViewSubmissionsController;
 import com.teampc.dao.TestDAO;
 import com.teampc.model.test.Test;
 import com.teampc.utils.FXUtils;
+import com.teampc.utils.TestFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -19,14 +19,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import com.teampc.utils.FXUtils;
-
-import java.io.*;
-import java.util.*;
-
-/**
- * Created by james on 11/9/15.
- */
 public class TestRowController implements Initializable{
 
    private static final Logger LOG = LoggerFactory.getLogger(TestRowController.class);
@@ -63,28 +55,24 @@ public class TestRowController implements Initializable{
 
    public TestRowController(Test test) {
       this.test = test;
-
-      // List<Question> theQuestions = new List<Question>();
-
-      // this.test.questions = theQuestions;
    }
 
    @FXML
    /** Button click handler **/
    void onPublicStatusClickHandler(ActionEvent event) {
-      TestDAO.getInstance().updateTest(new Test());
    }
 
    @FXML
    /** Button click handler **/
    void onEditActionHandler(ActionEvent event) {
-      LOG.debug("Edit Button Clicked");
+      TestFXUtils.openTestViewer(FXUtils.getStageFromEvent(event), test, TestEvent.EDIT_EVENT);
    }
 
    @FXML
    /** Button click handler **/
    void onPublishActionHandler(ActionEvent event) {
-      TestDAO.getInstance().updateTest(new Test());
+      test.publish();
+      TestDAO.getInstance().update(test);
    }
 
    @FXML
@@ -100,22 +88,16 @@ public class TestRowController implements Initializable{
           });
 
        } catch (IOException e) {
-          e.printStackTrace();
+          LOG.error("could not show grading for a test", e);
        }
    }
 
+   /**
+    * Handler for the take test button
+    */
    @FXML
-   /** Button click handler **/
-   void onViewActionHandler(ActionEvent event) {
-      TestDAO.getInstance().findById(test.getId());
-
-      Stage stage = FXUtils.getStageFromEvent(event);
-      try {
-         FXUtils.switchToScreen(stage, "view-questions-list.fxml");
-      } catch (IOException e) {
-         LOG.error("Failed to load question list view" + e.getMessage());
-      }
-
+   public void onViewActionHandler(ActionEvent event) throws IOException {
+      TestFXUtils.openTestViewer(FXUtils.getStageFromEvent(event), test, TestEvent.VIEW_EVENT);
    }
 
    @Override
@@ -125,4 +107,5 @@ public class TestRowController implements Initializable{
       testStatus.setText(test.isPublished() ? "Completed" : "Incomplete");
       publicStatus.setSelected(test.isPublished());
    }
+
 }

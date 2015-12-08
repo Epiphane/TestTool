@@ -1,33 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.cell.*?>
-<?import javafx.scene.control.*?>
 <?import java.lang.*?>
+<?import javafx.scene.control.cell.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.layout.Pane?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="257.0" prefWidth="497.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.teampc.controller.question.MatchingQuestionController">
    <children>
       <TableView fx:id="options" layoutX="14.0" layoutY="14.0" prefHeight="169.0" prefWidth="466.0">
-         <columnResizePolicy><TableView fx:constant="CONSTRAINED_RESIZE_POLICY" /></columnResizePolicy>
          <placeholder>
             <Label>No Options Entered</Label>
          </placeholder>
          <columns>
-         <TableColumn>
-            <cellValueFactory>
-               <PropertyValueFactory property="key" />
-            </cellValueFactory>
-         </TableColumn>
-         <TableColumn>
-            <cellValueFactory>
-               <PropertyValueFactory property="value" />
-            </cellValueFactory>
-         </TableColumn>
-        </columns>
+            <TableColumn prefWidth="212.0">
+               <cellValueFactory>
+                  <PropertyValueFactory property="key" />
+               </cellValueFactory>
+            </TableColumn>
+            <TableColumn prefWidth="212.0">
+               <cellValueFactory>
+                  <PropertyValueFactory property="value" />
+               </cellValueFactory>
+            </TableColumn>
+            <TableColumn editable="false" prefWidth="40.0" sortable="false">
+            </TableColumn>
+         </columns>
       </TableView>
-      <Button layoutX="14.0" layoutY="221.0" mnemonicParsing="false" onAction="#newOption" text="Save Pair" />
-      <TextField layoutX="14.0" layoutY="189.0" prefHeight="26.0" prefWidth="224.0" promptText="key" fx:id="keyField"/>
-      <TextField layoutX="256.0" layoutY="189.0" prefHeight="26.0" prefWidth="224.0" promptText="value" fx:id="valueField" />
+      <Button layoutX="14.0" layoutY="221.0" mnemonicParsing="false" onAction="#newOption" text="Save Pair" onKeyReleased="#onKeyReleased" />
+      <TextField fx:id="keyField" layoutX="14.0" layoutY="189.0" prefHeight="26.0" prefWidth="224.0" promptText="key" />
+      <TextField fx:id="valueField" layoutX="256.0" layoutY="189.0" prefHeight="26.0" prefWidth="224.0" promptText="value" />
    </children>
 </Pane>

@@ -38,13 +38,19 @@ sourceSets {
         }
     }
 
-    test {
-       java {
-          srcDir "$projectDir/../testing/src/test/java"
-       }
-       resources {
-          srcDir "$projectDir/../testing/src/test/resources"
-       }
+//    test {
+//       java {
+//          srcDir "$projectDir/../testing/src/test/java"
+//       }
+//       resources {
+//          srcDir "$projectDir/../testing/src/test/resources"
+//       }
+//    }
+}
+
+idea {
+    project {
+        languageLevel = '1.8'
     }
 }
 
@@ -103,8 +109,8 @@ test {
 }
 
 tasks.withType(JavaCompile) {
-   sourceCompatibility = '1.8'
-   targetCompatibility = '1.8'
+   sourceCompatibility = JavaVersion.VERSION_1_8
+   targetCompatibility = JavaVersion.VERSION_1_8
 //   options.compilerArgs << '-Xlint:all'
 }
 
@@ -118,7 +124,7 @@ task copyJavadoc(dependsOn: javadoc, type: Copy) {
     into "$projectDir/../documentation"
 }
 
-task release(dependsOn: ['copyJar', 'copyJavadoc'])
+task release(dependsOn: ['copyJar', 'copyJavadoc', 'copyTesting'])
 
 def createCleanupSpestTask(isValidate) {
    def dependent = createRunSpestTask isValidate
@@ -171,4 +177,28 @@ task findSpest << {
    sourceSets.main.java.files.findAll(this.&hasSpest).each {
       println it
    }
+}
+
+task copyTesting {
+    def testingDir = "$projectDir/../testing/src/test"
+    inputs.files sourceSets.test.java + sourceSets.test.resources
+    outputs.dir(testingDir)
+
+    doLast {
+        copy {
+            sourceSets.test.java.srcDirTrees*.dir.each{ 
+                from it.absolutePath
+            }
+
+            into "$testingDir/java"
+        }
+
+        copy {
+            sourceSets.test.resources.srcDirTrees*.dir.each{ 
+                from it.absolutePath
+            }
+
+            into "$testingDir/resources"
+        }
+    }
 }

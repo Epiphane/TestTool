@@ -1,14 +1,19 @@
 package com.teampc.controller;
 
+import com.teampc.model.admin.Student;
+import com.teampc.model.admin.Teacher;
 import com.teampc.model.admin.User;
 import com.teampc.model.admin.access.UserSession;
 import com.teampc.utils.FXUtils;
 import javafx.event.ActionEvent;
+import javafx.event.EventTarget;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ToolBar;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -16,6 +21,7 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import javafx.scene.control.*;
 
+import javax.swing.*;
 import java.io.IOException;
 
 /**
@@ -71,13 +77,23 @@ public class LoginController {
 
          log.debug(user.getDisplayName());
 
-         FXUtils.switchToScreenAndConfigureController(primaryStage, "navbar.fxml", NavBarController::setPrimaryStage);
+         if(user instanceof Teacher)
+            FXUtils.switchToScreenAndConfigureController(primaryStage, "navbar.fxml", NavBarController::setPrimaryStage);
+         else
+            FXUtils.switchToScreenAndConfigureController(primaryStage, "studentnavbar.fxml", StudentNavBarController::setPrimaryStage);
       }
       /**
        * Otherwise tell the user their login information is incorrect
        */
       else{
          invalidText.setVisible(true);
+      }
+   }
+
+   @FXML
+   void onKeyReleased(KeyEvent event) throws IOException {
+      if (event.getCode().equals(KeyCode.ENTER)) {
+         ActionEvent.fireEvent(event.getTarget(), new ActionEvent());
       }
    }
 

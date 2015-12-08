@@ -1,12 +1,12 @@
 package com.teampc.controller.question;
 
+import com.teampc.controller.test.CreateTestController;
 import com.teampc.dao.QuestionDAO;
 import com.teampc.model.question.Question;
 import com.teampc.utils.FXUtils;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -14,7 +14,6 @@ import lombok.extern.slf4j.Slf4j;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 
@@ -50,9 +49,23 @@ public class QuestionTableController {
 
       ObservableList<Question> questions = questionTable.getItems();
       questions.addAll(questionDAO.fetchAll().stream().filter(Objects::nonNull).collect(toList()));
-      questions.stream().map(question -> question.getType() + "").forEach(log::debug);
 
       questionTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+      questionTable.setRowFactory(tv -> {
+         TableRow<Question> row = new TableRow<>();
+         row.setOnMouseClicked(event -> {
+            if (event.getClickCount() > 1 && !row.isEmpty()) {
+               Question<?> question = row.getItem();
+               try {
+                  QuestionEditController.openQuestionEdit(primaryStage, new EditAction(),
+                     controller -> controller.editQuestion(question));
+               } catch (IOException e) {
+                  log.error("Error switching to edit question", e);
+               }
+            }
+         });
+         return row;
+      });
    }
 
    /**
@@ -61,7 +74,7 @@ public class QuestionTableController {
    @FXML
    private void newQuestion() throws IOException {
       log.debug("New Question");
-      FXUtils.switchToScreenAndConfigureController(primaryStage, "question-edit-main.fxml", QuestionEditController::setPrimaryStage);
+      QuestionEditController.openQuestionEdit(primaryStage, new NewAction(), FXUtils::noop);
    }
 
    /**
@@ -72,17 +85,21 @@ public class QuestionTableController {
       log.debug("Searching questions");
       FXUtils.newScreenAndConfigureController("question-bank-search.fxml", QuestionSearchController::setPrimaryStage);
    }
+
    /**
     * Opens new test screen, sending currently selected questions along
     */
    @FXML
-   private void makeTest() {
+   private void makeTest() throws IOException {
       ObservableList<Question> selectedItems = questionTable.getSelectionModel().getSelectedItems();
       if (selectedItems.isEmpty()) {
+         new Alert(Alert.AlertType.WARNING, "Can't make test with no questions selected", ButtonType.CLOSE).show();
          log.debug("Trying to make a test with no questions... aborting");
          return;
       }
-      log.debug("Making test with selected questions: " + Arrays.toString(selectedItems.toArray(new Question[selectedItems.size()])));
+
+      FXUtils.switchToScreenAndConfigureController(primaryStage, "create-test-options.fxml",
+         (CreateTestController controller, Stage stage) -> controller.setQuestions(selectedItems));
    }
 
     /**
@@ -90,6 +107,12 @@ public class QuestionTableController {
      */
    @FXML
    private void deleteSelectedQuestions() {
+      ObservableList<Question> selectedItems = questionTable.getSelectionModel().getSelectedItems();
+      if (selectedItems.isEmpty()) {
+         return;
+      }
 
+      questionTable.getItems().removeAll(selectedItems);
+      questionDAO.delete(selectedItems);
    }
 }

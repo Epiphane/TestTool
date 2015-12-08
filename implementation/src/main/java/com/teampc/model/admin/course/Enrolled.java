@@ -11,7 +11,7 @@ import com.teampc.model.admin.*;
  * course may have many students.
  */
  @Data
-public abstract class Enrolled {
+public class Enrolled {
 
   /** Student that is enrolled in the course **/
   public Student student;

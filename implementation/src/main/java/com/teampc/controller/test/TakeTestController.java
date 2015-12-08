@@ -1,21 +1,28 @@
 package com.teampc.controller.test;
 
 import com.teampc.model.admin.access.UserSession;
+import com.teampc.controller.questionview.QuestionViewController;
 import com.teampc.model.test.*;
 import com.teampc.model.testtaking.*;
 import com.teampc.model.question.*;
 import com.teampc.utils.FXUtils;
 import com.teampc.dao.SubmissionDAO;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.text.Text;
+import lombok.Getter;
+import lombok.Setter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -46,7 +53,7 @@ public class TakeTestController {
    private Text descTimeLimit;
 
    @FXML
-   private Pane questionPane;
+   private ScrollPane questionPane;
 
    @FXML
    private Text questionNumber;
@@ -55,9 +62,35 @@ public class TakeTestController {
    @FXML
    private Text prompt;
 
+   /** Edit Stuff **/
+   @FXML
+   private Pane editQuestionPane;
+   @FXML
+   private Button editQuestionDelete;
+   @FXML
+   private Button editQuestionUp;
+   @FXML
+   private Button editQuestionDown;
+
+   // grading stuff
+   @FXML
+   private Pane gradingSection;
+   @FXML
+   private TextField gradingComment;
+   @FXML
+   private Button saveCommentButton;
+   @FXML
+   private TextField gradingGradeInput;
+   @FXML
+   private Button saveGradeButton;
+
+   @Getter
+   private boolean isGrading = false;
+
    private Test test;
-   private TestSectionController currentQuestionController;
+   private QuestionViewController currentQuestionController;
    private int currentQuestion;
+   private List<Question> questionsList;
 
    private Submission submission;
 
@@ -65,6 +98,43 @@ public class TakeTestController {
 
    public TakeTestController() {
       submissionDAO = SubmissionDAO.getInstance();
+   }
+
+   private void setGradingViewStuff() {
+      QuestionResponse response = submission.getResponses().get(currentQuestion);
+
+      gradingComment.setText(response.getComment());
+      gradingGradeInput.setText("" + response.getPointsReceived());
+   }
+
+   @FXML
+   void onClickSaveCommentButton() {
+      LOG.debug("clicked \"Save Comment\"");
+      if (isGrading) {
+         QuestionResponse response = submission.getResponses().get(currentQuestion);
+         response.setComment(gradingComment.getText());
+         SubmissionDAO.getInstance().update(submission);
+      }
+   }
+
+   @FXML
+   void onClickSaveGradeButton() {
+      LOG.debug("clicked \"Save Grade\"");
+      if (isGrading) {
+         try {
+            QuestionResponse response = submission.getResponses().get(currentQuestion);
+            response.setPointsReceived(Integer.parseInt(gradingGradeInput.getText()));
+            SubmissionDAO.getInstance().update(submission);
+         }
+         catch (NumberFormatException e) {
+            LOG.debug("gradingGradeInput not formatted as Integer", e);
+         }
+      }
+   }
+
+   public void setSubmission(Submission s) {
+      submission = s;
+
    }
 
    /**
@@ -75,6 +145,7 @@ public class TakeTestController {
 
       this.testTitle.setText(test.getCourseName() + " " + test.getName());
       this.descQuestions.setText("There are " + test.getQuestions().size() + " questions.");
+      questionsList = test.getQuestions();
 
       int timeLimit = test.getTimeLimit();
       if (timeLimit > 0) {
@@ -90,49 +161,85 @@ public class TakeTestController {
       else {
          this.setQuestion(submission.getNextUnansweredQuestion());
       }
+
+      setIsGrading(false);
+   }
+
+   public void setIsGrading(boolean isGrading) {
+      this.isGrading = isGrading;
+      gradingSection.setVisible(this.isGrading);
+      if (isGrading) {
+         setGradingViewStuff();
+         currentQuestion = 0;
+      }
+   }
+
+
+   /**
+    * Loads a question and draws the UI for it
+    */
+   private void drawQuestionUI(String fileString, Question question) throws IOException {
+      LOG.info("Loading " + fileString + "...");
+      FXMLLoader loader = new FXMLLoader(FXUtils.class.getClassLoader().getResource("question/" + fileString + ".fxml"));
+
+      if (question == null) {
+         questionNumber.setText("");
+
+         currentQuestionController = null;
+         loader.setController(this);
+      }
+
+      Scene newScene = new Scene(loader.load());
+      if (question != null) {
+         questionNumber.setText("Question " + (currentQuestion + 1));
+
+         currentQuestionController = loader.getController();
+         currentQuestionController.setQuestion(question);
+      }
+
+      LOG.info("Adding question to pane...");
+      questionPane.setContent(newScene.getRoot());
    }
 
    /**
     * Sets which question is currently being worked on
     */
    private void setQuestion(int qNumber) throws IOException {
-      QuestionResponse question = null;
-      String questionFileString = "begin-test";
-
-      currentQuestion = -1;
-      questionNumber.setText("");
-
-      if (submission != null) {
-         int numQuestions = submission.getResponses().size();
-         if (qNumber < 0) {
-            qNumber = 0;
-         }
-         else if (qNumber >= numQuestions) {
-            qNumber = numQuestions;
-            questionFileString = "complete-test";
-         }
-
-         if (qNumber < numQuestions) {
-            question = submission.getResponses().get(qNumber);
-
-            questionFileString = question.getQuestion().getType().getFileString();
-            questionNumber.setText("Question " + (qNumber + 1));
-         }
-
-         currentQuestion = qNumber;
+      if (submission == null) {
+         drawQuestionUI("begin-test", null);
+         return;
       }
 
-      LOG.info("Loading question type " + questionFileString + "...");
-      FXMLLoader loader = new FXMLLoader(FXUtils.class.getClassLoader().getResource("question/" + questionFileString + ".fxml"));
+      currentQuestion = qNumber;
+      questionNumber.setText("");
 
-      Scene newScene = new Scene(loader.load());
-      currentQuestionController = loader.getController();
-      currentQuestionController.setParent(this);
-      currentQuestionController.setQuestion(question);
+      int numQuestions = submission.getTest().getQuestions().size();
+      if (currentQuestion < 0) {
+         currentQuestion = 0;
+      }
 
-      LOG.info("Adding question to pane...");
-      questionPane.getChildren().clear();
-      questionPane.getChildren().add(newScene.getRoot());
+      if (currentQuestion >= numQuestions) {
+         currentQuestion = numQuestions;
+         drawQuestionUI("complete-test", null);
+         return;
+      }
+
+      Question question = submission.getTest().getQuestions().get(currentQuestion);
+
+      drawQuestionUI(question.getType().getFileString(), question);
+
+      if (currentQuestionController != null) {
+         // Attempt to auto-populate response
+         QuestionResponse response = submission.getResponses().get(currentQuestion);
+
+         if (response != null) {
+            currentQuestionController.setResponse(response);
+         }
+
+         if (isGrading) {
+
+         }
+      }
    }
 
    @FXML
@@ -147,20 +254,29 @@ public class TakeTestController {
       setQuestion(0);
    }
 
+   private void save() {
+      if (currentQuestionController != null) {
+         QuestionResponse response = currentQuestionController.getResponse();
+
+         if (response == null) {
+            return;
+         }
+
+         response.setQuestion(test.getQuestions().get(currentQuestion));
+         submission.getResponses().set(currentQuestion, response);
+      }
+   }
+
    @FXML
    public void onNext(ActionEvent event) throws IOException {
-      if (currentQuestionController != null) {
-         currentQuestionController.onLeave();
-      }
+      save();
 
       setQuestion(currentQuestion + 1);
    }
 
    @FXML
    public void onPrev(ActionEvent event) throws IOException {
-      if (currentQuestionController != null) {
-         currentQuestionController.onLeave();
-      }
+      save();
 
       setQuestion(currentQuestion - 1);
    }
@@ -173,5 +289,32 @@ public class TakeTestController {
       Stage stage = (Stage) source.getScene().getWindow();
 
       stage.close();
+   }
+
+   @FXML
+   public void onDeleteQuestion(ActionEvent event) {
+      if(currentQuestion < 0 || currentQuestion >= questionsList.size()) { return; }
+      submission.getTest().removeQuestion(questionsList.get(currentQuestion));
+   }
+
+   @FXML
+   public void onUpQuestion(ActionEvent event) {
+      if(currentQuestion < 0 || currentQuestion >= questionsList.size()) { return; }
+      submission.getTest().moveQuestionUp(questionsList.get(currentQuestion));
+   }
+
+   @FXML
+   public void onDownQuestion(ActionEvent event) {
+      if(currentQuestion < 0 || currentQuestion >= questionsList.size()) { return; }
+      submission.getTest().moveQuestionDown(questionsList.get(currentQuestion));
+   }
+
+   public void setEventType(TestEvent eventType) {
+      // todo: update ui
+      switch (eventType) {
+         case EDIT_EVENT:
+            editQuestionPane.setVisible(true);
+            break;
+      }
    }
 }

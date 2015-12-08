@@ -17,12 +17,14 @@ import static java.util.stream.Collectors.toList;
  * @author Zach Arend
  */
 
-@NoArgsConstructor
 @AllArgsConstructor
 public class ShortAnswerQuestionResponse extends QuestionResponse<ShortAnswerQuestionResponse> {
    @Getter
    @Setter
    private String answer = "";
+
+   @Getter
+   @Setter
    private MatchType matchType;
 
    /** {@inheritDoc} */

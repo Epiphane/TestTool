@@ -1,9 +1,12 @@
 package com.teampc.controller.test;
 
 import com.google.common.base.Strings;
+import com.teampc.dao.QuestionDAO;
 import com.teampc.dao.TestDAO;
+import com.teampc.model.question.Question;
 import com.teampc.model.test.Test;
 import com.teampc.utils.FXUtils;
+import com.teampc.utils.TestFXUtils;
 import com.teampc.utils.TestUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,6 +15,7 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import jfxtras.scene.control.LocalDateTimeTextField;
+import lombok.Setter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,6 +23,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class CreateTestController implements Initializable {
    private static final Logger LOG = LoggerFactory.getLogger(CreateTestController.class);
@@ -41,7 +46,7 @@ public class CreateTestController implements Initializable {
 
    @FXML
    /** The number of questions in this test **/
-   private Spinner numberOfQuestions;
+   private Spinner<Integer> numberOfQuestions;
 
    @FXML
    /** The start date of this test **/
@@ -58,6 +63,9 @@ public class CreateTestController implements Initializable {
    @FXML
    /** Checkbox that enables the end date field **/
    private CheckBox enableEndDate;
+
+   @Setter
+   private List<Question> questions = new ArrayList<>();
 
    /**
     * Initializes the Create Test Options UI with values for the selection lists, spinner, and input boxes
@@ -137,17 +145,16 @@ public class CreateTestController implements Initializable {
       if (endLocalDate != null) { userEndDate = TestUtils.localDateToDate(endLocalDate); }
 
       Test newTest = new Test(testName.getText(), userStartDate, userEndDate, courseType.getText());
+      questions.addAll(generateQuestions());
+      newTest.setQuestions(questions);
       TestDAO.getInstance().insert(newTest);
       LOG.info("new test submitted");
 
-      Node source = (Node) event.getSource();
-      Stage stage = (Stage) source.getScene().getWindow();
+      TestFXUtils.openTestViewer(FXUtils.getStageFromEvent(event), newTest, TestEvent.VIEW_EVENT);
+   }
 
-      try {
-         FXUtils.switchToScreen(stage, "view-questions-list.fxml");
-      } catch (IOException e) {
-         LOG.error("Failed to load question list view" + e.getMessage());
-      }
+   private Collection<Question> generateQuestions() {
+      return QuestionDAO.getInstance().fetchAll().stream().limit(numberOfQuestions.getValue()).collect(Collectors.toList());
    }
 
 }

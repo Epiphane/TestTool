@@ -9,10 +9,12 @@ import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.IntStream;
 
 /**
  * Created by adufrene on 11/30/15.
+ *
  */
 public class ShortAnswerQuestionController implements QuestionTypeController<ShortAnswerQuestionResponse> {
 
@@ -26,6 +28,7 @@ public class ShortAnswerQuestionController implements QuestionTypeController<Sho
     * Set up layout; match radio buttons on screen with appropriate data values
     */
    @FXML
+   @SuppressWarnings("unused")
    private void initialize() {
       List<Toggle> toggles = matchGroup.getToggles();
       ShortAnswerQuestionResponse.MatchType values[] = ShortAnswerQuestionResponse.MatchType.values();
@@ -38,11 +41,29 @@ public class ShortAnswerQuestionController implements QuestionTypeController<Sho
     * {@inheritDoc}
      */
    @Override
-   public Question<ShortAnswerQuestionResponse> createQuestion(String prompt) throws InvalidQuestionException {
+   public Question<ShortAnswerQuestionResponse> createQuestion(String prompt, Optional<Integer> questionId) throws InvalidQuestionException {
       Question<ShortAnswerQuestionResponse> question = new Question<>();
       question.setPrompt(prompt);
       question.setType(Question.QuestionType.SHORT_ANSWER);
-      question.setCorrectAnswer(new ShortAnswerQuestionResponse(keywords.getCharacters().toString(), (ShortAnswerQuestionResponse.MatchType) matchGroup.getSelectedToggle().getUserData()));
+      question.setCorrectAnswer(
+         new ShortAnswerQuestionResponse(
+            keywords.getCharacters().toString(),
+            (ShortAnswerQuestionResponse.MatchType) matchGroup.getSelectedToggle().getUserData()
+         )
+      );
+      questionId.ifPresent(question::setId);
       return question;
+   }
+
+   /**
+    * {@inheritDoc}
+     */
+   @Override
+   public void setQuestion(ShortAnswerQuestionResponse questionResponse) {
+      keywords.setText(questionResponse.getAnswer());
+      matchGroup.getToggles().stream()
+         .filter(toggle -> toggle.getUserData().equals(questionResponse.getMatchType()))
+         .findAny()
+         .ifPresent(toggle -> toggle.setSelected(true));
    }
 }

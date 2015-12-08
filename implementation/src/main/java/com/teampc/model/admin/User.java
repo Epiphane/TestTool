@@ -1,6 +1,8 @@
 package com.teampc.model.admin;
 
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.Setter;
 
 /**
  * Defines user details including name, username
@@ -29,6 +31,11 @@ public class User {
     * User's password
     **/
    private String password;
+
+   /**
+    * User's type
+    */
+
 
 
    /**
