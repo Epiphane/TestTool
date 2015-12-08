@@ -1,9 +1,7 @@
 package com.teampc.controller.test;
 
-import com.teampc.controller.ViewSubmissionsController;
 import com.teampc.controller.grading.SubmissionResultsController;
 import com.teampc.dao.TestDAO;
-import com.teampc.model.test.Test;
 import com.teampc.model.testtaking.Submission;
 import com.teampc.utils.FXUtils;
 import javafx.event.ActionEvent;
@@ -11,10 +9,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.ToggleButton;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,9 +21,9 @@ import java.util.ResourceBundle;
 /**
  * Created by james on 11/9/15.
  */
-public class StudentTestRowController implements Initializable{
+public class StudentSubmissionRowController implements Initializable{
 
-   private static final Logger LOG = LoggerFactory.getLogger(StudentTestRowController.class);
+   private static final Logger LOG = LoggerFactory.getLogger(StudentSubmissionRowController.class);
 
 
 
@@ -46,7 +42,7 @@ public class StudentTestRowController implements Initializable{
 //   private Test test;
    private Submission submission;
 
-   public StudentTestRowController(Submission s) {
+   public StudentSubmissionRowController(Submission s) {
       this.submission = s;
 
       // List<Question> theQuestions = new List<Question>();

@@ -9,7 +9,7 @@
   <items>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TestTool" />
       <Button mnemonicParsing="false" onAction="#onTakeTestClick" text="Take Test" />
-      <Button mnemonicParsing="false" onAction="#onViewTestsClick" text="View Tests" />
+      <Button mnemonicParsing="false" onAction="#onViewTestsClick" text="My Grades" />
       <Button fx:id="fakeDataButton" mnemonicParsing="false" onAction="#addFakeData" text="Add Fake Data" />
   </items>
 </ToolBar>
