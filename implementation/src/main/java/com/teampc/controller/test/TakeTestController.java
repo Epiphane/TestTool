@@ -12,6 +12,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.FXML;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -55,6 +56,10 @@ public class TakeTestController {
    /* Question stuff */
    @FXML
    private Text prompt;
+
+   /** Edit Stuff **/
+   @FXML
+   private Pane editButtonsPane;
 
    private Test test;
    private QuestionViewController currentQuestionController;
@@ -207,5 +212,10 @@ public class TakeTestController {
 
    public void setEventType(TestEvent eventType) {
       // todo: update ui
+      switch (eventType) {
+         case EDIT_EVENT:
+            editButtonsPane.setVisible(true);
+            break;
+      }
    }
 }
