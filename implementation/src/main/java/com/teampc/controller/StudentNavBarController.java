@@ -18,7 +18,7 @@ import java.io.IOException;
  * StudentNavBarController handles the main navigation bar for students.
  * @author Greg Sawers (gsawers@calpoly.edu)
  */
-public class StudentNavBarController {
+public class StudentNavBarController implements HasStage {
 
    @Setter
    private Stage primaryStage;

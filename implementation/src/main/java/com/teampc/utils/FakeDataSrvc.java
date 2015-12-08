@@ -5,7 +5,9 @@ import com.google.common.collect.Lists;
 import com.teampc.dao.QuestionDAO;
 import com.teampc.dao.SubmissionDAO;
 import com.teampc.dao.TestDAO;
+import com.teampc.model.admin.Student;
 import com.teampc.model.admin.Teacher;
+import com.teampc.model.admin.User;
 import com.teampc.model.admin.access.UserSession;
 import com.teampc.model.question.Question;
 import com.teampc.model.test.Test;
@@ -54,8 +56,18 @@ public class FakeDataSrvc {
       Test fakeTest = new Test("Midterm 1", new Date(0), new Date(0), "CPE 307");
       fakeTest.setQuestions(questionList);
 
-      Teacher fakeTeacher = new Teacher("c00l te@cher", "Gene", "Fisher", "1 luv te@ching!");
-      fakeTest.setOwner(fakeTeacher);
+      Teacher testTeacher = UserSession.getLoggedInUser().accept(new User.Visitor<Teacher>() {
+         @Override
+         public Teacher visitTeacher(Teacher t) {
+            return t;
+         }
+
+         @Override
+         public Teacher visitStudent(Student s) {
+            return new Teacher("c00l te@cher", "Gene", "Fisher", "1 luv te@ching!");
+         }
+      });
+      fakeTest.setOwner(testTeacher);
 
       Key fakeKey = new Key();
       fakeKey.setComplete(true);
@@ -68,7 +80,18 @@ public class FakeDataSrvc {
 
       Submission fakeSubmission = new Submission();
       fakeSubmission.setComplete(true);
-      fakeSubmission.setTaker(UserSession.getLoggedInUser());
+      Student testTaker = UserSession.getLoggedInUser().accept(new User.Visitor<Student>() {
+         @Override
+         public Student visitTeacher(Teacher t) {
+            return new Student("student1", "Clint", "Staley");
+         }
+
+         @Override
+         public Student visitStudent(Student s) {
+            return s;
+         }
+      });
+      fakeSubmission.setTaker(testTaker);
       fakeSubmission.setTest(fakeTest);
       fakeSubmission.setGraded(false);
       fakeSubmission.setResponses(Lists.newArrayList(

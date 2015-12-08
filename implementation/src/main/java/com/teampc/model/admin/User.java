@@ -93,11 +93,16 @@ public abstract class User {
    /**
     * User's type
     */
-   public abstract UserType getType();
+   public abstract <T> T accept(Visitor<T> visitor);
 
    public enum UserType {
       STUDENT,
       TEACHER
+   }
+
+   public interface Visitor<T> {
+      T visitTeacher(Teacher t);
+      T visitStudent(Student s);
    }
 }
 

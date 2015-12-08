@@ -2,3 +2,5 @@ Teacher gsawers Greg Sawers abc123
 Student zho Zach Ho abc123
 Teacher gfish Gene Fisher abc123 true
 Student zarend z a abc123 true
+Teacher andy Andy DuFrene password true
+STUDENT andy2 Andy DuFrene password true
