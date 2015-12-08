@@ -2,8 +2,10 @@ package com.teampc.controller;
 
 import com.teampc.controller.test.StudentTestRowController;
 import com.teampc.controller.test.TestRowController;
+import com.teampc.dao.SubmissionDAO;
 import com.teampc.dao.TestDAO;
 import com.teampc.model.test.Test;
+import com.teampc.model.testtaking.Submission;
 import com.teampc.view.RowView;
 import javafx.collections.FXCollections;
 
@@ -19,9 +21,9 @@ public class StudentViewTestsController extends ListViewController<RowView> {
    public void initialize(URL location, ResourceBundle resources) {
 
       data = FXCollections.observableArrayList();
-
-      List<Test> testList = TestDAO.getInstance().fetchAll();
-      testList.forEach(test -> data.add(new RowView(new StudentTestRowController(test), RESOURCE)));
+      
+      List<Submission> mySubmissions = SubmissionDAO.getInstance().fetchMySubmissions();
+      mySubmissions.forEach(submission -> data.add(new RowView(new StudentTestRowController(submission), RESOURCE)));
 
       initView();
    }

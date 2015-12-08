@@ -1,5 +1,6 @@
 package com.teampc.dao;
 
+import com.teampc.model.admin.access.UserSession;
 import com.teampc.model.test.Test;
 import com.teampc.model.testtaking.Submission;
 import com.teampc.utils.HibernateUtils;
@@ -7,6 +8,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
 
 import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 import static org.hibernate.criterion.Restrictions.eq;
@@ -45,6 +48,12 @@ public class SubmissionDAO extends AbstractDAO<Submission> {
       } finally {
          session.close();
       }
+   }
+
+   public List<Submission> fetchMySubmissions() {
+      return fetchAll().stream().filter(nextSubmission -> {
+         return nextSubmission.getTaker().equals(UserSession.getLoggedInUser());
+      }).collect(Collectors.toList());
    }
 
    @Override
