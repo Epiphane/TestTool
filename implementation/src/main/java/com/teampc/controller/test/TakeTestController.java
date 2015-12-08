@@ -289,6 +289,8 @@ public class TakeTestController {
       Stage stage = (Stage) source.getScene().getWindow();
 
       stage.close();
+
+      submissionDAO.insert(submission);
    }
 
    @FXML
