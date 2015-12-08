@@ -67,6 +67,7 @@ public class ViewSubmissionsController extends ListViewController<RowView<Submis
          s.responses.add(new ShortAnswerQuestionResponse("", ShortAnswerQuestionResponse.MatchType.ALL));
          s.responses.add(new ShortAnswerQuestionResponse("", ShortAnswerQuestionResponse.MatchType.ALL));
          s.taker = UserSession.getLoggedInUser();
+         s.setTest(currentTest);
 
          submissions = new ArrayList<>();
          submissions.add(s);
@@ -81,7 +82,7 @@ public class ViewSubmissionsController extends ListViewController<RowView<Submis
       final Key keyPC = key;
       submissions.stream().forEach(nextSubmission -> nextSubmission.gradeTest(keyPC));
 
-      submissions.forEach(submission -> data.add(new RowView<>(new SubmissionRowController(submission), RESOURCE)));
+      submissions.forEach(submission -> data.add(new RowView<>(new SubmissionRowController(submission, currentTest), RESOURCE)));
       initView();
    }
 

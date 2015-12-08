@@ -16,7 +16,12 @@ public abstract class QuestionResponse<T extends QuestionResponse> {
    private Question question;
 
    @Getter
+   @Setter
    protected int pointsReceived;
+
+   @Getter
+   @Setter
+   private String comment = "";
 
    /**
     * Returns whether or not the questions been answered
