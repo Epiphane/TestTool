@@ -62,6 +62,7 @@ public class Test implements HasId {
 
    private Key key;
 
+   @Column(name = "published")
    private boolean published;
 
    public Test(String name, Date startDate, Date endDate, String courseName) {
@@ -143,6 +144,10 @@ public class Test implements HasId {
 
       String info = courseName + " " + name + " - ";
 
+      if(startDate == null || endDate == null) {
+         return info;
+      }
+
       if (today.compareTo(startDate) < 0) {
          return info + " opens on " + df.format(startDate);
       }
@@ -201,7 +206,7 @@ public class Test implements HasId {
    * Returns whether or not the test has been published
    */
    public boolean isPublished() {
-      return false;
+      return published;
    }
 
    /**
