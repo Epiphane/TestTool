@@ -18,14 +18,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 /**
+ *
  * Created by adufrene on 11/30/15.
  */
 public class MatchingQuestionController extends QuestionViewController<MatchingQuestionResponse> {
 
    @FXML
-   private ListView<RowView> pairs;
+   private ListView<RowView<MatchingRowController>> pairs;
 
-   private ObservableList<RowView> matches;
+   private ObservableList<RowView<MatchingRowController>> matches;
    private List<String> values;
 
    private static final String RESOURCE = "question/matching-row.fxml";
@@ -43,18 +44,16 @@ public class MatchingQuestionController extends QuestionViewController<MatchingQ
    /**
     * Set the question for editing or answering
     */
-   public void setQuestion(Question question) {
+   public void setQuestion(Question<MatchingQuestionResponse> question) {
       super.setQuestion(question);
 
-      Map<String, String> pairings = ((MatchingQuestionResponse) question.getCorrectAnswer()).getPairings();
+      Map<String, String> pairings = question.getCorrectAnswer().getPairings();
 
       values = pairings.entrySet().stream().map(Map.Entry::getValue).collect(Collectors.toList());
 
       pairings.entrySet()
          .stream()
-         .forEach(pair -> {
-            matches.add(new RowView(new MatchingRowController(pair.getKey(), values), RESOURCE));
-         });
+         .forEach(pair -> matches.add(new RowView<>(new MatchingRowController(pair.getKey(), values), RESOURCE)));
    }
 
    /**
@@ -65,9 +64,7 @@ public class MatchingQuestionController extends QuestionViewController<MatchingQ
 
       response.getPairings().entrySet()
          .stream()
-         .forEach(pair -> {
-            matches.add(new RowView(new MatchingRowController(pair.getKey(), values, pair.getValue()), RESOURCE));
-         });
+         .forEach(pair -> matches.add(new RowView<>(new MatchingRowController(pair.getKey(), values, pair.getValue()), RESOURCE)));
    }
 
    /**
@@ -75,9 +72,7 @@ public class MatchingQuestionController extends QuestionViewController<MatchingQ
     */
    public MatchingQuestionResponse getResponse() {
       Map<String, String> map = new HashMap<String, String>();
-      matches.forEach(rowView -> {
-         ((MatchingRowController) rowView.getController()).putInMap(map);
-      });
+      matches.forEach(rowView -> rowView.getController().putInMap(map));
 
       return new MatchingQuestionResponse(map);
    }

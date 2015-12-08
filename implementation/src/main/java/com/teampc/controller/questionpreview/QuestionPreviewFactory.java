@@ -12,19 +12,26 @@ public class QuestionPreviewFactory {
 
    /** Returns a QuestionController given a Question **/
    public static Optional<QuestionPreviewController> getQuestionController(Question question) {
-      QuestionType questionType = question.getType();
-
-      switch (questionType) {
-         case SHORT_ANSWER:
+      return question.getType().accept(new Question.QuestionTypeVisitor<Optional<QuestionPreviewController>>() {
+         @Override
+         public Optional<QuestionPreviewController> visitCode() {
             return Optional.of(new ShortQuestionPreviewController(question));
-         case MULTIPLE_CHOICE:
-            return Optional.empty(); // todo:
-         case MATCHING:
+         }
+
+         @Override
+         public Optional<QuestionPreviewController> visitMatching() {
             return Optional.empty();
-         case CODE:
+         }
+
+         @Override
+         public Optional<QuestionPreviewController> visitMultipleChoice() {
             return Optional.empty();
-         default:
+         }
+
+         @Override
+         public Optional<QuestionPreviewController> visitShortAnswer() {
             return Optional.empty();
-      }
+         }
+      });
    }
 }

@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.teampc.controller.ViewSubmissionsController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.teampc.controller.ViewSubmissionsController">
    <children>
-      <ListView fx:id="viewTestList" layoutX="1.0" layoutY="71.0" prefHeight="329.0" prefWidth="600.0" />
+      <ListView fx:id="viewTestList" layoutX="1.0" layoutY="96.0" prefHeight="304.0" prefWidth="400.0" />
+      <Text fx:id="testName" layoutX="27.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="testName" />
+      <Text fx:id="className" layoutX="27.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="className" />
+      <Text layoutX="27.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Student" />
+      <Text layoutX="246.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Grade" />
    </children>
 </Pane>

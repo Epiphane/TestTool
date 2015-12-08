@@ -40,7 +40,7 @@
             <Font size="14.0" />
          </font>
       </Button>
-      <Button fx:id="saveAsNewButton" layoutX="289.0" layoutY="469.0" mnemonicParsing="false" onAction="#saveAsNewQuestion" text="Save as New Question">
+      <Button fx:id="saveAsNewButton" layoutX="289.0" layoutY="469.0" mnemonicParsing="false" onAction="#saveAsNewQuestion" text="Save as New Question" onKeyReleased="#onKeyReleased" >
          <font>
             <Font size="14.0" />
          </font>

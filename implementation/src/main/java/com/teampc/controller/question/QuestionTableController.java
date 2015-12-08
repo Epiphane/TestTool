@@ -1,13 +1,12 @@
 package com.teampc.controller.question;
 
+import com.teampc.controller.test.CreateTestController;
 import com.teampc.dao.QuestionDAO;
 import com.teampc.model.question.Question;
 import com.teampc.utils.FXUtils;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TableRow;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -91,13 +90,16 @@ public class QuestionTableController {
     * Opens new test screen, sending currently selected questions along
     */
    @FXML
-   private void makeTest() {
+   private void makeTest() throws IOException {
       ObservableList<Question> selectedItems = questionTable.getSelectionModel().getSelectedItems();
       if (selectedItems.isEmpty()) {
+         new Alert(Alert.AlertType.WARNING, "Can't make test with no questions selected", ButtonType.CLOSE).show();
          log.debug("Trying to make a test with no questions... aborting");
          return;
       }
-      log.debug("Making test with selected questions: " + Arrays.toString(selectedItems.toArray(new Question[selectedItems.size()])));
+
+      FXUtils.switchToScreenAndConfigureController(primaryStage, "create-test-options.fxml",
+         (CreateTestController controller, Stage stage) -> controller.setQuestions(selectedItems));
    }
 
     /**

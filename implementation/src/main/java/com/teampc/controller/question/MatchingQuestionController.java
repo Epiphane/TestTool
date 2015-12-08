@@ -5,13 +5,17 @@ import com.teampc.model.question.Question;
 import com.teampc.model.testtaking.MatchingQuestionResponse;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.io.IOException;
 import java.util.Optional;
 
 import static java.util.stream.Collectors.toMap;
@@ -84,6 +88,13 @@ public class MatchingQuestionController implements QuestionTypeController<Matchi
       questionResponse.getPairings()
          .forEach((key, value) -> matches.add(new MatchingPair(key, value)));
       options.setItems(matches);
+   }
+
+   @FXML
+   void onKeyReleased(KeyEvent event) throws IOException {
+      if (event.getCode().equals(KeyCode.ENTER)) {
+         ActionEvent.fireEvent(event.getTarget(), new ActionEvent());
+      }
    }
 
    @Data
