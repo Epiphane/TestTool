@@ -84,7 +84,7 @@ public class TestRowController implements Initializable{
    /** Button click handler **/
    void onPublishActionHandler(ActionEvent event) {
       test.publish();
-//      TestDAO.getInstance().update(test);
+      TestDAO.getInstance().update(test);
    }
 
    @FXML
