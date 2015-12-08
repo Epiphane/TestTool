@@ -13,8 +13,11 @@ import com.teampc.model.admin.access.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ViewSubmissionsController extends ListViewController<RowView<SubmissionRowController>> {
+   private static final Logger LOG = LoggerFactory.getLogger(SubmissionRowController.class);
 
    private static final String RESOURCE = "view-grade.fxml";
 
@@ -57,32 +60,17 @@ public class ViewSubmissionsController extends ListViewController<RowView<Submis
       className.setText(currentTest.getCourseName());
 
       Collection<Submission> submissions = SubmissionDAO.getInstance().fetchSubmissionsForTest(currentTest);
-      Key key = currentTest.getKey();
+      Key key = currentTest.generateKey();
 
-      // CANNED DATA
-      if (submissions.isEmpty()) {
-         Submission s = new Submission();
-         s.responses.add(new MultipleChoiceQuestionResponse());
-         s.responses.add(new MultipleChoiceQuestionResponse());
-         s.responses.add(new ShortAnswerQuestionResponse("", ShortAnswerQuestionResponse.MatchType.ALL));
-         s.responses.add(new ShortAnswerQuestionResponse("", ShortAnswerQuestionResponse.MatchType.ALL));
-         s.taker = UserSession.getLoggedInUser();
-         s.setTest(currentTest);
-
-         submissions = new ArrayList<>();
-         submissions.add(s);
-
-         key = new Key();
-         key.responses.add(new MultipleChoiceQuestionResponse());
-         key.responses.add(new MultipleChoiceQuestionResponse(1, new ArrayList<>()));
-         key.responses.add(new ShortAnswerQuestionResponse("", ShortAnswerQuestionResponse.MatchType.ALL));
-         key.responses.add(new ShortAnswerQuestionResponse("one", ShortAnswerQuestionResponse.MatchType.ALL));
+      if (key == null) {
+         LOG.error("could not get key");
       }
+      else {
+         final Key keyPC = key;
+         submissions.stream().forEach(nextSubmission -> nextSubmission.gradeTest(keyPC));
 
-      final Key keyPC = key;
-      submissions.stream().forEach(nextSubmission -> nextSubmission.gradeTest(keyPC));
-
-      submissions.forEach(submission -> data.add(new RowView<>(new SubmissionRowController(submission, currentTest), RESOURCE)));
+         submissions.forEach(submission -> data.add(new RowView<>(new SubmissionRowController(submission, currentTest), RESOURCE)));
+      }
       initView();
    }
 

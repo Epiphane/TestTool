@@ -1,5 +1,6 @@
 package com.teampc.controller;
 
+import com.teampc.controller.grading.SubmissionResultsController;
 import com.teampc.controller.test.TakeTestController;
 import com.teampc.dao.TestDAO;
 import com.teampc.model.admin.User;
@@ -26,7 +27,7 @@ import com.teampc.model.testtaking.*;
 import java.util.*;
 
 @AllArgsConstructor
-public class SubmissionRowController implements Initializable{
+public class SubmissionRowController implements Initializable {
 
    private static final Logger LOG = LoggerFactory.getLogger(SubmissionRowController.class);
 
@@ -61,17 +62,13 @@ public class SubmissionRowController implements Initializable{
       Test currentSelection = currentTest;
 
       try {
-         FXUtils.switchToScreenAndConfigureController((Stage) ((Node) event.getSource()).getScene().getWindow(), "take-test.fxml",
+         FXUtils.switchToScreenAndConfigureController((Stage) ((Node) event.getSource()).getScene().getWindow(), "submission-results.fxml",
             (controller, stage) -> {
                try {
-                  TakeTestController takeTestController = (TakeTestController)controller;
-                  takeTestController.setTest(currentSelection);
-                  takeTestController.setSubmission(submission);
-                  takeTestController.setIsGrading(true);
-
+                  SubmissionResultsController submissionResultsController = (SubmissionResultsController)controller;
+                  submissionResultsController.setUp(submission);
                } catch (Exception e) {
-                  LOG.info("ERROR");
-                  LOG.info(e.getMessage());
+                  LOG.error("could not create SubmissionResultsControllers", e);
                }
             });
       }
