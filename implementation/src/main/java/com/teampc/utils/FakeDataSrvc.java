@@ -69,13 +69,6 @@ public class FakeDataSrvc {
       });
       fakeTest.setOwner(testTeacher);
 
-      Key fakeKey = new Key();
-      fakeKey.setComplete(true);
-      fakeKey.setResponses(fakeTest.getQuestions().stream().map(Question::getCorrectAnswer).collect(toList()));
-      fakeKey.setTest(fakeTest);
-
-      fakeTest.setKey(fakeKey);
-
       TestDAO.getInstance().insert(fakeTest);
 
       Submission fakeSubmission = new Submission();
