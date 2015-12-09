@@ -10,16 +10,33 @@ import org.slf4j.LoggerFactory;
 import java.util.*;
 import com.teampc.model.test.*;
 
+/**
+ * TestDAO provides access to the Test storage. This class provides create, read, update, delete operations
+ * for Tests. This class is expected to be singleton.
+ *
+ * @author Jameson Li (jrli@calpoly.edu)
+ */
 public class TestDAO extends AbstractDAO<Test> {
 
+   /** Provides logging for TestDAO **/
    private static final Logger LOG = LoggerFactory.getLogger(TestDAO.class);
+   /** Create a single instance of TestDAO **/
    private static final TestDAO INSTANCE = new TestDAO();
 
+   /**
+    * Return an instance of TestDAO
+    * Only one instance should be created
+    */
    public static TestDAO getInstance() {
       return INSTANCE;
    }
 
+   private TestDAO() {}
+
    @Override
+   /**
+    * Provides the class entity
+    */
    protected Class<Test> getEntityClass() {
       return Test.class;
    }

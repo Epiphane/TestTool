@@ -11,20 +11,25 @@ import com.teampc.utils.TestUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
 import jfxtras.scene.control.LocalDateTimeTextField;
 import lombok.Setter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * The test creation controller provides methods that allow the model and views to interact.
+ * View changes when creating a test will be persistent in the model through this class.
+ * Changes to a test on the model will be displayed in the view through the use of
+ * methods in this class
+ *
+ * @author Jameson Li (jrli@calpoly.edu)
+ */
 public class CreateTestController implements Initializable {
    private static final Logger LOG = LoggerFactory.getLogger(CreateTestController.class);
 
@@ -153,6 +158,9 @@ public class CreateTestController implements Initializable {
       TestFXUtils.openTestViewer(FXUtils.getStageFromEvent(event), newTest, TestEvent.VIEW_EVENT);
    }
 
+   /**
+    * Generate the number of requested questions
+    */
    private Collection<Question> generateQuestions() {
       return QuestionDAO.getInstance().fetchAll().stream().limit(numberOfQuestions.getValue()).collect(Collectors.toList());
    }
