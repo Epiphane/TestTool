@@ -22,7 +22,7 @@ import java.util.stream.IntStream;
 import static testing.JavaTestUtility.getFieldValue;
 
 @RunWith(SpestRunner.class)
-public class TestTest
+public class TestSpestTest
 {
    @Before
    public void setUp()

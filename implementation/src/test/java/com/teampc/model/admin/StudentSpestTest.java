@@ -15,7 +15,7 @@ import static org.junit.Assert.assertTrue;
 import static testing.JavaTestUtility.getFieldValue;
 
 @RunWith(SpestRunner.class)
-public class StudentTest
+public class StudentSpestTest
 {
    @Before
    public void setUp()

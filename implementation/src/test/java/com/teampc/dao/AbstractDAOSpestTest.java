@@ -19,7 +19,7 @@ import java.util.stream.IntStream;
 import static java.util.stream.Collectors.toList;
 
 @RunWith(SpestRunner.class)
-public class AbstractDAOTest
+public class AbstractDAOSpestTest
 {
     @Before
     public void setUp()

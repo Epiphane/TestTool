@@ -21,7 +21,7 @@ import java.util.*;
 import static testing.JavaTestUtility.getFieldValue;
 
 @RunWith(SpestRunner.class)
-public class UserTest
+public class UserSpestTest
 {
     @Before
     public void setUp()

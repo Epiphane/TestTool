@@ -25,7 +25,7 @@ import static java.util.stream.Collectors.toList;
 import static testing.JavaTestUtility.getFieldValue;
 
 @RunWith(SpestRunner.class)
-public class CourseTest
+public class CourseSpestTest
 {
     @Before
     public void setUp()

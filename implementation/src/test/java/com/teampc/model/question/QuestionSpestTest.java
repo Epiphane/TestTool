@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @RunWith(SpestRunner.class)
-public class QuestionTest
+public class QuestionSpestTest
 {
     @Before
     public void setUp()
