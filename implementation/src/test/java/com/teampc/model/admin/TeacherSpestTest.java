@@ -13,7 +13,7 @@ import java.io.File;
 import java.util.List;
 
 @RunWith(SpestRunner.class)
-public class TeacherTest
+public class TeacherSpestTest
 {
    @Before
    public void setUp()
