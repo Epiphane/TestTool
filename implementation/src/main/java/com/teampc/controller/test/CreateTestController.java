@@ -1,5 +1,6 @@
 package com.teampc.controller.test;
 
+import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Strings;
 import com.teampc.dao.QuestionDAO;
 import com.teampc.dao.TestDAO;
@@ -176,6 +177,41 @@ public class CreateTestController implements Initializable {
     */
    private Collection<Question> generateQuestions() {
       return QuestionDAO.getInstance().fetchAll().stream().limit(numberOfQuestions.getValue()).collect(Collectors.toList());
+   }
+
+   @VisibleForTesting
+   /**
+    * Simulates creating a test
+    */
+   public Test testMe() {
+      String testName = "testName1";
+      Date userStartDate = new Date();
+      Date userEndDate = new Date();
+      String courseName = "course1";
+
+      return new Test(testName, userStartDate, userEndDate, courseName);
+   }
+
+   @VisibleForTesting
+   /**
+    * Simulates creating a test, no date
+    */
+   public Test testMeNoDate() {
+      String testName = "testName1";
+      String courseName = "course1";
+
+      return new Test(testName, null, null, courseName);
+   }
+
+   @VisibleForTesting
+   /**
+    * Simulates generating questions
+    */
+   public Collection<Question> testMeGenerateQuestions(int numQuestions) {
+      numberOfQuestions = new Spinner<>();
+      numberOfQuestions.increment(numQuestions);
+
+      return generateQuestions();
    }
 
 }
