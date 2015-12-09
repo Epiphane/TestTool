@@ -132,6 +132,13 @@ public class CreateTestController implements Initializable {
 
    /**
     * Handler for the create test button
+    pre:
+      testName.getText() != null && !testName.getText().equals("") &&
+      courseType.getText() != null && !courseType.getText().equals("")
+    *
+    post:
+      forall(Question question; questions'.contains(question);
+               generateQuestions().contains(question));
     */
    @FXML
    void onSubmitCreateTest(ActionEvent event) {
@@ -160,6 +167,12 @@ public class CreateTestController implements Initializable {
 
    /**
     * Generate the number of requested questions
+    pre: numberOfQuestions.getValue() != null & numberOfQuestions.getValue() >= 0
+    *
+    post:
+      return'.size() == numberOfQuestions.getValue() &&
+      forall(Question question; return'.contains(question);
+         QuestionDAO.getInstance().fetchAll().contains(question))
     */
    private Collection<Question> generateQuestions() {
       return QuestionDAO.getInstance().fetchAll().stream().limit(numberOfQuestions.getValue()).collect(Collectors.toList());

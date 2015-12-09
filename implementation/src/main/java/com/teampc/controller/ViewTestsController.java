@@ -28,6 +28,11 @@ public class ViewTestsController extends ListViewController<RowView<TestRowContr
    @Override
    /**
     * Initializes the tests list view with tests from the TestDAO
+    *
+    pre: data == null
+    *
+    post: data' != null &&
+            testList.size() == data.size()
     */
    public void initialize(URL location, ResourceBundle resources) {
 
