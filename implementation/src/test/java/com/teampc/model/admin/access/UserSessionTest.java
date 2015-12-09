@@ -1,6 +1,7 @@
 package com.teampc.model.admin.access;
 
-import com.teampc.model.admin.access.UserSession;
+import com.google.common.io.Files;
+import com.teampc.model.admin.User;
 import testing.CombinationSupport;
 
 import org.junit.runner.RunWith;
@@ -10,12 +11,11 @@ import org.junit.Test;
 import org.junit.Assert;
 
 import testing.JavaTestUtility;
-import format.ClassNameFormat;
-import com.teampc.model.admin.access.UserSession;
 
 import java.io.File;
 import com.rits.cloning.Cloner;
 
+import java.nio.charset.Charset;
 import java.util.*;
 
 import static testing.JavaTestUtility.getFieldValue;
@@ -34,32 +34,32 @@ public class UserSessionTest
     private Class clazz = com.teampc.model.admin.access.UserSession.class;
 
     private Cloner cloner = new Cloner();
-    private File rootDirectory = new File("/home/andy/dev/school/TestTool/implementation");
-    private File sourceFile = new File("/home/andy/dev/school/TestTool/implementation/src/main/java/com/teampc/model/admin/access/UserSession.java");
+    private File rootDirectory = new File(".");
+    private File sourceFile = new File("src/main/java/com/teampc/model/admin/access/UserSession.java");
     private JavaTestUtility javaTestUtility = new JavaTestUtility(rootDirectory, sourceFile, false);
     private com.teampc.model.admin.access.UserSession testObj;
     @Test
     public void loginTest_0() throws Exception
     {
+
+       File userFile = new File(UserSession.USER_FILE);
+       User testUser;
+       if (!userFile.exists()) {
+          testUser = UserSession.register("testUser", "test", "test", "user", User.UserType.STUDENT);
+       } else {
+          String serializedUser = Files.readFirstLine(new File(UserSession.USER_FILE), Charset.defaultCharset());
+          if (serializedUser == null) {
+             testUser = UserSession.register("testUser", "test", "test", "user", User.UserType.STUDENT);
+          } else {
+             testUser = User.fromString(serializedUser);
+          }
+       }
+
         boolean loggedIn = getFieldValue(testObj, "loggedIn", java.lang.Boolean.class);
-        com.teampc.model.admin.User loggedInUser = cloner.deepClone(getFieldValue(testObj, "loggedInUser", com.teampc.model.admin.User.class));
 
-        int testComboIndex;
-
-        String methodId = "login_com.teampc.model.admin.User";
-        List<com.teampc.model.admin.User> testPoints_0 = javaTestUtility.getSampleObjects(testObj, methodId, "user", com.teampc.model.admin.User.class);
-        int[][] combinations = CombinationSupport.getCombinations(testPoints_0.size());
-
-        com.teampc.model.admin.User param_0;
-        for(testComboIndex = 0; testComboIndex < combinations.length; testComboIndex++)
-        {
-            param_0 = testPoints_0.get(combinations[testComboIndex][0]);
-
-            testObj.login(param_0);
-            Assert.assertTrue(loggedIn == true);
-            Assert.assertTrue(loggedInUser.equals(param_0));
-            setUp();
-        }
+       UserSession.login(testUser.getUsername(), testUser.getPassword());
+       Assert.assertTrue(loggedIn);
+       Assert.assertTrue(UserSession.getLoggedInUser().equals(testUser));
     }
 
     @Test
@@ -80,15 +80,9 @@ public class UserSessionTest
     @Test
     public void endUserSessionTest_2() throws Exception
     {
-        boolean loggedIn = getFieldValue(testObj, "loggedIn", java.lang.Boolean.class);
-        com.teampc.model.admin.User loggedInUser = cloner.deepClone(getFieldValue(testObj, "loggedInUser", com.teampc.model.admin.User.class));
-
-
-        String methodId = "endUserSession";
-
-        testObj.endUserSession();
-        Assert.assertTrue(!(loggedIn));
-        Assert.assertTrue(loggedInUser == null);
+       UserSession.endUserSession();
+        Assert.assertTrue(!UserSession.loggedIn);
+        Assert.assertTrue(UserSession.loggedInUser == null);
         setUp();
     }
     /*End generated tests*/

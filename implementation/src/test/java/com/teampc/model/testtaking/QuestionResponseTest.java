@@ -1,5 +1,7 @@
 package com.teampc.model.testtaking;
 
+import com.google.common.collect.Lists;
+import com.sun.org.apache.xpath.internal.operations.Mult;
 import com.teampc.model.testtaking.QuestionResponse;
 import testing.CombinationSupport;
 
@@ -18,44 +20,35 @@ import com.rits.cloning.Cloner;
 
 import java.util.*;
 
+import static org.junit.Assert.assertTrue;
 import static testing.JavaTestUtility.getFieldValue;
 
 @RunWith(SpestRunner.class)
 public class QuestionResponseTest
 {
-    @Before
-    public void setUp()
-    {
-        testObj = (com.teampc.model.testtaking.QuestionResponse)javaTestUtility.getSampleObject(clazz);
+   @Before
+   public void setUp()
+   {
+      testObj = new MultipleChoiceQuestionResponse(1, Lists.newArrayList("choice 1", "choice 2", "choice 3", "choice 4"));
 
-    }
+   }
 
-    /*Start generated tests*/
-    private Class clazz = com.teampc.model.testtaking.QuestionResponse.class;
+   private MultipleChoiceQuestionResponse testObj;
 
-    private Cloner cloner = new Cloner();
-    private File rootDirectory = new File("/home/andy/dev/school/TestTool/implementation");
-    private File sourceFile = new File("/home/andy/dev/school/TestTool/implementation/src/main/java/com/teampc/model/testtaking/QuestionResponse.java");
-    private JavaTestUtility javaTestUtility = new JavaTestUtility(rootDirectory, sourceFile, false);
-    private com.teampc.model.testtaking.QuestionResponse testObj;
-    @Test
-    public void assignPointsTest_0() throws Exception
-    {
-        int testComboIndex;
+   @Test
+   public void assignPointsTest_0() throws Exception
+   {
 
-        String methodId = "assignPoints_com.teampc.model.testtaking.QuestionResponse";
-        List<com.teampc.model.testtaking.QuestionResponse> testPoints_0 = javaTestUtility.getSampleObjects(testObj, methodId, "questionResponse", com.teampc.model.testtaking.QuestionResponse.class);
-        int[][] combinations = CombinationSupport.getCombinations(testPoints_0.size());
+      MultipleChoiceQuestionResponse testResponse1 = MultipleChoiceQuestionResponse.studentResponse(0);
+      MultipleChoiceQuestionResponse testResponse2 = MultipleChoiceQuestionResponse.studentResponse(1);
+      MultipleChoiceQuestionResponse testResponse3 = MultipleChoiceQuestionResponse.studentResponse(2);
 
-        com.teampc.model.testtaking.QuestionResponse param_0;
-        for(testComboIndex = 0; testComboIndex < combinations.length; testComboIndex++)
-        {
-            param_0 = testPoints_0.get(combinations[testComboIndex][0]);
+      testObj.assignPoints(testResponse1, 1);
+      testObj.assignPoints(testResponse2, 1);
+      testObj.assignPoints(testResponse3, 1);
 
-            testObj.assignPoints(param_0);
-            Assert.assertTrue(javaTestUtility.getFieldValue(param_0, "pointsReceived", int.class) >= 0);
-            setUp();
-        }
-    }
-    /*End generated tests*/
+      assertTrue(testResponse1.getPointsReceived() >= 0);
+      assertTrue(testResponse2.getPointsReceived() >= 0);
+      assertTrue(testResponse3.getPointsReceived() >= 0);
+   }
 }

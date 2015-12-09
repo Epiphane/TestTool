@@ -1,24 +1,19 @@
 package com.teampc.model.question;
 
-import com.teampc.model.question.Question;
-import testing.CombinationSupport;
-
-import org.junit.runner.RunWith;
-import testing.runner.SpestRunner;
+import com.google.common.collect.Lists;
+import com.teampc.model.testtaking.MultipleChoiceQuestionResponse;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.Assert;
-
+import org.junit.runner.RunWith;
+import testing.CombinationSupport;
 import testing.JavaTestUtility;
-import format.ClassNameFormat;
-import com.teampc.model.question.Question;
+import testing.runner.SpestRunner;
 
 import java.io.File;
-import com.rits.cloning.Cloner;
-
-import java.util.*;
-
-import static testing.JavaTestUtility.getFieldValue;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @RunWith(SpestRunner.class)
 public class QuestionTest
@@ -26,16 +21,14 @@ public class QuestionTest
     @Before
     public void setUp()
     {
-        testObj = (com.teampc.model.question.Question)javaTestUtility.getSampleObject(clazz);
+        testObj = new Question<>(0, "Why?", 2, new MultipleChoiceQuestionResponse(1, Lists.newArrayList("Because", "42", "Yes")), Question.QuestionType.MULTIPLE_CHOICE);
 
     }
 
     /*Start generated tests*/
-    private Class clazz = com.teampc.model.question.Question.class;
 
-    private Cloner cloner = new Cloner();
-    private File rootDirectory = new File("/home/andy/dev/school/TestTool/implementation");
-    private File sourceFile = new File("/home/andy/dev/school/TestTool/implementation/src/main/java/com/teampc/model/question/Question.java");
+    private File rootDirectory = new File(".");
+    private File sourceFile = new File("src/main/java/com/teampc/model/question/Question.java");
     private JavaTestUtility javaTestUtility = new JavaTestUtility(rootDirectory, sourceFile, false);
     private com.teampc.model.question.Question testObj;
     @Test
@@ -43,8 +36,7 @@ public class QuestionTest
     {
         int testComboIndex;
 
-        String methodId = "grade_com.teampc.model.testtaking.QuestionResponse";
-        List<com.teampc.model.testtaking.QuestionResponse> testPoints_0 = javaTestUtility.getSampleObjects(testObj, methodId, "response", com.teampc.model.testtaking.QuestionResponse.class);
+        List<MultipleChoiceQuestionResponse> testPoints_0 = IntStream.range(1,5).mapToObj(answer -> new MultipleChoiceQuestionResponse(answer, Lists.newArrayList("1", "2", "3", "4"))).collect(Collectors.toList());
         int[][] combinations = CombinationSupport.getCombinations(testPoints_0.size());
 
         com.teampc.model.testtaking.QuestionResponse param_0;

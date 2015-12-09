@@ -1,9 +1,11 @@
 package com.teampc.model.question;
 
 import com.teampc.dao.HasId;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import com.teampc.model.testtaking.*;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -15,6 +17,8 @@ import lombok.extern.slf4j.Slf4j;
 
 @Data
 @Slf4j
+@AllArgsConstructor
+@NoArgsConstructor
 public class Question<T extends QuestionResponse> implements HasId {
 
    private int id;
