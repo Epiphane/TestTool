@@ -10,11 +10,18 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 
 /**
- * Created by james on 12/7/15.
+ * TestFXUtil is a utility class with methods that may be used in various parts of the application.
+ * These methods are intended for use with JavaFX.
+ *
+ * @author Jameson Li (jrli@calpoly.edu)
  */
 public class TestFXUtils {
+   /** Provides logging **/
    private static final Logger LOG = LoggerFactory.getLogger(TestFXUtils.class);
 
+   /**
+    * Places a test viewer on the given stage. The test and test event must be specified.
+    */
    public static void openTestViewer(Stage stage, Test test, TestEvent event) {
       try {
          FXUtils.switchToScreenAndConfigureController(stage, "take-test.fxml",
