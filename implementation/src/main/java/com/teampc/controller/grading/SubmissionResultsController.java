@@ -2,6 +2,9 @@ package com.teampc.controller.grading;
 
 import com.teampc.controller.questionview.QuestionViewController;
 import com.teampc.dao.SubmissionDAO;
+import com.teampc.model.admin.Student;
+import com.teampc.model.admin.Teacher;
+import com.teampc.model.admin.User;
 import com.teampc.model.admin.access.UserSession;
 import com.teampc.model.question.Question;
 import com.teampc.model.testtaking.QuestionResponse;
@@ -54,12 +57,17 @@ public class SubmissionResultsController implements Initializable {
    @FXML
    Button saveGrading;
 
+   @FXML
+   private Pane gradingPane;
+
    public void setUp(Submission s) {
       submission = s;
 
-      boolean isInstructor = true; // FIXME: determine if the current user is an instructor
+      boolean isInstructor = UserSession.getLoggedInUser().isTeacher();
+
       isGrading = isInstructor;
 
+      gradingPane.setDisable(!isGrading);
       drawCurrQuestion();
    }
 
