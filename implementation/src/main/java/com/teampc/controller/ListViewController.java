@@ -26,6 +26,8 @@ public abstract class ListViewController<T> implements Initializable {
 
    /** Initializes view with items of type T **/
    protected void initView() {
+      if(viewTestList == null) { return; }
+
       viewTestList.setItems(data);
 
       viewTestList.setCellFactory(list -> new SimpleCellFactory<>());

@@ -158,7 +158,7 @@ public class CreateTestController implements Initializable {
       if (endLocalDate != null) { userEndDate = TestUtils.localDateToDate(endLocalDate); }
 
       Test newTest = new Test(testName.getText(), userStartDate, userEndDate, courseType.getText());
-      questions.addAll(generateQuestions());
+      questions.addAll(generateQuestions(numberOfQuestions.getValue()));
       newTest.setQuestions(questions);
       TestDAO.getInstance().insert(newTest);
       LOG.info("new test submitted");
@@ -175,8 +175,8 @@ public class CreateTestController implements Initializable {
       forall(Question question; return'.contains(question);
          QuestionDAO.getInstance().fetchAll().contains(question))
     */
-   private Collection<Question> generateQuestions() {
-      return QuestionDAO.getInstance().fetchAll().stream().limit(numberOfQuestions.getValue()).collect(Collectors.toList());
+   private Collection<Question> generateQuestions(int numQuestions) {
+      return QuestionDAO.getInstance().fetchAll().stream().limit(numQuestions).collect(Collectors.toList());
    }
 
    @VisibleForTesting
@@ -208,10 +208,7 @@ public class CreateTestController implements Initializable {
     * Simulates generating questions
     */
    public Collection<Question> testMeGenerateQuestions(int numQuestions) {
-      numberOfQuestions = new Spinner<>();
-      numberOfQuestions.increment(numQuestions);
-
-      return generateQuestions();
+      return generateQuestions(numQuestions);
    }
 
 }
