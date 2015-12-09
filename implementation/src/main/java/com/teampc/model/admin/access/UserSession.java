@@ -22,6 +22,8 @@ import java.util.Scanner;
 @Slf4j
 public class UserSession {
 
+   public static final String USER_FILE = "users.txt";
+
    /** Current logged in user **/
    public static User loggedInUser;
 
@@ -96,17 +98,21 @@ public class UserSession {
     * @param last The last name of the new USer
     */
 
-   public static void Register(String username, String pass, String first, String last, String type) {
-
-      if (type.equals("Instructor")) {
-         Teacher user = new Teacher(username, first, last, pass);
-         userlist.put(username, user);
-         registerUser(username, user);
-      } else {
-         Student user = new Student(username, first, last, pass);
-         userlist.put(username, user);
-         registerUser(username, user);
+   public static User register(String username, String pass, String first, String last, User.UserType type) {
+      User user = null;
+      switch (type) {
+         case TEACHER:
+            user = new Teacher(username, first, last, pass);
+            userlist.put(username, user);
+            registerUser(username, user);
+            break;
+         case STUDENT:
+            user = new Student(username, first, last, pass);
+            userlist.put(username, user);
+            registerUser(username, user);
       }
+
+      return user;
    }
 
 
@@ -140,7 +146,7 @@ public class UserSession {
 
    private static void populateUserList(){
 
-      String filename = "users.txt", line, username, firstName, lastName, password, type;;
+      String filename = USER_FILE, line, username, firstName, lastName, password, type;;
 
       Scanner fileScan, lineScanner;
       boolean isAdmin;
@@ -158,30 +164,8 @@ public class UserSession {
             line = fileScan.nextLine();
 
             if(!line.equals("")) {
-               lineScanner = new Scanner(line);
-               type = lineScanner.next();
-               username = lineScanner.next();
-               firstName = lineScanner.next();
-               lastName = lineScanner.next();
-               password = lineScanner.next();
-               isAdmin = false;
-               if (lineScanner.hasNext()) {
-                  isAdmin = Boolean.valueOf(lineScanner.next());
-               }
-
-               User user;
-               switch (User.UserType.valueOf(type.toUpperCase())) {
-                  case TEACHER:
-                     user = new Teacher(username, firstName, lastName, password, isAdmin);
-                     userlist.put(username, user);
-                     break;
-                  case STUDENT:
-                     user = new Student(username, firstName, lastName, password, isAdmin);
-                     userlist.put(username, user);
-                     break;
-                  default:
-                     log.warn("Could not determine user type from: " + type);
-               }
+               User newUser = User.fromString(line);
+               userlist.put(newUser.getUsername(), newUser);
             }
 
          }
@@ -192,7 +176,6 @@ public class UserSession {
 
 
    }
-
 
    private static void registerUser(String username, User user){
 
@@ -211,7 +194,7 @@ public class UserSession {
       output = output + username + " " + user.getFirstName() + " " + user.getLastName() + " " + user.getPassword() + "\n";
 
       try {
-         Files.write(Paths.get("users.txt"), output.getBytes(), StandardOpenOption.APPEND);
+         Files.write(Paths.get(USER_FILE), output.getBytes(), StandardOpenOption.APPEND);
       }catch (IOException e) {
         e.printStackTrace();
       }

@@ -73,7 +73,7 @@ public class Course {
     *
     */
    public List<Student> getEnrolledStudents() {
-      return Collections.EMPTY_LIST;
+      return Collections.emptyList();
    }
 
    /**

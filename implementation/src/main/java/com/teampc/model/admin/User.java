@@ -2,6 +2,8 @@ package com.teampc.model.admin;
 
 import lombok.Data;
 
+import java.util.Scanner;
+
 /**
  * Defines user details including name, username
  */
@@ -103,6 +105,32 @@ public abstract class User {
    public interface Visitor<T> {
       T visitTeacher(Teacher t);
       T visitStudent(Student s);
+   }
+
+   public static User fromString(String serialized) {
+      Scanner lineScanner = new Scanner(serialized);
+      String type = lineScanner.next();
+      String username = lineScanner.next();
+      String firstName = lineScanner.next();
+      String lastName = lineScanner.next();
+      String password = lineScanner.next();
+      boolean isAdmin = false;
+      if (lineScanner.hasNext()) {
+         isAdmin = Boolean.valueOf(lineScanner.next());
+      }
+
+      User user;
+      switch (User.UserType.valueOf(type.toUpperCase())) {
+         case TEACHER:
+            user = new Teacher(username, firstName, lastName, password, isAdmin);
+            break;
+         case STUDENT:
+            user = new Student(username, firstName, lastName, password, isAdmin);
+            break;
+         default:
+            throw new UnsupportedOperationException("Can't deserialize user type from: " + type);
+      }
+      return user;
    }
 }
 

@@ -1,7 +1,7 @@
 package com.teampc.controller;
 
+import com.teampc.model.admin.User;
 import com.teampc.model.admin.access.UserSession;
-import com.teampc.utils.FXUtils;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -32,7 +32,7 @@ public class RegisterController implements Initializable {
     * Corresponds to the choice box for the type of user account.
     */
    @FXML
-   private ChoiceBox<String> accountchoice;
+   private ChoiceBox<User.UserType> accountchoice;
 
    /**
     * Corresponds to the username text field.
@@ -78,11 +78,7 @@ public class RegisterController implements Initializable {
     */
    @Override
    public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
-
-      accountchoice.setItems(FXCollections.observableArrayList());
-      accountchoice.getItems().add("Instructor");
-      accountchoice.getItems().add("Student");
-
+      accountchoice.setItems(FXCollections.observableArrayList(User.UserType.values()));
    }
 
    /**
@@ -112,14 +108,14 @@ public class RegisterController implements Initializable {
       /**
        * Grab the account type
        */
-      String type = accountchoice.getValue();
+      User.UserType type = accountchoice.getValue();
 
       /**
        * If all of the necessary fields are filled out, register the user.
        */
-      if(!(username.equals("") || password.equals("") || first.equals("") || last.equals("") || type.equals(""))) {
+      if(!(username.equals("") || password.equals("") || first.equals("") || last.equals("") || type == null)) {
          LOG.debug(username);
-         UserSession.Register(username, password, first, last, type);
+         UserSession.register(username, password, first, last, type);
          Stage stage = (Stage) registerbutton.getScene().getWindow();
          stage.close();
       }

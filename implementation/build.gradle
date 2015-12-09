@@ -27,7 +27,7 @@ dependencies {
     compile 'commons-io:commons-io:2.4'
     compile fileTree(dir: "$projectDir/libs/compile", include: '*.jar')
 
-    testCompile fileTree(dir: "$projectDir/libs/testCompile", include: '*.jar')
+    testCompile fileTree(dir: "$projectDir/libs/testCompile", include: '*.jar', exclude: 'spest-patched.jar')
     runtime 'org.codehaus.groovy:groovy-all:2.4.5'
 }
 
@@ -46,6 +46,9 @@ sourceSets {
 //          srcDir "$projectDir/../testing/src/test/resources"
 //       }
 //    }
+
+   sourceCompatibility = JavaVersion.VERSION_1_8
+   targetCompatibility = JavaVersion.VERSION_1_8
 }
 
 idea {
