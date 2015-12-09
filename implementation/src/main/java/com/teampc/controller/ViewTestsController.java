@@ -1,10 +1,12 @@
 package com.teampc.controller;
 
+import com.google.common.annotations.VisibleForTesting;
 import com.teampc.controller.test.TestRowController;
 import com.teampc.dao.TestDAO;
 import com.teampc.model.test.Test;
 import com.teampc.view.RowView;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.net.URL;
 import java.util.List;
@@ -42,6 +44,15 @@ public class ViewTestsController extends ListViewController<RowView<TestRowContr
       testList.forEach(test -> data.add(new RowView<>(new TestRowController(test), RESOURCE)));
 
       initView();
+   }
+
+   /**
+    * Simulates controller initialization
+    */
+   @VisibleForTesting
+   public ObservableList<RowView<TestRowController>> testMe() {
+      initialize(null, null);
+      return data;
    }
 
 }

@@ -1,7 +1,6 @@
-package com.teampc.controller;
+package com.teampc.controller.test;
 
 import com.google.common.base.Strings;
-import com.teampc.controller.test.CreateTestController;
 import com.teampc.model.question.Question;
 import org.junit.Test;
 
