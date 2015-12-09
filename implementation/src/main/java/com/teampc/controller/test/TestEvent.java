@@ -1,7 +1,11 @@
 package com.teampc.controller.test;
 
 /**
- * Created by james on 12/7/15.
+ * TestEvent allow various components of this application to specify what type of operation
+ * is being performed on a test. Edit, Grade, and View operation are supported.
+ *
+ * @author Jameson Li (jrli@calpoly.edu)
+ *
  */
 public enum TestEvent {
    EDIT_EVENT,

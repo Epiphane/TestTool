@@ -19,8 +19,17 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * The test row controller provides methods that allow the model and views to interact.
+ * View changes when creating a test row will be persistent in the model through this class.
+ * Changes to a test on the model will be displayed in the view through the use of
+ * methods in this class.
+ *
+ * @author Jameson Li (jrli@calpoly.edu)
+ */
 public class TestRowController implements Initializable{
 
+   /** Provides logging **/
    private static final Logger LOG = LoggerFactory.getLogger(TestRowController.class);
 
    @FXML
@@ -101,7 +110,8 @@ public class TestRowController implements Initializable{
    }
 
    @Override
-   /** Initializes the row view **/
+   /** Initializes the row view
+    */
    public void initialize(URL location, ResourceBundle resources) {
       testName.setText(test.getName());
       testStatus.setText(test.isPublished() ? "Completed" : "Incomplete");
