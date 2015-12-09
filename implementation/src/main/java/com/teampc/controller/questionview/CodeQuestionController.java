@@ -4,6 +4,7 @@ import com.teampc.model.question.InvalidQuestionException;
 import com.teampc.model.question.Question;
 import com.teampc.model.testtaking.CodeQuestionResponse;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import lombok.extern.slf4j.Slf4j;
 
@@ -18,6 +19,9 @@ public class CodeQuestionController extends QuestionViewController<CodeQuestionR
 
    @FXML
    private TextArea givenCode;
+
+   @FXML
+   private Button gradingScript;
 
    private Optional<File> gradingScriptFile = Optional.empty();
 
@@ -48,5 +52,10 @@ public class CodeQuestionController extends QuestionViewController<CodeQuestionR
     */
    public CodeQuestionResponse getResponse() {
       return new CodeQuestionResponse(gradingScriptFile.map(File::getAbsolutePath).orElse(""), givenCode.getText());
+   }
+
+   public void freeze() {
+      givenCode.setDisable(true);
+      gradingScript.setDisable(true);
    }
 }

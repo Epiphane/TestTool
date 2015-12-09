@@ -83,6 +83,7 @@ public class SubmissionResultsController implements Initializable {
          currentQuestionController = loader.getController();
          currentQuestionController.setQuestion(question);
          currentQuestionController.setResponse(questionResponse);
+         currentQuestionController.freeze();
 
          pointsReceived.setText("" + questionResponse.getPointsReceived());
       }
