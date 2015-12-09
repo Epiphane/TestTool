@@ -84,12 +84,18 @@ public class SubmissionResultsController implements Initializable {
          currentQuestionController.setQuestion(question);
          currentQuestionController.setResponse(questionResponse);
          currentQuestionController.freeze();
+         drawButtonStuff();
 
          pointsReceived.setText("" + questionResponse.getPointsReceived());
       }
       catch (IOException e) {
          LOG.error("could not load currQuestion", e);
       }
+   }
+
+   private void drawButtonStuff() {
+      prevBtn.setDisable(currQuestionIdx == 0);
+      nextBtn.setDisable(currQuestionIdx >= getNumQuestions() - 1);
    }
 
    private Question getCurrQuestion() {
@@ -100,22 +106,31 @@ public class SubmissionResultsController implements Initializable {
       return submission.getResponses().get(currQuestionIdx);
    }
 
+   private int getNumQuestions() {
+      return Math.min(submission.getTest().getQuestions().size(), submission.getResponses().size());
+   }
+
    @Override
    public void initialize(URL location, ResourceBundle resources) {
+
    }
 
    @FXML
    void onClickNextBtn() {
       LOG.debug("clicked Next");
-      currQuestionIdx++;
-      drawCurrQuestion();
+      if (currQuestionIdx < getNumQuestions() - 1) {
+         currQuestionIdx++;
+         drawCurrQuestion();
+      }
    }
 
    @FXML
    void onClickPrevBtn() {
       LOG.debug("clicked Prev");
-      currQuestionIdx--;
-      drawCurrQuestion();
+      if (currQuestionIdx > 0) {
+         currQuestionIdx--;
+         drawCurrQuestion();
+      }
    }
 
    @FXML
