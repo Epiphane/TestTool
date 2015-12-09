@@ -11,9 +11,10 @@ import com.teampc.model.test.Test;
 
 /**
  * This class contains information to uniquely identify a Course.
- * <p>
  * It contains information such as course title, section, instructor.
  * Methods in this class will be used to modify any related fields.
+ *
+ * @author Jameson Li (jrli@calpoly.edu)
  */
 @Data
 public class Course {

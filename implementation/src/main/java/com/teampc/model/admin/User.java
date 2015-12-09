@@ -60,6 +60,14 @@ public abstract class User {
       admin = false;
    }
 
+   /**
+    * Defines a user given username, firstName, lastName, password, and role
+    *
+    * @param username  Username of the User
+    * @param firstName First name of the User
+    * @param lastName  Last Name of the User
+    * @param password  Password of the User
+    */
    public User(String username, String firstName, String lastName, String password, boolean admin) {
       this.username = username;
       this.firstName = firstName;
@@ -107,6 +115,9 @@ public abstract class User {
       T visitStudent(Student s);
    }
 
+   /**
+    * Reads user information from file
+    */
    public static User fromString(String serialized) {
       Scanner lineScanner = new Scanner(serialized);
       String type = lineScanner.next();
