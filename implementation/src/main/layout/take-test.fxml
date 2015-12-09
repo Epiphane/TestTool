@@ -18,9 +18,9 @@
         </AnchorPane>
          <Pane fx:id="editQuestionPane" minHeight="0.0" minWidth="0.0" prefHeight="217.0" prefWidth="594.0" visible="false">
             <children>
-               <Button fx:id="editQuestionDelete" layoutX="553.0" layoutY="7.0" mnemonicParsing="false" text="X" onAction="#onDeleteQuestion"/>
-               <Button fx:id="editQuestionDown" layoutX="526.0" layoutY="7.0" mnemonicParsing="false" text="v" onAction="#onDownQuestion"/>
-               <Button fx:id="editQuestionUp" layoutX="501.0" layoutY="7.0" mnemonicParsing="false" text="^" onAction="#onUpQuestion"/>
+               <Button fx:id="editQuestionDelete" layoutX="553.0" layoutY="7.0" mnemonicParsing="false" onAction="#onDeleteQuestion" text="X" />
+               <Button fx:id="editQuestionDown" layoutX="526.0" layoutY="7.0" mnemonicParsing="false" onAction="#onDownQuestion" text="v" />
+               <Button fx:id="editQuestionUp" layoutX="501.0" layoutY="7.0" mnemonicParsing="false" onAction="#onUpQuestion" text="^" />
             </children>
          </Pane>
         <AnchorPane id="questionPane" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
@@ -50,15 +50,5 @@
         </AnchorPane>
       </items>
     </SplitPane>
-      <Pane fx:id="gradingSection" layoutX="141.0" layoutY="377.0" prefHeight="100.0" prefWidth="453.0">
-         <children>
-            <Text layoutX="20.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Comment" />
-            <TextField fx:id="gradingComment" layoutX="14.0" layoutY="37.0" />
-            <Button fx:id="saveCommentButton" layoutX="17.0" layoutY="64.0" mnemonicParsing="false" onAction="#onClickSaveCommentButton" text="Save Comment" />
-            <Text layoutX="267.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Grade:" />
-            <TextField fx:id="gradingGradeInput" layoutX="267.0" layoutY="37.0" />
-            <Button fx:id="saveGradeButton" layoutX="267.0" layoutY="64.0" mnemonicParsing="false" onAction="#onClickSaveGradeButton" text="Save Grade" />
-         </children>
-      </Pane>
   </children>
 </AnchorPane>
