@@ -17,6 +17,7 @@ import javax.persistence.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * A general Test Class
@@ -56,8 +57,6 @@ public class Test implements HasId {
    private Teacher owner;
 
    private List<Question> questions;
-
-   private Key key;
 
    @Column(name = "published")
    private boolean published;
@@ -258,5 +257,22 @@ public class Test implements HasId {
       if(curIndex >= questions.size() - 1) { return; } // do nothing if last question
       Collections.swap(questions, curIndex, curIndex + 1);
 
+   }
+
+   /**
+    * generates a key for this test
+    */
+   public Key generateKey() {
+      Key key = new Key();
+      key.setTest(this);
+
+      ArrayList<QuestionResponse> correctResponses = new ArrayList<>();
+      for (Question nextQuestion: questions) {
+         correctResponses.add(nextQuestion.getCorrectAnswer());
+      }
+
+      key.setResponses(correctResponses);
+
+      return key;
    }
 }
