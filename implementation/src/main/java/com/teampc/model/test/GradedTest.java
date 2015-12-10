@@ -10,7 +10,7 @@ import java.util.Optional;
 import com.teampc.model.question.Question;
 
 /**
- * A Class representing a test after it has been graded.
+ * GradedTest representins a test after it has been graded.
  * @author Andy DuFrene
  *
  */
@@ -27,11 +27,11 @@ public abstract class GradedTest {
     /** Questions within the test object that were graded as correct */
     private final ImmutableList<Question> correctQuestions;
 
-    /** 
+    /**
      * Attempt to retake the graded test. Returns an
      * <code>Optional.empty()</code> if the test can not be retaken, either due
      * to the test's type not allowing retakes, or the number of retakes has
-     * been exceeded. 
+     * been exceeded.
      * */
     public abstract Optional<Test> retake();
 }

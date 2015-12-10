@@ -5,7 +5,7 @@ import com.teampc.model.testtaking.QuestionResponse;
 import java.util.List;
 
 /**
- * A practice test that won't count towards an official grade
+ * PracticeTest is a test that won't count towards an official grade
  * @author Andy DuFrene
  *
  */

@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 import static java.util.stream.Collectors.toList;
 
 /**
- * A general Test Class
+ * Test represents all test objects handled by the application.
  * @author Thomas Steinke
  *
  */

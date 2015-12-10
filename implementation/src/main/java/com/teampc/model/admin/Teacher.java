@@ -10,7 +10,7 @@ import java.util.List;
 import static java.util.stream.Collectors.toList;
 
 /**
- * This class contains all the information that identifies a User as a Teacher.
+ * Teacher contains all the information that identifies a User as a Teacher.
  *
  * @author Greg Sawers (gsawers@calpoly.edu)
  */

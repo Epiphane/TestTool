@@ -1,7 +1,7 @@
 package com.teampc.model.test;
 
 /**
- * An enumeration representing the difficulty of a test.
+ * TestDifficult is an enumeration representing the difficulty of a test.
  *
  * Created by Greg
  */

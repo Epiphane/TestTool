@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import com.teampc.model.testtaking.*;
 
 /**
- * Class to auto-grade a test.
+ * TestGrader class to auto-grade a test.
  *
  * @author Zach Arend (zarend@calpoly.edu)
  */

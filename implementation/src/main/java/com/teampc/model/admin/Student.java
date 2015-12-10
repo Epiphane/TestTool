@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class contains information that identifies a Student.
+ * Student contains information that identifies a Student.
  * <p>
  * It contains information such as courses a Student is enrolled in.
  *

@@ -7,7 +7,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * A response to a multiple choice question question.
+ * MultiplechoiceQuestionResponse represents the answers to a MC Question
  * @author Zach Arend
  */
 @Data

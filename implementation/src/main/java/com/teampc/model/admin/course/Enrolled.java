@@ -6,7 +6,7 @@ import lombok.Builder;
 import com.teampc.model.admin.*;
 
 /**
- * Represents a relation between a Student and a Course.
+ * Enrolled represents a relation between a Student and a Course.
  * Each student may have many enrolled courses and each
  * course may have many students.
  *
