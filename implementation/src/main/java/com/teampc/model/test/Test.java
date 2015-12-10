@@ -97,6 +97,7 @@ public class Test implements HasId {
 
    /**
     * Get the name of the test
+    * @return The name of the test
     */
    public String getName() {
       log.info("Getting name of exam: " + name);
@@ -105,6 +106,7 @@ public class Test implements HasId {
 
    /**
     * Get the test start Date
+    * @return The start date of the test
     */
    public Date getStartDate() {
       log.info("Getting startDate: " + startDate);
@@ -113,12 +115,17 @@ public class Test implements HasId {
 
    /**
     * Get the test end Date
+    * @return The end date of the test
     */
    public Date getEndDate() {
       log.info("Getting endDate: " + endDate);
       return endDate;
    }
 
+   /**
+    * Get the time limit of the test
+    * @return the time limit of the test
+    */
    public int getTimeLimit() {
       log.info("Getting time limit: " + timeLimit);
       return timeLimit;
@@ -126,7 +133,7 @@ public class Test implements HasId {
 
    /**
     * Determines whether the test is available to be taken
-    *
+    *@return Whether the test is available to be taken
       pre: startDate != null && endDate != null
     */
    public boolean isOpen() {
@@ -160,6 +167,7 @@ public class Test implements HasId {
     *
       pre: startDate != null && endDate != null
     *
+    * @return Get the string representation of this test
     */
    public String toString() {
       DateFormat df = new SimpleDateFormat("EE MMM d, YYYY");
@@ -183,13 +191,15 @@ public class Test implements HasId {
    }
 
    /**
-    * Assess and set the point value on a response to this question.
+    * * Assess and set the point value on a response to this question.
     * Reorders the question list by moving the question in position
     * from to position to.
     *
-      pre: from > 0 && from < questions.size() &&
-         to > 0 && to < questions.size() &&
-         from != to
+    pre: from > 0 && from < questions.size() &&
+    to > 0 && to < questions.size() &&
+    from != to
+    * @param from Where the question is in the test
+    * @param to Where we want the question to be
     */
    public void moveQuestion(int from, int to) {
 
@@ -246,6 +256,9 @@ public class Test implements HasId {
 
       post: result.getResponses() != null &&
             result.getUser() == forUser
+
+      @param forUser The user who is currently taking the test
+      @return The submission of the test by the user.
     */
    public Submission takeTest(User forUser) {
       Submission newSubmission = new Submission();
@@ -274,6 +287,8 @@ public class Test implements HasId {
     *
       pre: questions != null && questions.size() > 0
             && question != null && questions.indexOf(question) >= 0
+
+     @param question The question to remove from the test
     */
    public void removeQuestion(Question question) {
       if(question == null) { return; }
@@ -285,6 +300,8 @@ public class Test implements HasId {
     * pre: questions != null
     *
     * post: question == null || (questions.indexOf(question) == 0 || questions'.indexOf(question) == questions.indexOf(question) - 1) 
+    *
+    * @param question the question whose position we want to move up in the test
     */
    public void moveQuestionUp(Question question) {
       if(question == null || !questions.contains(question)) { return; }
@@ -295,7 +312,7 @@ public class Test implements HasId {
    }
 
    /**
-    *
+    * @param question the question whose position we want to move down in the test
     * pre: questions != null
     *
     * post: question == null || (questions.indexOf(question) == questions.size() - 1 || questions'.indexOf(question) == questions.indexOf(question) + 1)
@@ -315,6 +332,8 @@ public class Test implements HasId {
       pre: !this.isOpen()
 
       post: TestGrader.gradeTest(key, key) && key.grade == 100.0% && !this.isOpen()
+
+    @return The key to the test
     */
    public Key generateKey() {
       Key key = new Key();

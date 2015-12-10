@@ -131,6 +131,7 @@ public abstract class User {
 
    /**
     * Reads user information from file
+    * @param serialized The string to interpret the user from.
     pre: serialized != null && serialized.split("\\s").length >= 5
 
     post: return != null
