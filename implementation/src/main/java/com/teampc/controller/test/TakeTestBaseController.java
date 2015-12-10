@@ -71,7 +71,9 @@ public class TakeTestBaseController implements Initializable {
       availableTests.setItems(tests);
       testSelector.getItems().addAll(testData);
 
-      selectTest(tests.get(0));
+      if (tests.size() > 0) {
+         selectTest(tests.get(0));
+      }
    }
 
    /**
