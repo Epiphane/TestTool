@@ -45,5 +45,10 @@ public abstract class TestGrader {
         for (int i = 0; i < s.responses.size(); i++) {
             key.responses.get(i).assignPoints(s.responses.get(i), 1);
         }
+
+       s.grade = 0;
+       for (int  i = 0; i < s.responses.size(); i++) {
+          s.grade += s.responses.get(i).getPointsReceived();
+       }
     }
 }
