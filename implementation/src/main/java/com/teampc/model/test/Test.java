@@ -121,6 +121,8 @@ public class Test implements HasId {
 
    /**
     * Determines whether the test is available to be taken
+    *
+      pre: startDate != null && endDate != null
     */
    public boolean isOpen() {
       if (!published) {
@@ -234,7 +236,12 @@ public class Test implements HasId {
 
    /**
     * Take test for the given user, creating a minimally instantiated test submission
-     */
+    *
+      pre: forUser != null && this.isOpen()
+
+      post: result.getResponses() != null &&
+            result.getUser() == forUser
+    */
    public Submission takeTest(User forUser) {
       Submission newSubmission = new Submission();
 
@@ -257,6 +264,12 @@ public class Test implements HasId {
       return Optional.empty();
    }
 
+   /**
+    * Remove a question from the test
+    *
+      pre: questions != null && questions.size() > 0
+            && question != null && questions.indexOf(question) >= 0
+    */
    public void removeQuestion(Question question) {
       if(question == null) { return; }
       questions.remove(question);
@@ -281,6 +294,8 @@ public class Test implements HasId {
 
    /**
     * generates a key for this test
+    *
+      pre: !this.isOpen()
     */
    public Key generateKey() {
       Key key = new Key();
