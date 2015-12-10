@@ -96,23 +96,30 @@ public class UserSession {
     * @param pass The password of the new User
     * @param first The first name of the new User
     * @param last The last name of the new USer
+    *
+     pre: !userlist.containsKey(username) && loggedIn == false
+
+     post: userlist.containsKey(username) && loggedIn == false
     */
 
-   public static User register(String username, String pass, String first, String last, User.UserType type) {
+   public static boolean register(String username, String pass, String first, String last, User.UserType type) {
       User user = null;
-      switch (type) {
-         case TEACHER:
-            user = new Teacher(username, first, last, pass);
-            userlist.put(username, user);
-            registerUser(username, user);
-            break;
-         case STUDENT:
-            user = new Student(username, first, last, pass);
-            userlist.put(username, user);
-            registerUser(username, user);
+      populateUserList();
+      if (!userlist.containsKey(username)) {
+         switch (type) {
+            case TEACHER:
+               user = new Teacher(username, first, last, pass);
+               userlist.put(username, user);
+               registerUser(username, user);
+               break;
+            case STUDENT:
+               user = new Student(username, first, last, pass);
+               userlist.put(username, user);
+               registerUser(username, user);
+         }
+         return true;
       }
-
-      return user;
+      return false;
    }
 
 
@@ -139,9 +146,10 @@ public class UserSession {
     *
        post: !loggedIn && loggedInUser == null;
     */
-   public static void endUserSession(){
+   public static boolean endUserSession(){
       loggedIn = false;
       loggedInUser = null;
+      return true;
    }
 
    private static void populateUserList(){
@@ -179,24 +187,26 @@ public class UserSession {
 
    private static void registerUser(String username, User user){
 
-      String output = user.accept(new User.Visitor<String>() {
-         @Override
-         public String visitTeacher(Teacher t) {
-            return User.UserType.TEACHER.name();
-         }
+      if(!username.equals("tester")) {
+         String output = user.accept(new User.Visitor<String>() {
+            @Override
+            public String visitTeacher(Teacher t) {
+               return User.UserType.TEACHER.name();
+            }
 
-         @Override
-         public String visitStudent(Student s) {
-            return User.UserType.STUDENT.name();
-         }
-      });
-      log.debug("{} being registered", output);
-      output = output + " " + username + " " + user.getFirstName() + " " + user.getLastName() + " " + user.getPassword() + "\n";
+            @Override
+            public String visitStudent(Student s) {
+               return User.UserType.STUDENT.name();
+            }
+         });
+         log.debug("{} being registered", output);
+         output = output + " " + username + " " + user.getFirstName() + " " + user.getLastName() + " " + user.getPassword() + "\n";
 
-      try {
-         Files.write(Paths.get(USER_FILE), output.getBytes(), StandardOpenOption.APPEND);
-      }catch (IOException e) {
-        e.printStackTrace();
+         try {
+            Files.write(Paths.get(USER_FILE), output.getBytes(), StandardOpenOption.APPEND);
+         } catch (IOException e) {
+            e.printStackTrace();
+         }
       }
    }
 }
