@@ -92,6 +92,18 @@ public abstract class User {
    }
 
    /**
+    * Copy constructor
+     */
+   public User(User user) {
+      this.userId = user.userId;
+      this.username = user.username;
+      this.firstName = user.firstName;
+      this.lastName = user.lastName;
+      this.password = user.password;
+      this.admin = user.admin;
+   }
+
+   /**
     * Gets the user display name. It is defined as the firstName + lastName
     * <p>
     * pre: username != null
@@ -117,6 +129,9 @@ public abstract class User {
 
    /**
     * Reads user information from file
+    pre: serialized != null && serialized.split("\\s").length >= 5
+
+    post: return != null
     */
    public static User fromString(String serialized) {
       Scanner lineScanner = new Scanner(serialized);
@@ -130,7 +145,7 @@ public abstract class User {
          isAdmin = Boolean.valueOf(lineScanner.next());
       }
 
-      User user;
+      User user = null;
       switch (User.UserType.valueOf(type.toUpperCase())) {
          case TEACHER:
             user = new Teacher(username, firstName, lastName, password, isAdmin);
@@ -138,8 +153,6 @@ public abstract class User {
          case STUDENT:
             user = new Student(username, firstName, lastName, password, isAdmin);
             break;
-         default:
-            throw new UnsupportedOperationException("Can't deserialize user type from: " + type);
       }
       return user;
    }

@@ -59,6 +59,8 @@ idea {
     }
 }
 
+task testReports(dependsOn: ['test', 'jacocoTestReport']) 
+
 mainClassName = 'com.teampc.TestToolMain'
 
 // stolen from: http://stackoverflow.com/questions/24997441/delombok-using-gradle

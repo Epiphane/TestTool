@@ -27,13 +27,32 @@ public class ShortAnswerQuestionResponse extends QuestionResponse<ShortAnswerQue
    @Setter
    private MatchType matchType;
 
+    /**
+     * Copy constructor
+     */
+   public ShortAnswerQuestionResponse(ShortAnswerQuestionResponse questionResponse) {
+      this.answer = questionResponse.answer;
+      this.matchType = questionResponse.matchType;
+   }
+
+   /**
+    * Student version of question response
+     */
+   public static ShortAnswerQuestionResponse studentResponse(String answer) {
+      return new ShortAnswerQuestionResponse(answer, null);
+   }
+
    /** {@inheritDoc} */
    @Override
    public boolean isComplete() {
       return true;
    }
 
-   /** {@inheritDoc} */
+   /**
+    pre: questionResponse != null && maxPoints > 0
+
+    post: questionResponse.pointsReceived >= 0 && questionResponse.pointsReceived <= maxPoints
+    */
    @Override
    public void assignPoints(ShortAnswerQuestionResponse questionResponse, int maxPoints) {
       Collection<String> keywords = Stream.of(answer.split(","))
@@ -41,6 +60,14 @@ public class ShortAnswerQuestionResponse extends QuestionResponse<ShortAnswerQue
          .filter(keyword -> !Strings.isNullOrEmpty(keyword))
          .collect(toList());
       questionResponse.pointsReceived = matchType.grade(questionResponse.getAnswer(), maxPoints, keywords);
+   }
+
+   /**
+    * {@inheritDoc}
+     */
+   @Override
+   public ShortAnswerQuestionResponse copy() {
+      return new ShortAnswerQuestionResponse(this);
    }
 
    @Override
@@ -73,4 +100,5 @@ public class ShortAnswerQuestionResponse extends QuestionResponse<ShortAnswerQue
 
       public abstract int grade(String shortAnswer, int maxPoints, Collection<String> keywords);
    }
+
 }

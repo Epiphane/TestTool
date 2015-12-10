@@ -22,6 +22,7 @@ import static java.util.stream.Collectors.toList;
 
 /**
  * Created by zarend on 12/8/15.
+ *
  */
 public class FakeDataSrvc {
    public static void addFakeData() {
