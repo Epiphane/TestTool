@@ -36,15 +36,15 @@ public class MatchingQuestionResponseTest {
       MatchingQuestionResponse wrongResponse = new MatchingQuestionResponse(wrongPairs);
 
       Map<String, String> somewhatWrongPairs = new HashMap<>();
-      wrongPairs.put("a", "alpha");
-      wrongPairs.put("b", "charlie");
-      wrongPairs.put("c", "bravo");
+      somewhatWrongPairs.put("a", "alpha");
+      somewhatWrongPairs.put("b", "charlie");
+      somewhatWrongPairs.put("c", "bravo");
 
-      MatchingQuestionResponse somewhatWrongResponse = new MatchingQuestionResponse(wrongPairs);
+      MatchingQuestionResponse somewhatWrongResponse = new MatchingQuestionResponse(somewhatWrongPairs);
 
       correctResponse.assignPoints(wrongResponse, 3);
       assertEquals(0, wrongResponse.getPointsReceived());
       correctResponse.assignPoints(somewhatWrongResponse, 3);
-      assertEquals(2, somewhatWrongResponse.getPointsReceived());
+      assertEquals(1, somewhatWrongResponse.getPointsReceived());
    }
 }
