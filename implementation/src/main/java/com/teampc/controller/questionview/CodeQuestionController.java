@@ -54,6 +54,12 @@ public class CodeQuestionController extends QuestionViewController<CodeQuestionR
       return new CodeQuestionResponse(gradingScriptFile.map(File::getAbsolutePath).orElse(""), givenCode.getText());
    }
 
+   /*
+    *
+    * pre: givenCode != null && gradingScript != null
+    *
+    * post: givenCode.isDisabled() == gradingScript.isDisabled() == true
+    */
    public void freeze() {
       givenCode.setDisable(true);
       gradingScript.setDisable(true);
