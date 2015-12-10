@@ -1,86 +1,189 @@
 package com.teampc.model.test;
 
-import com.teampc.model.test.Test;
-import testing.CombinationSupport;
-
-import org.junit.runner.RunWith;
-import testing.runner.SpestRunner;
-import org.junit.Before;
-import org.junit.Test;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Lists;
+import com.teampc.dao.QuestionDAO;
+import com.teampc.model.automation.TestGrader;
+import com.teampc.model.admin.User;
+import com.teampc.model.testtaking.Submission;
+import com.teampc.model.question.Question;
+import com.teampc.model.testtaking.MatchingQuestionResponse;
+import com.teampc.model.testtaking.MultipleChoiceQuestionResponse;
+import com.teampc.model.testtaking.ShortAnswerQuestionResponse;
 import org.junit.Assert;
+import org.junit.Test;
 
-import testing.JavaTestUtility;
-import format.ClassNameFormat;
-import com.teampc.model.test.Test;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.List;
 
-import java.io.File;
-import com.rits.cloning.Cloner;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
-import java.util.*;
+/**
+ * Created by zarend on 12/9/15.
+ */
+public class TestTest {
 
-import static testing.JavaTestUtility.getFieldValue;
+   @Test
+   public void testIsOpen() {
+      Date beforeToday1 = new GregorianCalendar(2013, 10, 11).getTime();     
+      Date beforeToday2 = new GregorianCalendar(2014, 10, 11).getTime();     
+      Date afterToday1 = new GregorianCalendar(2016, 12, 12).getTime();        
+      Date afterToday2 = new GregorianCalendar(2017, 12, 12).getTime();        
+      com.teampc.model.test.Test notPublishedTest = new com.teampc.model.test.Test("Not Published", beforeToday2, afterToday1, "Test Course");
 
-@RunWith(SpestRunner.class)
-public class TestTest
-{
-    @Before
-    public void setUp()
-    {
-        testObj = (com.teampc.model.test.Test)javaTestUtility.getSampleObject(clazz);
+      assertTrue(!notPublishedTest.isOpen());
 
-    }
+      com.teampc.model.test.Test notOpenTest = new com.teampc.model.test.Test("Not yet open", afterToday1, afterToday2, "Test Course");
+      notOpenTest.publish();
+      assertTrue(!notOpenTest.isOpen());
 
-    /*Start generated tests*/
-    private Class clazz = com.teampc.model.test.Test.class;
+      notOpenTest = new com.teampc.model.test.Test("Already closed", beforeToday1, beforeToday2, "Test Course");
+      notOpenTest.publish();
+      assertTrue(!notOpenTest.isOpen());
 
-    private Cloner cloner = new Cloner();
-    private File rootDirectory = new File("/home/andy/dev/school/TestTool/implementation");
-    private File sourceFile = new File("/home/andy/dev/school/TestTool/implementation/src/main/java/com/teampc/model/test/Test.java");
-    private JavaTestUtility javaTestUtility = new JavaTestUtility(rootDirectory, sourceFile, false);
-    private com.teampc.model.test.Test testObj;
-    @Test
-    public void toStringTest_0() throws Exception
-    {
+      com.teampc.model.test.Test openTest = new com.teampc.model.test.Test("Open test!", beforeToday2, afterToday1, "Test Course");
+      openTest.publish();
+      assertTrue(openTest.isOpen());
+   }
 
-        String methodId = "toString";
+   @Test
+   public void testTakeTest() {
+      com.teampc.model.test.Test test = makeFakeTest();
 
-        testObj.toString();
-        setUp();
-    }
+      String serializedUser = "STUDENT user first last pass";
+      User testStudent = User.fromString(serializedUser);
 
-    @Test
-    public void moveQuestionTest_1() throws Exception
-    {
-        int testComboIndex;
+      Submission testSubmission = test.takeTest(testStudent);
 
-        String methodId = "moveQuestion_int_int";
-        List<java.lang.Integer> testPoints_0 = javaTestUtility.getSamplePrimitives(testObj, methodId, "from", java.lang.Integer.class);
-        List<java.lang.Integer> testPoints_1 = javaTestUtility.getSamplePrimitives(testObj, methodId, "to", java.lang.Integer.class);
-        int[][] combinations = CombinationSupport.getCombinations(testPoints_0.size(), testPoints_1.size());
+      assertTrue(testSubmission.getTaker().equals(testStudent));      
+      assertTrue(testSubmission.getTest().equals(test));      
+      assertTrue(testSubmission.getTest().equals(test));      
+      assertTrue(!testSubmission.isComplete());      
+      assertTrue(testSubmission.getResponses().size() == test.getQuestions().size());    
 
-        int param_0;
-        int param_1;
-        for(testComboIndex = 0; testComboIndex < combinations.length; testComboIndex++)
-        {
-            param_0 = testPoints_0.get(combinations[testComboIndex][0]);
-            param_1 = testPoints_1.get(combinations[testComboIndex][1]);
+      // Initially null for all responses
+      for (int i = 0; i < test.getQuestions().size(); i ++) {
+         assertTrue(testSubmission.getResponses().get(i) == null);
+      }  
+   }
 
-            testObj.moveQuestion(param_0, param_1);
-            setUp();
-        }
-    }
+   @Test
+   public void testRemoveQuestion() {
+      com.teampc.model.test.Test test = makeFakeTest();
+      int originalSize = test.getQuestions().size();
 
-    @Test
-    public void publishTest_2() throws Exception
-    {
-        boolean published = getFieldValue(testObj, "published", java.lang.Boolean.class);
+      Question<MultipleChoiceQuestionResponse> question1 = test.getQuestions().get(1);
 
+      test.removeQuestion(question1);
+      assertTrue(!test.getQuestions().get(1).equals(question1));
+      assertTrue(test.getQuestions().size() == originalSize - 1);
+      assertTrue(test.getQuestions().indexOf(question1) <= 0);
 
-        String methodId = "publish";
+      List<Question> questions = test.getQuestions();
+      test.removeQuestion(null);
+      assertTrue(test.getQuestions().equals(questions));
 
-        testObj.publish();
-        Assert.assertTrue(published);
-        setUp();
-    }
-    /*End generated tests*/
+      test.removeQuestion(new Question());
+      assertTrue(test.getQuestions().equals(questions));
+   }
+
+   @Test
+   public void testMoveQuestionUp() {
+      com.teampc.model.test.Test test = makeFakeTest();
+      int originalSize = test.getQuestions().size();
+
+      Question<MultipleChoiceQuestionResponse> question1 = test.getQuestions().get(1);
+
+      int originalIdx = test.getQuestions().indexOf(question1);
+      test.moveQuestionUp(question1);
+      Assert.assertTrue(test.getQuestions().get(0).equals(question1));
+      Assert.assertTrue(test.getQuestions().size() == originalSize);
+
+      List<Question> questions = test.getQuestions();
+      test.moveQuestionUp(null);
+      Assert.assertTrue(test.getQuestions().equals(questions));
+
+      test.moveQuestionUp(new Question());
+      Assert.assertTrue(test.getQuestions().equals(questions));
+
+      test.moveQuestionUp(test.getQuestions().get(0));
+      Assert.assertTrue(test.getQuestions().equals(questions));
+   }
+
+   @Test
+   public void testMoveQuestionDown() {
+      com.teampc.model.test.Test test = makeFakeTest();
+      int originalSize = test.getQuestions().size();
+
+      Question<MultipleChoiceQuestionResponse> question1 = test.getQuestions().get(1);
+
+      int originalIdx = test.getQuestions().indexOf(question1);
+      test.moveQuestionDown(question1);
+      Assert.assertTrue(test.getQuestions().get(2).equals(question1));
+      Assert.assertTrue(test.getQuestions().size() == originalSize);
+
+      List<Question> questions = test.getQuestions();
+      test.moveQuestionDown(null);
+      Assert.assertTrue(test.getQuestions().equals(questions));
+
+      test.moveQuestionDown(test.getQuestions().get(test.getQuestions().size() - 1));
+      Assert.assertTrue(test.getQuestions().equals(questions));
+   }
+
+   @Test
+   public void testGenerateKey() {
+      com.teampc.model.test.Test test = makeFakeTest();
+
+      test.generateKey();
+      TestGrader.gradeTest(test.getKey(), test.getKey());
+      Assert.assertTrue(test.getKey().grade == 5.0);
+   }
+
+   private com.teampc.model.test.Test makeFakeTest() {
+      Question<MultipleChoiceQuestionResponse> question1 = new Question<>();
+      question1.setPoints(1);
+      question1.setPrompt("What is the name of the version control tool used in CPE 307?");
+      question1.setType(Question.QuestionType.MULTIPLE_CHOICE);
+
+      MultipleChoiceQuestionResponse mcCorrectAnswer = new MultipleChoiceQuestionResponse(1, Lists.newArrayList("git", "svn", "mercurial", "repo"));
+      question1.setCorrectAnswer(mcCorrectAnswer);
+
+      Question<MatchingQuestionResponse> question2 = new Question<>();
+      question2.setPoints(3);
+      question2.setPrompt("Match the model classes to their corresponding test classes.");
+      question2.setType(Question.QuestionType.MATCHING);
+
+      MatchingQuestionResponse matchingCorrectAnswer = new MatchingQuestionResponse(ImmutableMap.of(
+         "Question.java", "QuestionTest.java",
+         "Test.java", "TestTest.java",
+         "User.java", "UserTest.java"
+      ));
+
+      question2.setCorrectAnswer(matchingCorrectAnswer);
+
+      Question<ShortAnswerQuestionResponse> question3 = new Question<>();
+      question3.setPoints(5);
+      question3.setPrompt("which IDE do we use?");
+      question3.setType(Question.QuestionType.SHORT_ANSWER);
+
+      ShortAnswerQuestionResponse shortAnswerQuestionResponse = new ShortAnswerQuestionResponse("IntelliJ", ShortAnswerQuestionResponse.MatchType.EXACTLY);
+
+      question3.setCorrectAnswer(shortAnswerQuestionResponse);
+
+      List<Question> questionList = Lists.newArrayList(question1, question2, question3);
+
+      QuestionDAO.getInstance().insert(questionList);
+
+      Date userStartDate = new GregorianCalendar().getTime();
+      GregorianCalendar temp = new GregorianCalendar();
+      temp.add(GregorianCalendar.HOUR, 24);
+      Date userEndDate = temp.getTime();
+
+      com.teampc.model.test.Test fakeTest = new com.teampc.model.test.Test("Midterm 1", userStartDate, userEndDate, "CPE 307");
+      fakeTest.setQuestions(questionList);
+
+      return fakeTest;
+   }
 }
