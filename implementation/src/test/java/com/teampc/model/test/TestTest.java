@@ -39,7 +39,15 @@ public class TestTest {
 
    @Test
    public void testMoveQuestionUp() {
-      // TODO
+      com.teampc.model.test.Test test = makeFakeTest();
+      int originalSize = test.getQuestions().size();
+
+      Question<MultipleChoiceQuestionResponse> question1 = test.getQuestions().get(1);
+
+      int originalIdx = test.getQuestions().indexOf(question1);
+      test.moveQuestionUp(question1);
+      Assert.assertTrue(test.getQuestions().get(0).equals(question1));
+      Assert.assertTrue(test.getQuestions().size() == originalSize);
    }
 
    @Test
