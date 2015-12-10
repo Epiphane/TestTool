@@ -327,6 +327,8 @@ public class Test implements HasId {
 
       key.setResponses(correctResponses);
 
+      this.key = key;
+
       return key;
    }
 }
