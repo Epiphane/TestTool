@@ -7,6 +7,8 @@ import lombok.EqualsAndHashCode;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.util.stream.Collectors.toList;
+
 /**
  * This class contains all the information that identifies a User as a Teacher.
  *
@@ -37,6 +39,14 @@ public class Teacher extends User {
    public Teacher(String username, String first, String last, String pass, boolean admin) {
       super(username, first, last, pass, admin);
    }
+
+    /**
+     * Copy constructor
+     */
+    public Teacher(Teacher teacher) {
+       super(teacher);
+       this.courses = teacher.courses.stream().map(Course::new).collect(toList());
+    }
 
    @Override
    public <T> T accept(Visitor<T> visitor) {

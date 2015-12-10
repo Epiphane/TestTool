@@ -5,9 +5,12 @@ import lombok.Builder;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.teampc.model.admin.*;
 import com.teampc.model.test.Test;
+
+import static java.util.stream.Collectors.toList;
 
 /**
  * This class contains information to uniquely identify a Course.
@@ -51,6 +54,18 @@ public class Course {
       this.term = term;
       this.year = year;
       this.section = section;
+   }
+
+    /**
+     * Copy constructor
+     */
+   public Course(Course course) {
+      this.teacher = new Teacher(course.teacher);
+      this.title = course.title;
+      this.term = course.term;
+      this.year = course.year;
+      this.section = course.section;
+      this.testList = testList.stream().map(Test::new).collect(toList());
    }
 
    /**

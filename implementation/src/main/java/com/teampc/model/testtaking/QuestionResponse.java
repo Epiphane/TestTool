@@ -13,7 +13,7 @@ public abstract class QuestionResponse<T extends QuestionResponse> {
 
    @Getter
    @Setter
-   private Question question;
+   private Question<?> question;
 
    @Getter
    @Setter
@@ -39,10 +39,23 @@ public abstract class QuestionResponse<T extends QuestionResponse> {
           pre: questionResponse != null && questionResponse.isComplete()
     *
     *
-          post: questionResponse.pointsReceived >= 0
+          post: questionResponse.pointsReceived >= 0 && questionResponse.pointsReceived <= maxPoints
     * @param maxPoints
     *
     */
    public abstract void assignPoints(T questionResponse, int maxPoints);
 
+   /**
+    * Copy self to return a new object
+     */
+   public abstract T copy();
+
+   /**
+    * copy parent fields from questionResponse
+     */
+   protected void finishCopy(QuestionResponse<T> questionResponse) {
+      this.question = new Question<>(questionResponse.getQuestion());
+      this.pointsReceived = questionResponse.pointsReceived;
+      this.comment = questionResponse.comment;
+   }
 }

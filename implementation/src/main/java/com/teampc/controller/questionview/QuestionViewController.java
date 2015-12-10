@@ -23,5 +23,7 @@ public abstract class QuestionViewController<T extends QuestionResponse> {
       }
    }
 
+   public abstract void freeze();
+
    public abstract void setResponse(T response);
 }

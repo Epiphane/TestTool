@@ -72,4 +72,8 @@ public class MatchingRowController implements Initializable{
    public void putInMap(Map<String, String> map) {
       map.put(key, values.getText());
    }
+
+   public void freeze() {
+      values.setDisable(true);
+   }
 }

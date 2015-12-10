@@ -2,6 +2,9 @@ package com.teampc.controller.grading;
 
 import com.teampc.controller.questionview.QuestionViewController;
 import com.teampc.dao.SubmissionDAO;
+import com.teampc.model.admin.Student;
+import com.teampc.model.admin.Teacher;
+import com.teampc.model.admin.User;
 import com.teampc.model.admin.access.UserSession;
 import com.teampc.model.question.Question;
 import com.teampc.model.testtaking.QuestionResponse;
@@ -54,12 +57,17 @@ public class SubmissionResultsController implements Initializable {
    @FXML
    Button saveGrading;
 
+   @FXML
+   private Pane gradingPane;
+
    public void setUp(Submission s) {
       submission = s;
 
-      boolean isInstructor = true; // FIXME: determine if the current user is an instructor
+      boolean isInstructor = UserSession.getLoggedInUser().isTeacher();
+
       isGrading = isInstructor;
 
+      gradingPane.setDisable(!isGrading);
       drawCurrQuestion();
    }
 
@@ -83,12 +91,19 @@ public class SubmissionResultsController implements Initializable {
          currentQuestionController = loader.getController();
          currentQuestionController.setQuestion(question);
          currentQuestionController.setResponse(questionResponse);
+         currentQuestionController.freeze();
+         drawButtonStuff();
 
          pointsReceived.setText("" + questionResponse.getPointsReceived());
       }
       catch (IOException e) {
          LOG.error("could not load currQuestion", e);
       }
+   }
+
+   private void drawButtonStuff() {
+      prevBtn.setDisable(currQuestionIdx == 0);
+      nextBtn.setDisable(currQuestionIdx >= getNumQuestions() - 1);
    }
 
    private Question getCurrQuestion() {
@@ -99,22 +114,31 @@ public class SubmissionResultsController implements Initializable {
       return submission.getResponses().get(currQuestionIdx);
    }
 
+   private int getNumQuestions() {
+      return Math.min(submission.getTest().getQuestions().size(), submission.getResponses().size());
+   }
+
    @Override
    public void initialize(URL location, ResourceBundle resources) {
+
    }
 
    @FXML
    void onClickNextBtn() {
       LOG.debug("clicked Next");
-      currQuestionIdx++;
-      drawCurrQuestion();
+      if (currQuestionIdx < getNumQuestions() - 1) {
+         currQuestionIdx++;
+         drawCurrQuestion();
+      }
    }
 
    @FXML
    void onClickPrevBtn() {
       LOG.debug("clicked Prev");
-      currQuestionIdx--;
-      drawCurrQuestion();
+      if (currQuestionIdx > 0) {
+         currQuestionIdx--;
+         drawCurrQuestion();
+      }
    }
 
    @FXML

@@ -92,6 +92,18 @@ public abstract class User {
    }
 
    /**
+    * Copy constructor
+     */
+   public User(User user) {
+      this.userId = user.userId;
+      this.username = user.username;
+      this.firstName = user.firstName;
+      this.lastName = user.lastName;
+      this.password = user.password;
+      this.admin = user.admin;
+   }
+
+   /**
     * Gets the user display name. It is defined as the firstName + lastName
     * <p>
     * pre: username != null
@@ -117,6 +129,9 @@ public abstract class User {
 
    /**
     * Reads user information from file
+    pre: serialized != null && serialized.split("\\s").length >= 5
+
+    post: return != null
     */
    public static User fromString(String serialized) {
       Scanner lineScanner = new Scanner(serialized);
@@ -131,17 +146,39 @@ public abstract class User {
       }
 
       User user;
-      switch (User.UserType.valueOf(type.toUpperCase())) {
-         case TEACHER:
-            user = new Teacher(username, firstName, lastName, password, isAdmin);
-            break;
-         case STUDENT:
-            user = new Student(username, firstName, lastName, password, isAdmin);
-            break;
-         default:
-            throw new UnsupportedOperationException("Can't deserialize user type from: " + type);
+
+      UserType userType = UserType.valueOf(type.toUpperCase());
+      // Need to do it this ugly way because we can't hit the default case on a
+      // switch if we have all the cases, but static analysis can't catch this.
+      if (userType == UserType.TEACHER) {
+         user = new Teacher(username, firstName, lastName, password, isAdmin);
+      } else {
+         user = new Student(username, firstName, lastName, password, isAdmin);
       }
+
       return user;
+   }
+
+   public UserType getUserType() {
+      return accept((Visitor<UserType>) new Visitor<UserType>() {
+         @Override
+         public UserType visitTeacher(Teacher t) {
+            return UserType.TEACHER;
+         }
+
+         @Override
+         public UserType visitStudent(Student s) {
+            return UserType.STUDENT;
+         }
+      });
+   }
+
+   public boolean isTeacher() {
+      return getUserType().equals(UserType.TEACHER);
+   }
+
+   public boolean isStudent() {
+      return getUserType().equals(UserType.STUDENT);
    }
 }
 

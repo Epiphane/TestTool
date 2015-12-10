@@ -11,10 +11,7 @@ import com.teampc.model.admin.User;
 import com.teampc.model.admin.access.UserSession;
 import com.teampc.model.question.Question;
 import com.teampc.model.test.Test;
-import com.teampc.model.testtaking.Key;
-import com.teampc.model.testtaking.MatchingQuestionResponse;
-import com.teampc.model.testtaking.MultipleChoiceQuestionResponse;
-import com.teampc.model.testtaking.Submission;
+import com.teampc.model.testtaking.*;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 
@@ -25,6 +22,7 @@ import static java.util.stream.Collectors.toList;
 
 /**
  * Created by zarend on 12/8/15.
+ *
  */
 public class FakeDataSrvc {
    public static void addFakeData() {
@@ -49,7 +47,16 @@ public class FakeDataSrvc {
 
       question2.setCorrectAnswer(matchingCorrectAnswer);
 
-      List<Question> questionList = Lists.newArrayList(question1, question2);
+      Question<ShortAnswerQuestionResponse> question3 = new Question<>();
+      question3.setPoints(5);
+      question3.setPrompt("which IDE do we use?");
+      question3.setType(Question.QuestionType.SHORT_ANSWER);
+
+      ShortAnswerQuestionResponse shortAnswerQuestionResponse = new ShortAnswerQuestionResponse("IntelliJ", ShortAnswerQuestionResponse.MatchType.EXACTLY);
+
+      question3.setCorrectAnswer(shortAnswerQuestionResponse);
+
+      List<Question> questionList = Lists.newArrayList(question1, question2, question3);
 
       QuestionDAO.getInstance().insert(questionList);
 
@@ -93,7 +100,8 @@ public class FakeDataSrvc {
             "Question.java", "QuestionTest.java",
             "Test.java", "UserTest.java",
             "User.java", "TestTest.java"
-         ))
+         )),
+         new ShortAnswerQuestionResponse("IntelliJ", ShortAnswerQuestionResponse.MatchType.EXACTLY)
       ));
       fakeSubmission.setGrade(0.0f);
 

@@ -76,4 +76,9 @@ public class MatchingQuestionController extends QuestionViewController<MatchingQ
 
       return new MatchingQuestionResponse(map);
    }
+
+   public void freeze() {
+      pairs.setDisable(true);
+      matches.stream().forEach(nextMatch -> nextMatch.getController().freeze());
+   }
 }

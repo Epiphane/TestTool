@@ -74,4 +74,8 @@ public class MultipleChoiceQuestionController extends QuestionViewController<Mul
 
       return new MultipleChoiceQuestionResponse(getSelectedIndex(), options);
    }
+
+   public void freeze() {
+      choices.setDisable(true);
+   }
 }

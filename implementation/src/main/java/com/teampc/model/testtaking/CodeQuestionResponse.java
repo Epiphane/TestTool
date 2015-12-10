@@ -23,6 +23,15 @@ public class CodeQuestionResponse extends QuestionResponse<CodeQuestionResponse>
    // HACK
    private String givenCode;
 
+    /**
+     * Copy constructor
+     */
+   public CodeQuestionResponse(CodeQuestionResponse response) {
+      this.codeAnswer = response.codeAnswer;
+      this.givenCode = response.givenCode;
+      finishCopy(response);
+   }
+
    /** {@inheritDoc} */
    @Override
    public boolean isComplete() {
@@ -41,6 +50,12 @@ public class CodeQuestionResponse extends QuestionResponse<CodeQuestionResponse>
          log.error("Error grading code question with script: " + codeAnswer, e);
       }
       questionResponse.pointsReceived = score;
+   }
+
+   /** {@inheritDoc} */
+   @Override
+   public CodeQuestionResponse copy() {
+      return new CodeQuestionResponse(this);
    }
 
    @Override
