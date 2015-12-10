@@ -284,7 +284,7 @@ public class Test implements HasId {
     *
     * pre: questions != null
     *
-    * post: question == nul || (questions.indexOf(question) == 0 || questions'.indexOf(question) == questions.indexOf(question) - 1) 
+    * post: question == null || (questions.indexOf(question) == 0 || questions'.indexOf(question) == questions.indexOf(question) - 1) 
     */
    public void moveQuestionUp(Question question) {
       if(question == null || !questions.contains(question)) { return; }
@@ -298,7 +298,7 @@ public class Test implements HasId {
     *
     * pre: questions != null
     *
-    * post: question == nul || (questions.indexOf(question) == questions.size() - 1 || questions'.indexOf(question) == questions.indexOf(question) + 1)
+    * post: question == null || (questions.indexOf(question) == questions.size() - 1 || questions'.indexOf(question) == questions.indexOf(question) + 1)
     */
    public void moveQuestionDown(Question question) {
       if(question == null || !questions.contains(question)) { return; }

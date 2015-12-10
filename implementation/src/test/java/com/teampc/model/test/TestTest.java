@@ -8,6 +8,7 @@ import com.teampc.model.question.Question;
 import com.teampc.model.testtaking.MatchingQuestionResponse;
 import com.teampc.model.testtaking.MultipleChoiceQuestionResponse;
 import com.teampc.model.testtaking.ShortAnswerQuestionResponse;
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.Date;
@@ -48,8 +49,8 @@ public class TestTest {
 
       int originalIdx = test.getQuestions().indexOf(question1);
       test.moveQuestionDown(question1);
-      assert(test.getQuestions().size() == originalSize);
-      assert(test.getQuestions().indexOf(question1) == originalIdx - 1);
+      Assert.assertTrue(test.getQuestions().size() == originalSize);
+      Assert.assertTrue(test.getQuestions().indexOf(question1) == originalIdx - 1);
    }
 
    @Test
@@ -64,8 +65,8 @@ public class TestTest {
 
       int originalIdx = test.getQuestions().indexOf(question1);
       test.moveQuestionDown(question1);
-      assert(test.getQuestions().size() == originalSize);
-      assert(test.getQuestions().indexOf(question1) == originalIdx + 1);
+      Assert.assertTrue(test.getQuestions().size() == originalSize);
+      Assert.assertTrue(test.getQuestions().indexOf(question1) == originalIdx + 1);
    }
 
    @Test
@@ -74,7 +75,7 @@ public class TestTest {
 
       test.generateKey();
       TestGrader.gradeTest(test.getKey(), test.getKey());
-      assert(test.getKey().grade == 100.0);
+      Assert.assertTrue(test.getKey().grade == 100.0);
    }
 
    private com.teampc.model.test.Test makeFakeTest() {
