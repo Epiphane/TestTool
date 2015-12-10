@@ -143,5 +143,27 @@ public abstract class User {
       }
       return user;
    }
+
+   public UserType getUserType() {
+      return accept((Visitor<UserType>) new Visitor<UserType>() {
+         @Override
+         public UserType visitTeacher(Teacher t) {
+            return UserType.TEACHER;
+         }
+
+         @Override
+         public UserType visitStudent(Student s) {
+            return UserType.STUDENT;
+         }
+      });
+   }
+
+   public boolean isTeacher() {
+      return getUserType().equals(UserType.TEACHER);
+   }
+
+   public boolean isStudent() {
+      return getUserType().equals(UserType.STUDENT);
+   }
 }
 

@@ -58,4 +58,8 @@ public class ShortAnswerQuestionController extends QuestionViewController<ShortA
    public ShortAnswerQuestionResponse getResponse() {
       return new ShortAnswerQuestionResponse(response.getText(), matchType);
    }
+
+   public void freeze() {
+      response.setDisable(true);
+   }
 }
