@@ -1,54 +1,122 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html><head><meta content="text/html; charset=ISO-8859-1" http-equiv="content-type"><title>m10-duties</title></head><body><br>
-Jameson<br>
+<html><head>
+<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type"><title>m10-duties</title></head><body style="outline-color: navy ! important; outline-style: dashed ! important; outline-width: 2px ! important;"><big><big><big><big><span style="font-weight: bold;">Jameson Li</span></big></big></big> </big><br>
 <span style="font-weight: bold;">Implementation:</span><br>
-&#8226;&nbsp;&nbsp;&nbsp; create tests with name, date, number of questions<br>
-&nbsp; o&nbsp;&nbsp;&nbsp; execution: from the navbar, click on &#8220;Create Test&#8221;<br>
-&nbsp; o&nbsp;&nbsp;&nbsp; src/main/.../controller/test/CreateTestController.java<br>
-&#8226;&nbsp;&nbsp;&nbsp; generate questions from the test bank for a created test <br>
-&nbsp; o&nbsp;&nbsp;&nbsp; execution: from the navbar, click on &#8220;Create Test&#8221;, then &#8220;Generate Questions&#8221;<br>
-&nbsp; o&nbsp;&nbsp;&nbsp; src/main/.../dao/TestDAO.java<br>
-&#8226;&nbsp;&nbsp;&nbsp; view an existing test<br>
-&nbsp; o&nbsp;&nbsp;&nbsp; execution: from the navbar, click on &#8220;View Tests&#8221;. click the &#8220;View&#8221; on one of the rows<br>
-&nbsp; o&nbsp;&nbsp;&nbsp; src/main/.../controller/test/TestEvent.java<br>
-&nbsp; o&nbsp;&nbsp;&nbsp; src/main/.../controller/test/TestRowController.java <br>
-&nbsp; o&nbsp;&nbsp;&nbsp; src/main/.../controller/ViewTestsController.java<br>
-&#8226;&nbsp;&nbsp;&nbsp; make edits to an existing test<br>
-&nbsp; o&nbsp;&nbsp;&nbsp; execution: from the navbar, click on &#8220;View Tests&#8221;. click the &#8220;Edit&#8221; on one of the rows<br>
-&#8226;&nbsp;&nbsp;&nbsp; misc<br>
-&nbsp; o&nbsp;&nbsp;&nbsp; src/main/.../controller/ListViewController.java<br>
-&nbsp; o&nbsp;&nbsp;&nbsp; src/main/.../utils/TestUtils.java<br>
-&nbsp; o&nbsp;&nbsp;&nbsp; src/main/.../utils/TestFXUtils.java<br>
-<span style="font-weight: bold;">Testing</span>:<br>
-&#8226;&nbsp;&nbsp;&nbsp; Spest:<br>
-&nbsp; o&nbsp;&nbsp;&nbsp; src/main/.../controller/test/CreateTestController.onSubmitCreateTest&nbsp;&nbsp;&nbsp; <br>
-&nbsp; o&nbsp;&nbsp;&nbsp; src/main/.../controller/test/CreateTestController.generateQuestions<br>
-&nbsp; o&nbsp;&nbsp;&nbsp; src/main/.../controller/ViewTestsController.initialize<br>
-&#8226;&nbsp;&nbsp;&nbsp; Unit Tests:<br>
-&nbsp; o&nbsp;&nbsp;&nbsp; src/test/.../controller/test/CreateTestControllerTest.submitTestTest<br>
-&nbsp; o&nbsp;&nbsp;&nbsp; src/test/.../controller/test/CreateTestControllerTest.generateQuestionsTest<br>
-&nbsp; o&nbsp;&nbsp;&nbsp; src/test/.../controller/ViewTestsControllerTest.initTest<br>
+You can create tests with name, date, and number of questions.<br>
+<span style="font-weight: bold;">execution:</span> from the navbar, click on &#8220;Create Test&#8221;<br>
+<ul>
+  <li>src/main/.../controller/test/CreateTestController.java</li>
+</ul>
+Question can be generated for a testing using questions from the test bank.<br>
+<span style="font-weight: bold;">execution:</span> from the navbar, click on &#8220;Create Test&#8221;, then &#8220;Generate Questions&#8221;<br>
+<ul>
+  <li>src/main/.../dao/TestDAO.java</li>
+</ul>
+You can view an existing test, one that was created using the &#8220;Create Test&#8221; screen.<br>
+<span style="font-weight: bold;">execution:</span> from the navbar, click on &#8220;View Tests&#8221;. click the &#8220;View&#8221; on one of the rows<br>
+<ul>
+  <li>src/main/.../controller/test/TestEvent.java</li>
+  <li>src/main/.../controller/test/TestRowController.java </li>
+  <li>src/main/.../controller/ViewTestsController.java</li>
+</ul>
+You can edit an existing test, one that was created using the &#8220;Create Test&#8221; screen.<br>
+<span style="font-weight: bold;">execution:</span> from the navbar, click on &#8220;View Tests&#8221;. click the &#8220;Edit&#8221; on one of the rows<br>
+These are miscellaneous files that are used to support various TestTool components<br>
+<ul>
+  <li>src/main/.../controller/ListViewController.java</li>
+  <li>src/main/.../utils/TestUtils.java</li>
+  <li>src/main/.../utils/TestFXUtils.java</li>
+</ul>
+<span style="font-weight: bold;">Testing</span><br>
+<span style="font-weight: bold;">Spest:</span><br>
+<ul>
+  <li>src/main/.../controller/test/CreateTestController.onSubmitCreateTest&nbsp;&nbsp; &nbsp;</li>
+  <li>src/main/.../controller/test/CreateTestController.generateQuestions</li>
+  <li>src/main/.../controller/ViewTestsController.initialize</li>
+</ul>
+<span style="font-weight: bold;">Unit Tests:</span><br>
+<ul>
+  <li>src/test/.../controller/test/CreateTestControllerTest.submitTestTest</li>
+  <li>src/test/.../controller/test/CreateTestControllerTest.generateQuestionsTest</li>
+  <li>src/test/.../controller/ViewTestsControllerTest.initTest</li>
+</ul>
 <br>
-Greg<br>
+<big><big><big><big>Andy Dufrene</big></big></big></big><br>
 <span style="font-weight: bold;">Implementation:</span><br>
-&#8226;&nbsp;&nbsp;&nbsp; Login and authentication:<br>
-&nbsp; o&nbsp;&nbsp;&nbsp; src/main/.../model/admin/access/UserSession.java<br>
-&nbsp; o&nbsp;&nbsp;&nbsp; src/main/.../controller/LoginController.java<br>
-&nbsp; o&nbsp;&nbsp;&nbsp; src/main/.../controller/RegisterController.java<br>
-&nbsp; o&nbsp;&nbsp;&nbsp; src/main/.../model/admin/User.java<br>
-&nbsp; o&nbsp;&nbsp;&nbsp; src/main/.../model/admin/Teacher.java<br>
-&#8226;&nbsp;&nbsp;&nbsp; Student side of application<br>
-&nbsp; o&nbsp;&nbsp;&nbsp; src/main/.../model/admin/Student.java<br>
-&nbsp; o&nbsp;&nbsp;&nbsp; src/main/.../controller/StudentNavBarController.java<br>
-&nbsp; o&nbsp;&nbsp;&nbsp; src/main/.../controller/StudentViewTestsController.java<br>
-&nbsp; o&nbsp;&nbsp;&nbsp; src/main/.../controller/StudentTestRowController.java<br>
-<span style="font-weight: bold; outline-color: navy ! important; outline-style: dashed ! important; outline-width: 2px ! important;">Testing:</span><br>
-&#8226;&nbsp;&nbsp;&nbsp; Spest:<br>
-&nbsp; o&nbsp;&nbsp;&nbsp; src/test/.../model/admin/access/UserSessionSpestTest.java<br>
-&nbsp; o&nbsp;&nbsp;&nbsp; src/test/.../model/admin/TeacherSpestTest.java<br>
-&#8226;&nbsp;&nbsp;&nbsp; Unit Tests:<br>
-&nbsp; o&nbsp;&nbsp;&nbsp; src/test/.../model/admin/<br>
+Question Bank<br>
+<span style="font-weight: bold;">execution:</span> from the navbar, click on &#8220;Question Bank&#8221;<br>
+<ul>
+  <li>src/main/.../controller/question/QuestionTableController.java</li>
+</ul>
+New Question<br>
+<span style="font-weight: bold;">execution: </span>from the navbar, click on &#8220;Question Bank&#8221;, then &#8220;New Question&#8221;<br>
+<ul>
+  <li>src/main/.../controller/question/QuestionEditController.java</li>
+  <li>src/main/.../controller/question/CodeQuestionController.java</li>
+  <li>src/main/.../controller/question/MatchingQuestionController.java</li>
+  <li>src/main/.../controller/question/MultipleChoiceQuestionController.java</li>
+  <li>src/main/.../controller/question/MultipleChoiceRowController.java</li>
+  <li>src/main/.../controller/question/ShortAnswerQuestionController.java</li>
+  <li>src/main/.../controller/question/QuestionTypeController.java</li>
+</ul>
+Edit Question<br>
+<span style="font-weight: bold;">execution: </span>from the navbar, click on &#8220;Question Bank&#8221;, then double-click a previously created question<br>
+<ul>
+  <li>src/main/.../controller/question/EditAction.java</li>
+  <li>src/main/.../controller/question/NewAction.java</li>
+  <li>src/main/.../controller/question/QuestionAction.java</li>
+</ul>
+<span style="font-weight: bold;">Testing:</span><br style="font-weight: bold;">
+<span style="font-weight: bold;">Spest:</span><br>
+<ul>
+  <li>src/main/.../model/admin/User.fromString</li>
+  <li>src/main/.../dao/SubmissionDAO.fetchSubmissionsForTest</li>
+  <li>src/main/.../model/testtaking/ShortAnswerQuestionResponse.assignPoints</li>
+</ul>
+<span style="font-weight: bold;">Unit Tests:</span><br>
+<ul>
+  <li>src/test/.../model/admin/UserTest.testUserFromString</li>
+  <li>src/test/.../dao/SubmissionDAOTest.testSubmissionsForTest</li>
+  <li>src/test/.../model/testtaking/ShortAnswerQuestionResponseTest.testAssignPoints</li>
+  <li>src/test/.../model/admin/UserTest.testThrowsException</li>
+</ul>
+<big><big><big><big>Greg Sawers</big></big></big></big><br>
+I worked on the user authentication side of the application, specifically within the admin package.<br>
+The admin package controllers communicate correctly with the admin model.<br>
+The admin package correctly authenticates users and leads the user to everyone elses classes.<br>
 <br>
+<span style="font-weight: bold;">Validation:</span><br>
+When you open the app, attempt to type in a username and password. You
+should not be able to access the app. Register using the new user
+button, then put your newly created username and password into the
+login page and you should be able to access the app. Make two seperate
+accounts for students and teachers to see both views of the app.<br>
 <br>
-
+<span style="font-weight: bold;">The model classes I created are: </span><br>
+<span style="font-weight: bold;">Login and authentication:</span><br>
+<ul>
+  <li>src/main/.../model/admin/access/UserSession.java (Spest + Handwritten tests)</li>
+  <li>src/main/.../controller/LoginController.java</li>
+  <li>src/main/.../controller/RegisterController.java</li>
+  <li>src/main/.../model/admin/User.java </li>
+  <li>src/main/.../model/admin/Teacher.java (Spest)</li>
+</ul>
+<span style="font-weight: bold;">Student side of application:</span><br>
+<ul>
+  <li>src/main/.../model/admin/Student.java</li>
+  <li>src/main/.../controller/StudentNavBarController.java</li>
+  <li>src/main/.../controller/StudentViewTestsController.java</li>
+  <li>src/main/.../controller/StudentTestRowController.java</li>
+</ul>
+<span style="font-weight: bold;">Testing:</span><br style="font-weight: bold;">
+<span style="font-weight: bold;">The Spest generated tests are in:</span><br>
+<ul>
+  <li>src/test/.../model/admin/access/UserSessionSpestTest.java</li>
+  <li>src/test/.../model/admin/TeacherSpestTest.java</li>
+</ul>
+<span style="font-weight: bold;">The hand written Unit tests are in:</span><br>
+<ul>
+  <li>src/test/.../model/admin/access/UserSessionTest.java</li>
+</ul>
+<br>
 </body></html>
