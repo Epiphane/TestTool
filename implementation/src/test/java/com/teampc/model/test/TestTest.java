@@ -51,7 +51,7 @@ public class TestTest {
 
       int originalIdx = test.getQuestions().indexOf(question1);
       test.moveQuestionDown(question1);
-      Assert.assertTrue(test.getQuestions().get(0).equals(question1));
+      Assert.assertTrue(test.getQuestions().get(2).equals(question1));
       Assert.assertTrue(test.getQuestions().size() == originalSize);
    }
 
