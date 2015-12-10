@@ -2,6 +2,11 @@ package com.teampc.model.sql;
 
 import java.sql.*;
 
+/**
+ * Testtool handles creating of the SQLite database
+ *
+ * @author David Ellison
+ */
 public class TestTool {
     public static void main(String... args) {
         Connection c = null;

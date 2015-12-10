@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * A class that represents a test question.
+ * Question represents a test question.
  * Different question types extend this type.
  *
  * @author David Ellison

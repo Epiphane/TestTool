@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * The response to a Test Question
+ * QuestionResponse is a generic response to a test question
  * @author adufrene
  *
  */

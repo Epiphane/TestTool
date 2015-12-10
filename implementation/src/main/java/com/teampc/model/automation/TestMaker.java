@@ -7,7 +7,7 @@ import com.teampc.model.test.TestDifficulty;
 import java.util.ArrayList;
 
 /**
- * A class to auto-generate a test.
+ * TestMaker is a class to auto-generate a test.
  *
  * @author Greg Sawers (gsawers@calpoly.edu)
  */

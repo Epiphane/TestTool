@@ -13,7 +13,7 @@ import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toList;
 
 /**
- * A response to a short answer question.
+ * ShortAnswerQuestionResponse represents the answers to a Short Answer Question
  * @author Zach Arend
  */
 

@@ -9,7 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * An answer to a matching question.
+ * MatchingQuestionResponse represents the answers to a MatchingQuestion
  * @author Zach Arend
  */
 @NoArgsConstructor

@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 import static java.util.stream.Collectors.toList;
 
 /**
- * An instance of an in-progress test being taken
+ * Submission represents a set of user answers to a test
  * @author Thomas Steinke
  *
  */
@@ -38,6 +38,13 @@ public class Submission implements HasId {
    @Getter
    private boolean isGraded = false;
 
+   /**
+    * Submission constructor.
+    * @param test The test being submitted
+    * @param user The user submitting
+    * @param responses The responses to questions
+    * @param complete Whether the submission is completed
+    */
    public Submission(Test test, User user, List<QuestionResponse> responses, boolean complete) {
       this.test = test;
       this.taker = user;

@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.Scanner;
 
 /**
- * Defines user details including name, username
+ * User class defines user details including name, username
  *
  * @author Greg Sawers (gsawers@calpoly.edu)
  */
