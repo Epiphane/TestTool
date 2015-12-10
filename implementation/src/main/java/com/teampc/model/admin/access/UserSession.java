@@ -191,7 +191,7 @@ public class UserSession {
          }
       });
       log.debug("{} being registered", output);
-      output = output + username + " " + user.getFirstName() + " " + user.getLastName() + " " + user.getPassword() + "\n";
+      output = output + " " + username + " " + user.getFirstName() + " " + user.getLastName() + " " + user.getPassword() + "\n";
 
       try {
          Files.write(Paths.get(USER_FILE), output.getBytes(), StandardOpenOption.APPEND);
