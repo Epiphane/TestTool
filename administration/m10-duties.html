@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html><head><meta content="text/html; charset=ISO-8859-1" http-equiv="content-type"><title>m10-duties</title></head><body><br>
+Jameson<br>
+<span style="font-weight: bold;">Implementation:</span><br>
+&#8226;&nbsp;&nbsp;&nbsp; create tests with name, date, number of questions<br>
+&nbsp; o&nbsp;&nbsp;&nbsp; execution: from the navbar, click on &#8220;Create Test&#8221;<br>
+&nbsp; o&nbsp;&nbsp;&nbsp; src/main/.../controller/test/CreateTestController.java<br>
+&#8226;&nbsp;&nbsp;&nbsp; generate questions from the test bank for a created test <br>
+&nbsp; o&nbsp;&nbsp;&nbsp; execution: from the navbar, click on &#8220;Create Test&#8221;, then &#8220;Generate Questions&#8221;<br>
+&nbsp; o&nbsp;&nbsp;&nbsp; src/main/.../dao/TestDAO.java<br>
+&#8226;&nbsp;&nbsp;&nbsp; view an existing test<br>
+&nbsp; o&nbsp;&nbsp;&nbsp; execution: from the navbar, click on &#8220;View Tests&#8221;. click the &#8220;View&#8221; on one of the rows<br>
+&nbsp; o&nbsp;&nbsp;&nbsp; src/main/.../controller/test/TestEvent.java<br>
+&nbsp; o&nbsp;&nbsp;&nbsp; src/main/.../controller/test/TestRowController.java <br>
+&nbsp; o&nbsp;&nbsp;&nbsp; src/main/.../controller/ViewTestsController.java<br>
+&#8226;&nbsp;&nbsp;&nbsp; make edits to an existing test<br>
+&nbsp; o&nbsp;&nbsp;&nbsp; execution: from the navbar, click on &#8220;View Tests&#8221;. click the &#8220;Edit&#8221; on one of the rows<br>
+&#8226;&nbsp;&nbsp;&nbsp; misc<br>
+&nbsp; o&nbsp;&nbsp;&nbsp; src/main/.../controller/ListViewController.java<br>
+&nbsp; o&nbsp;&nbsp;&nbsp; src/main/.../utils/TestUtils.java<br>
+&nbsp; o&nbsp;&nbsp;&nbsp; src/main/.../utils/TestFXUtils.java<br>
+<span style="font-weight: bold;">Testing</span>:<br>
+&#8226;&nbsp;&nbsp;&nbsp; Spest:<br>
+&nbsp; o&nbsp;&nbsp;&nbsp; src/main/.../controller/test/CreateTestController.onSubmitCreateTest&nbsp;&nbsp;&nbsp; <br>
+&nbsp; o&nbsp;&nbsp;&nbsp; src/main/.../controller/test/CreateTestController.generateQuestions<br>
+&nbsp; o&nbsp;&nbsp;&nbsp; src/main/.../controller/ViewTestsController.initialize<br>
+&#8226;&nbsp;&nbsp;&nbsp; Unit Tests:<br>
+&nbsp; o&nbsp;&nbsp;&nbsp; src/test/.../controller/test/CreateTestControllerTest.submitTestTest<br>
+&nbsp; o&nbsp;&nbsp;&nbsp; src/test/.../controller/test/CreateTestControllerTest.generateQuestionsTest<br>
+&nbsp; o&nbsp;&nbsp;&nbsp; src/test/.../controller/ViewTestsControllerTest.initTest<br>
+<br>
+Greg<br>
+<span style="font-weight: bold;">Implementation:</span><br>
+&#8226;&nbsp;&nbsp;&nbsp; Login and authentication:<br>
+&nbsp; o&nbsp;&nbsp;&nbsp; src/main/.../model/admin/access/UserSession.java<br>
+&nbsp; o&nbsp;&nbsp;&nbsp; src/main/.../controller/LoginController.java<br>
+&nbsp; o&nbsp;&nbsp;&nbsp; src/main/.../controller/RegisterController.java<br>
+&nbsp; o&nbsp;&nbsp;&nbsp; src/main/.../model/admin/User.java<br>
+&nbsp; o&nbsp;&nbsp;&nbsp; src/main/.../model/admin/Teacher.java<br>
+&#8226;&nbsp;&nbsp;&nbsp; Student side of application<br>
+&nbsp; o&nbsp;&nbsp;&nbsp; src/main/.../model/admin/Student.java<br>
+&nbsp; o&nbsp;&nbsp;&nbsp; src/main/.../controller/StudentNavBarController.java<br>
+&nbsp; o&nbsp;&nbsp;&nbsp; src/main/.../controller/StudentViewTestsController.java<br>
+&nbsp; o&nbsp;&nbsp;&nbsp; src/main/.../controller/StudentTestRowController.java<br>
+<span style="font-weight: bold; outline-color: navy ! important; outline-style: dashed ! important; outline-width: 2px ! important;">Testing:</span><br>
+&#8226;&nbsp;&nbsp;&nbsp; Spest:<br>
+&nbsp; o&nbsp;&nbsp;&nbsp; src/test/.../model/admin/access/UserSessionSpestTest.java<br>
+&nbsp; o&nbsp;&nbsp;&nbsp; src/test/.../model/admin/TeacherSpestTest.java<br>
+&#8226;&nbsp;&nbsp;&nbsp; Unit Tests:<br>
+&nbsp; o&nbsp;&nbsp;&nbsp; src/test/.../model/admin/<br>
+<br>
+<br>
+
+</body></html>
