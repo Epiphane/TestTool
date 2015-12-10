@@ -5,3 +5,5 @@ Student zarend z a abc123 true
 Teacher andy Andy DuFrene password true
 STUDENT andy2 Andy DuFrene password true
 TEACHER bkelly Brad Kelly abc123
+TEACHER david david ellison 123 true
+STUDENT david2 david ellison 123

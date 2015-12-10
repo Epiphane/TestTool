@@ -10,9 +10,11 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 
 import javax.persistence.*;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -59,11 +61,41 @@ public class MultipleChoiceQuestionResponseDD extends QuestionResponseDD {
    }
 
    public void save(Session session) {
-      log.debug("mcQuestionResponseDD.save() called on " + this + "\n");
+      //log.debug("MultipleChoiceQuestionResponseDD.save");
+      //log.debug(this.toString());
       session.save(this);
       for (MultipleChoiceOptionDD option : choices) {
          option.setResponse(this);
          session.save(option);
+      }
+   }
+
+   public void update(Session session) {
+      log.debug("mcQuestionResponseDD.update()");
+      session.update(this);
+
+      deleteOldOptions(session);
+
+      for (MultipleChoiceOptionDD option : choices) {
+         option.setResponse(this);
+         session.save(option);
+      }
+   }
+
+   public void delete(Session session) {
+      deleteOldOptions(session);
+      session.delete(this);
+   }
+
+
+   private void deleteOldOptions(Session session) {
+      List<MultipleChoiceOptionDD> oldOptions =
+            session.createCriteria(MultipleChoiceOptionDD.class)
+            .add(Restrictions.eq("response_id", this.id))
+            .list();
+
+      for (MultipleChoiceOptionDD oldOption : oldOptions) {
+         session.delete(oldOption);
       }
    }
 }

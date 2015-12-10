@@ -1,6 +1,8 @@
 package com.teampc.model.testtaking;
 
+import com.teampc.dao.definitions.question.QuestionDD;
 import com.teampc.dao.definitions.response.CodeQuestionResponseDD;
+import com.teampc.model.question.Question;
 import lombok.*;
 
 import lombok.extern.slf4j.Slf4j;
@@ -73,6 +75,21 @@ public class CodeQuestionResponse extends QuestionResponse<CodeQuestionResponse>
       response.setGivenCode(givenCode);
       response.setCodeResponse(codeAnswer);
 
+      if (question != null) {
+         response.setQuestion(question.asEntity());
+      }
+
+      return response;
+   }
+
+   public CodeQuestionResponseDD asEntity(QuestionDD q) {
+      CodeQuestionResponseDD response = new CodeQuestionResponseDD();
+      response.setId(id);
+      response.setPointsReceived(pointsReceived);
+      response.setGivenCode(givenCode);
+      response.setCodeResponse(codeAnswer);
+
+      response.setQuestion(q);
 
       return response;
    }

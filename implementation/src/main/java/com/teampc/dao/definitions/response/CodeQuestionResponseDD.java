@@ -41,4 +41,12 @@ public class CodeQuestionResponseDD extends QuestionResponseDD {
    public void save(Session session) {
       session.save(this);
    }
+
+   public void update(Session session) {
+      session.update(this);
+   }
+
+   public void delete(Session session) {
+      session.delete(this);
+   }
 }

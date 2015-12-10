@@ -18,7 +18,13 @@ public interface DataDefinition<M extends Model> {
     * which should be used in favor of the Hibernate (*DD.java) entities.
     * @return an equivalent model representation of the DataDefinition implementing object.
     */
-   public M asModel();
+   M asModel();
 
-   public void save(Session hibernateSession);
+   void save(Session hibernateSession);
+
+   void delete(Session session);
+
+   void update(Session session);
+
+   Integer getId();
 }

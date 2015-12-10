@@ -42,15 +42,18 @@ public class SubmissionDAO extends AbstractDAO<Submission, SubmissionDD> {
       if (DEBUG) {
          return fakeDB.values().stream().filter(submission -> test.equals(submission.getTest())).collect(toList());
       }
+      log.debug("Test's id is: " + test.getId());
 
       Session session = HibernateUtils.getSessionFactory().openSession();
       try {
          @SuppressWarnings("unchecked")
-         Collection<Submission> submissions = session.createCriteria(getEntityClass())
-            .add(eq("test", test))
-            .list();
+         Collection<SubmissionDD> submissions =
+               session.createCriteria(getEntityClass())
+                     .add(eq("test.id", test.getId()))
+                     .list();
 
-         return submissions;
+         log.debug("Submissions with this test id: " + submissions.size());
+         return toModel(submissions);
       } finally {
          session.close();
       }

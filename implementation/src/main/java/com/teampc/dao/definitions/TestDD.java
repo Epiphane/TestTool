@@ -11,8 +11,10 @@ import com.teampc.dao.definitions.question.QuestionDD;
 import com.teampc.model.question.Question;
 import com.teampc.model.test.Test;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.criterion.Restrictions;
 
 import java.util.stream.Collectors;
 
@@ -21,6 +23,7 @@ import java.util.stream.Collectors;
  *
  * @author David Ellison, daelliso@calpoly.edu
  */
+@Slf4j
 @Data
 @Entity
 @Table(name = "tests")
@@ -50,6 +53,9 @@ public class TestDD implements DataDefinition<Test> {
    @OneToMany(mappedBy = "test")
    private Set<TestQuestionDD> questions;
 
+   @Column(name = "published")
+   private Integer published;
+
    public Test asModel() {
       Test test = new Test();
       test.setId(id);
@@ -57,8 +63,10 @@ public class TestDD implements DataDefinition<Test> {
       test.setStartDate(new java.util.Date(startDate.getTime()));
       test.setEndDate(new java.util.Date(endDate.getTime()));
       test.setTimeLimit(timeAllowed);
-      test.setCourse(course.asModel());
-
+      if (course != null) {
+         test.setCourse(course.asModel());
+      }
+      test.setPublished(published == 1);
 
       List<Integer> questionIds = questions.stream().map(TestQuestionDD::getId).sorted().collect(Collectors.toList());
 
@@ -76,10 +84,41 @@ public class TestDD implements DataDefinition<Test> {
    }
 
    public void save(Session session) {
+      log.debug("TestDD.save");
       session.save(this);
+      /*for (TestQuestionDD testQuestion : questions) {
+         testQuestion.setTest(this);
+         session.save(testQuestion);
+      }*/
+   }
+
+   public void update(Session session) {
+      log.debug("TestDD.update");
+      session.update(this);
+/*
+      deleteOldTestQuestionRows(session);
+
       for (TestQuestionDD testQuestion : questions) {
          testQuestion.setTest(this);
          session.save(testQuestion);
+      }*/
+   }
+
+   public void delete(Session session) {
+      log.debug("TestDD.delete");
+      /*
+      deleteOldTestQuestionRows(session);
+      */
+      session.delete(this);
+   }
+
+   private void deleteOldTestQuestionRows(Session session) {
+      List<TestQuestionDD> oldRows = session.createCriteria(TestQuestionDD.class)
+            .add(Restrictions.eq("test_id", this.id))
+            .list();
+
+      for (TestQuestionDD oldRow : oldRows) {
+         session.delete(oldRow);
       }
    }
 }

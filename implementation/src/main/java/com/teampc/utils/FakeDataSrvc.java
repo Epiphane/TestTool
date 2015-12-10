@@ -85,6 +85,7 @@ public class FakeDataSrvc {
 
       TestDAO.getInstance().insert(fakeTest);
 
+
       Submission fakeSubmission = new Submission();
       fakeSubmission.setComplete(true);
       Student testTaker = UserSession.getLoggedInUser().accept(new User.Visitor<Student>() {
@@ -110,6 +111,8 @@ public class FakeDataSrvc {
          )),
          new ShortAnswerQuestionResponse("IntelliJ", ShortAnswerQuestionResponse.MatchType.EXACTLY)
       ));
+      fakeSubmission.getResponses().get(0).setQuestion(question1);
+      fakeSubmission.getResponses().get(1).setQuestion(question2);
       fakeSubmission.setGrade(0.0f);
 
       SubmissionDAO.getInstance().insert(fakeSubmission);

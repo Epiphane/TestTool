@@ -27,13 +27,16 @@ CREATE TABLE IF NOT EXISTS tests (
    title VARCHAR2(60), 
    start_date DATETIME, 
    end_date DATETIME, 
-   time_limit INTEGER, 
+   time_limit INTEGER,
+   published INTEGER,
    FOREIGN KEY (course_id) REFERENCES courses (id));  
 
 CREATE TABLE IF NOT EXISTS submissions(
    id INTEGER PRIMARY KEY AUTOINCREMENT, 
    test_id INTEGER NOT NULL, 
    user_id VARCHAR2(25) NOT NULL, 
+   complete INTEGER NOT NULL,
+   is_graded INTEGER NOT NULL,
    FOREIGN KEY (test_id) REFERENCES tests (id));
 
 CREATE TABLE IF NOT EXISTS questions (

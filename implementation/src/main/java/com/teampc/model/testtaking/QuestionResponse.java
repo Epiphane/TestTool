@@ -1,6 +1,7 @@
 package com.teampc.model.testtaking;
 
 import com.teampc.dao.HasId;
+import com.teampc.dao.definitions.question.QuestionDD;
 import com.teampc.dao.definitions.response.QuestionResponseDD;
 import com.teampc.model.question.Question;
 import com.teampc.model.Model;
@@ -64,4 +65,7 @@ public abstract class QuestionResponse<T extends QuestionResponse> implements Mo
       this.pointsReceived = questionResponse.pointsReceived;
       this.comment = questionResponse.comment;
    }
+
+   public abstract QuestionResponseDD asEntity(QuestionDD q);
+
 }

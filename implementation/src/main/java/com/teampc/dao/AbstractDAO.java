@@ -41,6 +41,7 @@ public abstract class AbstractDAO<T extends Model, D extends DataDefinition<T>> 
    /**
     * Inserts one item into the database
     * @param item item to insert
+    * @return the item's id
     *
       pre: item != null
     *
@@ -49,6 +50,7 @@ public abstract class AbstractDAO<T extends Model, D extends DataDefinition<T>> 
     */
    public void insert(T item) {
       insert(Collections.singleton(item));
+      //return item.getId();
    }
 
    /**
@@ -69,15 +71,14 @@ public abstract class AbstractDAO<T extends Model, D extends DataDefinition<T>> 
          });
          return;
       }*/
+
       Session session = HibernateUtils.getSessionFactory().openSession();
       Transaction transaction = session.beginTransaction();
 
-      Collection<D> dds = toDD(items);
-      log.debug("number of dd objects to insert: " + dds.size());
-
       try {
-         for (D data : dds) {
-            data.save(session);
+         for (Map.Entry<T, D> entry : toDD(items).entrySet()) {
+            entry.getValue().save(session);
+            entry.getKey().setId(entry.getValue().getId());
          }
          session.flush();
          transaction.commit();
@@ -134,8 +135,8 @@ public abstract class AbstractDAO<T extends Model, D extends DataDefinition<T>> 
       Session session = HibernateUtils.getSessionFactory().openSession();
       Transaction transaction = session.beginTransaction();
       try {
-         for (D item : toDD(items)) {
-            item.save(session);
+         for (Map.Entry<T, D> item : toDD(items).entrySet()) {
+            item.getValue().delete(session);
          }
          session.flush();
          transaction.commit();
@@ -166,10 +167,14 @@ public abstract class AbstractDAO<T extends Model, D extends DataDefinition<T>> 
          return;
       }
 
+      Map<T, D> ddMap = toDD(items);
+
       Session session = HibernateUtils.getSessionFactory().openSession();
       Transaction transaction = session.beginTransaction();
       try {
-         items.forEach(session::update);
+         for (Map.Entry<T, D> entry : ddMap.entrySet()) {
+            entry.getValue().update(session);
+         }
          session.flush();
          transaction.commit();
       } catch (Exception e) {
@@ -200,7 +205,7 @@ public abstract class AbstractDAO<T extends Model, D extends DataDefinition<T>> 
    }
 
 
-   private List<T> toModel(Collection<D> dds) {
+   protected List<T> toModel(Collection<D> dds) {
       List<T> modelList = new ArrayList<>();
 
       for (D data : dds) {
@@ -210,13 +215,14 @@ public abstract class AbstractDAO<T extends Model, D extends DataDefinition<T>> 
       return modelList;
    }
 
-   private List<D> toDD(Collection<T> models) {
+   protected Map<T, D> toDD(Collection<T> models) {
+      Map<T, D> map = new HashMap<>();
       List<D> ddList = new ArrayList<>();
 
       for (T model : models) {
-         ddList.add((D)model.asEntity());
+         map.put(model, (D)model.asEntity());
       }
 
-      return ddList;
+      return map;
    }
 }

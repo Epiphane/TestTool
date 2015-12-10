@@ -1,5 +1,6 @@
 package com.teampc.dao.definitions.response;
 
+import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Set;
@@ -12,6 +13,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 
 import javax.persistence.*;
 
@@ -47,10 +49,38 @@ public class MatchingQuestionResponseDD extends QuestionResponseDD {
    }
 
    public void save(Session session) {
+      //log.debug("MultipleChoiceQuestionResponseDD.save");
+      //log.debug(this.toString());
       session.save(this);
       for (MatchingQuestionPairDD pairing : pairs) {
          pairing.setQuestion(this);
          session.save(pairing);
+      }
+   }
+
+   public void update(Session session) {
+      session.update(this);
+
+      deleteCurrentPairs(session);
+
+      for (MatchingQuestionPairDD pairing : pairs) {
+         pairing.setQuestion(this);
+         session.save(pairing);
+      }
+   }
+
+   public void delete(Session session) {
+      deleteCurrentPairs(session);
+      session.delete(this);
+   }
+
+   private void deleteCurrentPairs(Session session) {
+      List<MatchingQuestionPairDD> oldPairs = session.createCriteria(MatchingQuestionPairDD.class)
+            .add(Restrictions.eq("response_id", this.id))
+            .list();
+
+      for (MatchingQuestionPairDD oldPair : oldPairs) {
+         session.delete(oldPair);
       }
    }
 }

@@ -1,6 +1,7 @@
 package com.teampc.model.testtaking;
 
 import com.teampc.dao.definitions.question.MultipleChoiceOptionDD;
+import com.teampc.dao.definitions.question.QuestionDD;
 import com.teampc.dao.definitions.response.MultipleChoiceQuestionResponseDD;
 import lombok.*;
 
@@ -73,6 +74,30 @@ public class MultipleChoiceQuestionResponse extends QuestionResponse<MultipleCho
 
       response.setResponseRank(answer);
       response.setChoices(new HashSet<>());
+      if (question != null) {
+         response.setQuestion(question.asEntity());
+      }
+
+      for (int i = 0; i < choices.size(); i++) {
+         MultipleChoiceOptionDD option = new MultipleChoiceOptionDD();
+         option.setRank(i);
+         option.setText(choices.get(i));
+         response.getChoices().add(option);
+      }
+
+      return response;
+   }
+
+   public MultipleChoiceQuestionResponseDD asEntity(QuestionDD q) {
+      MultipleChoiceQuestionResponseDD response = new MultipleChoiceQuestionResponseDD();
+
+      response.setId(id);
+      response.setPointsReceived(pointsReceived);
+
+      response.setResponseRank(answer);
+      response.setChoices(new HashSet<>());
+
+      response.setQuestion(q);
 
       for (int i = 0; i < choices.size(); i++) {
          MultipleChoiceOptionDD option = new MultipleChoiceOptionDD();

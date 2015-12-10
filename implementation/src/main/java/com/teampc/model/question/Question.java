@@ -159,8 +159,8 @@ public class Question<T extends QuestionResponse> implements Model<QuestionDD> {
    }
 
    public QuestionDD asEntity() {
-      log.debug("Transforming this question to entity.");
-      log.debug("" + this);
+      //log.debug("Transforming this question to entity.");
+      //log.debug("" + this);
 
       QuestionDD question = new QuestionDD();
       question.setId(id);
@@ -169,7 +169,7 @@ public class Question<T extends QuestionResponse> implements Model<QuestionDD> {
       question.setPrompt(prompt);
       question.setType(type);
 
-      question.setCorrectAnswer((QuestionResponseDD) correctAnswer.asEntity());
+      question.setCorrectAnswer((QuestionResponseDD) correctAnswer.asEntity(question));
       question.getCorrectAnswer().setQuestion(question);
       return question;
    }

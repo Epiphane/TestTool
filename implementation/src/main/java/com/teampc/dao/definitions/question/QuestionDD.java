@@ -1,5 +1,6 @@
 package com.teampc.dao.definitions.question;
 
+import com.teampc.dao.QuestionResponseDAO;
 import com.teampc.model.question.Question;
 import com.teampc.dao.DataDefinition;
 import com.teampc.dao.definitions.response.QuestionResponseDD;
@@ -69,7 +70,7 @@ public class QuestionDD implements DataDefinition<Question>  {
    }
 
    public void save(Session session) {
-      log.debug("QuestionDD.save() called on " + this + "\n");
+      //log.debug("QuestionDD.save() called on " + this + "\n");
       session.save(this);
       getCorrectAnswer().setQuestion(this);
       getCorrectAnswer().save(session);
@@ -78,5 +79,18 @@ public class QuestionDD implements DataDefinition<Question>  {
    public void update(Session session) {
       log.debug("QuestionDD.update()");
 
+      session.update(this);
+      getCorrectAnswer().setQuestion(this);
+      getCorrectAnswer().update(session);
+
+   }
+
+   public void delete(Session session) {
+      log.debug("QuestionDD.delete()");
+
+      //delete all
+      QuestionResponseDAO.getInstance().deleteByQuestionId(this.id);
+
+      session.delete(this);
    }
 }

@@ -17,11 +17,15 @@ import lombok.NoArgsConstructor;
 
 import static java.util.stream.Collectors.toList;
 
+import lombok.extern.slf4j.Slf4j;
+
+
 /**
  * An instance of an in-progress test being taken
  * @author Thomas Steinke
  *
  */
+@Slf4j
 @Data
 public class Submission implements Model<SubmissionDD> {
 
@@ -92,15 +96,16 @@ public class Submission implements Model<SubmissionDD> {
 
 
    public SubmissionDD asEntity() {
+      log.debug("transforming to entity");
+      log.debug(String.format("Responses size: %d, Test ID: %d, user id: %s", responses.size(), test.getId(), taker.getUsername()));
+
       SubmissionDD submission = new SubmissionDD();
 
       submission.setUserId(taker.getUsername());
       submission.setId(id);
-      //HACK: test.asEntity calls question.asEntity
-      //which sets the question fields on QuestionResponse,
-      //which are NOT set by QuestionResponse.asEntity.
       submission.setTest(test.asEntity());
-      //submission.setUser();
+      submission.setComplete(complete ? 1 : 0);
+      submission.setGraded(isGraded ? 1 : 0);
 
       submission.setQuestionResponses(new HashSet<QuestionResponseDD>());
 

@@ -60,6 +60,14 @@ public class CourseDD implements DataDefinition<Course> {
       session.save(this);
    }
 
+   public void update(Session session) {
+      session.update(this);
+   }
+
+   public void delete(Session session) {
+      session.delete(this);
+   }
+
    public Term getTerm() {
       return term;
    }

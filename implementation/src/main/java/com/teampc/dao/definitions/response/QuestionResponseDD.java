@@ -1,7 +1,10 @@
 package com.teampc.dao.definitions.response;
 
 import com.teampc.dao.DataDefinition;
+import com.teampc.dao.definitions.SubmissionDD;
+import com.teampc.model.question.Question;
 import com.teampc.model.testtaking.QuestionResponse;
+import com.teampc.model.testtaking.Submission;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -40,6 +43,10 @@ public abstract class QuestionResponseDD implements DataDefinition<QuestionRespo
 
    @Column(name = "points_received")
    protected Integer pointsReceived;
+
+   @ManyToOne
+   @JoinColumn(name = "submission_id")
+   protected SubmissionDD submission;
 
    public String toString() {
       return String.format(getClass().getSimpleName() + "\nId: %d, QuestionID: %d, ", id, question.getId());

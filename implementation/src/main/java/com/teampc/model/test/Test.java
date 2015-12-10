@@ -304,10 +304,6 @@ public class Test implements Model<TestDD> {
    }
 
    public TestDD asEntity() {
-      log.debug("Turning this test into entity. This test: \n");
-      log.debug(String.format("Test Title: %s, Course: %s, Start Date: " + startDate + ", End Date: " + endDate + "",
-            getName(), getCourseName()));
-      log.debug("===========================\n");
       TestDD test = new TestDD();
       test.setCourse(course != null ? course.asEntity() : null);
       test.setId(id);
@@ -316,6 +312,7 @@ public class Test implements Model<TestDD> {
       test.setEndDate(new java.sql.Date(endDate.getTime()));
       test.setTimeAllowed(timeLimit);
       test.setQuestions(new HashSet<TestQuestionDD>());
+      test.setPublished(published ? 1 : 0);
 
       for (Question question : questions) {
          //create a new TestQuestionDD object and add it to questions

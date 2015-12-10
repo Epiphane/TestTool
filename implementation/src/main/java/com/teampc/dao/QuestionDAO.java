@@ -36,12 +36,6 @@ public class QuestionDAO extends AbstractDAO<Question, QuestionDD> {
       return QuestionDD.class;
    }
 
-
-
-   public void insert(Question item) {
-      insert(Collections.singleton(item));
-   }
-
 /*
    @Override
    public void insert(Collection<Question> items) {

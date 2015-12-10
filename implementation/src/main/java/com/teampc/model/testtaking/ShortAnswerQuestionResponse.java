@@ -1,6 +1,7 @@
 package com.teampc.model.testtaking;
 
 import com.google.common.base.Strings;
+import com.teampc.dao.definitions.question.QuestionDD;
 import com.teampc.dao.definitions.response.ShortAnswerQuestionResponseDD;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -111,7 +112,24 @@ public class ShortAnswerQuestionResponse extends QuestionResponse<ShortAnswerQue
       response.setAnswer(answer);
       response.setType(matchType);
 
+      if (question != null) {
+         response.setQuestion(question.asEntity());
+      }
 
+
+      return response;
+   }
+
+   public ShortAnswerQuestionResponseDD asEntity(QuestionDD q) {
+      ShortAnswerQuestionResponseDD response = new ShortAnswerQuestionResponseDD();
+
+      response.setPointsReceived(pointsReceived);
+      response.setId(id);
+      response.setAnswer(answer);
+      response.setType(matchType);
+
+
+      response.setQuestion(q);
       return response;
    }
 }

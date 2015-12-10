@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +43,17 @@ public class QuestionResponseDAO extends AbstractDAO<QuestionResponse, QuestionR
    //On save, MatchingQuestionResponses should clear all relevant rows from
    //matching_pairs and re-save their pairs.
 
+
+   public void deleteByQuestionId(Integer questionId) {
+      Session session = HibernateUtils.getSessionFactory().getCurrentSession();
+      List<QuestionResponseDD> responses = session
+            .createCriteria(getEntityClass())
+            .add(Restrictions.eq("question_id", questionId))
+            .list();
+      for (QuestionResponseDD response : responses) {
+         response.delete(session);
+      }
+   }
 /*
    @Override
    public void insert(Collection<QuestionResponse> items) {
