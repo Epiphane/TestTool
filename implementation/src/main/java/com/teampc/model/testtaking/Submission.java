@@ -7,8 +7,12 @@ import java.util.*;
 
 import com.teampc.model.automation.*;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+import static java.util.stream.Collectors.toList;
 
 /**
  * An instance of an in-progress test being taken
@@ -16,6 +20,7 @@ import lombok.Getter;
  *
  */
 @Data
+@NoArgsConstructor
 public class Submission implements HasId {
 
    private int id;
@@ -32,6 +37,25 @@ public class Submission implements HasId {
 
    @Getter
    private boolean isGraded = false;
+
+   public Submission(Test test, User user, List<QuestionResponse> responses, boolean complete) {
+      this.test = test;
+      this.taker = user;
+      this.responses = responses;
+      this.complete = complete;
+   }
+
+    /**
+     * Copy constructor
+     */
+   public Submission(Submission submission) {
+      this.id = submission.id;
+      this.test = submission.test;
+      this.taker = submission.taker;
+      this.responses = submission.responses.stream().map(QuestionResponse::copy).collect(toList());
+      this.complete = submission.complete;
+      this.grade = submission.grade;
+   }
 
    /**
     * Return whether the test is complete or not
@@ -57,11 +81,9 @@ public class Submission implements HasId {
    public void gradeTest(Key correctAnswers) {
       TestGrader.gradeTest(this, correctAnswers);
 
-      this.grade = 0;
-
-      for (QuestionResponse q: responses) {
-         grade += q.getPointsReceived();
-      }
+      grade = responses.stream()
+         .map(QuestionResponse::getPointsReceived)
+         .reduce(0, Math::addExact);
 
       isGraded = true;
    }

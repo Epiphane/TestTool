@@ -1,27 +1,12 @@
 package com.teampc.model.testtaking;
 
 import com.google.common.collect.Lists;
-import com.sun.org.apache.xpath.internal.operations.Mult;
-import com.teampc.model.testtaking.QuestionResponse;
-import testing.CombinationSupport;
-
-import org.junit.runner.RunWith;
-import testing.runner.SpestRunner;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.Assert;
-
-import testing.JavaTestUtility;
-import format.ClassNameFormat;
-import com.teampc.model.testtaking.QuestionResponse;
-
-import java.io.File;
-import com.rits.cloning.Cloner;
-
-import java.util.*;
+import org.junit.runner.RunWith;
+import testing.runner.SpestRunner;
 
 import static org.junit.Assert.assertTrue;
-import static testing.JavaTestUtility.getFieldValue;
 
 @RunWith(SpestRunner.class)
 public class QuestionResponseSpestTest
@@ -47,8 +32,8 @@ public class QuestionResponseSpestTest
       testObj.assignPoints(testResponse2, 1);
       testObj.assignPoints(testResponse3, 1);
 
-      assertTrue(testResponse1.getPointsReceived() >= 0);
-      assertTrue(testResponse2.getPointsReceived() >= 0);
-      assertTrue(testResponse3.getPointsReceived() >= 0);
+      assertTrue(testResponse1.getPointsReceived() >= 0 && testResponse1.getPointsReceived() <= 1);
+      assertTrue(testResponse2.getPointsReceived() >= 0 && testResponse2.getPointsReceived() <= 1);
+      assertTrue(testResponse3.getPointsReceived() >= 0 && testResponse3.getPointsReceived() <= 1);
    }
 }

@@ -38,14 +38,26 @@ public class Question<T extends QuestionResponse> implements HasId {
    /** the type of the question */
    private QuestionType type;
 
+   /**
+    * Copy constructor
+    */
+   @SuppressWarnings("unchecked")
+   public Question(Question<T> question) {
+      this.id = question.id;
+      this.prompt = question.prompt;
+      this.points = question.points;
+      this.correctAnswer = (T) question.correctAnswer.copy();
+      this.type = question.type;
+   }
+
    @SuppressWarnings("unchecked")
    /**
     *
     * Assess and set the point value on a response to this question.
     *
-      pre: response != null && response.isComplete()
+    pre: response != null && response.isComplete()
     *
-      post: response.getPointsReceived() >= 0
+    post: response.getPointsReceived() >= 0
     *
     */
    public void grade(T response) {
@@ -92,9 +104,9 @@ public class Question<T extends QuestionResponse> implements HasId {
          this.fileString = fileString;
       }
 
-       /**
-        * visitor based on type of enum, used as polymorphic replacement of switch on enum
-        */
+      /**
+       * visitor based on type of enum, used as polymorphic replacement of switch on enum
+       */
       public abstract <T> T accept(QuestionTypeVisitor<T> visitor);
 
       @Override

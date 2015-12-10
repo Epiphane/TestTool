@@ -31,6 +31,11 @@ public class SubmissionDAO extends AbstractDAO<Submission> {
 
    }
 
+   /**
+    pre: test != null
+
+    post: return != null && return.stream().allMatch(submission -> test.equals(submission.getTest()))
+    */
    public Collection<Submission> fetchSubmissionsForTest(Test test) {
       log.debug("Fetching all submissions for test: {}", test);
       if (DEBUG) {

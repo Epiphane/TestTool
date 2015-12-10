@@ -6,6 +6,7 @@ import org.hibernate.cfg.Configuration;
 
 /**
  * Created by adufrene on 10/26/15.
+ *
  */
 public class HibernateUtils {
     private static SessionFactory sessionFactory = new Configuration()

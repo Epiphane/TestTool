@@ -1,5 +1,6 @@
 package com.teampc.model.test;
 
+import com.google.common.collect.Lists;
 import com.teampc.dao.HasId;
 import com.teampc.model.admin.Teacher;
 import com.teampc.model.admin.User;
@@ -18,6 +19,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 /**
  * A general Test Class
@@ -68,6 +71,23 @@ public class Test implements HasId {
       this.courseName = courseName;
 
       this.questions = new ArrayList<>();
+   }
+
+    /**
+     * Copy constructor
+     */
+   public Test(Test test) {
+      this.id = test.id;
+      this.name = test.name;
+      this.startDate = test.startDate != null ? new Date(test.startDate.getTime()) : null;
+      this.endDate = test.endDate != null ? new Date(test.endDate.getTime()) : null;
+      this.timeLimit = test.timeLimit;
+      this.courseName = test.courseName;
+      this.course = new Course(test.course);
+      this.owner = new Teacher(test.owner);
+      this.questions = Lists.newArrayListWithExpectedSize(test.questions.size());
+      test.questions.forEach(question -> this.questions.add(new Question<>(question)));
+      this.published = test.published;
    }
 
    /**

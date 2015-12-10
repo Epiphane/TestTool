@@ -2,6 +2,7 @@ package com.teampc.model.testtaking;
 
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -18,6 +19,15 @@ public class MultipleChoiceQuestionResponse extends QuestionResponse<MultipleCho
    private int answer;
    private List<String> choices;
 
+    /**
+     * Copy constructor
+     */
+   public MultipleChoiceQuestionResponse(MultipleChoiceQuestionResponse questionResponse) {
+      this.answer = questionResponse.answer;
+      this.choices = new ArrayList<>(questionResponse.choices);
+      finishCopy(questionResponse);
+   }
+
    /** {@inheritDoc} */
    @Override
    public boolean isComplete() {
@@ -30,6 +40,12 @@ public class MultipleChoiceQuestionResponse extends QuestionResponse<MultipleCho
       questionResponse.pointsReceived = answer == questionResponse.answer ? 1 : 0;
    }
 
+   /** {@inheritDoc} */
+   @Override
+   public MultipleChoiceQuestionResponse copy() {
+      return null;
+   }
+
    @Override
    public String toString() {
       if (choices == null) {
@@ -38,6 +54,7 @@ public class MultipleChoiceQuestionResponse extends QuestionResponse<MultipleCho
       return answer < 0 || answer >= choices.size() ? "(No Answer)" : choices.get(answer);
    }
 
+   /** Student version of response */
    public static MultipleChoiceQuestionResponse studentResponse(int answer) {
       return new MultipleChoiceQuestionResponse(answer, Collections.emptyList());
    }

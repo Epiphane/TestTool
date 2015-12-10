@@ -1,5 +1,6 @@
 package com.teampc.model.testtaking;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import com.google.common.collect.Maps;
@@ -17,13 +18,29 @@ public class MatchingQuestionResponse extends QuestionResponse<MatchingQuestionR
    @Getter
    private Map<String, String> pairings;
 
+    /**
+     * copy constructor
+     */
+   public MatchingQuestionResponse(MatchingQuestionResponse questionResponse) {
+      this.pairings = new HashMap<>(pairings);
+      finishCopy(questionResponse);
+   }
+
    /** {@inheritDoc} */
    @Override
    public boolean isComplete() {
       return true;
    }
 
-   /** {@inheritDoc} */
+   /**
+    *
+    *
+   pre: questionResponse != null && questionResponse.isComplete()
+    *
+    *
+   post: questionResponse.pointsReceived >= 0 && questionResponse.pointsReceived <= maxPoints
+    * @param maxPoints
+    */
    @Override
    public void assignPoints(MatchingQuestionResponse questionResponse, int maxPoints) {
       Map<String, String> otherPairings = questionResponse.pairings;
@@ -32,6 +49,14 @@ public class MatchingQuestionResponse extends QuestionResponse<MatchingQuestionR
       // Difference will be mismatched values for both correct and response pairings,
       // meaning there will be double differences
       questionResponse.pointsReceived = pairings.size() - differences;
+   }
+
+   /**
+    * {@inheritDoc}
+     */
+   @Override
+   public MatchingQuestionResponse copy() {
+      return new MatchingQuestionResponse(this);
    }
 
    @Override
