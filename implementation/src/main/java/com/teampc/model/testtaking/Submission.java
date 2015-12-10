@@ -77,6 +77,11 @@ public class Submission implements HasId {
 
    /**
     * Grade the test against a teacher's key
+    *
+    * @param correctAnswers the key with correct answers
+    *
+    pre: correctAnswers != null  && !isGraded
+    post: isGraded
     */
    public void gradeTest(Key correctAnswers) {
       TestGrader.gradeTest(this, correctAnswers);
