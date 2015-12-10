@@ -1,5 +1,6 @@
 package com.teampc.model.admin.course;
 
+import com.teampc.dao.HasId;
 import lombok.Data;
 import lombok.Builder;
 
@@ -20,7 +21,11 @@ import static java.util.stream.Collectors.toList;
  * @author Jameson Li (jrli@calpoly.edu)
  */
 @Data
-public class Course {
+public class Course implements HasId {
+   /**
+    * A unique numeric identifier for the course
+    */
+   private int id;
    /**
     * Teacher assigned to the course
     */
@@ -45,6 +50,11 @@ public class Course {
     * The list of tests associated with the course
     */
    public List<Test> testList;
+
+   /**
+    * The list of students in this course.
+    */
+   public List<Student> students;
 
    /**
     * Course will be constructed with the title, term, year, and section
@@ -89,7 +99,7 @@ public class Course {
     *
     */
    public List<Student> getEnrolledStudents() {
-      return Collections.emptyList();
+      return students;
    }
 
    /**

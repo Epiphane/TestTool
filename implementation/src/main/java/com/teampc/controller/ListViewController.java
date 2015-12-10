@@ -19,17 +19,17 @@ import java.util.ResourceBundle;
 public abstract class ListViewController<T> implements Initializable {
    @FXML
    /** A list view for T**/
-   private ListView<T> viewTestList;
+   private ListView<T> listView;
 
    /** A list of items of type T **/
    protected ObservableList<T> data;
 
    /** Initializes view with items of type T **/
    protected void initView() {
-      if(viewTestList == null) { return; }
+      if(listView == null) { return; }
 
-      viewTestList.setItems(data);
+      listView.setItems(data);
 
-      viewTestList.setCellFactory(list -> new SimpleCellFactory<>());
+      listView.setCellFactory(list -> new SimpleCellFactory<>());
    }
 }

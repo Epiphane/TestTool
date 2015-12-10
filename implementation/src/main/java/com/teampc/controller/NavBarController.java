@@ -89,4 +89,14 @@ public class NavBarController implements HasStage {
       FakeDataSrvc.addFakeData();
       new Alert(Alert.AlertType.INFORMATION, "Inserted fake data", ButtonType.CLOSE).show();
    }
+
+   @FXML
+   /** Handler to show the courses screen. */
+   private void onCoursesClick() {
+      try {
+         showLayout("course-list.fxml");
+      } catch (IOException e) {
+         e.printStackTrace();
+      }
+   }
 }
