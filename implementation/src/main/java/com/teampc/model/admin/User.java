@@ -95,7 +95,6 @@ public abstract class User {
     * Copy constructor
      */
    public User(User user) {
-      this.userId = user.userId;
       this.username = user.username;
       this.firstName = user.firstName;
       this.lastName = user.lastName;

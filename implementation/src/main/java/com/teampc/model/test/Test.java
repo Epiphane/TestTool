@@ -71,7 +71,7 @@ public class Test implements Model<TestDD> {
       this.startDate = test.startDate != null ? new Date(test.startDate.getTime()) : null;
       this.endDate = test.endDate != null ? new Date(test.endDate.getTime()) : null;
       this.timeLimit = test.timeLimit;
-      this.courseName = test.courseName;
+      //this.courseName = test.courseName;
       this.course = new Course(test.course);
       this.owner = new Teacher(test.owner);
       this.questions = Lists.newArrayListWithExpectedSize(test.questions.size());

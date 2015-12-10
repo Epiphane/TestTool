@@ -113,6 +113,7 @@ public class FakeDataSrvc {
       ));
       fakeSubmission.getResponses().get(0).setQuestion(question1);
       fakeSubmission.getResponses().get(1).setQuestion(question2);
+      fakeSubmission.getResponses().get(2).setQuestion(question3);
       fakeSubmission.setGrade(0.0f);
 
       SubmissionDAO.getInstance().insert(fakeSubmission);
