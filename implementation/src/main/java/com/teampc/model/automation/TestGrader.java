@@ -32,6 +32,15 @@ public abstract class TestGrader {
      */
     public abstract void gradeTests();
 
+    /**
+     * Grade a submission, given a key.
+     * @param s The submission that will be graded
+     * @param key The key for the test that the submission will be graded against.
+     pre:
+        s != null && key != null
+     post:
+
+     */
     public static void gradeTest(Submission s, Key key) {
         for (int i = 0; i < s.responses.size(); i++) {
             key.responses.get(i).assignPoints(s.responses.get(i), 1);

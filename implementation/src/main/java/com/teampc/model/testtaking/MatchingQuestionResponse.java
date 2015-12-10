@@ -44,7 +44,7 @@ public class MatchingQuestionResponse extends QuestionResponse<MatchingQuestionR
    @Override
    public void assignPoints(MatchingQuestionResponse questionResponse, int maxPoints) {
       Map<String, String> otherPairings = questionResponse.pairings;
-      int differences = Maps.difference(pairings, otherPairings).entriesOnlyOnLeft().size();
+      int differences = Maps.difference(pairings, otherPairings).entriesDiffering().size();
 
       // Difference will be mismatched values for both correct and response pairings,
       // meaning there will be double differences
@@ -59,6 +59,11 @@ public class MatchingQuestionResponse extends QuestionResponse<MatchingQuestionR
       return new MatchingQuestionResponse(this);
    }
 
+   /**
+    * Make a string out of this object.
+    pre: pairings != null
+    post:
+    */
    @Override
    public String toString() {
       StringBuilder sb = new StringBuilder();
