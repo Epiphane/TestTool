@@ -16,6 +16,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
@@ -60,7 +61,12 @@ public class FakeDataSrvc {
 
       QuestionDAO.getInstance().insert(questionList);
 
-      Test fakeTest = new Test("Midterm 1", new Date(0), new Date(0), "CPE 307");
+      Date userStartDate = new GregorianCalendar().getTime();
+      GregorianCalendar temp = new GregorianCalendar();
+      temp.add(GregorianCalendar.HOUR, 24);
+      Date userEndDate = temp.getTime();
+
+      Test fakeTest = new Test("Midterm 1", userStartDate, userEndDate, "CPE 307");
       fakeTest.setQuestions(questionList);
 
       Teacher testTeacher = UserSession.getLoggedInUser().accept(new User.Visitor<Teacher>() {
