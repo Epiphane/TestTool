@@ -19,19 +19,25 @@ import java.util.Optional;
 
 /**
  * Created by adufrene on 11/30/15.
+ *
+ * Controller for code question screen
  */
 @Slf4j
 public class CodeQuestionController implements QuestionTypeController<CodeQuestionResponse> {
 
+   /** Reference to primary stage */
    @Setter
    private Stage primaryStage;
 
+   /** Text area for inputted code */
    @FXML
    private TextArea givenCode;
 
+   /** button to upload grading script */
    @FXML
    private Button uploadButton;
 
+   /** Grading file, present means we've set the file, not present means file hasn't been set */
    private Optional<File> gradingScriptFile = Optional.empty();
 
    /**

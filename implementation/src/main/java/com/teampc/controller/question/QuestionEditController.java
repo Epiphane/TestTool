@@ -23,54 +23,72 @@ import java.util.function.Consumer;
 /**
  * Created by adufrene on 11/30/15.
  *
+ * Controller used for editing or creating new questions
  */
 @Slf4j
 public class QuestionEditController {
 
+   /** Currently selected question type */
    @FXML
    private ComboBox<Question.QuestionType> questionType;
 
+   /** Reference to code question layout */
    @FXML
    private Node codeNode;
 
+   /** Reference to code question layout controller */
    @FXML
    private CodeQuestionController codeNodeController;
 
+   /** Reference to matching question layout */
    @FXML
    private Node matchingNode;
 
+   /** Reference to matching question layout controller */
    @FXML
    private MatchingQuestionController matchingNodeController;
 
+   /** Reference to multiple choice layout */
    @FXML
    private Node multipleChoiceNode;
 
+   /** Reference to multiple choice layout controller */
    @FXML
    private MultipleChoiceQuestionController multipleChoiceNodeController;
 
+   /** Reference to short answer layout */
    @FXML
    private Node shortAnswerNode;
 
+   /** Reference to short answer layout controlle */
    @FXML
    private ShortAnswerQuestionController shortAnswerNodeController;
 
+   /** Field for question prompt */
    @FXML
    private TextField prompt;
 
+   /** Button to save question as new question, dependent on set question action */
    @FXML
    private Button saveAsNewButton;
 
+   /** Title of screen */
    @FXML
    private Label title;
 
+   /** Function for exiting the screen, usually returns to Question table */
    @Setter
    @NonNull
    private ExitFunction exitFunction = this::returnToQuestionTable;
 
+   /** Current controller on screen */
    private Optional<QuestionTypeController> currentController = Optional.empty();
 
+   /** Primary stage in app */
    private Stage primaryStage;
+   /** Question action determining what actions to take */
    private QuestionAction questionAction;
+   /** Optional question id, set if we are editing a question and need to update the old question */
    private Optional<Integer> questionId = Optional.empty();
 
    /**
@@ -217,6 +235,9 @@ public class QuestionEditController {
       saveQuestionUsingSaver(questionAction::saveAsNew, Optional.empty());
    }
 
+   /**
+    * Callback for when enter key is pressed
+     */
    @FXML
    void onKeyReleased(KeyEvent event) throws IOException {
       if (event.getCode().equals(KeyCode.ENTER)) {
@@ -260,6 +281,7 @@ public class QuestionEditController {
       exitFunction.exit();
    }
 
+   /** Interface for providing a function to exit the screen */
    @FunctionalInterface
    public interface ExitFunction {
       void exit() throws IOException;

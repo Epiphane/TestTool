@@ -20,15 +20,19 @@ import static java.util.stream.Collectors.toList;
 /**
  * Created by adufrene on 11/9/15.
  *
+ * Controller representing the question table layout
  */
 @SuppressWarnings("unused")
 @Slf4j
 public class QuestionTableController {
+   /** Primary stage of the app */
    @Setter
    private Stage primaryStage = null;
+   /** Table of all questions */
    @FXML
    private TableView<Question> questionTable;
 
+   /** Reference to question db acces object */
    private QuestionDAO questionDAO;
 
    /**
@@ -40,10 +44,10 @@ public class QuestionTableController {
       FXUtils.newScreenAndConfigureController("question-table.fxml", QuestionTableController::setPrimaryStage);
    }
 
-   @FXML
    /**
     * Setup layout, fetch saved questions from db and display
     */
+   @FXML
    private void initialize() {
       questionDAO = QuestionDAO.getInstance();
 
