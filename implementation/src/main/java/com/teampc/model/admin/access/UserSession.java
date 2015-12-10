@@ -52,7 +52,7 @@ public class UserSession {
     *
     *@return Return true if the user exists and the password is correct, else return false
     *
-     pre: username != null && password != null
+     pre: username != null && password != null && loggedIn == false
     *
      post: (loggedIn == true && userList.containsKey(username)) || (loggedIn == false && !userList.containsKey(username))
     */

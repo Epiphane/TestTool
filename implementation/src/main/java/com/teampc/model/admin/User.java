@@ -161,6 +161,10 @@ public abstract class User {
       return user;
    }
 
+   /**
+    *
+    * @return The type of user this user is;
+    */
    public UserType getUserType() {
       return accept((Visitor<UserType>) new Visitor<UserType>() {
          @Override

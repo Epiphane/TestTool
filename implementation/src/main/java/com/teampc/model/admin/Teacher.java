@@ -12,7 +12,7 @@ import static java.util.stream.Collectors.toList;
 /**
  * This class contains all the information that identifies a User as a Teacher.
  *
- * Created by Greg.
+ * @author Greg Sawers (gsawers@calpoly.edu)
  */
 @Data
 @EqualsAndHashCode(callSuper=true)
@@ -63,7 +63,12 @@ public class Teacher extends User {
 
     */
    public void addCourse(Course course) {
-      courses.add(course);
+
+      /**
+       * Avoids duplicates
+       */
+      if(!courses.contains(course))
+         courses.add(course);
    }
 
    /**
@@ -71,7 +76,7 @@ public class Teacher extends User {
     * @param course Which course to remove.
    pre: this.getCourses() != null && this.isAssignedToAllCourses()
 
-   post: this.getCourses() != null && this.isAssignedToAllCourses()
+   post: !this.getCourses().contains(course) && this.isAssignedToAllCourses()
 
     */
 
