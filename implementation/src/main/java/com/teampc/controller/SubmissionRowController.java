@@ -26,26 +26,35 @@ import com.teampc.model.testtaking.*;
 
 import java.util.*;
 
+/**
+ * This is a child Controller for ViewSubmissionsController. It is the controller for each row that displays
+ * information about a submission
+ */
 @AllArgsConstructor
 public class SubmissionRowController implements Initializable {
 
+   /** standard TeamPC logger */
    private static final Logger LOG = LoggerFactory.getLogger(SubmissionRowController.class);
 
+   /** A Text field that shows the name of the student */
    @FXML
    private Text studentName;
 
+   /** A Text field that shows the grade the student earned on this submission */
    @FXML
    private Text studentGrade;
 
+   /** The current submission that we are displaying information for */
    private Submission submission;
 
+   /** The test that this submission is for */
    private Test currentTest;
 
+   /** Initializes this controller with a given Submission and Test */
    public SubmissionRowController(Submission s, Test t) {
       this.submission = s;
       this.currentTest = t;
    }
-
 
    @Override
    /** Initializes the row view **/
@@ -54,6 +63,7 @@ public class SubmissionRowController implements Initializable {
       studentGrade.setText("" + submission.grade);
    }
 
+   /** Click handler for the "View Details" button. Will show a screen that shows grade for each question */
    @FXML
    void onViewDetailsClickHandler(ActionEvent event) {
       LOG.debug("hello from onViewDetailsClickHandler");
