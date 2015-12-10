@@ -6,6 +6,8 @@ import java.util.Scanner;
 
 /**
  * Defines user details including name, username
+ *
+ * @author Greg Sawers (gsawers@calpoly.edu)
  */
 @Data
 public abstract class User {
