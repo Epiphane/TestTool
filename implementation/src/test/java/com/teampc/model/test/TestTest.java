@@ -48,6 +48,16 @@ public class TestTest {
       test.moveQuestionUp(question1);
       Assert.assertTrue(test.getQuestions().get(0).equals(question1));
       Assert.assertTrue(test.getQuestions().size() == originalSize);
+
+      List<Question> questions = test.getQuestions();
+      test.moveQuestionUp(null);
+      Assert.assertTrue(test.getQuestions().equals(questions));
+
+      test.moveQuestionUp(new Question());
+      Assert.assertTrue(test.getQuestions().equals(questions));
+
+      test.moveQuestionUp(test.getQuestions().get(0));
+      Assert.assertTrue(test.getQuestions().equals(questions));
    }
 
    @Test
@@ -61,6 +71,13 @@ public class TestTest {
       test.moveQuestionDown(question1);
       Assert.assertTrue(test.getQuestions().get(2).equals(question1));
       Assert.assertTrue(test.getQuestions().size() == originalSize);
+
+      List<Question> questions = test.getQuestions();
+      test.moveQuestionDown(null);
+      Assert.assertTrue(test.getQuestions().equals(questions));
+
+      test.moveQuestionDown(test.getQuestions().get(test.getQuestions().size() - 1));
+      Assert.assertTrue(test.getQuestions().equals(questions));
    }
 
    @Test
