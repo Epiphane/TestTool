@@ -10,7 +10,7 @@ import java.util.List;
 import static java.util.stream.Collectors.toList;
 
 /**
- * This class contains all the information that identifies a User as a Teacher.
+ * Teacher contains all the information that identifies a User as a Teacher.
  *
  * @author Greg Sawers (gsawers@calpoly.edu)
  */
@@ -87,6 +87,7 @@ public class Teacher extends User {
    /**
     * Determines if teacher is currently teaching a given course.
     * @param course which to look for
+    * @return Whether the Teacher teaches this course
    pre: this.getCourses() != null && this.isAssignedToAllCourses()
 
    post: this.getCourses() != null && this.isAssignedToAllCourses()
@@ -97,7 +98,10 @@ public class Teacher extends User {
    }
 
 
-
+   /**
+    *
+    * @return
+    */
    boolean isAssignedToAllCourses() {
       return this.courses.stream().allMatch(course -> this.equals(course.getTeacher()));
    }

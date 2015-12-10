@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.Scanner;
 
 /**
- * Defines user details including name, username
+ * User class defines user details including name, username
  *
  * @author Greg Sawers (gsawers@calpoly.edu)
  */
@@ -131,6 +131,7 @@ public abstract class User {
 
    /**
     * Reads user information from file
+    * @param serialized The string to interpret the user from.
     pre: serialized != null && serialized.split("\\s").length >= 5
 
     post: return != null

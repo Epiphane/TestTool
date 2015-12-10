@@ -1,51 +1,45 @@
 package com.teampc.model.admin;
 
-import com.teampc.model.admin.User;
-import testing.CombinationSupport;
-
-import org.junit.runner.RunWith;
-import testing.runner.SpestRunner;
-import org.junit.Before;
 import org.junit.Test;
-import org.junit.Assert;
 
-import testing.JavaTestUtility;
-import format.ClassNameFormat;
-import com.teampc.model.admin.User;
+import static org.junit.Assert.assertEquals;
 
-import java.io.File;
-import com.rits.cloning.Cloner;
+/**
+ * Created by adufrene on 12/9/15.
+ *
+ */
+public class UserTest {
 
-import java.util.*;
+   @Test
+   public void testUserFromString() {
+      String serializedUser = "STUDENT user first last pass";
+      User fromString = User.fromString(serializedUser);
 
-import static testing.JavaTestUtility.getFieldValue;
+      // Test non-admin student
+      assertEquals(new Student("user", "first", "last", "pass", false), fromString);
 
-@RunWith(SpestRunner.class)
-public class UserTest
-{
-    @Before
-    public void setUp()
-    {
-        testObj = (com.teampc.model.admin.User)javaTestUtility.getSampleObject(clazz);
+      serializedUser = "STUDENT user first last pass true";
+      fromString = User.fromString(serializedUser);
 
-    }
+      // Test admin student
+      assertEquals(new Student("user", "first", "last", "pass", true), fromString);
 
-    /*Start generated tests*/
-    private Class clazz = com.teampc.model.admin.User.class;
+      serializedUser = "TEACHER user first last pass";
+      fromString = User.fromString(serializedUser);
 
-    private Cloner cloner = new Cloner();
-    private File rootDirectory = new File("/home/andy/dev/school/TestTool/implementation");
-    private File sourceFile = new File("/home/andy/dev/school/TestTool/implementation/src/main/java/com/teampc/model/admin/User.java");
-    private JavaTestUtility javaTestUtility = new JavaTestUtility(rootDirectory, sourceFile, false);
-    private com.teampc.model.admin.User testObj;
-    @Test
-    public void getDisplayNameTest_0() throws Exception
-    {
+      // Test non-admin teacher
+      Teacher teacher = new Teacher("user", "first", "last", "pass", false);
+      assertEquals(teacher, fromString);
 
-        String methodId = "getDisplayName";
+      serializedUser = "TEACHER user first last pass true";
+      fromString = User.fromString(serializedUser);
 
-        testObj.getDisplayName();
-        setUp();
-    }
-    /*End generated tests*/
+      // Test admin teacher
+      assertEquals(new Teacher("user", "first", "last", "pass", true), fromString);
+   }
+
+   @Test(expected = IllegalArgumentException.class)
+   public void testThrowsException() {
+      User.fromString("ERROR user first last pass");
+   }
 }

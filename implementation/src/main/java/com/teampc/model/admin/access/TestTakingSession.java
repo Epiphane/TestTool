@@ -4,7 +4,7 @@ import com.teampc.model.admin.User;
 import com.teampc.model.test.Test;
 
 /**
- * Identifies the current UserSession as someone taking a test.
+ * TestTakingSession identifies the current UserSession as someone taking a test.
  * This sort of session limits access of the user to the rest of the program.
  *
  * Created by Greg.

@@ -9,7 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * An answer to a matching question.
+ * MatchingQuestionResponse represents the answers to a MatchingQuestion
  * @author Zach Arend
  */
 @NoArgsConstructor
@@ -44,7 +44,7 @@ public class MatchingQuestionResponse extends QuestionResponse<MatchingQuestionR
    @Override
    public void assignPoints(MatchingQuestionResponse questionResponse, int maxPoints) {
       Map<String, String> otherPairings = questionResponse.pairings;
-      int differences = Maps.difference(pairings, otherPairings).entriesOnlyOnLeft().size();
+      int differences = Maps.difference(pairings, otherPairings).entriesDiffering().size();
 
       // Difference will be mismatched values for both correct and response pairings,
       // meaning there will be double differences

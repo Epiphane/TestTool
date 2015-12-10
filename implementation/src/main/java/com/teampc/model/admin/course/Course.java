@@ -14,7 +14,7 @@ import com.teampc.model.test.Test;
 import static java.util.stream.Collectors.toList;
 
 /**
- * This class contains information to uniquely identify a Course.
+ * Course class contains information to uniquely identify a Course.
  * It contains information such as course title, section, instructor.
  * Methods in this class will be used to modify any related fields.
  *

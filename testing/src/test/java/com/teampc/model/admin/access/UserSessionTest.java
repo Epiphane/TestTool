@@ -1,95 +1,51 @@
 package com.teampc.model.admin.access;
 
-import com.teampc.model.admin.access.UserSession;
-import testing.CombinationSupport;
-
-import org.junit.runner.RunWith;
-import testing.runner.SpestRunner;
-import org.junit.Before;
+import com.teampc.model.admin.Student;
+import com.teampc.model.admin.Teacher;
+import com.teampc.model.admin.User;
 import org.junit.Test;
-import org.junit.Assert;
 
-import testing.JavaTestUtility;
-import format.ClassNameFormat;
-import com.teampc.model.admin.access.UserSession;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
-import java.io.File;
-import com.rits.cloning.Cloner;
+/**
+ * Created by Greg on 12/9/15.
+ */
+public class UserSessionTest {
 
-import java.util.*;
+   @Test
+   public void testLogin() {
 
-import static testing.JavaTestUtility.getFieldValue;
+      assertEquals(UserSession.login("gsawers", "abc123"), true);
+      assertEquals(UserSession.loggedIn, true);
+      UserSession.endUserSession();
 
-@RunWith(SpestRunner.class)
-public class UserSessionTest
-{
-    @Before
-    public void setUp()
-    {
-        testObj = (com.teampc.model.admin.access.UserSession)javaTestUtility.getSampleObject(clazz);
+      assertEquals(UserSession.login("gsawers", "guest1234"), false);
+      assertEquals(UserSession.loggedIn, false);
+   }
 
-    }
+   @Test
+   public void testEndUserSession(){
+      UserSession.login("gsawers", "abc123");
+      assertEquals(UserSession.loggedIn, true);
+      assertEquals(UserSession.endUserSession(), true);
+      assertEquals(UserSession.loggedIn, false);
+      assertEquals(UserSession.loggedInUser, null);
+   }
 
-    /*Start generated tests*/
-    private Class clazz = com.teampc.model.admin.access.UserSession.class;
+   @Test
+   public void testRegister(){
+      UserSession.endUserSession();
+      assertEquals(UserSession.getUserlist().containsKey("tester"), false);
+      assertEquals(UserSession.loggedIn, false);
+      assertTrue(UserSession.register("tester", "test", "test", "test",  User.UserType.TEACHER).isPresent());
+      assertEquals(UserSession.getUserlist().containsKey("tester"), true);
+      assertEquals(UserSession.loggedIn, false);
 
-    private Cloner cloner = new Cloner();
-    private File rootDirectory = new File("/home/andy/dev/school/TestTool/implementation");
-    private File sourceFile = new File("/home/andy/dev/school/TestTool/implementation/src/main/java/com/teampc/model/admin/access/UserSession.java");
-    private JavaTestUtility javaTestUtility = new JavaTestUtility(rootDirectory, sourceFile, false);
-    private com.teampc.model.admin.access.UserSession testObj;
-    @Test
-    public void loginTest_0() throws Exception
-    {
-        boolean loggedIn = getFieldValue(testObj, "loggedIn", java.lang.Boolean.class);
-        com.teampc.model.admin.User loggedInUser = cloner.deepClone(getFieldValue(testObj, "loggedInUser", com.teampc.model.admin.User.class));
+   }
 
-        int testComboIndex;
-
-        String methodId = "login_com.teampc.model.admin.User";
-        List<com.teampc.model.admin.User> testPoints_0 = javaTestUtility.getSampleObjects(testObj, methodId, "user", com.teampc.model.admin.User.class);
-        int[][] combinations = CombinationSupport.getCombinations(testPoints_0.size());
-
-        com.teampc.model.admin.User param_0;
-        for(testComboIndex = 0; testComboIndex < combinations.length; testComboIndex++)
-        {
-            param_0 = testPoints_0.get(combinations[testComboIndex][0]);
-
-            testObj.login(param_0);
-            Assert.assertTrue(loggedIn == true);
-            Assert.assertTrue(loggedInUser.equals(param_0));
-            setUp();
-        }
-    }
-
-    @Test
-    public void getLoggedInUserTest_1() throws Exception
-    {
-        boolean loggedIn = getFieldValue(testObj, "loggedIn", java.lang.Boolean.class);
-        com.teampc.model.admin.User loggedInUser = cloner.deepClone(getFieldValue(testObj, "loggedInUser", com.teampc.model.admin.User.class));
-
-
-        String methodId = "getLoggedInUser";
-
-        testObj.getLoggedInUser();
-        Assert.assertTrue(loggedIn);
-        Assert.assertTrue(loggedInUser != null);
-        setUp();
-    }
-
-    @Test
-    public void endUserSessionTest_2() throws Exception
-    {
-        boolean loggedIn = getFieldValue(testObj, "loggedIn", java.lang.Boolean.class);
-        com.teampc.model.admin.User loggedInUser = cloner.deepClone(getFieldValue(testObj, "loggedInUser", com.teampc.model.admin.User.class));
-
-
-        String methodId = "endUserSession";
-
-        testObj.endUserSession();
-        Assert.assertTrue(!(loggedIn));
-        Assert.assertTrue(loggedInUser == null);
-        setUp();
-    }
-    /*End generated tests*/
+   @Test(expected = IllegalArgumentException.class)
+   public void testThrowsException() {
+      User.fromString("ERROR user first last pass");
+   }
 }

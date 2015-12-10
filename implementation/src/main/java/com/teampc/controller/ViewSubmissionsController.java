@@ -16,19 +16,32 @@ import javafx.scene.text.Text;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * controller for viewing all the submissions for a given test. Will show the test taker, score, and a button to
+ * see more information
+ */
 public class ViewSubmissionsController extends ListViewController<RowView<SubmissionRowController>> {
+   /** our teamPC logger */
    private static final Logger LOG = LoggerFactory.getLogger(SubmissionRowController.class);
 
+   /** correspodning view to this file */
    private static final String RESOURCE = "view-grade.fxml";
 
+   /** the test that we are showing the grades for */
    private Test currentTest;
 
+   /** Text field that shows the name of this test */
    @FXML
    private Text testName;
 
+   /** Text fild that shows the class this test belongs to */
    @FXML
    private Text className;
 
+   /** Gets the display string for the currentTest
+    * follows the format Test Name - Course Name
+    * may leave out a field if one of them is null
+    * */
    private String getTestDisplayStr(Test t) {
       if (t == null) {
          return "null Test";
@@ -44,6 +57,9 @@ public class ViewSubmissionsController extends ListViewController<RowView<Submis
       return str;
    }
 
+   /**
+    * initialize this view. we exepect all the @FXML members to be initialized at this point
+    */
    @Override
    public void initialize(URL location, ResourceBundle resources) {
       data = FXCollections.observableArrayList();
@@ -52,7 +68,9 @@ public class ViewSubmissionsController extends ListViewController<RowView<Submis
    // canned data
    private Submission s;
 
-   // todo: alright, let's fix this later :(
+   /**
+    * Sets the curret test that we are grading. Will update the view accrodingly
+    */
    public void setCurrentTest(Test test) {
       this.currentTest = test;
 

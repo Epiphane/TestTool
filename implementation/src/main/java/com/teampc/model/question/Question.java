@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * A class that represents a test question.
+ * Question represents a test question.
  * Different question types extend this type.
  *
  * @author David Ellison
@@ -54,6 +54,8 @@ public class Question<T extends QuestionResponse> implements HasId {
    /**
     *
     * Assess and set the point value on a response to this question.
+    *
+    * @param response The response to the Question
     *
     pre: response != null && response.isComplete()
     *
@@ -109,11 +111,19 @@ public class Question<T extends QuestionResponse> implements HasId {
        */
       public abstract <T> T accept(QuestionTypeVisitor<T> visitor);
 
+      /**
+       *
+       * @return The display text of the string
+       */
       @Override
       public String toString() {
          return displayText;
       }
 
+      /**
+       *
+       * @return the string representing the file
+       */
       public String getFileString() {
          return fileString;
       }
@@ -138,6 +148,10 @@ public class Question<T extends QuestionResponse> implements HasId {
    }
 
 
+   /**
+    * Makes a new response to a question
+    * @return The newly created response
+    */
    public QuestionResponse createResponse() {
       QuestionResponse result = this.getType().createResponse();
 
