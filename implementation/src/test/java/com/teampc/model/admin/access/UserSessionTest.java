@@ -6,6 +6,7 @@ import com.teampc.model.admin.User;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by Greg on 12/9/15.
@@ -37,7 +38,7 @@ public class UserSessionTest {
       UserSession.endUserSession();
       assertEquals(UserSession.getUserlist().containsKey("tester"), false);
       assertEquals(UserSession.loggedIn, false);
-      assertEquals(UserSession.register("tester", "test", "test", "test",  User.UserType.TEACHER));
+      assertTrue(UserSession.register("tester", "test", "test", "test",  User.UserType.TEACHER).isPresent());
       assertEquals(UserSession.getUserlist().containsKey("tester"), true);
       assertEquals(UserSession.loggedIn, false);
 
