@@ -1,6 +1,38 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html><head>
-<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type"><title>m10-duties</title></head><body style="outline-color: navy ! important; outline-style: dashed ! important; outline-width: 2px ! important;"><big><big><big><big><span style="font-weight: bold;">Jameson Li</span></big></big></big> </big><br>
+<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type"><title>m10-duties</title></head><body><br>
+<big><big><big><big>Zach Arend</big></big></big></big><br>
+<span style="font-weight: bold;">Implementation:</span><br>
+Teachers can view the grades for all the submissions on a given test<br>
+<span style="font-weight: bold;">execution:</span> from the navbar, click on &#8220;View Tests&#8221; / click &#8220;Grade&#8221; next to a test / click &#8220;View Details&#8221; next to one of the rows<br>
+<ul>
+  <li>src/main/.../controller/grading/SubmissionResultsController</li>
+  <li>src/main/.../controller/ViewSubmissionController</li>
+  <li>src/main/.../controller/ViewSubmissionRowController</li>
+</ul>
+Students may view the grades they received on a test<br>
+<span style="font-weight: bold;">execution:</span> same as above (not you can add fake data if you are an admin account<br>
+<ul>
+  <li>src/main/.../controller/grading/SubmissionResultsController</li>
+  <li>src/main/.../controller/ViewSubmissionController</li>
+  <li>src/main/.../controller/ViewSubmissionRowController</li>
+</ul>
+<span style="font-weight: bold;">Testing</span>:<br style="font-weight: bold;">
+<span style="font-weight: bold;">Spest:</span><br>
+<ul>
+  <li>src/main/.../model/test/Test.generateKey</li>
+  <li>src/main/.../model/test/Test.moveQuestionUp</li>
+  <li>src/main/.../model/test/Test.moveQuestionDown</li>
+</ul>
+<span style="font-weight: bold;">Unit Tests</span><br>
+<ul>
+  <li>src/test/.../model/test/TestTest.testGenerateKey</li>
+  <li>src/test/.../model/test/TestTest.testMoveQuestionUp</li>
+  <li>src/test/.../model/test/TestTest.testMoveQuestionDown</li>
+</ul>
+<br>
+<big><big><big><big>Jameson Li</big></big></big> </big><br>
+
 <span style="font-weight: bold;">Implementation:</span><br>
 You can create tests with name, date, and number of questions.<br>
 <span style="font-weight: bold;">execution:</span> from the navbar, click on &#8220;Create Test&#8221;<br>
@@ -27,7 +59,7 @@ These are miscellaneous files that are used to support various TestTool componen
   <li>src/main/.../utils/TestUtils.java</li>
   <li>src/main/.../utils/TestFXUtils.java</li>
 </ul>
-<span style="font-weight: bold;">Testing</span><br>
+<span style="font-weight: bold;">Testing</span>:<br>
 <span style="font-weight: bold;">Spest:</span><br>
 <ul>
   <li>src/main/.../controller/test/CreateTestController.onSubmitCreateTest&nbsp;&nbsp; &nbsp;</li>
