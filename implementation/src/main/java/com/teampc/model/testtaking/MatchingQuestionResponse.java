@@ -59,6 +59,11 @@ public class MatchingQuestionResponse extends QuestionResponse<MatchingQuestionR
       return new MatchingQuestionResponse(this);
    }
 
+   /**
+    * Make a string out of this object.
+    pre: pairings != null
+    post:
+    */
    @Override
    public String toString() {
       StringBuilder sb = new StringBuilder();
