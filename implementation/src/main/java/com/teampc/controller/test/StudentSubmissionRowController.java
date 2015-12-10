@@ -74,7 +74,7 @@ public class StudentSubmissionRowController implements Initializable{
    void onViewActionHandler(ActionEvent event) {
       LOG.debug("Grade Button Clicked");
       try {
-         FXUtils.switchToScreenAndConfigureController((Stage) ((Node) event.getSource()).getScene().getWindow(), "submission-results.fxml",
+         FXUtils.switchToScreenAndConfigureController((Stage) ((Node) event.getSource()).getScene().getWindow(), "student-submission-results.fxml",
             (controller, stage) -> {
                try {
                   SubmissionResultsController submissionResultsController = (SubmissionResultsController)controller;
