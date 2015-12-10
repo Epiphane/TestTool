@@ -4,6 +4,7 @@ import com.teampc.model.question.Question;
 
 import javafx.scene.control.Button;
 
+/** Interface for performing actions on questions w/in the QuestionEditController */
 public interface QuestionAction {
    /**
     * Save supplied question, without worrying if new question will be created

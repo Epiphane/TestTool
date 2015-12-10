@@ -6,6 +6,7 @@ import com.teampc.dao.QuestionDAO;
 import javafx.scene.control.Button;
 
 
+/** Question Action for adding a new question */
 public class NewAction implements QuestionAction {
    /**
     * {@inheritDoc}

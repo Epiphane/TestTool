@@ -5,6 +5,9 @@ import com.teampc.dao.QuestionDAO;
 
 import javafx.scene.control.Button;
 
+/**
+ * Question action for editing a question
+ */
 public class EditAction implements QuestionAction {
    /**
     * {@inheritDoc}
