@@ -45,11 +45,11 @@ public class UserSessionSpestTest
        File userFile = new File(UserSession.USER_FILE);
        User testUser;
        if (!userFile.exists()) {
-          testUser = UserSession.register("testUser", "test", "test", "user", User.UserType.STUDENT);
+          testUser = UserSession.register("testUser", "test", "test", "user", User.UserType.STUDENT).get();
        } else {
           String serializedUser = Files.readFirstLine(new File(UserSession.USER_FILE), Charset.defaultCharset());
           if (serializedUser == null) {
-             testUser = UserSession.register("testUser", "test", "test", "user", User.UserType.STUDENT);
+             testUser = UserSession.register("testUser", "test", "test", "user", User.UserType.STUDENT).get();
           } else {
              testUser = User.fromString(serializedUser);
           }

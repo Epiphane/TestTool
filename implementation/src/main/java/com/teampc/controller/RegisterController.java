@@ -114,7 +114,7 @@ public class RegisterController implements Initializable {
        * If all of the necessary fields are filled out, register the user.
        */
 
-      if(UserSession.register(username, password, first, last, type)) {
+      if (UserSession.register(username, password, first, last, type).isPresent()) {
          LOG.debug(username);
          Stage stage = (Stage) registerbutton.getScene().getWindow();
          stage.close();

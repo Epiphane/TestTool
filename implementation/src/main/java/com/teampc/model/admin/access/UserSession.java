@@ -10,6 +10,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.HashMap;
+import java.util.Optional;
 import java.util.Scanner;
 
 /**
@@ -102,8 +103,8 @@ public class UserSession {
      post: userlist.containsKey(username) && loggedIn == false
     */
 
-   public static boolean register(String username, String pass, String first, String last, User.UserType type) {
-      User user = null;
+   public static Optional<User> register(String username, String pass, String first, String last, User.UserType type) {
+      User user;
       populateUserList();
       if (!userlist.containsKey(username)) {
          switch (type) {
@@ -111,15 +112,15 @@ public class UserSession {
                user = new Teacher(username, first, last, pass);
                userlist.put(username, user);
                registerUser(username, user);
-               break;
+               return Optional.of(user);
             case STUDENT:
                user = new Student(username, first, last, pass);
                userlist.put(username, user);
                registerUser(username, user);
+               return Optional.of(user);
          }
-         return true;
       }
-      return false;
+      return Optional.empty();
    }
 
 
