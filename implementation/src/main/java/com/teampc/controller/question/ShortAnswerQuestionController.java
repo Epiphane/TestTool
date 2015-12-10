@@ -15,12 +15,15 @@ import java.util.stream.IntStream;
 /**
  * Created by adufrene on 11/30/15.
  *
+ * Controller for short answer question screen
  */
 public class ShortAnswerQuestionController implements QuestionTypeController<ShortAnswerQuestionResponse> {
 
+   /** List of supplied keywords for grading */
    @FXML
    private TextField keywords;
 
+   /** Toggle group for what algorithm we want to match our keywords with */
    @FXML
    private ToggleGroup matchGroup;
 

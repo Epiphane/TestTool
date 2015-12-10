@@ -1,13 +1,15 @@
 package com.teampc.controller.question;
 
-import com.google.common.base.Preconditions;
 import com.teampc.model.question.InvalidQuestionException;
 import com.teampc.model.question.Question;
 import com.teampc.model.testtaking.MultipleChoiceQuestionResponse;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.*;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import lombok.extern.slf4j.Slf4j;
@@ -22,18 +24,23 @@ import static com.google.common.base.Preconditions.checkElementIndex;
 /**
  * Created by adufrene on 11/30/15.
  *
+ * Controller for editing multiple choice questions
  */
 @Slf4j
 public class MultipleChoiceQuestionController implements QuestionTypeController<MultipleChoiceQuestionResponse> {
 
+   /** List of possible choices */
    @FXML
    private ListView<String> choices;
 
+   /** New answer text field */
    @FXML
    private TextField answerField;
 
+   /** Toggle group of correct answers, ensures only one answer can be selected */
    private ToggleGroup group;
 
+   /** index of correct answer, -1 means no answer selected */
    private int correctAnswerIndex = -1;
 
    /**
@@ -148,6 +155,7 @@ public class MultipleChoiceQuestionController implements QuestionTypeController<
       }
    }
 
+   /** Callback for enter button being pressed */
    @FXML
    void onKeyReleased(KeyEvent event) throws IOException {
       if (event.getCode().equals(KeyCode.ENTER)) {

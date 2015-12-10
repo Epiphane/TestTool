@@ -23,15 +23,19 @@ import static java.util.stream.Collectors.toMap;
 /**
  * Created by adufrene on 11/30/15.
  *
+ * Controller for editing a matching question
  */
 public class MatchingQuestionController implements QuestionTypeController<MatchingQuestionResponse> {
 
+   /** Table of matching options */
    @FXML
    private TableView<MatchingPair> options;
 
+   /** Text field for new key */
    @FXML
    private TextField keyField;
 
+   /** Text field for new value */
    @FXML
    private TextField valueField;
 
@@ -90,6 +94,7 @@ public class MatchingQuestionController implements QuestionTypeController<Matchi
       options.setItems(matches);
    }
 
+   /** Callback for when enter button is pressed */
    @FXML
    void onKeyReleased(KeyEvent event) throws IOException {
       if (event.getCode().equals(KeyCode.ENTER)) {
@@ -97,10 +102,13 @@ public class MatchingQuestionController implements QuestionTypeController<Matchi
       }
    }
 
+   /** Class representing a matching pair */
    @Data
    @AllArgsConstructor
    public static class MatchingPair {
+      /** Key of match */
       private String key;
+      /** Value of match */
       private String value;
 
    }
@@ -109,6 +117,7 @@ public class MatchingQuestionController implements QuestionTypeController<Matchi
     * Table cell that display's a 'X' button for removing the current row
      */
    private static class RemoveCell<T, S> extends TableCell<T, S> {
+      /** Button for removing cell */
       private final Button removeButton = new Button("X");
 
       public RemoveCell(final TableView<T> tableView) {

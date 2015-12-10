@@ -27,39 +27,53 @@ import java.util.ResourceBundle;
 
 /**
  * Created by zarend on 12/8/15.
+ *
+ * Controller for showing results of a submission
  */
 public class SubmissionResultsController implements Initializable {
    private static final Logger LOG = LoggerFactory.getLogger(SubmissionResultsController.class);
 
+   /** Controller for current question */
    private QuestionViewController currentQuestionController;
 
+   /** Submission to be viewed */
    private Submission submission;
 
+   /** Flag for if we are grading */
    private boolean isGrading;
 
+   /** index of current question */
    private int currQuestionIdx = 0; // TODO: prevent this from going less than 0 or more than numQuestions - 1
 
+   /** reference to question pane */
    @FXML
    private ScrollPane questionPane;
 
+   /** next button on screen */
    @FXML
    private Button nextBtn;
 
+   /** previous button on screen */
    @FXML
    Button prevBtn;
 
+   /** Text field showing points received */
    @FXML
    TextField pointsReceived;
 
+   /** Comment of grading */
    @FXML
    TextField gradingComment;
 
+   /** Button for saving grading */
    @FXML
    Button saveGrading;
 
+   /** Grading pang */
    @FXML
    private Pane gradingPane;
 
+   /** Set up layout, primarily setting appropriate fields and flags */
    public void setUp(Submission s) {
       submission = s;
 
@@ -71,6 +85,7 @@ public class SubmissionResultsController implements Initializable {
       drawCurrQuestion();
    }
 
+   /** Draws the current question on screen */
    private void drawCurrQuestion() {
       Question question = getCurrQuestion();
       QuestionResponse questionResponse = getCurrQuestionResponse();
@@ -101,28 +116,34 @@ public class SubmissionResultsController implements Initializable {
       }
    }
 
+   /** Draw the previous and next buttons */
    private void drawButtonStuff() {
       prevBtn.setDisable(currQuestionIdx == 0);
       nextBtn.setDisable(currQuestionIdx >= getNumQuestions() - 1);
    }
 
+   /** Return the current question being displayed */
    private Question getCurrQuestion() {
       return submission.getTest().getQuestions().get(currQuestionIdx);
    }
 
+   /** Return the current question response */
    private QuestionResponse getCurrQuestionResponse() {
       return submission.getResponses().get(currQuestionIdx);
    }
 
+   /** Return the number of questions */
    private int getNumQuestions() {
       return Math.min(submission.getTest().getQuestions().size(), submission.getResponses().size());
    }
 
+   /** Initialize layout */
    @Override
    public void initialize(URL location, ResourceBundle resources) {
 
    }
 
+   /** Callback for clicking next button */
    @FXML
    void onClickNextBtn() {
       LOG.debug("clicked Next");
@@ -132,6 +153,7 @@ public class SubmissionResultsController implements Initializable {
       }
    }
 
+   /** Callback for clicking previous button */
    @FXML
    void onClickPrevBtn() {
       LOG.debug("clicked Prev");
@@ -141,6 +163,7 @@ public class SubmissionResultsController implements Initializable {
       }
    }
 
+   /** Callback for clicking save button */
    @FXML
    void onClickSaveBtn() {
       LOG.debug("clicked Save");
