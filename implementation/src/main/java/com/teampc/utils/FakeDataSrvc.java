@@ -81,6 +81,7 @@ public class FakeDataSrvc {
          }
       });
       fakeTest.setOwner(testTeacher);
+      fakeTest.publish();
 
       TestDAO.getInstance().insert(fakeTest);
 
