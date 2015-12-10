@@ -5,12 +5,14 @@ import com.teampc.dao.HasId;
 import com.teampc.model.admin.Teacher;
 import com.teampc.model.admin.User;
 import com.teampc.model.admin.course.Course;
+import com.teampc.model.automation.TestGrader;
 import com.teampc.model.question.Question;
 import com.teampc.model.testtaking.Key;
 import com.teampc.model.testtaking.QuestionResponse;
 import com.teampc.model.testtaking.Submission;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -60,6 +62,9 @@ public class Test implements HasId {
    private Teacher owner;
 
    private List<Question> questions;
+
+   @Getter
+   private Key key;
 
    @Column(name = "published")
    private boolean published;
@@ -308,6 +313,8 @@ public class Test implements HasId {
     * generates a key for this test
     *
       pre: !this.isOpen()
+
+      post: TestGrader.gradeTest(key, key) && key.grade == 100.0% && !this.isOpen()
     */
    public Key generateKey() {
       Key key = new Key();
