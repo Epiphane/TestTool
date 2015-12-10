@@ -2,6 +2,7 @@ package com.teampc.controller.question;
 
 
 import com.teampc.dao.QuestionDAO;
+import com.teampc.dao.TestDAO;
 import com.teampc.model.admin.course.Course;
 import com.teampc.model.admin.course.Term;
 import com.teampc.model.question.Question;
@@ -164,11 +165,11 @@ public class QuestionSearchController implements Initializable {
       t2.setQuestions(new ArrayList<>(ImmutableList.of(exampleQ3)));
       t2.setCourse(exampleCourse2);
 
-      allTests = ImmutableList.of(t1, t2);
+      allTests = TestDAO.getInstance().fetchAll();
    }
 
    private void initQuestionList() {
-      exampleQ1 = new Question();
+/*      exampleQ1 = new Question();
       exampleQ2 = new Question();
       exampleQ3 = new Question();
 
@@ -180,6 +181,7 @@ public class QuestionSearchController implements Initializable {
 
       exampleQ3.setPrompt("Functions on Java classes are called _______");
       exampleQ3.setPoints(3);
+*/
 
       questionListView.getItems().addAll(QuestionDAO.getInstance().fetchAll());
    }

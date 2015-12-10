@@ -27,7 +27,7 @@ import java.util.ResourceBundle;
  *
  * @author Jameson Li (jrli@calpoly.edu)
  */
-public class TestRowController implements Initializable{
+public class TestRowController implements Initializable {
 
    /** Provides logging **/
    private static final Logger LOG = LoggerFactory.getLogger(TestRowController.class);

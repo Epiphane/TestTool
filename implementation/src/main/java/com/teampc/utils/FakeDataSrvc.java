@@ -9,11 +9,14 @@ import com.teampc.model.admin.Student;
 import com.teampc.model.admin.Teacher;
 import com.teampc.model.admin.User;
 import com.teampc.model.admin.access.UserSession;
+import com.teampc.model.admin.course.Course;
+import com.teampc.model.admin.course.Term;
 import com.teampc.model.question.Question;
 import com.teampc.model.test.Test;
 import com.teampc.model.testtaking.*;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -25,8 +28,40 @@ import static java.util.stream.Collectors.toList;
  * Created by zarend on 12/8/15.
  *
  */
+@Slf4j
 public class FakeDataSrvc {
    public static void addFakeData() {
+
+      Course aCourse = new Course("CPE 307", Term.Fall, 2015, 1);
+      log.debug("UserSession.getLoggedInUser: " + UserSession.getLoggedInUser().getClass());
+      if (UserSession.getLoggedInUser().getUserType().equals(User.UserType.TEACHER)) {
+         Teacher testTeacher = UserSession.getLoggedInUser().accept(new User.Visitor<Teacher>() {
+            @Override
+            public Teacher visitTeacher(Teacher t) {
+               return t;
+            }
+
+            @Override
+            public Teacher visitStudent(Student s) {
+               return new Teacher("c00l te@cher", "Gene", "Fisher", "1 luv te@ching!");
+            }
+         });
+         aCourse.setTeacher(testTeacher);
+      } else {
+         Student testTaker = UserSession.getLoggedInUser().accept(new User.Visitor<Student>() {
+            @Override
+            public Student visitTeacher(Teacher t) {
+               return new Student("student1", "Clint", "Staley");
+            }
+
+            @Override
+            public Student visitStudent(Student s) {
+               return s;
+            }
+         });
+         aCourse.getEnrolledStudents().add(testTaker);
+      }
+
       Question<MultipleChoiceQuestionResponse> question1 = new Question<>();
       question1.setPoints(1);
       question1.setPrompt("What is the name of the version control tool used in CPE 307?");
@@ -68,6 +103,7 @@ public class FakeDataSrvc {
 
       Test fakeTest = new Test("Midterm 1", userStartDate, userEndDate, "CPE 307");
       fakeTest.setQuestions(questionList);
+      fakeTest.setCourse(aCourse);
 
       Teacher testTeacher = UserSession.getLoggedInUser().accept(new User.Visitor<Teacher>() {
          @Override

@@ -1,5 +1,6 @@
 package com.teampc.dao;
 
+import com.teampc.model.admin.course.Course;
 import com.teampc.model.test.Test;
 import com.teampc.utils.HibernateUtils;
 import org.hibernate.Session;
@@ -8,6 +9,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.*;
+import java.util.stream.Collectors;
+
 import com.teampc.model.test.*;
 
 /**
@@ -55,4 +58,9 @@ public class TestDAO extends AbstractDAO<Test> {
       LOG.info("Find by id: " + id);
    }
 
+   /** Find tests be the course they are assigned to */
+   public List<Test> getTestsForCourses(Collection<Course> courses) {
+      return fetchAll().stream().filter(test -> courses.contains(test.getCourse())).collect(Collectors.toList());
+
+   }
 }

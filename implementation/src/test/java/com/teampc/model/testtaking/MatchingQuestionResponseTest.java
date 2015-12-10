@@ -43,8 +43,8 @@ public class MatchingQuestionResponseTest {
       MatchingQuestionResponse somewhatWrongResponse = new MatchingQuestionResponse(wrongPairs);
 
       correctResponse.assignPoints(wrongResponse, 3);
-      assertEquals(3, wrongResponse.getPointsReceived());
+      assertEquals(0, wrongResponse.getPointsReceived());
       correctResponse.assignPoints(somewhatWrongResponse, 3);
-      assertEquals(3, somewhatWrongResponse.getPointsReceived());
+      assertEquals(1, somewhatWrongResponse.getPointsReceived());
    }
 }

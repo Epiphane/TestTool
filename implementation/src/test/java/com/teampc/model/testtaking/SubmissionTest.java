@@ -88,7 +88,7 @@ public class SubmissionTest {
       submission = new Submission();
       submission.setResponses(Lists.newArrayList(correctMCResponse, wrongMatchingResponse));
       submission.gradeTest(key);
-      assertEquals(3.0f, submission.getGrade(), 0.001);
+      assertEquals(1.0f, submission.getGrade(), 0.001);
 
       submission = new Submission();
       submission.setResponses(Lists.newArrayList(wrongMCResponse, correctMatchingResponse));
