@@ -519,12 +519,21 @@ testing files
 Java code
 <br>
 Testing code
-    </td><td valign="top">
-Same code file types
-<br>
-as Milestone 3 +
-<br>
-testing files
+    </td><td valign="top">Implementation:<br>
+src/main/.../controller/grading/SubmissionResultsController<br>
+src/main/.../controller/ViewSubmissionController<br>
+src/main/.../controller/ViewSubmissionRowController<br>
+src/main/.../controller/grading/SubmissionResultsController<br>
+src/main/.../controller/ViewSubmissionController<br>
+src/main/.../controller/ViewSubmissionRowController<br>
+Testing - Spest:<br>
+src/main/.../model/test/Test.generateKey<br>
+src/main/.../model/test/Test.moveQuestionUp<br>
+src/main/.../model/test/Test.moveQuestionDown<br>
+Testing - Unit Tests:<br>
+src/test/.../model/test/TestTest.testGenerateKey<br>
+src/test/.../model/test/TestTest.testMoveQuestionUp<br>
+src/test/.../model/test/TestTest.testMoveQuestionDown
     </td><td valign="top">Implementation:<br>
       <a href="../implementation/src/main/java/com/teampc/controller/test/CreateTestController.java">CreateTestController.java</a><br>
       <a href="../implementation/src/main/java/com/teampc/dao/TestDAO.java">TestDAO.java</a><br>
@@ -541,11 +550,41 @@ Testing - Spest:<br>
 Testing - Unit Tests:<br>
       <a href="../implementation/src/test/java/com/teampc/controller/test/CreateTestControllerTest.java">CreateTestControllerTest.submitTestTest</a><br>
       <a href="../implementation/src/test/java/com/teampc/controller/test/CreateTestControllerTest.java">CreateTestControllerTest.generateQuestionsTest</a><br>
-      <a href="../implementation/src/test/java/com/teampc/controller/ViewTestsControllerTest.java">ViewTestsControllerTest.initTest</a></td><td valign="top">&nbsp;
+      <a href="../implementation/src/test/java/com/teampc/controller/ViewTestsControllerTest.java">ViewTestsControllerTest.initTest</a></td><td valign="top">Implementation:<br>
+src/main/.../controller/question/QuestionEditController.java<br>
+src/main/.../controller/question/CodeQuestionController.java<br>
+src/main/.../controller/question/MatchingQuestionController.java<br>
+src/main/.../controller/question/MultipleChoiceQuestionController.java<br>
+src/main/.../controller/question/MultipleChoiceRowController.java<br>
+src/main/.../controller/question/ShortAnswerQuestionController.java<br>
+src/main/.../controller/question/QuestionTypeController.java<br>
+src/main/.../controller/question/EditAction.java<br>
+src/main/.../controller/question/NewAction.java<br>
+src/main/.../controller/question/QuestionAction.java<br>
+Testing - Spest:<br>
+src/main/.../model/admin/User.fromString<br>
+src/main/.../dao/SubmissionDAO.fetchSubmissionsForTest<br>
+src/main/.../model/testtaking/ShortAnswerQuestionResponse.assignPoints<br>
+Unit Tests:<br>
+src/test/.../model/admin/UserTest.testUserFromString<br>
+src/test/.../dao/SubmissionDAOTest.testSubmissionsForTest<br>
+src/test/.../model/testtaking/ShortAnswerQuestionResponseTest.testAssignPoints<br>
+src/test/.../model/admin/UserTest.testThrowsException</td><td valign="top">&nbsp;
     </td><td valign="top">&nbsp;
-    </td><td valign="top">&nbsp;
-    </td><td valign="top">&nbsp;
-</td></tr></tbody></table>
+    </td><td valign="top">Implementation:<br>
+src/main/.../model/admin/access/UserSession.java (Spest + Handwritten tests)<br>
+src/main/.../controller/LoginController.java<br>
+src/main/.../controller/RegisterController.java<br>
+src/main/.../model/admin/User.java<br>
+src/main/.../model/admin/Teacher.java (Spest)<br>
+src/main/.../model/admin/Student.java<br>
+src/main/.../controller/StudentNavBarController.java<br>
+src/main/.../controller/StudentViewTestsController.java<br>
+src/main/.../controller/StudentTestRowController.java<br>
+Testing - Spest:<br>
+src/test/.../model/admin/access/UserSessionSpestTest.java<br>
+src/test/.../model/admin/TeacherSpestTest.java<br>
+Unit Tests: src/test/.../model/admin/access/UserSessionTest.java</td></tr></tbody></table>
 
 
 
