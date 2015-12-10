@@ -145,15 +145,17 @@ public abstract class User {
          isAdmin = Boolean.valueOf(lineScanner.next());
       }
 
-      User user = null;
-      switch (User.UserType.valueOf(type.toUpperCase())) {
-         case TEACHER:
-            user = new Teacher(username, firstName, lastName, password, isAdmin);
-            break;
-         case STUDENT:
-            user = new Student(username, firstName, lastName, password, isAdmin);
-            break;
+      User user;
+
+      UserType userType = UserType.valueOf(type.toUpperCase());
+      // Need to do it this ugly way because we can't hit the default case on a
+      // switch if we have all the cases, but static analysis can't catch this.
+      if (userType == UserType.TEACHER) {
+         user = new Teacher(username, firstName, lastName, password, isAdmin);
+      } else {
+         user = new Student(username, firstName, lastName, password, isAdmin);
       }
+
       return user;
    }
 
